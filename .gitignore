@@ -1,0 +1,8 @@
+# dependencies
+/www/app/scripts/vendor/*
+/platforms
+/plugins
+
+# misc
+.DS_Store
+*.log
