@@ -1,0 +1,32 @@
+{
+  "name": "boat-day-app",
+  "version": "2.0.0",
+  "authors": [
+    "Daniel Costa <costa@vixinet.ch>"
+  ],
+  "description": "BoatDay",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "www.boatdayapp.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "2.1.3",
+    "underscore": "1.8.2",
+    "requirejs": "2.1.16",
+    "requirejs-text": "2.0.14",
+    "parse": "1.3.5",
+    "ratchet": "2.0.2",
+    "Snap.js": "1.9.3",
+    "fastclick": "1.0.6",
+    "animate.css": "3.2.5",
+    "components-font-awesome": null
+  }
+}

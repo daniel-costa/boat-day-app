@@ -1,5 +1,5 @@
 # dependencies
-/www/app/scripts/vendor/*
+/www/scripts/vendor/*
 /platforms
 /plugins
 

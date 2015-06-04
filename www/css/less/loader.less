@@ -1,0 +1,55 @@
+div.content button.btn.loading,
+div.content a.btn.loading {
+	color : transparent !important;
+}
+
+div.content button.btn.loading:after,
+div.content a.btn.loading:after {
+	content: "";
+	z-index: 100;
+	position : absolute;
+	top : 50%;
+	margin-top : -15px;
+	left : 50%;
+	margin-left : -15px;
+	width : 30px;
+	height : 30px;
+
+	background: url(../resources/logo-30.png) center center no-repeat;
+	-webkit-animation: "pulse1" 0.8s ease-in-out alternate infinite;
+	opacity: 1;
+}
+
+#loader {
+	position : fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	z-index: 100;
+	background: rgba(68, 65, 82, 0.5);
+	display: none;
+}
+
+#loader .loader-icon {
+	width: 100%;
+	height: 100%;
+	background: url(../resources/logo-60.png) center center no-repeat;
+	-webkit-animation: "pulse1" 0.8s ease-in-out alternate infinite;
+	opacity: 1;
+}
+
+@-webkit-keyframes "pulse1" {
+	0% {
+		-webkit-transform: scale(1.1);
+		-webkit-filter: blur(4px);
+	}
+	50% {
+		-webkit-transform: scale(0.8);
+		-webkit-filter: blur(0px);
+	}
+	100% {
+		-webkit-transform: scale(1);
+		-webkit-filter: blur(2px);
+	}
+}

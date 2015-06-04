@@ -1,0 +1,127 @@
+* {
+	/* make transparent link selection, adjust last value opacity 0 to 1.0 */
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+body {
+	-webkit-touch-callout: none;
+	-webkit-text-size-adjust: none;
+	-webkit-user-select: none;
+	background : url(../resources/loader.gif) center center no-repeat;
+}
+
+.clip-to-bottom {
+	position : fixed;
+	bottom : 0px;
+	left: 0px;
+	right : 0px;
+}
+
+.text-left   { text-align: left }
+.text-center { text-align: center }
+.text-right  { text-align: right }
+
+header.bar.bar-nav, 
+div.content .bar-header-secondary {
+	height: 60px !important;
+	-webkit-transform: translateZ(0);
+	-webkit-box-shadow: none;
+	border-bottom: 1px solid @header-border;
+	background: @header-bg;
+}
+
+header.bar.bar-nav a.icon, 
+header.bar.bar-nav button.btn-nav {
+	margin-top : 16px;
+	color : @header-color;
+}
+
+header.bar.bar-nav a.icon:after {
+	content:"";
+	position : absolute;
+	top : 50%;
+	left : 50%;
+	width : 60px;
+	height : 60px;
+	margin-top : -30px;
+	margin-left : -30px;
+	background : transparent;
+}
+
+header.bar.bar-nav h1 {
+	line-height: 44px;
+	margin-top : 16px;
+	color : @header-color;
+	font-family: museo;
+}
+
+div.content {
+	padding-top: 60px !important;
+	background : @brand-bg;
+}
+
+div.content h1,
+div.content h2,
+div.content h3,
+div.content h4,
+div.content h5,
+div.content h6 {
+	color: @title-color;
+	text-align: center;
+	font-weight: 200;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+div.content h1 { font-size: 1.5em; }
+div.content h2 { font-size: 1.4em; }
+div.content h3 { font-size: 1.3em; }
+div.content h4 { font-size: 1.2em; }
+div.content h5 { font-size: 1.1em; }
+div.content h6 { font-size: 1em; }
+
+div.content p {
+	color: @text-color;
+}
+
+.table-view {
+}
+
+.btn {
+	background-color: @btn-bg;
+	color: @btn-color;
+	border: 1px solid @btn-border;
+}
+
+.btn-primary {
+	background-color: @btn-primary-bg;
+	color: @btn-primary-color;
+	border: 1px solid @btn-primary-border;
+}
+
+
+.btn:active, .btn.active {
+	background-color: @btn-color;
+	color: @btn-bg;
+	border: 1px solid @btn-border;
+}
+
+.btn-primary:active, .btn-primary.active {
+	background-color: darken(color(@btn-primary-bg), 15%);
+	color: @btn-primary-color;
+	border: 1px solid darken(color(@btn-primary-bg), 15%);
+}
+
+textarea {
+	padding: 15px;
+}
+/*
+.modal {
+	z-index: 11;
+}
+
+.modal header.bar.bar-nav {
+	z-index: 21;
+}
+*/

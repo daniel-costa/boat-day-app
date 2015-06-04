@@ -1,0 +1,27 @@
+<header class="bar bar-nav">
+	<a class="icon icon-bars pull-left btn-drawer"></a>
+	<h1 class="title">Information</h1>
+	<a class="icon fa fa-check pull-right btn-save"></a>
+</header>
+<%
+	if( birthday ) {
+		var dt = new Date(birthday.iso);
+		var dt_yyyy = dt.getFullYear();
+		var dt_mm = dt.getMonth()+1;
+		dt_mm = dt_mm < 10 ? '0'+dt_mm : dt_mm;
+		var dt_dd = dt.getDate();
+		dt_dd = dt_dd < 10 ? '0'+dt_dd : dt_dd;
+		var dt_value = dt_yyyy + '-' + dt_mm + '-' + dt_dd;
+	}
+%>
+<div class="content">
+
+	<div class="content-padded">
+		<input type="text" name="firstName" placeholder="First Name" value="<%= firstName %>">
+		<input type="text" name="lastNAme" placeholder="Last Name" value="<%= lastName %>">
+		<input type="text" name="displayName" placeholder="Display Name" value="<%= displayName %>">
+		<input type="date" name="birthday" placeholder="Birthday" value="<%=  dt_value ? dt_value : '' %>">
+		<textarea rows="3" name="about" placeholder="About me"><%= about %></textarea>
+	</div>
+
+</div>

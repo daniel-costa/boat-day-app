@@ -1,0 +1,16 @@
+<header class="bar bar-nav">
+	<a class="icon icon-bars pull-left btn-drawer"></a>
+	<h1 class="title">Picture</h1>
+	<a class="icon fa fa-check pull-right btn-save"></a>
+</header>
+
+<div class="content">
+
+	<div class="content-padded">
+		<div class="profile-picture" style="background-image: url(<%= typeof profilePicture !== 'undefined' && profilePicture ? profilePicture.url : 'resources/profile-picture-placeholder.png' %>)"></div>
+		<p>Please, add a picture where we clearly see your face</p>
+		<button class="btn btn-block take-picture">Take picture</button>
+		<button class="btn btn-block open-gallery">Choose existing</button>
+	</div>
+
+</div>
