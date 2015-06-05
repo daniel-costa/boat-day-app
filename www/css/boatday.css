@@ -58,8 +58,10 @@ header.bar.bar-nav h1 {
   color: white;
   font-family: museo;
 }
+.bar-nav ~ .content {
+  padding-top: 60px;
+}
 div.content {
-  padding-top: 60px !important;
   background: #ffffff;
 }
 div.content h1,
@@ -243,4 +245,31 @@ div.content a.btn.loading:after {
 }
 .screen-about-us .version {
   margin-bottom: 20px;
+}
+.screen-boatdays-home .category {
+  height: 25%;
+  border-bottom: 4px solid rgba(13, 13, 14, 0.79);
+  background: center center no-repeat;
+  background-size: cover;
+}
+.screen-boatdays-home .category h1 {
+  margin: 0px;
+  text-align: right;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background: rgba(13, 13, 14, 0.79);
+  font-size: 20px;
+  padding: 10px 12px 5px 5px;
+  color: white;
+  font-family: museo;
+}
+.screen-boatdays-home .category h1:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: -100%;
+  height: 100%;
+  width: 100%;
+  background: url(../resources/boatday-category-corner.png) top right no-repeat;
 }

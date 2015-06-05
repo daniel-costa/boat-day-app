@@ -80,23 +80,23 @@ define([
 
 				console.log("** Login success");
 
-				// if (!userData.authResponse){
-				// 	transferError("Cannot find the authResponse");
-				// 	return;
+				if (!userData.authResponse){
+					transferError("Cannot find the authResponse");
+					return;
+				}
+
+				var authData = {
+					id: String(userData.authResponse.userID),
+					access_token: userData.authResponse.accessToken,
+					expiration_date: new Date(new Date().getTime() + userData.authResponse.expiresIn * 1000).toISOString()
+				};
+
+				// if($(self.$el.find('video')).get(0).paused) {
+				// 	$(self.$el.find('video')).get(0).play();
 				// }
 
-				// var authData = {
-				// 	id: String(userData.authResponse.userID),
-				// 	access_token: userData.authResponse.accessToken,
-				// 	expiration_date: new Date(new Date().getTime() + userData.authResponse.expiresIn * 1000).toISOString()
-				// };
-
-				// // if($(self.$el.find('video')).get(0).paused) {
-				// // 	$(self.$el.find('video')).get(0).play();
-				// // }
-
-				// fbLogged.resolve(authData);
-				// fbLoginSuccess = null;
+				fbLogged.resolve(authData);
+				fbLoginSuccess = null;
 			};
 
 			var transferFbUserToParse = function (authData) {

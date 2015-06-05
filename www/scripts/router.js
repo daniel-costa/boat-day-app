@@ -127,7 +127,7 @@ define([
 			var self = this;
 			var cb = function(profile) {
 
-				if( !profile.get('displayBDCategory') ) {
+				if( !Parse.User.current().get('profile').get('displayBDCategory') ) {
 					
 					self.render(new BoatDaysHomeView());
 
@@ -135,7 +135,7 @@ define([
 
 					var query = new Parse.Query(Parse.Object.extend('BoatDay'));
 					query.include('boat');
-					query.equalTo("category", profile.get('displayBDCategory'));
+					query.equalTo("category", Parse.User.current().get('profile').get('displayBDCategory'));
 					self.render(new BoatDaysView({ collection: query.collection()  }));
 
 				}
