@@ -6,9 +6,9 @@
 * `lessc www/css/less/styles.less > www/css/boatday.css`
 
 ## Deploy
-* `sudo rm -R plugins` we delete the current plugins`
-* `sudo cordova platform remove ios` delete the current release`
-* `sudo rm -R platforms` we delete the current plugins`
+* `sudo rm -R plugins` we delete the current plugins
+* `sudo cordova platform remove ios` delete the current release
+* `sudo rm -R platforms` we delete the current plugins
 * `sudo cordova platform add ios`
 * `sudo cordova build`
 
