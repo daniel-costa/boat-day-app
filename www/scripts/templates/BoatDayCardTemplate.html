@@ -1,79 +1,35 @@
-<div class="bd-card">
+<div class="boatday-card card-<%=id%>">
 	<div class="boat-img">
-		<div class="price"><%= price %><sup>$</sup></div>
+		<div class="picture"></div>
+		<div class="price"><sup>$</sup><%= price %><sub>/person</sub></div>
 		<div class="favorite">
 			<span class="fa fa-heart-o"></span>
 		</div>
-	</div>
-	<div class="owner">
-		<div class="profile-picture"></div>
-		<div class="name">by <%= host.displayName %></div>
-		<div class="rating">
-			<span class="fa fa-star"></span>
-			<span class="fa fa-star"></span>
-			<span class="fa fa-star"></span>
-			<span class="fa fa-star-half-o"></span>
-			<span class="fa fa-star-o"></span>
+		<div class="owner">
+			<div class="profile-picture" style="background-image:url(<%= captainProfilePicture %>)"></div>
+			<div class="name">Hosted by <strong><%= captainName %></strong></div>
+			<div class="rating">
+				<span class="fa fa-star"></span>
+				<span class="fa fa-star"></span>
+				<span class="fa fa-star"></span>
+				<span class="fa fa-star-half-o"></span>
+				<span class="fa fa-star-o"></span>
+			</div>
 		</div>
 	</div>
 	<div class="details">
+		<h1><%= title %></h1>
 		<div class="date">
-			<%
-				var d = new Date(date.iso);
-				var dateDisplay = d.toLocaleDateString();
-				var timeDisplay = d.toTimeString().slice(0, 5);
-			%>
-			<span class="fa fa-calendar"></span> <%= dateDisplay + ' at ' + timeDisplay %>
-		</div>
-		<div class="seats">
-			<span class="fa fa-users"></span> <%= availableSeats %>
+			<%= dateDisplay + ', ' + timeDisplay %>
 		</div>
 		<div class="duration">
-			<span class="fa fa-clock-o"></span> <%= duration %> hours
+			Duration: <%= duration %> hours
 		</div>
-		<div class="map">
-			<span class="fa fa-map-marker"></span> 5 miles away
+		<div class="position">
+			<strong><span class="fa fa-map-marker"></span></strong> <%= position %>
+		</div>
+		<div class="seats">
+			<strong><%= availableSeats %></strong> seats
 		</div>
 	</div>
 </div>
-<!-- <div class="inner">
-	<span class="event-details">
-		<p class="about"><%= description %></p>
-		<img class="map" src="resources/map.png" />
-	</span>
-	<span class="event-checkboxes">
-		<div class="boatday">
-			<h2>BoatDay</h2>
-			<div class="line"><span class="fa fa-check-square-o"></span> Crusing</div>
-			<div class="line"><span class="fa fa-square-o"></span> Partying</div>
-			<div class="line"><span class="fa fa-square-o"></span> Sightseeing</div>
-			<div class="line"><span class="fa fa-square-o"></span> Other</div>
-		</div>
-		<div class="family">
-			<h2>Family Settings</h2>
-			<div class="line"><span class="fa fa-check-square-o"></span> Recommended for Children</div>
-			<div class="line"><span class="fa fa-square-o"></span> Smoking Permitted</div>
-			<div class="line"><span class="fa fa-square-o"></span> Drinking Permitted</div>
-			<div class="line"><span class="fa fa-check-square-o"></span> Pets Permitted</div>
-		</div>
-		<div class="extras">
-			<h2>Extras</h2>
-			<div class="line"><span class="fa fa-square-o"></span> Food</div>
-			<div class="line"><span class="fa fa-square-o"></span> Drink</div>
-			<div class="line"><span class="fa fa-check-square-o"></span> Music</div>
-			<div class="line"><span class="fa fa-square-o"></span> Towels</div>
-			<div class="line"><span class="fa fa-check-square-o"></span> Sunscreen</div>
-			<div class="line"><span class="fa fa-check-square-o"></span> Inflatables</div>
-		</div>
-		<div class="boat">
-			<h2>Boat</h2>
-			<div class="line"><span class="fa fa-square-o"></span> Food</div>
-			<div class="line"><span class="fa fa-square-o"></span> Drink</div>
-			<div class="line"><span class="fa fa-check-square-o"></span> Music</div>
-			<div class="line"><span class="fa fa-square-o"></span> Towels</div>
-			<div class="line"><span class="fa fa-check-square-o"></span> Sunscreen</div>
-			<div class="line"><span class="fa fa-check-square-o"></span> Inflatables</div>
-		</div>
-	</span>
-	<button class="btn btn-block btn-positive">Book seats</button>
-</div> -->

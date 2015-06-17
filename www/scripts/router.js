@@ -133,10 +133,7 @@ define([
 
 				} else {
 
-					var query = new Parse.Query(Parse.Object.extend('BoatDay'));
-					query.include('boat');
-					query.equalTo("category", Parse.User.current().get('profile').get('displayBDCategory'));
-					self.render(new BoatDaysView({ collection: query.collection()  }));
+					self.render(new BoatDaysView());
 
 				}
 				

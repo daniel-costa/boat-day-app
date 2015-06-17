@@ -49,6 +49,28 @@ define([
 			return this;
 		},
 
+
+		dateParseToDisplayDate: function (date) {
+			
+			return new Date(date.iso ? date.iso : date).toLocaleDateString();
+
+		},
+
+		departureTimeToDisplayTime: function(time) {
+
+			var h = parseInt(time);
+			var mm = (time-h) * 60;
+			var dd = 'AM';
+
+			if( h >= 12 ) {
+				dd = 'PM';
+				h -= 12;
+			}
+
+			return (h==0?12:h)+':'+(mm==0?'00':+(mm < 10 ? '0'+mm : mm))+' '+dd;
+			
+		},
+		
 		teardown: function() {
 
 			if(this.model) {
