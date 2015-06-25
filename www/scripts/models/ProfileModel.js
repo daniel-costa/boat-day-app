@@ -15,30 +15,51 @@ define([
 			
 			profilePicture: null,
 			
-			braintreeId: null,
+			paymentId: null,
 			position:null
 		},
 
 		validate: function(attributes) {
 			
-			if( !attributes.displayName ) {
+			var _return = { 
+				fields: {},
+				type: 'model-validation'
+			};
 
-				return "Display Name is empty";
+			var profileInfo = attributes.status == 'complete-info';
+			var profilePicture = attributes.status == 'complete';
+
+			if( profilePicture ) {
+
+				if( !attributes.about ) {
+					_return.fields.about = "Indicate about";
+				}
+
+				if( !attributes.profilePicture ) {
+					_return.fields.profilePicture = "Indicate profile picture";
+				}
 
 			}
 
-			if( !attributes.birthday ) {
+			if( profileInfo ) {
 
-				return "Indicate birthdate";
+				if( !attributes.firstName ) {
+					_return.fields.firstName = "Indicate firstName";
+				}
+
+				if( !attributes.lastName ) {
+					_return.fields.lastName = "Indicate lastName";
+				}
+
+				if( !attributes.birthday ) {
+					_return.fields.birthday = "Indicate birthdate";
+				}
 
 			}
 
-			if( !attributes.about ) {
-
-				return "Indicate about";
-
+			if( _.size(_return.fields) > 0 ) {
+				return _return;
 			}
-
 		}
 
 	});

@@ -11,7 +11,7 @@ define([
 		events: {
 			'click .take-picture': 'takePicture',
 			'click .open-gallery': 'openGallery',
-			'click .btn-save': 'save',
+			'click .save': 'save',
 		},
 
 		profileSetup: false,
@@ -25,18 +25,17 @@ define([
 		// ToDo optimize the methods to have less repetitions in takePicture and openGallery
 		initialize: function(data) {
 
-			this.profileSetup = data.setup;
-
+			this.profileSetup = data ? data.setup : false;
+			this.drawer = !this.profileSetup;
+			
 		},
 
 		render: function() {
 
 			BaseView.prototype.render.call(this);
 			
-			if( this.profileSetup ) {
-				
+			if( !this.drawer ) {
 				this.$el.find('.btn-drawer').hide();
-
 			}
 
 			return this;
@@ -46,6 +45,8 @@ define([
 
 			var self = this;
 
+			self.cleanForm();
+
 			if( !this.profileSetup && !this.tempPicture ) {
 				Parse.history.navigate("profile-home", true);
 				return;
@@ -54,26 +55,34 @@ define([
 			var profileUpdateSuccess = function() {
 				
 				if( self.profileSetup ) {
-					
 					Parse.history.navigate("profile-payments", true);
-
 				} else {
-
-					Parse.history.navigate("profile-home", true);
-
+					Parse.history.navigate("boatdays-home", true);
 				}
 
 			};
 
-			var pictureSaveError = function(error) {
+			var profileUpdateError = function(error) {
 
-				console.log(error);
-				self._error('Oops... Something went wrong. Try later or if it persists close totally the app and open it again.');
+				if( error.type && error.type == 'model-validation' ) {
+					console.log(error.fields);
+					_.map(error.fields, function(message, field) { 
+						self.fieldError(field, message);
+					});
+					self._error('One or more fields contain errors.');
+				} else {
+					self._error(error);
+				}
 
 			};
 
-			this.model.save({ profilePicture : self.tempPicture }).then(profileUpdateSuccess, pictureSaveError);
-			
+			var data = { 
+				status: 'complete',
+				profilePicture : self.tempPicture,
+				about: self._input('about').val()
+			};
+
+			this.model.save(data).then(profileUpdateSuccess, profileUpdateError);
 
 		},
 

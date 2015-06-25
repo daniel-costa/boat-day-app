@@ -1,13 +1,84 @@
+
 .snap-drawer {
 	background: transparent;
 	width:266px;
 }
 
-.snap-drawer .profile .profile-picture {
-	display:block;
-	width : 90px;
-	height : 90px;
-	border-radius: 90px;
-	background : center center no-repeat;
-	background-size : cover;
+.snap-drawer.snap-drawer-left .top {
+	height: 190px;
+	background: #2b3336;
+	padding-top: 40px;
+	border-right: 1px solid #252b2e;
+}
+
+.snap-drawer.snap-drawer-left .profile-picture {
+	width: 100px;
+	height: 100px;
+	border-radius: 120px;
+	background: center center no-repeat;
+	background-size: cover;
+	margin : 0px auto;
+}
+
+.snap-drawer.snap-drawer-left .name {
+	color: white;
+	text-align: center;
+	font-weight: 200;
+	margin-top: 10px;
+	opacity: 0.4;
+}
+
+.snap-drawer.snap-drawer-left .links {
+	position: absolute;
+	top: 190px;
+	bottom: 0px;
+	background : -webkit-linear-gradient(#13a7bf, #0ab8c8 );
+	text-align: center;
+	border-right: 1px solid #0b99a8;
+}
+
+.snap-drawer.snap-drawer-left .links .inner {
+	background: rgba(255, 255, 255, 0.15);
+	padding-bottom: 20px;
+}
+
+.snap-drawer.snap-drawer-left .links a {
+	width: 50%;
+	float: left;
+	font-size: 0.6em;
+	font-weight: 200;
+	padding-top: 20px;
+}
+
+.snap-drawer.snap-drawer-left .links a img {
+	display: block;
+	margin: 0px auto 5px auto;
+	max-width: 60px;
+}
+
+.snap-drawer.snap-drawer-left a {
+	color: white;	
+}
+
+.snap-drawer.snap-drawer-left .clip-to-bottom {
+	right: auto;	
+	width: 266px;
+}
+
+.snap-drawer.snap-drawer-left .clip-to-bottom a {
+	display: block;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	font-size: 0.7em;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.snap-drawer.snap-drawer-left .clip-to-bottom a {
+	border-top: 1px solid #51cddc;
+}
+
+.snap-drawer.snap-drawer-left .clip-to-bottom a:first-child {
+	border-top: none;
 }

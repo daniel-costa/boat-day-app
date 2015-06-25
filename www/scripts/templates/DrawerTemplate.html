@@ -1,55 +1,37 @@
 <div class="snap-drawer snap-drawer-left">
 
-	<div class="profile">
-		<div class="links">
-			<a href="#/profile-picture">
-				<span class="fa fa-fw fa-camera"></span>
+	<div class="top">
+		<div class="profile-picture" style="background-image: url(<%= profilePicture.url %>)"></div>
+		<div class="name"><%= displayName %></div>
+	</div>
+
+	<div class="links">
+		<div class="inner">
+			<a href="#/boatdays">
+				<img src="resources/ico-drawer-search.png" />
+				Search BoatDays
 			</a>
-			<a href="#/profile-payments">
-				<span class="fa fa-fw fa-credit-card"></span>
+			<a href="#/notifications">
+				<img src="resources/ico-drawer-notifications.png" />
+				Notifications
 			</a>
-			<a href="#/profile-settings">
-				<span class="fa fa-fw fa-cogs"></span>
+			<a href="#/past-boatdays">
+				<img src="resources/ico-drawer-boat.png" />
+				Upcoming BoatDays
 			</a>
+			<a href="#/next-boatdays">
+				<img src="resources/ico-drawer-boat.png" />
+				Past BoatDays
+			</a>
+			<span class="clear"></span>
 		</div>
 	</div>
 
-	<ul class="table-view">
-		<li class="table-view-cell">
-			<a href="#/boatdays">
-				<span class="pull-left icon fa fa-fw fa-map-marker"></span>
-				<div>Find a BoatDay</div>
-			</a>
-		</li>
-		<li class="table-view-cell">
-			<a href="#/my-boatdays">
-				<span class="pull-left icon fa fa-fw fa-anchor"></span>
-				<div>Registred trips</div>
-			</a>
-		</li>
-		<li class="table-view-cell">
-			<a href="#/favorites">
-				<span class="pull-left icon fa fa-fw fa-heart-o"></span>
-				<div>Favorites</div>
-			</a>
-		</li>
-	</ul>
-
-	<div class="footer">
-		<a href="#/notifications">
-			<span class="fa fa-fw fa-bell-o"></span>
-		</a>
-		<a href="#/emergency">
-			<span class="fa fa-fw fa-life-ring"></span>
-		</a>
-		<a href="#/feedback">
-			<span class="fa fa-fw fa-bullhorn"></span>
-		</a>
-		<a href="#/about-us">
-			<span class="fa fa-fw fa-info"></span>
-		</a>
+	<div class="clip-to-bottom">
+		<a href="#/profile-payments">Payment Information</a>
+		<a href="#/profile-picture">My Profile</a>
+		<a href="#/about-us">About BoatDay</a>
 	</div>
-
 </div>
 
 <div class="snap-drawer snap-drawer-right"> 

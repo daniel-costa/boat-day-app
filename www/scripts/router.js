@@ -1,20 +1,17 @@
 define([
 	'views/SignInView',
-	'views/ProfileHomeView',
 	'views/ProfileInfoView',
 	'views/ProfilePictureView',
 	'views/ProfilePaymentsView',
-	'views/ProfileSettingsView',
+	'views/ProfilePaymentsAddView',
 	'views/BoatDaysHomeView',
 	'views/BoatDaysView',
-	'views/EmergencyView',
-	'views/FeedbackView',
 	'views/AboutUsView',
 	'views/TermsView',
 	'views/NotificationsView'
 ], function(
-	SignInView, ProfileHomeView, ProfileInfoView, ProfilePictureView, ProfilePaymentsView, ProfileSettingsView, 
-	BoatDaysHomeView, BoatDaysView, EmergencyView, FeedbackView, AboutUsView, TermsView, NotificationsView) {
+	SignInView, ProfileInfoView, ProfilePictureView, ProfilePaymentsView, ProfilePaymentsAddView, 
+	BoatDaysHomeView, BoatDaysView, AboutUsView, TermsView, NotificationsView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -22,13 +19,10 @@ define([
 			'sign-out': 'signOut',
 			'boatdays-home': 'showBoatDaysHome',
 			'boatdays': 'showBoatDays',
-			'profile-home': 'showProfileHome',
 			'profile-info': 'showProfileInfo',
 			'profile-picture': 'showProfilePicture',
 			'profile-payments': 'showProfilePayments',
-			'profile-settings': 'showProfileSettings',
-			'emergency': 'showEmergency',
-			'feedback': 'showFeedback',
+			'profile-payments-add': 'showProfilePaymentsAdd',
 			'about-us': 'showAboutUs',
 			'terms': 'showTerms',
 			'notifications': 'showNotifications',
@@ -42,12 +36,6 @@ define([
 			Parse.User.logOut();
 			facebookConnectPlugin.logout();
 			this.showSignInView();
-
-		},
-
-		showEmergency: function() {
-
-			this.render(new EmergencyView());
 
 		},
 
@@ -70,19 +58,6 @@ define([
 			var cb = function(profile) {
 
 				self.render(new NotificationsView());
-				
-			};
-
-			self.handleSignedIn(cb);
-
-		},
-
-		showFeedback: function() {
-
-			var self = this;
-			var cb = function(profile) {
-
-				self.render(new FeedbackView());
 				
 			};
 
@@ -125,8 +100,9 @@ define([
 		showBoatDays: function() {
 
 			var self = this;
-			var cb = function(profile) {
+			var cb = function() {
 
+				console.log('showBoatDays');
 				if( !Parse.User.current().get('profile').get('displayBDCategory') ) {
 					
 					self.render(new BoatDaysHomeView());
@@ -143,22 +119,11 @@ define([
 
 		},
 
-		showProfileHome: function() {
-
-			var self = this;
-			var cb = function() {
-				self.render(new ProfileHomeView({ model: Parse.User.current().get('profile') }));
-			};
-
-			self.handleSignedIn(cb);
-
-		},
-
 		showProfileInfo: function() {
 
 			var self = this;
-			var cb = function(profile) {
-				self.render(new ProfileInfoView({ model: profile }));
+			var cb = function() {
+				self.render(new ProfileInfoView({ model: Parse.User.current().get('profile') }));
 			};
 
 			self.handleSignedIn(cb);
@@ -180,18 +145,18 @@ define([
 
 			var self = this;
 			var cb = function() {
-				self.render(new ProfilePaymentsView({ model: Parse.User.current().get('profile') }));
+				self.render(new ProfilePaymentsView());
 			};
 
 			self.handleSignedIn(cb);
 
 		},
 
-		showProfileSettings: function() {
+		showProfilePaymentsAdd: function() {
 
 			var self = this;
 			var cb = function() {
-				self.render(new ProfileSettingsView({ model: Parse.User.current().get('profile') }));
+				self.render(new ProfilePaymentsAddView());
 			};
 
 			self.handleSignedIn(cb);
@@ -209,18 +174,23 @@ define([
 
 			}
 
+			console.log("handleSignedIn");
+
 			if( Parse.User.current().get('profile').get("status") == "creation" ) {
+				console.log("-> info");
 				self.render(new ProfileInfoView({ model: Parse.User.current().get('profile'), setup: true }));
 				return ;
 			}
 
 			if( !Parse.User.current().get('profile').get("profilePicture") ) {
+				console.log("-> picture");
 				self.render(new ProfilePictureView({ model: Parse.User.current().get('profile'), setup: true }));
 				return ;
 			}
 
-			if( !Parse.User.current().get('profile').get("braintreeId") ) {
-				self.render(new ProfilePaymentsView({ model: Parse.User.current().get('profile'), setup: true }));
+			if( !Parse.User.current().get('profile').get("paymentId") ) {
+				console.log("-> payments");
+				self.render(new ProfilePaymentsAddView({ setup: true }));
 				return ;
 			}
 

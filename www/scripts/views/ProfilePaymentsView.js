@@ -8,88 +8,28 @@ define([
 
 		template: _.template(ProfilePaymentsTemplate),
 
-		events: {
-			'keypress input': 'controlCSV',
-			'click .btn-save': 'save',
-			'submit form': 'save'
-		},
-
-		profileSetup: false,
-
 		statusbar: true,
 		
 		drawer: true,
 
-
-		initialize: function(data) {
-
-			this.profileSetup = data.setup;
-
-		},
-
 		render: function() {
 
 			BaseView.prototype.render.call(this);
-			
-			if( this.profileSetup ) {
-				
-				this.$el.find('.btn-drawer').hide();
-
-			}
-
-			return this;
-		},
-		
-		save: function() {
 
 			var self = this;
 
-			var profileUpdateSuccess = function() {
-
-				if( self.profileSetup ) {
-					
-					Parse.history.navigate("boatdays", true);
-
-				} else {
-
-					Parse.history.navigate("profile-home", true);
-
-				}
-
-			};
-
-			var profileUpdateError = function(error) {
-
-				console.log(error);
-				self._error('Oops... Something went wrong. Try later or if it persists close totally the app and open it again.');
-
-			};
-
-			Parse.User.current().get("profile").save({ braintreeId: 1234567890 }).then(profileUpdateSuccess, profileUpdateError);
-
-		},
-
-		controlCSV: function(event) {
-
-			var f = $(event.currentTarget);
-
-			if(f.attr('name') == 'cardCSV') {
+			Parse.User.current().get('profile').relation('cards').query().find().then(function(cards) {
 				
-				if( f.val().length > 3 && event.keyCode != 8 ) {
-					event.preventDefault();
-					return false;
-				}
-			}
+				self.$el.find('.cards-list .table-view').html('');
 
-			if(f.attr('name') == 'cardNumber') {
+				_.each(cards, function(card) {
+					var name = card.get('number').slice(-4);
+					self.$el.find('.cards-list .table-view').append('<li class="table-view-cell text-center">* * * *  * * * *  * * * * '+name+'</li>');
+				});
 
-				if( f.val().length >= 16 && event.keyCode != 8 ) {
-					event.preventDefault();
-					return false;
-				}
+			});
 
-			}
-
+			return this;
 		}
 
 	});

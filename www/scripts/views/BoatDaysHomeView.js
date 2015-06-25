@@ -12,7 +12,7 @@ define([
 			'click div.category': 'pickCategory'
 		},
 
-		statusbar: false,
+		statusbar: true,
 		
 		drawer: true,
 

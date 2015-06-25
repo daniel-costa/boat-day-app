@@ -28,20 +28,30 @@ define([
 
 		render: function( init ) {
 			
+			var data = {
+				self: this
+			};
+
+			if( this.templateData ) {
+				_.extend(data, this.templateData);
+			}
+
+			if( this.model ) {
+				_.extend(data, this.model._toFullJSON());
+			}
+
+			if(this.collection) {
+				_.extend(data, { collection: this.collection.toJSON() });
+			} 
+
+			this.$el.html(this.template(data));
+
 			$(document).trigger( this.drawer ? 'enableDrawer' : 'disableDrawer');
 			
 			if( this.statusbar ) {
-				StatusBar.hide();
-			} else {
 				StatusBar.show();
-			}
-
-			if(this.model) {
-				this.$el.html(this.template(this.model.toJSON()));
-			} else if(this.collection) {
-				this.$el.html(this.template({ collection: this.collection.toJSON() }));
 			} else {
-				this.$el.html(this.template());
+				StatusBar.hide();
 			}
 
 			console.log("### Render (" + this.className + ") ###");
@@ -49,6 +59,21 @@ define([
 			return this;
 		},
 
+		cleanForm: function() {
+
+			this.$el.find('.field-flag-error').removeClass('field-flag-error');
+
+		},
+
+		fieldError: function(field, message) {
+
+			if(this._input(field).length > 0) {
+				this._input(field).addClass('field-flag-error');
+			} else {
+				this.$el.find('.'+field).addClass('field-flag-error');
+			}
+
+		},
 
 		dateParseToDisplayDate: function (date) {
 			

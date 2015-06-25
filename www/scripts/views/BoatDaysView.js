@@ -43,7 +43,7 @@ define([
 				var tpl = _.template(BoatDayCardTemplate);
 
 				_.each(boatdays, function(boatday) {
-
+					console.log(boatday);
 					var data = {
 						id: boatday.id,
 						price: boatday.get('price'),

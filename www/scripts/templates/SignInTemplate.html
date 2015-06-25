@@ -1,33 +1,44 @@
-<header class="bar bar-nav" style="display:none">
-	<a class="icon icon-left-nav pull-left back"></a>
+<header class="bar bar-nav block-sign-in" style="display:none">
+	<h1 class="title">Sign in</h1>
 </header>
 
-<div class="content">
+<div class="content block-sign-in">
+	<div class="content-padded">
+		<h1>Sign in with:</h1>
+		<div class="btn-group">
+			<button class="btn facebook">Facebook</button>
+			<button class="btn twitter">Twitter</button>
+		</div>
+		<img src="resources/sign-in-or.png" class="or" />
 
-	<div class="content-padded block-home" style="display:none">
-		<button class="btn btn-block create-account">Create account</button>
+		<input type="email" name="email" value="" placeholder="Email" />
+		<input type="password" name="password" value="" placeholder="Password" />
 		<button class="btn btn-block sign-in">Sign in</button>
 	</div>
 
-	<div class="content-padded block-sign-in" style="display:none">
-		<h1>Sign up</h1>
-		<button class="btn btn-block sign-in-facebook">Sign in using Facebook</button>
-
-		<p class="secondary text-center">If you’ve previously signed up with your email please sign in</p>
-		<input type="email" name="email" value="" placeholder="Email" />
-		<input type="password" name="email" value="" placeholder="Password" />
-		<button class="btn btn-block sign-in-email">Sign in</button>
-	</div>
-
-	<div class="content-padded block-create-account" style="display:none">
-		<button class="btn btn-block sign-in-facebook">Sign up using Facebook</button>
-		<p>We won't post anything on Facebook</p>
-
-		<input type="email" name="email" value="" placeholder="Email" />
-		<input type="password" name="email" value="" placeholder="Password" />
-		<div class="text-center">
-			<button class="btn btn-positive sign-up-email">Sign up</button>
+	<div class="clip-to-bottom block-sign-in">
+		<div class="content-padded">
+			<button class="btn btn-block btn-primary create-account">Create account</button>
 		</div>
 	</div>
+</div>
 
+
+<header class="bar bar-nav block-sign-up" style="display:none">
+	<a class="icon icon-left-nav pull-left back"></a>
+	<h1 class="title">Create Account</h1>
+</header>
+
+<div class="content block-sign-up" style="display:none">
+	<div class="content-padded">
+		<h1>Create account</h1>
+		<input type="email" name="email" value="" placeholder="Email" />
+		<input type="password" name="password" value="" placeholder="Password" />
+	</div>
+
+	<div class="clip-to-bottom block-sign-up">
+		<div class="content-padded">
+			<button class="btn btn-block btn-primary sign-up">Create account</button>
+		</div>
+	</div>
 </div>

@@ -1,0 +1,38 @@
+<header class="bar bar-nav">
+	<a class="icon fa fa-chevron-left pull-left" href="#/profile-payments"></a>
+	<h1 class="title">Payments</h1>
+</header>
+
+<div class="content">
+
+	<div class="content-padded">
+
+		<% if( self.profileSetup ) { %>
+			<img src="resources/profile-step-3.png" class="step" />
+		<% } %>
+
+		<h1>Add Credit Card</h1>
+
+		<label>Card Holder</label>
+		<input name="holder" type="text" placeholder="Card Holder">
+
+		<label>Card Number</label>
+		<input name="number" type="text" placeholder="Card Number" pattern="[0-9]*">
+
+		<div class="left">
+			<label>Expiration</label>
+			<input name="expiry" type="month" placeholder="Month">
+		</div>
+		<div class="right">
+			<label>CVV</label>
+			<input name="cvv" type="text" placeholder="CVV" pattern="[0-9]*">
+		</div>
+
+		<button class="btn btn-block btn-default save">Add Credit Card</button>
+
+		<% if( self.profileSetup ) { %>
+			<button class="btn btn-block btn-primary skip">Skip this step</button>
+		<% } %>
+	</div>
+
+</div>

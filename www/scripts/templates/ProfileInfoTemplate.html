@@ -1,7 +1,6 @@
 <header class="bar bar-nav">
 	<a class="icon icon-bars pull-left btn-drawer"></a>
 	<h1 class="title">Information</h1>
-	<a class="icon fa fa-check pull-right btn-save"></a>
 </header>
 <%
 	if( birthday ) {
@@ -15,13 +14,23 @@
 	}
 %>
 <div class="content">
-
 	<div class="content-padded">
-		<input type="text" name="firstName" placeholder="First Name" value="<%= firstName %>">
-		<input type="text" name="lastNAme" placeholder="Last Name" value="<%= lastName %>">
-		<input type="text" name="displayName" placeholder="Display Name" value="<%= displayName %>">
-		<input type="date" name="birthday" placeholder="Birthday" value="<%=  dt_value ? dt_value : '' %>">
-		<textarea rows="3" name="about" placeholder="About me"><%= about %></textarea>
-	</div>
+		
+		<% if( self.profileSetup ) { %>
+		<img src="resources/profile-step-1.png" class="step" />
+		<% } %>
 
+		<h1>Personal Information</h1>
+
+		<label>First Name</label>
+		<input type="text" name="firstName" placeholder="First Name" value="<%= firstName %>">
+
+		<label>Last Name</label>
+		<input type="text" name="lastName" placeholder="Last Name" value="<%= lastName %>">
+
+		<label>Birthday</label>
+		<input type="date" name="birthday" placeholder="Birthday" value="<%=  dt_value ? dt_value : '' %>">
+
+		<button class="btn btn-block btn-default save"><%= self.profileSetup ? 'Continue' : 'Update' %></button>
+	</div>
 </div>

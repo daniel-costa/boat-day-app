@@ -9,7 +9,7 @@ define([
 		template: _.template(ProfileInfoTemplate),
 
 		events: { 
-			'click .btn-save': 'save'
+			'click .save': 'save'
 		},
 
 		profileSetup: false,
@@ -20,18 +20,17 @@ define([
 		
 		initialize: function(data) {
 
-			this.profileSetup = data.setup;
+			this.profileSetup = data ? data.setup : false;
+			this.drawer = !this.profileSetup;
 
 		},
-
+		
 		render: function() {
 
 			BaseView.prototype.render.call(this);
 			
-			if( this.profileSetup ) {
-				
+			if( !this.drawer ) {
 				this.$el.find('.btn-drawer').hide();
-
 			}
 
 			return this;
@@ -41,13 +40,14 @@ define([
 
 			var self = this;
 
+			self.cleanForm();
+
 			var data = {
-				status: "ready",
-				displayName: this._input('displayName').val(),
+				status: "complete-info",
+				displayName: this.model.get('firstName') + ' ' + this.model.get('lastName').slice(0,1) + '.',
 				firstName: this._input('firstName').val(),
 				lastName: this._input('lastName').val(),
-				birthday: this._input('birthday').val() ? new Date(this._input('birthday').val()) : null,
-				about: this._input('about').val()
+				birthday: this._input('birthday').val() ? new Date(this._input('birthday').val()) : null
 			};
 			
 			var profileUpdateSuccess = function() {
@@ -58,7 +58,7 @@ define([
 
 				} else {
 
-					Parse.history.navigate("profile-home", true);
+					Parse.history.navigate("profile-picture", true);
 
 				}
 
@@ -66,8 +66,14 @@ define([
 
 			var profileUpdateError = function(error) {
 
-				console.log(error);
-				self._error('Oops... Something went wrong. Try later or if it persists close totally the app and open it again.');
+				if( error.type && error.type == 'model-validation' ) {
+					_.map(error.fields, function(message, field) { 
+						self.fieldError(field, message);
+					});
+					self._error('One or more fields contain errors.');
+				} else {
+					self._error(error);
+				}
 
 			};
 

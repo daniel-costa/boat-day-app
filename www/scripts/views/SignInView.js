@@ -10,14 +10,13 @@ define([
 		template: _.template(SignInTemplate),
 
 		events: {
-			"click .icon.back": "showHome",
-			"click button.sign-in": "showSignIn",
-			"click button.create-account": "showCreateAccount",
+			"click .icon.back": "showSignIn",
+			"click button.create-account": "showSignUp",
 			
-			"click button.sign-in-facebook" : "signInFacebook",
-			"click button.sign-up-facebook" : "signInFacebook",
-			"click button.sign-in-email" : "signInEmail",
-			"click button.sign-up-email" : "signUpEmail"
+			"click button.sign-in" : "signIn",
+			"click button.sign-up" : "signUp",
+			"click button.facebook" : "signInFacebook",
+			"click button.twitter" : "signInTwitter",
 		},
 
 		statusbar: false,
@@ -28,41 +27,40 @@ define([
 
 			BaseView.prototype.render.call(this);
 
-			this.$el.find('.block-home').show();
+			this.$el.find('.block-sign-in').show();
 
 			return this;
 		},
 
-		showHome: function() {
-
-			this.$el.find('.block-sign-in, .block-create-account, .bar-nav').hide();
-			this.$el.find('.block-home').show();
-
-		},
-
 		showSignIn: function() {
 
-			this.$el.find('.block-home').hide();
-			this.$el.find('.block-sign-in, .bar-nav').show();
+			this.$el.find('.block-sign-up').hide();
+			this.$el.find('.block-sign-in').show();
+
+		},
+
+		showSignUp: function() {
+
+			this.$el.find('.block-sign-up').show();
+			this.$el.find('.block-sign-in').hide();
 			
 		},
 
-		showCreateAccount: function() {
-
-			this.$el.find('.block-home').hide();
-			this.$el.find('.block-create-account, .bar-nav').show();
-			
-		},
-
-		signInEmail: function() {
+		signIn: function() {
 
 			console.log("sign in with email");
 
 		},
 
-		signUpEmail: function() {
+		signUp: function() {
 
 			console.log("sign up with email");
+
+		},
+
+		signInTwitter: function() {
+
+			console.log("sign in twitter");
 
 		},
 
@@ -70,15 +68,13 @@ define([
 
 			var self = this;
 
-			if( self.isLoading('button.sign-in-facebook') ) {
+			if( self.isLoading('button.facebook') ) {
 				return;
 			}
 
-			self.loading('button.sign-in-facebook');
+			self.loading('button.facebook');
 
 			var fbLoginSuccess = function(userData) {
-
-				console.log("** Login success");
 
 				if (!userData.authResponse){
 					transferError("Cannot find the authResponse");
@@ -91,10 +87,6 @@ define([
 					expiration_date: new Date(new Date().getTime() + userData.authResponse.expiresIn * 1000).toISOString()
 				};
 
-				// if($(self.$el.find('video')).get(0).paused) {
-				// 	$(self.$el.find('video')).get(0).play();
-				// }
-
 				fbLogged.resolve(authData);
 				fbLoginSuccess = null;
 			};
@@ -102,13 +94,11 @@ define([
 			var transferFbUserToParse = function (authData) {
 				console.log("** Transfer to parse");
 				return Parse.FacebookUtils.logIn(authData);
-			
 			};
 
 			var transferSuccess = function(user) {
 				console.log("** Transfer success");
-				self.handleSignIn(user);
-
+				self.handleSignIn("facebook", user);
 			};
 
 			var transferError = function(error) {
@@ -128,24 +118,36 @@ define([
 			
 		},
 
-		handleSignIn: function(user) {
-			console.log("** Handle sign in");
-			console.log(user);
+		handleSignIn: function(type, user) {
+			
 			var self = this;
 
 			if( user.get("profile") ) {
-				console.log('has profile');
-				Parse.history.navigate('boatdays', true);
-
+				Parse.User.current().get("profile").fetch().then(function() {
+					Parse.history.navigate('boatdays', true);
+				});
 			} else {
-				console.log('no profile');
-				self.createUserProfile(user);
+				console.log('redirect to createProfile');
+				switch(type) {
+					case "facebook":
+						self.createUserProfileFacebook(user);
+						break;
+					case "twitter":
+						self.createUserProfileTwitter(user);
+						break;
+					case "email":
+						self.createUserProfileEmail(user);	
+						break;
+				}
+				
 			}
+		},
+
+		createUserProfileEmail: function() {
 
 		},
 
-
-		createUserProfile: function(user) {
+		createUserProfileFacebook: function(user) {
 
 			var self = this;
 
@@ -176,19 +178,20 @@ define([
 			var facebookApiSuccess = function(me) {
 				console.log('** FB Api success:');
 				console.log(me);
+
 				var updateUser = function( profile ) {
 					user.save({ 
 						email: me.email, 
-						profile: profile 
+						profile: profile,
+						type: "guest"
 					}).then(userUpdated, handleErrors);
 				};
 
 				if( me.birthday ) {
 					var ds = me.birthday.split('/');	
 				}
-				
+
 				var profile = new ProfileModel({
-					displayName: me.first_name ? me.first_name + (me.last_name ? ' '+me.last_name.slice(0,1)+'.' : '') : null,
 					firstName: me.first_name ? me.first_name : null,
 					lastName: me.last_name ? me.last_name : null,
 					gender: me.gender ? me.gender : null,

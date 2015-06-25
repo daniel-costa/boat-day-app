@@ -111,10 +111,11 @@ define([
 
 			var self = this;
 
-			self.initDrawer();
+			
 
 			var profileSuccess = function(profile) {
 
+				self.initDrawer();
 				// ToDo add this value in parse config.
 				setInterval(self.updateGeoPoint, self.__POSITION_REFRESH_DELAY__);
 				self.updateGeoPoint();
@@ -165,7 +166,7 @@ define([
 			});
 
 
-			$('#app').append( new DrawerView().render().el );
+			$('#app').append( new DrawerView({ model: Parse.User.current().get('profile') }).render().el );
 
 		},
 
