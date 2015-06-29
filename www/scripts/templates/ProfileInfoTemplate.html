@@ -23,10 +23,10 @@
 		<h1>Personal Information</h1>
 
 		<label>First Name</label>
-		<input type="text" name="firstName" placeholder="First Name" value="<%= firstName %>">
+		<input type="text" name="firstName" placeholder="First Name" value="<%= typeof firstName !== 'undefined' && firstName ? firstName : '' %>">
 
-		<label>Last Name</label>
-		<input type="text" name="lastName" placeholder="Last Name" value="<%= lastName %>">
+		<label>Last Name</label> 
+		<input type="text" name="lastName" placeholder="Last Name" value="<%= typeof lastName !== 'undefined' && lastName ? lastName : '' %>">
 
 		<label>Birthday</label>
 		<input type="date" name="birthday" placeholder="Birthday" value="<%=  dt_value ? dt_value : '' %>">

@@ -46,15 +46,53 @@ define([
 			
 		},
 
-		signIn: function() {
+		signIn: function(event) {
 
 			console.log("sign in with email");
+			event.preventDefault(); 
+
+			var signInSuccess = function() {
+
+				//Parse.history.navigate('boatdays', true);
+				console.loog("Sign in success");
+
+			};
+
+			var signInError = function() {
+
+				console.log("Sign In error");
+			};
+
+			Parse.User.signIn(this._in('email').val(), this._in('password').val()).then(signInSuccess, signInError);
 
 		},
 
-		signUp: function() {
+		signUp: function(event) {
 
-			console.log("sign up with email");
+			event.preventDefault();
+
+			var data = {
+
+				email: this._in('signUpEmail').val(), 
+				username: this._in('signUpEmail').val(), 
+				password: this._in('signUpPassword').val(), 
+				type: "guest", 
+				profile: new ProfileModel()
+			};
+
+			var signUpSuccess = function() {
+
+				Parse.history.navigate('profile-info', true);
+
+			};
+
+			var signUpError =  function() {
+
+				console.log("Sign up error");
+
+			};
+
+			new Parse.User().signUp(data).then(signUpSuccess, signUpError);
 
 		},
 

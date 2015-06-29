@@ -6,3 +6,5 @@
 # misc
 .DS_Store
 *.log
+
+www/scripts/views/BoatDayBookView.js

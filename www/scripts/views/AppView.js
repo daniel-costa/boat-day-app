@@ -218,7 +218,7 @@ define([
 		},
 		
 		disableDrawer: function() {
-			this.snap.disable();
+			//this.snap.disable();
 		},
 
 		enableDrawer: function() {
