@@ -64,8 +64,8 @@ define([
 
 			var logInSuccess = function() {
 
-				//Parse.history.navigate('boatdays', true);
-				console.log("Sign in success");
+				$(document).trigger('initDrawer');
+				Parse.history.navigate('boatdays-home', true);
 
 			};
 
@@ -209,7 +209,8 @@ define([
 
 			if( user.get("profile") ) {
 				Parse.User.current().get("profile").fetch().then(function() {
-					Parse.history.navigate('boatdays', true);
+					$(document).trigger('initDrawer');
+					Parse.history.navigate('boatdays-home', true);
 				});
 			} else {
 				console.log('redirect to createProfile');
@@ -255,8 +256,9 @@ define([
 			};
 
 			var userUpdated = function() {
-				console.log('** User updated:');
-				Parse.history.navigate('boatdays', true);
+
+				$(document).trigger('initDrawer');
+				Parse.history.navigate('boatdays-home', true);
 
 			};
 

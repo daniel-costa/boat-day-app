@@ -23,7 +23,8 @@ define([
 			'globalMessage': 'displayMessage',
 			'disableDrawer': 'disableDrawer',
 			'enableDrawer': 'enableDrawer',
-			'menuHover': 'menuHover'
+			'menuHover': 'menuHover',
+			'initDrawer': 'initDrawer'
 		},
 
 		msgStack: [],
@@ -218,13 +219,9 @@ define([
 		},
 		
 		disableDrawer: function() {
-<<<<<<< Updated upstream
-			this.snap.disable();
-=======
 			if( this.snap ) {
 				this.snap.disable();
 			}
->>>>>>> Stashed changes
 		},
 
 		enableDrawer: function() {
