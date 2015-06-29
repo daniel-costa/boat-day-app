@@ -44,7 +44,7 @@ define([
 
 			var data = {
 				status: "complete-info",
-				displayName: this.model.get('firstName') + ' ' + this.model.get('lastName').slice(0,1) + '.',
+				displayName: this._input('firstName').val() + ' ' + this._input('lastName').val().slice(0,1) + '.',
 				firstName: this._input('firstName').val(),
 				lastName: this._input('lastName').val(),
 				birthday: this._input('birthday').val() ? new Date(this._input('birthday').val()) : null
