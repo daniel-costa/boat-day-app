@@ -50,26 +50,59 @@ define([
 
 			console.log("sign in with email");
 			event.preventDefault(); 
+			var self = this;
 
-			var signInSuccess = function() {
+			if(this._in('email').val() == '') {
+				self._error("Oops, you missed one");
+
+			}
+
+			if(this._in('password').val() == '') {
+				self._error("Oops, you missed one");
+
+			}
+
+			var logInSuccess = function() {
 
 				//Parse.history.navigate('boatdays', true);
-				console.loog("Sign in success");
+				console.log("Sign in success");
 
 			};
 
-			var signInError = function() {
+			var logInError = function(error) {
 
-				console.log("Sign In error");
+				self.loading();
+
+				switch(error.code) {
+					case 101:
+						self._error("Invalid email/password");
+						break;
+
+					default:
+						self._error("An error occured, please try later");
+						break;
+				}
 			};
 
-			Parse.User.signIn(this._in('email').val(), this._in('password').val()).then(signInSuccess, signInError);
+			Parse.User.logIn(this._in('email').val(), this._in('password').val()).then(logInSuccess, logInError);
 
 		},
 
 		signUp: function(event) {
 
 			event.preventDefault();
+
+			var self = this;
+
+			if(this._in('signUpEmail').val() == "") {
+
+				self._error("Oops, you missed one");
+			}
+
+			if(this._in('signUpPassword').val() == "") {
+
+				self._error("Oops, you missed one");
+			}
 
 			var data = {
 
@@ -86,9 +119,23 @@ define([
 
 			};
 
-			var signUpError =  function() {
+			var signUpError =  function( error ) {
 
 				console.log("Sign up error");
+				self.loading();
+
+				switch(error.code) {
+					case 125: 
+						self._error("Please provide a valid email address.");
+						break;
+					case 202: 
+						self._error("This email is already taken");
+						break;
+					default:
+						self._error("An error occured, please try again.");
+						break;
+				}
+
 
 			};
 
