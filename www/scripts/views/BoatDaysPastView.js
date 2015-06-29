@@ -1,13 +1,13 @@
 define([
 'views/BaseView',
-'text!templates/BoatDaysUpcomingTemplate.html',
-'text!templates/BoatDaysUpcomingCardTemplate.html',
-], function(BaseView, BoatDaysUpcomingTemplate, BoatDaysUpcomingCardTemplate){
+'text!templates/BoatDaysPastTemplate.html',
+'text!templates/BoatDaysPastCardTemplate.html',
+], function(BaseView, BoatDaysPastTemplate, BoatDaysPastCardTemplate){
 	var BoatDaysUpcomingView = BaseView.extend({
 
-		className: 'screen-boatdays-upcoming',
+		className: 'screen-boatdays-past',
 
-		template: _.template(BoatDaysUpcomingTemplate),
+		template: _.template(BoatDaysPastTemplate),
 
 		events: {
 		},
@@ -25,16 +25,17 @@ define([
 			var self = this;
 
 			var innerQuery = new Parse.Query(Parse.Object.extend('BoatDay'));
-			innerQuery.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+			innerQuery.lessThan("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
 
 			var query = Parse.User.current().get('profile').relation('requests').query();
 			query.include('boatday');
 			// query.include('boatday.boat');
 			query.include('boatday.captain');
 			query.matchesQuery("boatday", innerQuery);
+			query.equalTo('status', 'approved');
 			query.find().then(function(requests) {
 
-				var tpl = _.template(BoatDaysUpcomingCardTemplate);
+				var tpl = _.template(BoatDaysPastCardTemplate);
 
 				self.boatdays = {};
 
@@ -45,18 +46,14 @@ define([
 					self.boatdays[boatday.id] = boatday;
 
 					var data = {
-						status: request.get('status'),
-						seats: request.get('seats'),
 						id: boatday.id,
 						title: boatday.get('name'),
 						dateDisplay: self.dateParseToDisplayDate(boatday.get('date')),
 						timeDisplay: self.departureTimeToDisplayTime(boatday.get('departureTime')),
-						duration: boatday.get('duration'),
-						position: boatday.get('locationText'),
 						captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
 						captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
-						captainRating: 5,
-						takenSeats: 1,
+						rating: 1,
+						contribution: 160
 					}
 
 					self.$el.find('.content').append(tpl(data));
@@ -72,7 +69,7 @@ define([
 
 
 				if( requests.length == 0 ) {
-					self.$el.find('.content').html($('<h1>').text('empty'));
+					self.$el.find('.content').html($('<h4>').text("You don't have any past BoatDays"));
 				}
 
 			}, function(error) {

@@ -574,24 +574,29 @@ div.content a.btn.loading:after {
   background: url(../resources/boatday-category-corner.png) top right no-repeat;
 }
 .screen-boatdays .content,
+.screen-boatdays-past .content,
 .screen-boatdays-upcoming .content {
   background: #f4f9f9;
 }
 .screen-boatdays .boatday-card,
+.screen-boatdays-past .boatday-card,
 .screen-boatdays-upcoming .boatday-card {
   display: relative;
   margin: 15px;
   background: transparent;
 }
 .screen-boatdays .boatday-card .boat-img,
+.screen-boatdays-past .boatday-card .boat-img,
 .screen-boatdays-upcoming .boatday-card .boat-img {
   height: 200px;
   position: relative;
 }
+.screen-boatdays-past .boatday-card .boat-img,
 .screen-boatdays-upcoming .boatday-card .boat-img {
   height: 250px;
 }
 .screen-boatdays .boatday-card .details,
+.screen-boatdays-past .boatday-card .details,
 .screen-boatdays-upcoming .boatday-card .details {
   background: white;
   padding: 15px;
@@ -601,10 +606,13 @@ div.content a.btn.loading:after {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }
-.screen-boatdays .boatday-card .boat-img * .screen-boatdays-upcoming .boatday-card .boat-img * {
+.screen-boatdays .boatday-card .boat-img *,
+.screen-boatdays-past .boatday-card .boat-img *,
+.screen-boatdays-upcoming .boatday-card .boat-img * {
   line-height: normal;
 }
 .screen-boatdays .boatday-card .boat-img .picture,
+.screen-boatdays-past .boatday-card .boat-img .picture,
 .screen-boatdays-upcoming .boatday-card .boat-img .picture {
   width: 100%;
   height: 100%;
@@ -640,6 +648,7 @@ div.content a.btn.loading:after {
   font-size: 0.4em;
 }
 .screen-boatdays .boatday-card .boat-img .owner .profile-picture,
+.screen-boatdays-past .boatday-card .boat-img .owner .profile-picture,
 .screen-boatdays-upcoming .boatday-card .boat-img .owner .profile-picture {
   background: center center no-repeat white;
   background-size: cover;
@@ -675,18 +684,21 @@ div.content a.btn.loading:after {
   color: white;
 }
 .screen-boatdays .boatday-card .boat-img .owner .rating img,
+.screen-boatdays-past .boatday-card .boat-img .owner .rating img,
 .screen-boatdays-upcoming .boatday-card .boat-img .owner .rating img {
   height: 12px;
   position: relative;
   top: 2px;
 }
 .screen-boatdays .boatday-card .details .date,
+.screen-boatdays-past .boatday-card .details .date,
 .screen-boatdays-upcoming .boatday-card .details .date,
 .screen-boatdays .boatday-card .details .duration,
 .screen-boatdays-upcoming .boatday-card .details .duration,
 .screen-boatdays .boatday-card .details .position,
 .screen-boatdays-upcoming .boatday-card .details .position,
-.screen-boatdays .boatday-card .details .seats {
+.screen-boatdays .boatday-card .details .seats,
+.screen-boatdays-past .boatday-card .details .captain {
   font-size: 0.8em;
   color: #546e7a;
   line-height: 20px;
@@ -721,16 +733,20 @@ div.content a.btn.loading:after {
   color: #13a7bf;
 }
 .screen-boatdays .boatday-card .details h1,
+.screen-boatdays-past .boatday-card .details h1,
 .screen-boatdays-upcoming .boatday-card .details h1 {
   margin: 0px;
   text-align: left;
   font-size: 1.1em;
   font-weight: 500;
   line-height: 35px;
-  color: #546e7a;
+  color: #13a7bf;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.screen-boatdays-past .boatday-card .details h1 {
+  text-align: left;
 }
 .screen-boatday .slider {
   background: #b2c0cc;
