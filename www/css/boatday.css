@@ -606,6 +606,9 @@ div.content a.btn.loading:after {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }
+.screen-boatdays-past .boatday-card .details {
+  padding-top: 40px;
+}
 .screen-boatdays .boatday-card .boat-img *,
 .screen-boatdays-past .boatday-card .boat-img *,
 .screen-boatdays-upcoming .boatday-card .boat-img * {
@@ -659,6 +662,11 @@ div.content a.btn.loading:after {
   position: absolute;
   bottom: -15px;
   left: 15px;
+}
+.screen-boatdays-past .boatday-card .boat-img .owner .profile-picture {
+  left: 50%;
+  bottom: -30px;
+  margin-left: -30px;
 }
 .screen-boatdays .boatday-card .boat-img .owner .name,
 .screen-boatdays-upcoming .boatday-card .boat-img .owner .name {
@@ -745,8 +753,53 @@ div.content a.btn.loading:after {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.screen-boatdays-past .boatday-card .details .captain {
+  color: #b2c0cc;
+}
+.screen-boatdays-past .boatday-card .details .captain strong {
+  color: #13a7bf;
+}
 .screen-boatdays-past .boatday-card .details h1 {
-  text-align: left;
+  text-align: center;
+  color: #546e7a;
+}
+.screen-boatdays-past .boatday-card .header {
+  position: absolute;
+  height: 80px;
+  top: 50%;
+  width: 100%;
+  margin-top: -40px;
+  background: rgba(43, 51, 54, 0.85);
+}
+.screen-boatdays-past .boatday-card .header .left,
+.screen-boatdays-past .boatday-card .header .right {
+  width: 50%;
+  text-align: center;
+  color: white;
+  font-weight: 500;
+  font-size: 0.8em;
+  margin-top: 20px;
+}
+.screen-boatdays-past .boatday-card .header .left {
+  float: left;
+}
+.screen-boatdays-past .boatday-card .header .right {
+  float: right;
+}
+.screen-boatdays-past .boatday-card .header .left strong {
+  font-size: 1.5em;
+}
+.screen-boatdays-past .boatday-card .header .right img {
+  height: 12px;
+  position: relative;
+  top: 2px;
+}
+.screen-boatdays-past .boatday-card .details .captain {
+  color: #b2c0cc;
+}
+.screen-boatdays-past .boatday-card .details .captain strong {
+  color: #13a7bf;
+  font-weight: 500;
 }
 .screen-boatday .slider {
   background: #b2c0cc;

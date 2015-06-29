@@ -45,14 +45,13 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs'], 
 
 		console.log("device ready");
 		
-		// ToRecovery
-		// Keyboard.onshowing = function () {
-		// 	StatusBar.hide();
-		// }
+		Keyboard.onshowing = function () {
+			StatusBar.hide();
+		}
 
-		// Keyboard.onhiding = function () {
-		// 	StatusBar.show();
-		// }
+		Keyboard.onhiding = function () {
+			StatusBar.show();
+		}
 
 		Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA LCn0E...
 

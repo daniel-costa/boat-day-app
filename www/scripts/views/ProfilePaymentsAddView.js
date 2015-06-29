@@ -25,7 +25,7 @@ define([
 
 			this.profileSetup = data ? data.setup : false;
 			this.drawer = !this.profileSetup;
-
+			
 		},
 
 		render: function() {

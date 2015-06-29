@@ -1,8 +1,9 @@
 define([
 'views/BaseView',
+'views/ProfilePaymentsAddView',
 'models/SeatRequestModel',
 'text!templates/BoatDayBookTemplate.html'
-], function(BaseView,SeatRequestModel, BoatDayBookTemplate){
+], function(BaseView, ProfilePaymentsAddView, SeatRequestModel, BoatDayBookTemplate){
 	var BoatDayBookView = BaseView.extend({
 
 		className: 'screen-boatday-book modal',
@@ -11,7 +12,8 @@ define([
 
 		events: {
 			'change [name="seats"]': 'updatePrice',
-			'click .btn-book': 'book'
+			'click .btn-book': 'book',
+			'click .btn-payments': 'payments'
 		},
 
 		statusbar: true,
@@ -19,6 +21,12 @@ define([
 		drawer: false,
 
 		cards: {},
+
+		payments: function() {
+			
+			this.modal(new ProfilePaymentsAddView({ model : this.model, modal: true }));
+
+		},
 
 		updatePrice: function() {
 

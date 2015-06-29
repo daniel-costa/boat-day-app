@@ -218,11 +218,19 @@ define([
 		},
 		
 		disableDrawer: function() {
+<<<<<<< Updated upstream
 			this.snap.disable();
+=======
+			if( this.snap ) {
+				this.snap.disable();
+			}
+>>>>>>> Stashed changes
 		},
 
 		enableDrawer: function() {
-			this.snap.enable();
+			if( this.snap ) {
+				this.snap.enable();
+			}
 		}
 
 	});
