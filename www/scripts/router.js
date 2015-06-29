@@ -238,11 +238,11 @@ define([
 				return ;
 			}
 
-			if( !Parse.User.current().get('profile').get("paymentId") ) {
-				console.log("-> payments");
-				self.render(new ProfilePaymentsAddView({ setup: true }));
-				return ;
-			}
+			// if( !Parse.User.current().get('profile').get("paymentId") ) {
+			// 	console.log("-> payments");
+			// 	self.render(new ProfilePaymentsAddView({ setup: true }));
+			// 	return ;
+			// }
 
 			cb();
 

@@ -53,7 +53,7 @@ define([
 						captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
 						captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
 						rating: 1,
-						contribution: 160
+						contribution: request.get('contribution')
 					}
 
 					self.$el.find('.content').append(tpl(data));
