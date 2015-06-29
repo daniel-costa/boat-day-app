@@ -1,0 +1,47 @@
+<header class="bar bar-nav">
+	<a class="icon fa fa-times pull-left close-me"></a>
+	<h1 class="title">Book seats</h1>
+</header>
+
+<div class="content">
+	
+	<div class="content-padded">
+		<h1>Contribution Calculator</h1>
+		<p>After the BoatDay has taken place you will be asked to make a payment. If you wish to surprise your host and contribute a little extra, that will be possible too!</p>
+	
+		<div class="seats">
+			<select name="seats">
+				<% for(var i = 1; i <= availableSeats; i++) { %>
+				<option value="<%= i %>"><%= i %> seat<%= i != 1 ? 's' : '' %></option>
+				<% } %>
+			</select>
+
+			<table>
+				<tr>
+					<td>Trust &amp; Safety Fee</td>
+					<td class="fee">2 x $4</td>
+				</tr>
+				<tr>
+					<td>Suggested Contribution</td>
+					<td class="price"></td>
+				</tr>
+			</table>
+
+			<p class="total">
+				<sup>$</sup><span class="price-total">120</span>
+			</p>
+		</div>
+
+		<div class="payment">
+			<label>Pick a credit card</label>
+			<select name="card">
+				<option value="null">loading...</option>
+			</select>
+			<div class="text-center">
+				<a href="#/profile-payments">Manage credit cards</a>
+			</div>
+		</div>
+
+		<button class="btn btn-block btn-book btn-action">Book seats</button>
+	</div>
+</div>

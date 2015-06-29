@@ -111,8 +111,6 @@ define([
 
 			var self = this;
 
-			
-
 			var profileSuccess = function(profile) {
 
 				self.initDrawer();
@@ -129,16 +127,15 @@ define([
 				facebookConnectPlugin.logout();
 			}
 
-			if( Parse.User.current() && Parse.User.current().get("profile") ) {
-
-				Parse.User.current().get("profile").fetch().then(profileSuccess, forceLogout);
-				
-			} else {
-
-				cb();
-
-			}
-
+			// Cache config
+			Parse.Config.get().then(function(config) {
+				// Cache profile
+				if( Parse.User.current() && Parse.User.current().get("profile") ) {
+					Parse.User.current().get("profile").fetch().then(profileSuccess, forceLogout);
+				} else {
+					cb();
+				}
+			});
 			
 			
 			// prevent bug on feedback page with a jumping keyboard

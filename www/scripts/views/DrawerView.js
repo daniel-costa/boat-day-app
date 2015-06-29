@@ -6,7 +6,7 @@ define([
 
 		className: 'snap-drawers',
 
-		template: _.template(DrawerTemplate)
+		template: _.template(DrawerTemplate),
 		
 	});
 	return DrawerView;

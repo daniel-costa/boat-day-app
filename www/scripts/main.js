@@ -14,7 +14,8 @@ require.config({
 		ratchet:    'vendor/ratchet/dist/js/ratchet',
 		snapjs:     'vendor/Snap.js/snap',
 		facebook: 	'http://connect.facebook.net/en_US/all',
-		fastclick:  'vendor/fastclick/lib/fastclick'
+		fastclick:  'vendor/fastclick/lib/fastclick',
+		stripe:     'https://js.stripe.com/v2/?1'
 	},
 	shim: {
 		"ratchet" : { 
@@ -26,6 +27,14 @@ require.config({
 		'parse': {
 			deps: ["jquery", "underscore"],
 			exports: "Parse"
+		},
+		'stripe': {
+			exports: "Stripe"
+		}
+	},
+	googlemaps: {
+		params: {
+			key: 'AIzaSyDWM2B3u-5wW4sqLtd__BqjHNPSNsUpzYg'
 		}
 	}
 });

@@ -6,12 +6,14 @@ define([
 	'views/ProfilePaymentsAddView',
 	'views/BoatDaysHomeView',
 	'views/BoatDaysView',
+	'views/BoatDaysUpcomingView',
+	'views/BoatDayView',
 	'views/AboutUsView',
 	'views/TermsView',
 	'views/NotificationsView'
 ], function(
 	SignInView, ProfileInfoView, ProfilePictureView, ProfilePaymentsView, ProfilePaymentsAddView, 
-	BoatDaysHomeView, BoatDaysView, AboutUsView, TermsView, NotificationsView) {
+	BoatDaysHomeView, BoatDaysView, BoatDaysUpcomingView, BoatDayView, AboutUsView, TermsView, NotificationsView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -19,6 +21,8 @@ define([
 			'sign-out': 'signOut',
 			'boatdays-home': 'showBoatDaysHome',
 			'boatdays': 'showBoatDays',
+			'boatdays-upcoming': 'showBoatDaysUpcoming',
+			'boatday/:id': 'showBoatDay',
 			'profile-info': 'showProfileInfo',
 			'profile-picture': 'showProfilePicture',
 			'profile-payments': 'showProfilePayments',
@@ -102,7 +106,6 @@ define([
 			var self = this;
 			var cb = function() {
 
-				console.log('showBoatDays');
 				if( !Parse.User.current().get('profile').get('displayBDCategory') ) {
 					
 					self.render(new BoatDaysHomeView());
@@ -112,6 +115,37 @@ define([
 					self.render(new BoatDaysView());
 
 				}
+				
+			};
+
+			self.handleSignedIn(cb);
+
+		},
+
+		showBoatDaysUpcoming: function() {
+
+			var self = this;
+			var cb = function() {
+
+				self.render(new BoatDaysUpcomingView());
+
+			};
+
+			self.handleSignedIn(cb);
+
+		},
+
+		showBoatDay: function(id) {
+
+			var self = this;
+			var cb = function() {
+
+				var query = new Parse.Query(Parse.Object.extend('BoatDay'));
+				query.include('boat');
+				query.include('captain');
+				query.get(id).then(function(boatday) {
+					self.render(new BoatDayView({ model: boatday }));	
+				})
 				
 			};
 
@@ -174,6 +208,7 @@ define([
 
 			}
 
+			
 			console.log("handleSignedIn");
 
 			if( Parse.User.current().get('profile').get("status") == "creation" ) {

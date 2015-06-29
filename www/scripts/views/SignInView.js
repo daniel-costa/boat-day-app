@@ -19,7 +19,7 @@ define([
 			"click button.twitter" : "signInTwitter",
 		},
 
-		statusbar: false,
+		statusbar: true,
 		
 		drawer: false,
 

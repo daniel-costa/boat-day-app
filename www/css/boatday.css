@@ -94,7 +94,10 @@ div.content h5 {
 div.content h6 {
   font-size: 1em;
 }
-div.content p {
+div.content p,
+div.content td,
+div.content sub,
+div.content sub {
   color: #546e7a;
 }
 div.content p.secondary {
@@ -104,7 +107,7 @@ div.content p.secondary {
   background-color: #f9fbfb;
   color: #13a7bf;
   border: 1px solid #e1e6ea;
-  border-radius: 8px;
+  border-radius: 5px;
   line-height: 35px;
   padding: 5px;
   font-weight: 500;
@@ -115,17 +118,28 @@ div.content p.secondary {
   color: #13a7bf;
   border: 2px solid #13a7bf;
 }
+.btn-action {
+  background-color: #f5b019;
+  color: white;
+  border: 1px solid #f5b019;
+}
 .btn:active,
 .btn.active {
   background-color: #e1e6ea;
   color: white;
-  border: 1px solid #e1e6ea;
+  border-color: #e1e6ea;
 }
 .btn-primary:active,
 .btn-primary.active {
   background-color: #13a7bf;
   color: white;
   border-color: #13a7bf;
+}
+.btn-action:active,
+.btn-action.active {
+  background-color: #f5b019;
+  color: white;
+  border-color: #f5b019;
 }
 .btn-group button {
   width: 50%;
@@ -160,12 +174,16 @@ textarea {
   color: #546e7a;
   border: 1px solid #e1e6ea;
   background: white;
-  border-radius: 8px;
+  border-radius: 5px;
   font-weight: 400;
   font-size: 0.8em;
   line-height: 30px;
   height: 52px;
   /* height + padding + border */
+}
+select {
+  -webkit-box-shadow: none;
+  background: url(../resources/select-arrows.png) no-repeat center right 10px #f9fbfb;
 }
 .field-flag-error {
   border-color: #f86335 !important;
@@ -182,15 +200,21 @@ label {
   display: block;
   clear: both;
 }
-/*
+.profile-picture {
+  background: center center no-repeat white;
+  background-size: cover;
+  background-image: url(../resources/profile-picture-placeholder.png);
+  height: 60px;
+  width: 60px;
+  border-radius: 70px;
+  display: block;
+}
 .modal {
-	z-index: 11;
+  z-index: 11;
 }
-
 .modal header.bar.bar-nav {
-	z-index: 21;
+  z-index: 21;
 }
-*/
 .snap-drawer {
   background: transparent;
   width: 266px;
@@ -400,166 +424,6 @@ div.content a.btn.loading:after {
   margin: auto;
   max-width: 60px;
 }
-.screen-boatdays-home .category {
-  height: 25%;
-  border-bottom: 4px solid rgba(13, 13, 14, 0.79);
-  background: center center no-repeat;
-  background-size: cover;
-}
-.screen-boatdays-home .category h1 {
-  margin: 0px;
-  text-align: right;
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  background: rgba(13, 13, 14, 0.79);
-  font-size: 20px;
-  padding: 10px 12px 5px 5px;
-  color: white;
-  font-family: museo;
-}
-.screen-boatdays-home .category h1:after {
-  content: "";
-  position: absolute;
-  top: 0px;
-  left: -100%;
-  height: 100%;
-  width: 100%;
-  background: url(../resources/boatday-category-corner.png) top right no-repeat;
-}
-.screen-boatdays .content {
-  background: #f4f9f9;
-}
-.screen-boatdays .boatday-card {
-  display: relative;
-  height: 70%;
-  background: transparent;
-}
-.screen-boatdays .boatday-card .boat-img {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  bottom: 155px;
-  width: 100%;
-  z-index: 1;
-}
-.screen-boatdays .boatday-card .details {
-  position: absolute;
-  height: 140px;
-  bottom: 15px;
-  left: 15px;
-  right: 15px;
-  background: white;
-  padding: 15px;
-  pading-top: 0px;
-  border: 1px solid #bfc5ca;
-  /* */
-  border-top: none;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-}
-.screen-boatdays .boatday-card .boat-img * {
-  line-height: normal;
-}
-.screen-boatdays .boatday-card .boat-img .picture {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  background: center center no-repeat url(../resources/boat-placeholder.png) transparent;
-  background-size: cover;
-}
-.screen-boatdays .boatday-card .boat-img .price {
-  background: rgba(13, 13, 14, 0.75);
-  margin: auto;
-  width: 120px;
-  padding: 7px;
-  border-bottom-left-radius: 7px;
-  border-bottom-right-radius: 7px;
-  font-size: 1.4em;
-  color: white;
-  text-align: center;
-}
-.screen-boatdays .boatday-card .boat-img .favorite {
-  position: absolute;
-  top: 15px;
-  right: 30px;
-  font-size: 1.5em;
-  color: rgba(255, 255, 255, 0.75);
-  fot-weight: bold;
-  text-shadow: 0px 4px 4px rgba(13, 13, 14, 0.25), 4px 0px 4px rgba(13, 13, 14, 0.25), 0px -4px 4px rgba(13, 13, 14, 0.25), -4px 0px 4px rgba(13, 13, 14, 0.25);
-  /* */
-}
-.screen-boatdays .boatday-card .boat-img .price sup {
-  font-size: 0.7em;
-}
-.screen-boatdays .boatday-card .boat-img .price sub {
-  font-size: 0.4em;
-}
-.screen-boatdays .boatday-card .boat-img .owner .profile-picture {
-  background: center center no-repeat white;
-  background-size: cover;
-  height: 60px;
-  width: 60px;
-  border-radius: 70px;
-  border: 2px solid white;
-  position: absolute;
-  bottom: -15px;
-  left: 30px;
-}
-.screen-boatdays .boatday-card .boat-img .owner .name {
-  position: absolute;
-  bottom: -15px;
-  left: 100px;
-  line-height: 60px;
-  background: transparent;
-  color: white;
-  font-size: 0.7em;
-}
-.screen-boatdays .boatday-card .boat-img .owner .name strong {
-  font-weight: 500;
-}
-.screen-boatdays .boatday-card .boat-img .owner .rating {
-  position: absolute;
-  bottom: -15px;
-  line-height: 60px;
-  right: 30px;
-  font-size: 0.6em;
-  color: white;
-}
-.screen-boatdays .boatday-card .details .date,
-.screen-boatdays .boatday-card .details .duration,
-.screen-boatdays .boatday-card .details .position,
-.screen-boatdays .boatday-card .details .seats {
-  font-size: 0.8em;
-  color: #546e7a;
-  line-height: 20px;
-}
-.screen-boatdays .boatday-card .details strong {
-  color: #13a7bf;
-  font-size: 1.6em;
-  font-weight: 500;
-}
-.screen-boatdays .boatday-card .details .position {
-  position: absolute;
-  bottom: 15px;
-  color: #b2c0cc;
-}
-.screen-boatdays .boatday-card .details .seats {
-  position: absolute;
-  right: 15px;
-  bottom: 15px;
-  color: #b2c0cc;
-}
-.screen-boatdays .boatday-card .details h1 {
-  margin: 0px;
-  text-align: left;
-  font-size: 1.1em;
-  font-weight: 500;
-  line-height: 35px;
-  color: #546e7a;
-}
 .screen-profile-info .step,
 .screen-profile-picture .step,
 .screen-profile-payments .step {
@@ -601,7 +465,7 @@ div.content a.btn.loading:after {
   font-weight: bold;
 }
 .screen-profile-picture button.save {
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 .screen-profile-payments-add .left {
   width: 60%;
@@ -631,4 +495,452 @@ div.content a.btn.loading:after {
   width: 30%;
   display: block;
   margin: 25px auto;
+}
+.screen-notifications .header {
+  border-bottom: 1px solid #e1e6ea;
+  text-align: center;
+}
+.screen-notifications .header h1 {
+  margin-bottom: 5px;
+  margin-top: 50px;
+}
+.screen-notifications .header p {
+  color: ;
+  font-size: 0.6em;
+  margin-bottom: 30px;
+}
+.screen-notifications .notification {
+  border-bottom: 1px solid #e1e6ea;
+  background: white;
+  min-height: 72px;
+}
+.screen-notifications .notification.read {
+  border-bottom: 1px solid #e1e6ea ;
+  background: #f9fbfb;
+}
+.screen-notifications .notification .profile-picture {
+  margin: 0px 10px 0px 0px;
+  width: 52px;
+  height: 52px;
+  float: left;
+  border: 1px solid #11abc1;
+}
+.screen-notifications .notification .bd-picture {
+  margin: 0px 10px 0px 0px;
+  width: 52px;
+  height: 52px;
+  float: left;
+}
+.screen-notifications .notification p {
+  padding: 10px;
+  margin: 0px;
+  line-height: normal;
+  font-weight: 500;
+  font-size: 0.75em;
+}
+.screen-notifications .notification span.sender {
+  color: #11abc1;
+}
+.screen-notifications .notification span.time {
+  margin: 0px;
+  font-weight: 500;
+  color: #b1bfcc;
+}
+.screen-boatdays-home .category {
+  height: 25%;
+  border-bottom: 4px solid rgba(13, 13, 14, 0.79);
+  background: center center no-repeat;
+  background-size: cover;
+}
+.screen-boatdays-home .category h1 {
+  margin: 0px;
+  text-align: right;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background: rgba(13, 13, 14, 0.79);
+  font-size: 20px;
+  padding: 10px 12px 5px 5px;
+  color: white;
+  font-family: museo;
+}
+.screen-boatdays-home .category h1:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: -100%;
+  height: 100%;
+  width: 100%;
+  background: url(../resources/boatday-category-corner.png) top right no-repeat;
+}
+.screen-boatdays .content,
+.screen-boatdays-upcoming .content {
+  background: #f4f9f9;
+}
+.screen-boatdays .boatday-card,
+.screen-boatdays-upcoming .boatday-card {
+  display: relative;
+  margin: 15px;
+  background: transparent;
+}
+.screen-boatdays .boatday-card .boat-img,
+.screen-boatdays-upcoming .boatday-card .boat-img {
+  height: 200px;
+  position: relative;
+}
+.screen-boatdays-upcoming .boatday-card .boat-img {
+  height: 250px;
+}
+.screen-boatdays .boatday-card .details,
+.screen-boatdays-upcoming .boatday-card .details {
+  background: white;
+  padding: 15px;
+  pading-top: 0px;
+  border: 1px solid #e1e6ea;
+  border-top: none;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.screen-boatdays .boatday-card .boat-img * .screen-boatdays-upcoming .boatday-card .boat-img * {
+  line-height: normal;
+}
+.screen-boatdays .boatday-card .boat-img .picture,
+.screen-boatdays-upcoming .boatday-card .boat-img .picture {
+  width: 100%;
+  height: 100%;
+  background: center center no-repeat url(../resources/boat-placeholder.png) transparent;
+  background-size: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.screen-boatdays .boatday-card .boat-img .price {
+  background: rgba(13, 13, 14, 0.75);
+  margin: auto;
+  width: 120px;
+  padding: 7px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  font-size: 1.4em;
+  color: white;
+  text-align: center;
+}
+.screen-boatdays .boatday-card .boat-img .favorite {
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  font-size: 1.5em;
+  color: rgba(255, 255, 255, 0.75);
+  fot-weight: bold;
+  text-shadow: 0px 4px 4px rgba(13, 13, 14, 0.25), 4px 0px 4px rgba(13, 13, 14, 0.25), 0px -4px 4px rgba(13, 13, 14, 0.25), -4px 0px 4px rgba(13, 13, 14, 0.25);
+}
+.screen-boatdays .boatday-card .boat-img .price sup {
+  font-size: 0.7em;
+}
+.screen-boatdays .boatday-card .boat-img .price sub {
+  font-size: 0.4em;
+}
+.screen-boatdays .boatday-card .boat-img .owner .profile-picture,
+.screen-boatdays-upcoming .boatday-card .boat-img .owner .profile-picture {
+  background: center center no-repeat white;
+  background-size: cover;
+  height: 60px;
+  width: 60px;
+  border-radius: 70px;
+  border: 2px solid white;
+  position: absolute;
+  bottom: -15px;
+  left: 15px;
+}
+.screen-boatdays .boatday-card .boat-img .owner .name,
+.screen-boatdays-upcoming .boatday-card .boat-img .owner .name {
+  position: absolute;
+  bottom: -15px;
+  left: 85px;
+  line-height: 60px;
+  background: transparent;
+  color: white;
+  font-size: 0.7em;
+}
+.screen-boatdays .boatday-card .boat-img .owner .name strong,
+.screen-boatdays-upcoming .boatday-card .boat-img .owner .name strong {
+  font-weight: 500;
+}
+.screen-boatdays .boatday-card .boat-img .owner .rating,
+.screen-boatdays-upcoming .boatday-card .boat-img .owner .rating {
+  position: absolute;
+  bottom: -15px;
+  line-height: 60px;
+  right: 15px;
+  font-size: 0.6em;
+  color: white;
+}
+.screen-boatdays .boatday-card .boat-img .owner .rating img,
+.screen-boatdays-upcoming .boatday-card .boat-img .owner .rating img {
+  height: 12px;
+  position: relative;
+  top: 2px;
+}
+.screen-boatdays .boatday-card .details .date,
+.screen-boatdays-upcoming .boatday-card .details .date,
+.screen-boatdays .boatday-card .details .duration,
+.screen-boatdays-upcoming .boatday-card .details .duration,
+.screen-boatdays .boatday-card .details .position,
+.screen-boatdays-upcoming .boatday-card .details .position,
+.screen-boatdays .boatday-card .details .seats {
+  font-size: 0.8em;
+  color: #546e7a;
+  line-height: 20px;
+}
+.screen-boatdays .boatday-card .details strong,
+.screen-boatdays-upcoming .boatday-card .details strong {
+  color: #13a7bf;
+  font-size: 1.6em;
+  font-weight: 500;
+}
+.screen-boatdays .boatday-card .details .position,
+.screen-boatdays-upcoming .boatday-card .details .position {
+  color: #b2c0cc;
+  padding-top: 15px;
+  margin-right: 79px;
+}
+.screen-boatdays-upcoming .boatday-card .details .position {
+  margin-right: 0px;
+}
+.screen-boatdays .boatday-card .details .seats,
+.screen-boatdays-upcoming .boatday-card .details .seats {
+  color: #b2c0cc;
+  text-align: right;
+  width: 80px;
+  padding-top: 15px;
+  float: right;
+}
+.screen-boatdays-upcoming .boatday-card .details .seats {
+  float: none;
+  width: auto;
+  text-align: center;
+  color: #13a7bf;
+}
+.screen-boatdays .boatday-card .details h1,
+.screen-boatdays-upcoming .boatday-card .details h1 {
+  margin: 0px;
+  text-align: left;
+  font-size: 1.1em;
+  font-weight: 500;
+  line-height: 35px;
+  color: #546e7a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.screen-boatday .slider {
+  background: #b2c0cc;
+}
+.screen-boatday .captain {
+  background: #f9fbfb;
+  padding: 20px 20px;
+}
+.screen-boatday .captain .profile-picture {
+  width: 80px;
+  height: 80px;
+  float: left;
+  border: 2px white solid;
+  margin-right: 20px;
+}
+.screen-boatday .captain p {
+  font-size: 0.8em;
+  line-height: 25px;
+  margin-top: 0px;
+  color: #b2c0cc;
+  font-weight: 500;
+}
+.screen-boatday .captain p strong {
+  font-weight: 500;
+  color: #546e7a;
+}
+.screen-boatday .captain p img {
+  height: 14px;
+  position: relative;
+  top: 2px;
+}
+.screen-boatday .content h1 {
+  line-height: 100px;
+  font-size: 1.1em;
+  font-weight: 400;
+}
+.screen-boatday table {
+  width: 100%;
+}
+.screen-boatday td {
+  border-top: 1px solid #e1e6ea ;
+  border-bottom: 1px solid #e1e6ea ;
+  padding: 15px;
+  font-size: 0.75em;
+  color: #b2c0cc;
+  font-weight: 500;
+}
+.screen-boatday td strong {
+  color: #546e7a;
+  padding-left: 5px;
+}
+.screen-boatday td:first-child {
+  border-right: 1px solid #e1e6ea ;
+}
+.screen-boatday label {
+  display: block;
+  font-weight: 700;
+  text-align: center;
+  color: #b2c0cc;
+  font-size: 0.75em;
+  margin-bottom: 10px;
+  margin-top: 40px;
+  clear: both;
+}
+.screen-boatday p.description {
+  text-align: justify;
+  margin-bottom: 40px;
+}
+.screen-boatday .map {
+  height: 200px;
+  background: #f9fbfb;
+  border-radius: 5px;
+  background: center center no-repeat;
+  position: relative;
+}
+.screen-boatday .map img {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -30px;
+  margin-left: -30px;
+}
+.screen-boatday .left {
+  width: 50%;
+  float: left;
+  padding: 0px 10px;
+  margin-bottom: 20px;
+}
+.screen-boatday .right {
+  width: 50%;
+  float: right;
+  padding: 0px 10px;
+  margin-bottom: 20px;
+}
+.screen-boatday .left p,
+.screen-boatday .right p {
+  font-weight: 500;
+  font-size: 0.7em;
+}
+.screen-boatday .left .no,
+.screen-boatday .right .no {
+  color: #b2c0cc;
+}
+.screen-boatday .left img,
+.screen-boatday .right img {
+  width: 10px;
+  margin-right: 5px;
+}
+.screen-boatday .book {
+  clear: both;
+  background: #f9fbfb;
+  padding: 20px 0px;
+}
+.screen-boatday .book p.price {
+  font-size: 3em;
+  text-align: center;
+  font-weight: 200;
+  line-height: normal;
+}
+.screen-boatday .book p.price sup {
+  font-size: 0.45em;
+  position: relative;
+  top: -20px;
+}
+.screen-boatday .book p.price sub {
+  font-size: 0.3em;
+}
+.screen-boatday .book a {
+  display: block;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.7em;
+  font-weight: 500;
+}
+.screen-boatday .btn.btn-action {
+  margin-top: 15px;
+}
+.screen-boatday .badge-price {
+  background: rgba(13, 13, 14, 0.75);
+  margin: auto;
+  width: 120px;
+  padding: 7px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  font-size: 1.4em;
+  color: white;
+  text-align: center;
+  position: absolute;
+  top: 60px;
+  z-index: 1;
+  left: 50%;
+  margin-left: -60px;
+}
+.screen-boatday .badge-price sup {
+  font-size: 0.7em;
+}
+.screen-boatday .badge-price sub {
+  font-size: 0.4em;
+}
+.screen-boatday .slide .img {
+  height: 200px;
+  width: 100%;
+  background: center center no-repeat;
+  background-size: cover;
+}
+.screen-boatday-book p {
+  text-align: center;
+}
+.screen-boatday-book select {
+  font-size: 1.2em;
+  font-weight: 500;
+  text-align: center;
+}
+.screen-boatday-book .seats {
+  margin-top: 30px;
+}
+.screen-boatday-book .seats table {
+  width: 100%;
+  margin-top: 20px;
+}
+.screen-boatday-book .seats table td {
+  line-height: 40px;
+}
+.screen-boatday-book .seats table tr td:first-child {
+  color: #13a7bf;
+  font-weight: 400;
+  font-size: 0.8em;
+}
+.screen-boatday-book .seats table tr td:last-child {
+  text-align: right;
+  font-size: 1em;
+}
+.screen-boatday-book .seats p {
+  text-align: right;
+  font-size: 2em;
+  margin-top: 5px;
+  border-top: 1px solid #e1e6ea;
+  padding-top: 15px;
+}
+.screen-boatday-book .seats p sup {
+  font-size: 0.6em;
+  position: relative;
+}
+.screen-boatday-book .payment {
+  margin-top: 50px;
+}
+.screen-boatday-book .payment a {
+  font-size: 0.75em;
+  margin: 0px 0px 15px 0px;
+  display: block;
 }

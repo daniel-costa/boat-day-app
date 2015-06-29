@@ -1,0 +1,36 @@
+<div class="boatday-card card-<%=id%>" data-id="<%= id %>">
+	<div class="boat-img">
+		<div class="picture">
+			<div class="owner">
+				<div class="profile-picture" style="background-image:url(<%= captainProfilePicture %>)"></div>
+				<div class="name"><strong><%= captainName %></strong></div>
+				<div class="rating">
+					<img src="resources/rating-<%= captainRating %>.png" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="details">
+		<h1><%= title %></h1>
+		<div class="date">
+			<%= dateDisplay + ', ' + timeDisplay %>
+		</div>
+		<div class="duration">
+			Duration: <%= duration %> hours
+		</div>
+		<div class="duration">
+			<%= seats %> seat<%= seats == 1 ? '': 's' %> requested
+		</div>
+		<div class="seats">
+			<%= status == 'pending' ? 'Request Pending' : '' %>
+			<%= status == 'approved' ? 'Request Approved' : '' %>
+			<%= status == 'denied' ? 'Request Denied' : '' %>
+			<%= status == 'cancel' ? 'Seats Cancelled' : '' %>
+		</div>
+		<% if( status == 'approved' ) { %>
+			<div class="position">
+				<strong><span class="fa fa-map-marker"></span></strong> <%= position %>
+			</div>
+		<% } %>
+	</div>
+</div>

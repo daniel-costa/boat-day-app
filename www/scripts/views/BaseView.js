@@ -26,26 +26,63 @@ define([
 		
 		drawer: true,
 
+		modal: function(view) {
+
+			var self = this;
+			var $el = view.render().$el;
+
+			// self.subViews.push(view);
+
+			$el.insertAfter(this.$el);
+			
+			$el.on('click', '.close-me', function() {
+				
+				$(document).trigger('enableDrawer');
+				$el.removeClass('active');
+
+				setTimeout(function() { 
+					
+					// self.subViews.splice(self.subViews.indexOf(view), 1);
+					view.teardown();
+
+				}, 1000);
+
+			});
+			
+			setTimeout(function() { 
+				$el.addClass('active');
+			}, 100);
+
+		},
+
+		close: function() {
+			this.$el.find('.close-me').click();
+		},
+
+		getGuestPrice: function(price) {
+			return Math.ceil(price / (1 - Parse.Config.current().get("PRICE_GUEST_PART")));
+		},
+
 		render: function( init ) {
 			
 			var data = {
 				self: this
 			};
-
+			
 			if( this.templateData ) {
 				_.extend(data, this.templateData);
 			}
-
+			
 			if( this.model ) {
 				_.extend(data, this.model._toFullJSON());
 			}
-
+			
 			if(this.collection) {
 				_.extend(data, { collection: this.collection.toJSON() });
 			} 
-
+			
 			this.$el.html(this.template(data));
-
+			
 			$(document).trigger( this.drawer ? 'enableDrawer' : 'disableDrawer');
 			
 			if( this.statusbar ) {
@@ -53,9 +90,9 @@ define([
 			} else {
 				StatusBar.hide();
 			}
-
+			
 			console.log("### Render (" + this.className + ") ###");
-
+			
 			return this;
 		},
 
@@ -98,15 +135,19 @@ define([
 		
 		teardown: function() {
 
-			if(this.model) {
+			console.log("** teardown **");
+			console.log(this.subViews);
+
+			if( this.model ) {
 				this.model.off(null, null, this);
 			}
 
-			_.each(this.subViews, function(view) {
+			// _.each(this.subViews, function(view) {
 
-				view.teardown();
+				// Bug making a while !?!
+				// view.teardown();
 
-			});
+			// });
 
 			this.remove();
 
@@ -114,7 +155,7 @@ define([
 
 		loading: function( btn ) {
 			
-			if(btn) {
+			if( btn ) {
 	
 				if( typeof btn === 'string' ) {
 					btn = this.$el.find(btn);
@@ -140,21 +181,17 @@ define([
 		},
 
 		_input: function(name) {
-
 			return this.$el.find('[name="'+name+'"]');
-
 		},
 
+		_in : function(name) { return this._input(name) },
+
 		_error: function(message) {
-
 			$(document).trigger('globalError', message);
-
 		},
 
 		_info: function(message) {
-
 			$(document).trigger('globalInfo', message);
-
 		}
 
 	});

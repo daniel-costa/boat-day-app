@@ -1,0 +1,9 @@
+<div class="notification <%= read ? 'read' : '' %>">
+	<p>
+		<span class="profile-picture" style="<%= profilePicture %>"></span>
+		<span class="sender"><%= fromTeam ? 'BoatDay Team' : sender.get('displayName') %></span>
+		<span class="time">9:30 PM</span><br/>
+		<%= message %>
+		<span class="clear"></span>
+	</p>
+</div>

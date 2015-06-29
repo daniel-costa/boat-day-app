@@ -1,8 +1,9 @@
 define([
+'stripe',
 'views/BaseView',
 'models/CreditCardModel',
 'text!templates/ProfilePaymentsAddTemplate.html'
-], function(BaseView, CreditCardModel, ProfilePaymentsAddTemplate){
+], function(Stripe, BaseView, CreditCardModel, ProfilePaymentsAddTemplate){
 	var ProfilePaymentsView = BaseView.extend({
 
 		className: 'screen-profile-payments-add',
@@ -41,39 +42,83 @@ define([
 		save: function() {
 
 			var self = this;
+			var err = false;
+			var config = Parse.Config.current();
 
-			this.cleanForm();
+			self.cleanForm();
+			self.loading('.save');
+			
+			var number = this._input('number').val();
+			var cvv = this._input('cvv').val();	
+			var month = this._input('expiry').val().slice(-2);
+			var year = this._input('expiry').val().slice(0, 4);
 
-			var data = {
-				holder: this._input('holder').val(),
-				number: this._input('number').val(),
-				expiry: this._input('expiry').val(),
-				cvv: this._input('cvv').val(),
-				profile: Parse.User.current().get('profile'),
-				paymentId: null
-			};
+			Stripe.setPublishableKey(config.get('STRIPE_PUBLIC_KEY'));
 
-			var success = function(card) {
-				Parse.User.current().get('profile').relation('cards').add(card);
-				Parse.User.current().get('profile').save().then(function() {
-					Parse.history.navigate("profile-payments", true);
-				}, error);
-			};
+			if( !Stripe.card.validateCardNumber(number) ) {
+				err = true;
+				self.fieldError('number', "Card number not valid");
+			}
 
-			var error = function(error) {
+			if( !Stripe.card.validateExpiry(month, year) ) {
+				err = true;
+				self.fieldError('expiry', "Expiry date not valid.");
+			}
 
-				if( error.type && error.type == 'model-validation' ) {
-					_.map(error.fields, function(message, field) { 
-						self.fieldError(field, message);
-					});
-					self._error('One or more fields contain errors.');
-				} else {
-					self._error(error);
+			if( !Stripe.card.validateCVC(cvv) ) {
+				err = true;
+				self.fieldError('cvv', "CVV number not valid");
+			}
+
+			if( err ) {
+				self.loading();
+				return ;
+			}
+
+			Stripe.card.createToken({
+				number: number,
+				cvc: cvv,
+				exp_month: month,
+				exp_year: year
+			}, function( status, response ) {
+
+				if( response.error ) {
+
+					switch(response.type)  {
+						case 'invalid_number'       : self.fieldError('number', response.message); break;
+						case 'invalid_expiry_month' : self.fieldError('expiry', response.message); break;
+						case 'invalid_expiry_year'  : self.fieldError('expiry', response.message); break;
+						case 'invalid_cvc'          : self.fieldError('cvc', response.message); break;
+						case 'incorrect_number'     : self.fieldError('number', response.message); break;
+						case 'expired_card'         : self.fieldError('expiry', response.message); break;
+						case 'incorrect_cvc'        : self.fieldError('cvv', response.message); break;
+						// case 'incorrect_zip'        : self.fieldError('', response.message); break;
+						// case 'missing'              : self.fieldError('', response.message); break;
+						// case 'processing_error'     : self.fieldError('', response.message); break;
+						// case 'rate_limit'           : self.fieldError('', response.message); break;
+						default : self._error(response.message); break; 
+					}
+
+					self.loading();
+					return ;
 				}
 
-			};
 
-			new CreditCardModel().save(data).then(success, error);
+				new CreditCardModel().save({
+					brand: response.card.brand,
+					exp_month: response.card.exp_month,
+					exp_year: response.card.exp_year,
+					last4: response.card.last4,
+					token: response.id,
+					stripe: response
+				}).then(function(card) {
+					Parse.User.current().get('profile').relation('cards').add(card);
+					Parse.User.current().get('profile').save().then(function() {
+						Parse.history.navigate("profile-payments", true);
+					});
+				});
+
+			});
 
 		},
 

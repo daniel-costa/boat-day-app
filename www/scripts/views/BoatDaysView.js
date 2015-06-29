@@ -1,23 +1,35 @@
 define([
 'views/BaseView',
+'views/BoatDayView',
 'text!templates/BoatDaysTemplate.html',
-'text!templates/BoatDayCardTemplate.html'
-], function(BaseView, BoatDaysTemplate, BoatDayCardTemplate){
+'text!templates/BoatDayCardTemplate.html',
+'text!templates/BoatDayTemplate.html'
+], function(BaseView, BoatDayView, BoatDaysTemplate, BoatDayCardTemplate, BoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatdays',
 
 		template: _.template(BoatDaysTemplate),
 
-		events: { },
+		events: {
+			'click .boatday-card': 'showBoatDay'
+		},
 
 		statusbar: true,
 		
 		drawer: true,
 		
+		boatdays: {},
+
 		initialize: function() {
 
 			var self = this;
+
+		},
+
+		showBoatDay: function(event) {
+
+			this.modal(new BoatDayView({ model : this.boatdays[$(event.currentTarget).attr('data-id')] }));
 
 		},
 
@@ -42,8 +54,12 @@ define([
 
 				var tpl = _.template(BoatDayCardTemplate);
 
+				self.boatdays = {};
+
 				_.each(boatdays, function(boatday) {
-					console.log(boatday);
+					
+					self.boatdays[boatday.id] = boatday;
+
 					var data = {
 						id: boatday.id,
 						price: boatday.get('price'),
@@ -54,7 +70,8 @@ define([
 						availableSeats: boatday.get('availableSeats'),
 						position: "Miami, United States",
 						captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
-						captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png'
+						captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
+						captainRating: 5
 					}
 
 					self.$el.find('.content').append(tpl(data));

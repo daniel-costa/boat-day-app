@@ -1,19 +1,12 @@
-<div class="boatday-card card-<%=id%>">
+<div class="boatday-card card-<%=id%>" data-id="<%= id %>">
 	<div class="boat-img">
 		<div class="picture">
 			<div class="price"><sup>$</sup><%= price %><sub>/person</sub></div>
-			<div class="favorite">
-				<span class="fa fa-heart-o"></span>
-			</div>
 			<div class="owner">
 				<div class="profile-picture" style="background-image:url(<%= captainProfilePicture %>)"></div>
-				<div class="name">Hosted by <strong><%= captainName %></strong></div>
+				<div class="name"><strong><%= captainName %></strong></div>
 				<div class="rating">
-					<span class="fa fa-star"></span>
-					<span class="fa fa-star"></span>
-					<span class="fa fa-star"></span>
-					<span class="fa fa-star-half-o"></span>
-					<span class="fa fa-star-o"></span>
+					<img src="resources/rating-<%= captainRating %>.png" />
 				</div>
 			</div>
 		</div>
@@ -26,11 +19,11 @@
 		<div class="duration">
 			Duration: <%= duration %> hours
 		</div>
-		<div class="position">
-			<strong><span class="fa fa-map-marker"></span></strong> <%= position %>
-		</div>
 		<div class="seats">
 			<strong><%= availableSeats %></strong> seats
+		</div>
+		<div class="position">
+			<strong><span class="fa fa-map-marker"></span></strong> <%= position %>
 		</div>
 	</div>
 </div>

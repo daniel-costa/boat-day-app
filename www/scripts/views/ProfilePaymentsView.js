@@ -23,8 +23,7 @@ define([
 				self.$el.find('.cards-list .table-view').html('');
 
 				_.each(cards, function(card) {
-					var name = card.get('number').slice(-4);
-					self.$el.find('.cards-list .table-view').append('<li class="table-view-cell text-center">* * * *  * * * *  * * * * '+name+'</li>');
+					self.$el.find('.cards-list .table-view').append('<li class="table-view-cell text-center">'+card.get('brand')+': **** **** **** '+card.get('last4')+'</li>');
 				});
 
 			});
