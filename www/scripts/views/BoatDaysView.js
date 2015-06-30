@@ -29,7 +29,7 @@ define([
 
 		showBoatDay: function(event) {
 
-			this.modal(new BoatDayView({ model : this.boatdays[$(event.currentTarget).attr('data-id')] }));
+			this.modal(new BoatDayView({ model : this.boatdays[$(event.currentTarget).attr('data-id')], fromUpcoming: false }));
 
 		},
 
@@ -39,69 +39,73 @@ define([
 
 			var self = this;
 
-			switch(Parse.User.current().get('profile').get('displayBDCategory')) {
-				case 'leisure' : title = 'Leisure'; break;
-				case 'sports'  : title = 'Water Sports'; break;
-				case 'sailing' : title = 'Sailing'; break;
-				case 'fishing' : title = 'Fishing'; break;
-			}
+			this.$el.find('h1.title').text(self.getBoatDayTitle(Parse.User.current().get('profile').get('displayBDCategory')));
 
-			this.$el.find('h1.title').text(title);
+			Parse.User.current().get('profile').relation('requests').query().find().then(function(requests) {
 
-			// self.subViews = [];
-		
-			var fetchSuccess = function(boatdays) {
+				var boatdaysId = [];
 
-				var tpl = _.template(BoatDayCardTemplate);
-
-				self.boatdays = {};
-
-				_.each(boatdays, function(boatday) {
-					
-					self.boatdays[boatday.id] = boatday;
-
-					var data = {
-						id: boatday.id,
-						price: boatday.get('price'),
-						title: boatday.get('name'),
-						dateDisplay: self.dateParseToDisplayDate(boatday.get('date')),
-						timeDisplay: self.departureTimeToDisplayTime(boatday.get('departureTime')),
-						duration: boatday.get('duration'),
-						availableSeats: boatday.get('availableSeats'),
-						position: "Miami, United States",
-						captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
-						captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
-						captainRating: 5
-					}
-
-					self.$el.find('.content').append(tpl(data));
-
-					boatday.get('boat').relation('boatPictures').query().first().then(function(fileholder) {
-						
-						if( fileholder ) {
-							self.$el.find('.boatday-card.card-'+boatday.id+' .picture').css({ backgroundImage: 'url('+fileholder.get('file').url()+')' });
-						}
-
-					});
+				_.each(requests, function(request) {
+					boatdaysId.push(request.get('boatday').id);
 				});
 
+				console.log('ids');
+				console.log(boatdaysId);
 
-				if( boatdays.length == 0 ) {
-					self.$el.find('.content').html($('<h1>').text('empty'));
-				}
+				var query = new Parse.Query(Parse.Object.extend('BoatDay'));
+				query.include('boat');
+				query.include('captain');
+				query.equalTo("category", Parse.User.current().get('profile').get('displayBDCategory'));
+				query.notContainedIn('objectId', boatdaysId);
+				query.find().then(function(boatdays) {
 
-			};
+					var tpl = _.template(BoatDayCardTemplate);
 
-			var fetchError = function(error) {
-				console.log(error);
-			};
+					self.boatdays = {};
+
+					_.each(boatdays, function(boatday) {
+						
+						self.boatdays[boatday.id] = boatday;
+
+						var seg = boatday.get('locationText').split(',');
+						
+						var data = {
+							id: boatday.id,
+							price: boatday.get('price'),
+							title: boatday.get('name'),
+							dateDisplay: self.dateParseToDisplayDate(boatday.get('date')),
+							timeDisplay: self.departureTimeToDisplayTime(boatday.get('departureTime')),
+							duration: boatday.get('duration'),
+							availableSeats: boatday.get('availableSeats'),
+							position: ((seg.length > 2 ? seg[seg.length - 2] + ',' : '') + seg[seg.length - 1]).trim(),
+							captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
+							captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
+							captainRating: boatday.get('captain').get('rating') ? boatday.get('captain').get('rating') : null
+						};
+
+						self.$el.find('.content').append(tpl(data));
+
+						boatday.get('boat').relation('boatPictures').query().first().then(function(fileholder) {
+							
+							if( fileholder ) {
+								self.$el.find('.boatday-card.card-'+boatday.id+' .picture').css({ backgroundImage: 'url('+fileholder.get('file').url()+')' });
+							}
+
+						});
+					});
 
 
-			var query = new Parse.Query(Parse.Object.extend('BoatDay'));
-			query.include('boat');
-			query.include('captain');
-			query.equalTo("category", Parse.User.current().get('profile').get('displayBDCategory'));
-			query.find().then(fetchSuccess, fetchError);
+					if( boatdays.length == 0 ) {
+						self.$el.find('.content').html($('<h1>').text('empty'));
+					}
+
+				}, function(error) {
+					console.log(error);
+				});
+
+			});
+			
+
 
 			return this;
 

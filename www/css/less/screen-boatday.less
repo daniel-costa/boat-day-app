@@ -29,7 +29,7 @@
   top: 2px;
 }
 .screen-boatday .content h1 {
-  line-height: 100px;
+  line-height: 60px;
   font-size: 1.1em;
 	font-weight: 400;
 }
@@ -86,33 +86,20 @@
   margin-left: -30px;
 }
 
-.screen-boatday .left {
+.screen-boatday .features p {
   width: 50%;
   float: left;
   padding: 0px 10px;
 	margin-bottom: 20px;
-}
-.screen-boatday .right {
-  width: 50%;
-  float: right;
-  padding: 0px 10px;
-	margin-bottom: 20px;
-}
-.screen-boatday .left p,
-.screen-boatday .right p {
 	font-weight: 500;
 	font-size: 0.7em;
 }
 
-.screen-boatday .left .no,
-.screen-boatday .right .no{
-	color: #b2c0cc;
-}
-.screen-boatday .left img,
-.screen-boatday .right img {
+.screen-boatday .features img {
 	width: 10px; 
 	margin-right: 5px;
 }
+
 .screen-boatday .book {
   clear: both;
   background: #f9fbfb;
@@ -163,9 +150,11 @@
 }
 .screen-boatday .badge-price sup {
   font-size: 0.7em;
+  color: white;
 }
 .screen-boatday .badge-price sub {
   font-size: 0.4em;
+  color: white;
 }
 
 .screen-boatday .slide .img {
@@ -175,3 +164,17 @@
 	background-size: cover;
 }
 
+
+
+.screen-boatday .confirmed-guests .guest {
+  text-align:center;
+  width: 25%;
+  font-size: 0.7em;
+  color: @brand-primary;
+  float: left;
+  margin-bottom: 20px;
+}
+
+.screen-boatday .confirmed-guests .guest .profile-picture {
+  margin: auto; 
+}

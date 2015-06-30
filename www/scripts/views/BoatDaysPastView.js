@@ -24,16 +24,27 @@ define([
 
 			var self = this;
 
-			var innerQuery = new Parse.Query(Parse.Object.extend('BoatDay'));
-			innerQuery.lessThan("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
 
-			var query = Parse.User.current().get('profile').relation('requests').query();
-			query.include('boatday');
-			// query.include('boatday.boat');
-			query.include('boatday.captain');
-			query.matchesQuery("boatday", innerQuery);
-			query.equalTo('status', 'approved');
-			query.find().then(function(requests) {
+			var innerQueryByStatus = new Parse.Query(Parse.Object.extend('BoatDay'));
+			innerQueryByStatus.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+
+			var queryByStatus = Parse.User.current().get('profile').relation('requests').query();
+			queryByStatus.notContainedIn('status', ['approved', 'pending']);
+			queryByStatus.matchesQuery("boatday", innerQueryByStatus);
+
+
+			var innerQueryPast = new Parse.Query(Parse.Object.extend('BoatDay'));
+			innerQueryPast.lessThan("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+
+			var queryPast = Parse.User.current().get('profile').relation('requests').query();
+			queryPast.matchesQuery("boatday", innerQueryPast);
+
+
+			var mainQuery = Parse.Query.or(queryPast, queryByStatus);
+			mainQuery.include('boatday');
+			mainQuery.include('boatday.boat');
+			mainQuery.include('boatday.captain');
+			mainQuery.find().then(function(requests) {
 
 				var tpl = _.template(BoatDaysPastCardTemplate);
 
@@ -47,12 +58,13 @@ define([
 
 					var data = {
 						id: boatday.id,
+						status: request.get('status'),
 						title: boatday.get('name'),
 						dateDisplay: self.dateParseToDisplayDate(boatday.get('date')),
 						timeDisplay: self.departureTimeToDisplayTime(boatday.get('departureTime')),
 						captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
 						captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
-						rating: 1,
+						rating: request.get('rating') ? request.get('rating') : null,
 						contribution: request.get('contribution')
 					}
 

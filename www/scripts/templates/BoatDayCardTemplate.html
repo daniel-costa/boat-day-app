@@ -5,9 +5,11 @@
 			<div class="owner">
 				<div class="profile-picture" style="background-image:url(<%= captainProfilePicture %>)"></div>
 				<div class="name"><strong><%= captainName %></strong></div>
-				<div class="rating">
-					<img src="resources/rating-<%= captainRating %>.png" />
-				</div>
+				<% if( captainRating ) { %>
+					<div class="rating">
+						<img src="resources/rating-<%= captainRating %>.png" />
+					</div>
+				<% } %>
 			</div>
 		</div>
 	</div>

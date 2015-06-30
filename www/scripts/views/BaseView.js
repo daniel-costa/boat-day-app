@@ -26,6 +26,15 @@ define([
 		
 		drawer: true,
 
+		getBoatDayTitle: function(id) {
+			switch(id) {
+				case 'leisure' : return 'Leisure'; break;
+				case 'sports'  : return 'Water Sports'; break;
+				case 'sailing' : return 'Sailing'; break;
+				case 'fishing' : return 'Fishing'; break;
+			}
+		},
+		
 		modal: function(view) {
 
 			var self = this;

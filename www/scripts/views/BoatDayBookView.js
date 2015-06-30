@@ -25,7 +25,7 @@ define([
 		payments: function() {
 			
 			// this.modal(new ProfilePaymentsAddView({ model : this.model, modal: true }));
-			Parse.history.navigate('profile-payments', true);
+			Parse.history.navigate("profile-payments", true);
 
 		},
 

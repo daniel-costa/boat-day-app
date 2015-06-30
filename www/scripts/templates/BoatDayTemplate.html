@@ -20,7 +20,11 @@
 		<p class="text">
 			Hosted by <strong><%= self.model.get('captain').get('displayName') %></strong><br/>
 			Boat <strong><%= self.model.get('boat').get('name') %></strong><br/>
-			<img src="resources/rating-4.png" /> <strong>(rating)</strong>
+			<% if( self.model.get('captain').get('rating') ) { %>
+				<img src="resources/rating-<%= self.model.get('captain').get('rating') %>.png" />
+			<% } else { %>
+				(no ratings yet)
+			<% } %>
 		</p>
 	</div>
 	
@@ -45,125 +49,219 @@
 			<img src="resources/map-pin.png" />
 		</div>
 		
-		<% if( category != 'sailing' ) { %>
-			<label>Activity</label>
-			<div class="left">
-				<% if( category == 'leisure' ) { %>
-					<p <%= !self.model.get('features').leisure.cruising ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').leisure.cruising ? 'green' : 'no' %>.png" /> Cruising</a>
-					<p <%= !self.model.get('features').leisure.partying ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').leisure.partying ? 'green' : 'no' %>.png" /> Partying</a>
-				<% } %>
-				<% if( category == 'fishing' ) { %>
-					<p <%= !self.model.get('features').fishing.flats ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').fishing.flats ? 'green' : 'no' %>.png" /> Flats</a>
-					<p <%= !self.model.get('features').fishing.lake ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').fishing.lake ? 'green' : 'no' %>.png" /> Lake</a>
-					<p <%= !self.model.get('features').fishing.offshore ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').fishing.offshore ? 'green' : 'no' %>.png" /> Offshore</a>
-				<% } %>
-				<% if( category == 'sports' ) { %>
-					<p <%= !self.model.get('features').sports.snorkeling ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').sports.snorkeling ? 'green' : 'no' %>.png" /> Snorkeling</a>
-					<p <%= !self.model.get('features').sports.tubing ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').sports.tubing ? 'green' : 'no' %>.png" /> Tubing</a>
-				<% } %>
-			</div>
-			<div class="right">
-				<% if( category == 'leisure' ) { %>
-					<p <%= !self.model.get('features').leisure.sightseeing ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').leisure.sightseeing ? 'green' : 'no' %>.png" /> Sightseeing</a>
-					<p <%= !self.model.get('features').leisure.other ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').leisure.other ? 'green' : 'no' %>.png" /> Other</a>
-				<% } %>
-				<% if( category == 'fishing' ) { %>
-					<p <%= !self.model.get('features').fishing.recreational ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').fishing.recreational ? 'green' : 'no' %>.png" /> Recreational</a>
-					<p <%= !self.model.get('features').fishing.other ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').fishing.other ? 'green' : 'no' %>.png" /> Other</a>
-				<% } %>
-				<% if( category == 'sports' ) { %>
-					<p <%= !self.model.get('features').sports.wakeBoarding ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').sports.wakeBoarding ? 'green' : 'no' %>.png" /> Wake Boarding</a>
-					<p <%= !self.model.get('features').sports.waterSkiing ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').sports.waterSkiing ? 'green' : 'no' %>.png" /> Water Skiing</a>
-				<% } %>
-			</div>
-		<% } %>
-
-		<% if( category == 'fishing' || category == 'sports' ) { %>
-			<label>Equipment</label>
-			<div class="left">
-				<% if( category == 'fishing' ) { %>
-					<p <%= !self.model.get('features').fishing.equipmentItems.bates ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').fishing.equipmentItems.bates ? 'green' : 'no' %>.png" /> Bates</a>
-					<p <%= !self.model.get('features').fishing.equipmentItems.lines ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').fishing.equipmentItems.lines ? 'green' : 'no' %>.png" /> Lines</a>
-					<p <%= !self.model.get('features').fishing.equipmentItems.hooks ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').fishing.equipmentItems.hooks ? 'green' : 'no' %>.png" /> Hooks</a>
-					<p <%= !self.model.get('features').fishing.equipmentItems.lures ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').fishing.equipmentItems.lures ? 'green' : 'no' %>.png" /> Lures</a>
-				<% } %>
-				<% if( category == 'sports' ) { %>
-					<p <%= !self.model.get('features').sports.equipmentItems.fins ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').sports.equipmentItems.fins ? 'green' : 'no' %>.png" /> Fins</a>
-					<p <%= !self.model.get('features').sports.equipmentItems.helmets ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').sports.equipmentItems.helmets ? 'green' : 'no' %>.png" /> Helmets</a>
-					<p <%= !self.model.get('features').sports.equipmentItems.masks ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').sports.equipmentItems.masks ? 'green' : 'no' %>.png" /> Masks</a>
-					<p <%= !self.model.get('features').sports.equipmentItems.snorkels ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').sports.equipmentItems.snorkels ? 'green' : 'no' %>.png" /> Snorkels</a>
-				<% } %>
-			</div>
-			<div class="right">
-				<% if( category == 'fishing' ) { %>
-					<p <%= !self.model.get('features').fishing.equipmentItems.nets ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').fishing.equipmentItems.nets ? 'green' : 'no' %>.png" /> Nets</a>
-					<p <%= !self.model.get('features').fishing.equipmentItems.rods ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').fishing.equipmentItems.rods ? 'green' : 'no' %>.png" /> Rods</a>
-					<p <%= !self.model.get('features').fishing.equipmentItems.sinkers ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').fishing.equipmentItems.sinkers ? 'green' : 'no' %>.png" /> Sinkers</a>
-				<% } %>
-				<% if( category == 'sports' ) { %>
-					<p <%= !self.model.get('features').sports.equipmentItems.towLine ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').sports.equipmentItems.towLine ? 'green' : 'no' %>.png" /> Two Lines</a>
-					<p <%= !self.model.get('features').sports.equipmentItems.tubes ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').sports.equipmentItems.tubes ? 'green' : 'no' %>.png" /> Tube</a>
-					<p <%= !self.model.get('features').sports.equipmentItems.wakeboard ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').sports.equipmentItems.wakeboard ? 'green' : 'no' %>.png" /> Wakeboard</a>
-					<p <%= !self.model.get('features').sports.equipmentItems.waterSkis ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').sports.equipmentItems.waterSkis ? 'green' : 'no' %>.png" /> Water Skis</a>
-				<% } %>
-			</div>
-		<% } %>
-
-		<label>Family Settings</label>
-		<div class="left">
-			<p <%= !self.model.get('features').global.children ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').global.children ? 'green' : 'no' %>.png" /> Children allowed</p>
-			<p <%= !self.model.get('features').global.smoking ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').global.smoking ? 'green' : 'no' %>.png" /> Smoking Permitted</p>
-		</div>
-		<div class="right">
-			<p <%= !self.model.get('features').global.drinking ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').global.drinking ? 'green' : 'no' %>.png" /> Drinking Permitted</p>
-			<p <%= !self.model.get('features').global.pets ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').global.pets ? 'green' : 'no' %>.png" /> Pets Permitted</p>
+		<label>Confirmed Guests</label>
+		<div class="confirmed-guests">
+			<div class="inner"></div>
+			<span class="clear"></span>
 		</div>
 
-		<label>Extras</label>
-		<div class="left">
-			<p <%= !self.model.get('features').extras.food ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').extras.food ? 'green' : 'no' %>.png" /> Food</p>
-			<p <%= !self.model.get('features').extras.drink ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').extras.drink ? 'green' : 'no' %>.png" /> Drink</p>
-			<p <%= !self.model.get('features').extras.music ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').extras.music ? 'green' : 'no' %>.png" /> Music</p>
-		</div>
-		<div class="right">
-			<p <%= !self.model.get('features').extras.towels ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').extras.towels ? 'green' : 'no' %>.png" /> Towels</p>
-			<p <%= !self.model.get('features').extras.sunscreen ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').extras.sunscreen ? 'green' : 'no' %>.png" /> Sunscreen</p>
-			<p <%= !self.model.get('features').extras.inflatables ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('features').extras.inflatables ? 'green' : 'no' %>.png" /> Inflatables</p>
-		</div>
+		<label>BoatDay Features</label>
+		<div class="features">
 
-		<label>Boat Amenities</label>
-		<div class="left">
-			<p <%= !self.model.get('boat').get('features').airConditioning ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').airConditioning ? 'green' : 'no' %>.png" /> Air Conditioning</p>
-			<p <%= !self.model.get('boat').get('features').autopilot ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').autopilot ? 'green' : 'no' %>.png" /> Autopilot</p>
-			<p <%= !self.model.get('boat').get('features').cooler ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').cooler ? 'green' : 'no' %>.png" /> Cooler</p>
-			<p <%= !self.model.get('boat').get('features').depthFinder ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').depthFinder ? 'green' : 'no' %>.png" /> Depth Finder</p>
-			<p <%= !self.model.get('boat').get('features').fishFinder ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').fishFinder ? 'green' : 'no' %>.png" /> Fish Finder</p>
-			<p <%= !self.model.get('boat').get('features').gps ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').gps ? 'green' : 'no' %>.png" /> GPS</p>
-			<p <%= !self.model.get('boat').get('features').grill ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').grill ? 'green' : 'no' %>.png" /> Grill</p>
-			<p <%= !self.model.get('boat').get('features').internet ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').internet ? 'green' : 'no' %>.png" /> Internet</p>
-			<p <%= !self.model.get('boat').get('features').liveBaitWell ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').liveBaitWell ? 'green' : 'no' %>.png" /> Live Bait Well</p>
-			<p <%= !self.model.get('boat').get('features').microwave ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').microwave ? 'green' : 'no' %>.png" /> Microwave</p>
-			<p <%= !self.model.get('boat').get('features').refrigeration ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').refrigeration ? 'green' : 'no' %>.png" /> Refrigeration</get>
-		</div>
-		<div class="right">
-			<p <%= !self.model.get('boat').get('features').rodHolder ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').rodHolder ? 'green' : 'no' %>.png" /> Rod Holder</p>
-			<p <%= !self.model.get('boat').get('features').shower ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').shower ? 'green' : 'no' %>.png" /> Shower</p>
-			<p <%= !self.model.get('boat').get('features').sink ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').sink ? 'green' : 'no' %>.png" /> Sink</p>
-			<p <%= !self.model.get('boat').get('features').stereo ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').stereo ? 'green' : 'no' %>.png" /> Stereo</p>
-			<p <%= !self.model.get('boat').get('features').stereoAuxInput ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').stereoAuxInput ? 'green' : 'no' %>.png" /> Stereo Aux Input</p>
-			<p <%= !self.model.get('boat').get('features').sonar ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').sonar ? 'green' : 'no' %>.png" /> Sonar</p>
-			<p <%= !self.model.get('boat').get('features').swimLadder ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').swimLadder ? 'green' : 'no' %>.png" /> Swim Ladder</p>
-			<p <%= !self.model.get('boat').get('features').tvDvd ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').tvDvd ? 'green' : 'no' %>.png" /> TV/DVD</p>
-			<p <%= !self.model.get('boat').get('features').trollingMotor ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').trollingMotor ? 'green' : 'no' %>.png" /> Trolling Motor</p>
-			<p <%= !self.model.get('boat').get('features').wakeboardTower ? 'class="no"' : '' %>><img src="resources/check-<%= self.model.get('boat').get('features').wakeboardTower ? 'green' : 'no' %>.png" /> Wakeboard Tower</p>
+			<!-- Activities -->
+			<% if( category == 'leisure' ) { %>
+				<% if( self.model.get('features').leisure.cruising ) { %>
+					<p><img src="resources/check-green.png" /> Cruising</p>
+				<% } %>
+				<% if( self.model.get('features').leisure.partying ) { %>	
+					<p><img src="resources/check-green.png" /> Partying</p>
+				<% } %>
+				<% if( self.model.get('features').leisure.sightseeing ) { %>
+					<p><img src="resources/check-green.png" /> Sightseeing</p>
+				<% } %>
+				<% if( self.model.get('features').leisure.other ) { %>	
+					<p><img src="resources/check-green.png" /> Other</p>
+				<% } %>
+			<% } %>
+			<% if( category == 'fishing' ) { %>
+				<% if( self.model.get('features').fishing.flats ) { %>
+					<p><img src="resources/check-green.png" /> Flats</p>
+				<% } %>
+				<% if( self.model.get('features').fishing.lake ) { %>	
+					<p><img src="resources/check-green.png" /> Lake</p>
+				<% } %>
+				<% if( self.model.get('features').fishing.offshore ) { %>	
+					<p><img src="resources/check-green.png" /> Offshore</p>
+				<% } %>
+				<% if( self.model.get('features').fishing.recreational ) { %>
+					<p><img src="resources/check-green.png" /> Recreational</p>
+				<% } %>
+				<% if( self.model.get('features').fishing.other ) { %>		
+					<p><img src="resources/check-green.png" /> Other</p>
+				<% } %>
+				<% if( self.model.get('features').fishing.equipmentItems.bates ) { %>
+					<p><img src="resources/check-green.png" /> Bates</p>
+				<% } %>
+				<% if( self.model.get('features').fishing.equipmentItems.lines ) { %>
+					<p><img src="resources/check-green.png" /> Lines</p>
+				<% } %>
+				<% if( self.model.get('features').fishing.equipmentItems.hooks ) { %>
+					<p><img src="resources/check-green.png" /> Hooks</p>
+				<% } %>
+				<% if( self.model.get('features').fishing.equipmentItems.lures ) { %>
+					<p><img src="resources/check-green.png" /> Lures</p>
+				<% } %>
+				<% if( self.model.get('features').fishing.equipmentItems.nets ) { %>
+					<p><img src="resources/check-green.png" /> Nets</p>
+				<% } %>
+				<% if( self.model.get('features').fishing.equipmentItems.rods ) { %>
+					<p><img src="resources/check-green.png" /> Rods</p>
+				<% } %>
+				<% if( self.model.get('features').fishing.equipmentItems.sinkers ) { %>
+					<p><img src="resources/check-green.png" /> Sinkers</p>
+				<% } %>
+			<% } %>
+			<% if( category == 'sports' ) { %>
+				<% if( self.model.get('features').sports.snorkeling ) { %>
+					<p><img src="resources/check-green.png" /> Snorkeling</p>
+				<% } %>
+				<% if( self.model.get('features').sports.tubing ) { %>	
+					<p><img src="resources/check-green.png" /> Tubing</p>
+				<% } %>
+				<% if( self.model.get('features').sports.wakeBoarding ) { %>
+					<p><img src="resources/check-green.png" /> Wake Boarding</p>
+				<% } %>
+				<% if( self.model.get('features').sports.waterSkiing ) { %>	
+					<p><img src="resources/check-green.png" /> Water Skiing</p>
+				<% } %>
+				<% if( self.model.get('features').sports.equipmentItems.fins ) { %>
+					<p><img src="resources/check-green.png" /> Fins</p>
+				<% } %>
+				<% if( self.model.get('features').sports.equipmentItems.helmets ) { %>
+					<p><img src="resources/check-green.png" /> Helmets</p>
+				<% } %>
+				<% if( self.model.get('features').sports.equipmentItems.masks ) { %>
+					<p><img src="resources/check-green.png" /> Masks</p>
+				<% } %>
+				<% if( self.model.get('features').sports.equipmentItems.snorkels ) { %>
+					<p><img src="resources/check-green.png" /> Snorkels</p>
+				<% } %>
+				<% if( self.model.get('features').sports.equipmentItems.towLine ) { %>
+					<p><img src="resources/check-green.png" /> Two Lines</p>
+				<% } %>
+				<% if( self.model.get('features').sports.equipmentItems.tubes ) { %>
+					<p><img src="resources/check-green.png" /> Tube</p>
+				<% } %>
+				<% if( self.model.get('features').sports.equipmentItems.wakeboard ) { %>
+					<p><img src="resources/check-green.png" /> Wakeboard</p>
+				<% } %>
+				<% if( self.model.get('features').sports.equipmentItems.waterSkis ) { %>
+					<p><img src="resources/check-green.png" /> Water Skis</p>
+				<% } %>
+			<% } %>
+
+
+			<!-- Fimly Settings -->
+			<% if( self.model.get('features').global.children ) { %>	
+				<p><img src="resources/check-green.png" /> Children allowed</p>
+			<% } %>
+			<% if( self.model.get('features').global.smoking ) { %>
+				<p><img src="resources/check-green.png" /> Smoking Permitted</p>
+			<% } %>
+			<% if( self.model.get('features').global.drinking ) { %>	
+				<p><img src="resources/check-green.png" /> Drinking Permitted</p>
+			<% } %>
+			<% if( self.model.get('features').global.pets ) { %>
+				<p><img src="resources/check-green.png" /> Pets Permitted</p>
+			<% } %>
+
+			<!-- Extras -->
+			<% if( self.model.get('features').extras.food ) { %>	
+				<p><img src="resources/check-green.png" /> Food</p>
+			<% } %>
+			<% if( self.model.get('features').extras.drink ) { %>
+				<p><img src="resources/check-green.png" /> Drink</p>
+			<% } %>
+			<% if( self.model.get('features').extras.music ) { %>
+				<p><img src="resources/check-green.png" /> Music</p>
+			<% } %>
+			<% if( self.model.get('features').extras.towels ) { %>	
+				<p><img src="resources/check-green.png" /> Towels</p>
+			<% } %>
+			<% if( self.model.get('features').extras.sunscreen ) { %>
+				<p><img src="resources/check-green.png" /> Sunscreen</p>
+			<% } %>
+			<% if( self.model.get('features').extras.inflatables ) { %>
+				<p><img src="resources/check-green.png" /> Inflatables</p>
+			<% } %>
+
+			<!-- Boat Features -->
+			<% if( self.model.get('boat').get('features').airConditioning ) { %>
+				<p><img src="resources/check-green.png" /> Air Conditioning</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').autopilot ) { %>
+				<p><img src="resources/check-green.png" /> Autopilot</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').cooler ) { %>
+				<p><img src="resources/check-green.png" /> Cooler</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').depthFinder ) { %>
+				<p><img src="resources/check-green.png" /> Depth Finder</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').fishFinder ) { %>
+				<p><img src="resources/check-green.png" /> Fish Finder</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').gps ) { %>
+				<p><img src="resources/check-green.png" /> GPS</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').grill ) { %>
+				<p><img src="resources/check-green.png" /> Grill</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').internet ) { %>
+				<p><img src="resources/check-green.png" /> Internet</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').liveBaitWell ) { %>
+				<p><img src="resources/check-green.png" /> Live Bait Well</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').microwave ) { %>
+				<p><img src="resources/check-green.png" /> Microwave</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').refrigeration ) { %>
+				<p><img src="resources/check-green.png" /> Refrigeration</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').rodHolder ) { %>
+				<p><img src="resources/check-green.png" /> Rod Holder</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').shower ) { %>
+				<p><img src="resources/check-green.png" /> Shower</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').sink ) { %>
+				<p><img src="resources/check-green.png" /> Sink</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').stereo ) { %>
+				<p><img src="resources/check-green.png" /> Stereo</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').stereoAuxInput ) { %>
+				<p><img src="resources/check-green.png" /> Stereo Aux Input</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').sonar ) { %>
+				<p><img src="resources/check-green.png" /> Sonar</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').swimLadder ) { %>
+				<p><img src="resources/check-green.png" /> Swim Ladder</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').tvDvd ) { %>
+				<p><img src="resources/check-green.png" /> TV/DVD</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').trollingMotor ) { %>
+				<p><img src="resources/check-green.png" /> Trolling Motor</p>
+			<% } %>
+			<% if( self.model.get('boat').get('features').wakeboardTower ) { %>
+				<p><img src="resources/check-green.png" /> Wakeboard Tower</p>
+			<% } %>
+			<span class="clear"></span>
 		</div>
 	</div>
 
 	<div class="book">
 		<div class="content-padded">
 			<p class="price"><sup>$</sup><%= price %><sub>/person</sub></p>
-			<button class="btn btn-block btn-action btn-book">Book seats</button>
-			<a href="">Cancellation policy</a>
+			<% if( self.fromUpcoming ) { %>
+				<button class="btn btn-block btn-action btn-cancel">Cancel BoatDay</button>
+			<% } else { %>
+				<button class="btn btn-block btn-action btn-book">Book seats</button>
+			<% } %>
+			<a class="btn-cancel">Cancellation policy</a>
 		</div>
 	</div>
 </div>

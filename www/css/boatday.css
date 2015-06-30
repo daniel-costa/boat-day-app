@@ -96,7 +96,7 @@ div.content h6 {
 }
 div.content p,
 div.content td,
-div.content sub,
+div.content sup,
 div.content sub {
   color: #546e7a;
 }
@@ -645,9 +645,11 @@ div.content a.btn.loading:after {
   text-shadow: 0px 4px 4px rgba(13, 13, 14, 0.25), 4px 0px 4px rgba(13, 13, 14, 0.25), 0px -4px 4px rgba(13, 13, 14, 0.25), -4px 0px 4px rgba(13, 13, 14, 0.25);
 }
 .screen-boatdays .boatday-card .boat-img .price sup {
+  color: white;
   font-size: 0.7em;
 }
 .screen-boatdays .boatday-card .boat-img .price sub {
+  color: white;
   font-size: 0.4em;
 }
 .screen-boatdays .boatday-card .boat-img .owner .profile-picture,
@@ -771,7 +773,11 @@ div.content a.btn.loading:after {
   margin-top: -40px;
   background: rgba(43, 51, 54, 0.85);
 }
+.screen-boatdays-past .boatday-card .header * {
+  color: white;
+}
 .screen-boatdays-past .boatday-card .header .left,
+.screen-boatdays-past .boatday-card .header .center,
 .screen-boatdays-past .boatday-card .header .right {
   width: 50%;
   text-align: center;
@@ -779,6 +785,11 @@ div.content a.btn.loading:after {
   font-weight: 500;
   font-size: 0.8em;
   margin-top: 20px;
+}
+.screen-boatdays-past .boatday-card .header .center {
+  width: 100%;
+  line-height: 80px;
+  margin-top: 0px;
 }
 .screen-boatdays-past .boatday-card .header .left {
   float: left;
@@ -832,7 +843,7 @@ div.content a.btn.loading:after {
   top: 2px;
 }
 .screen-boatday .content h1 {
-  line-height: 100px;
+  line-height: 60px;
   font-size: 1.1em;
   font-weight: 400;
 }
@@ -884,29 +895,15 @@ div.content a.btn.loading:after {
   margin-top: -30px;
   margin-left: -30px;
 }
-.screen-boatday .left {
+.screen-boatday .features p {
   width: 50%;
   float: left;
   padding: 0px 10px;
   margin-bottom: 20px;
-}
-.screen-boatday .right {
-  width: 50%;
-  float: right;
-  padding: 0px 10px;
-  margin-bottom: 20px;
-}
-.screen-boatday .left p,
-.screen-boatday .right p {
   font-weight: 500;
   font-size: 0.7em;
 }
-.screen-boatday .left .no,
-.screen-boatday .right .no {
-  color: #b2c0cc;
-}
-.screen-boatday .left img,
-.screen-boatday .right img {
+.screen-boatday .features img {
   width: 10px;
   margin-right: 5px;
 }
@@ -957,15 +954,28 @@ div.content a.btn.loading:after {
 }
 .screen-boatday .badge-price sup {
   font-size: 0.7em;
+  color: white;
 }
 .screen-boatday .badge-price sub {
   font-size: 0.4em;
+  color: white;
 }
 .screen-boatday .slide .img {
   height: 200px;
   width: 100%;
   background: center center no-repeat;
   background-size: cover;
+}
+.screen-boatday .confirmed-guests .guest {
+  text-align: center;
+  width: 25%;
+  font-size: 0.7em;
+  color: #13a7bf;
+  float: left;
+  margin-bottom: 20px;
+}
+.screen-boatday .confirmed-guests .guest .profile-picture {
+  margin: auto;
 }
 .screen-boatday-book p {
   text-align: center;

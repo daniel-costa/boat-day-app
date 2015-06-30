@@ -11,11 +11,57 @@ define([
 
 		events: {
 			'click .btn-book': 'book',
+			'click .btn-cancel': 'cancel'
 		},
 
 		statusbar: true,
 		
 		drawer: false,
+
+		fromUpcoming: false,
+
+		seatRequest: null,
+
+		cancel: function() {
+			
+			var self = this;
+			
+			var prompt = function(buttonIndex) {
+
+				switch(buttonIndex) {
+					case 1: 
+					
+						break;
+					case 2: 
+
+						self.seatRequest.save({ status: 'cancelled-guest' }).then(function() {
+							self._info('BoatDay Cancelled. You can find this event in the Past BoatDays section');
+							Parse.history.navigate('#/boatdays-upcoming', true);
+						});
+						
+						break;
+				}
+
+				return ;
+			};
+			
+			navigator.notification.confirm(
+				"Are you sure you want to cancel the BoatDay?", 
+				prompt, 
+				"BoatDay Cancellation",
+				["No", "Yes"]
+			);
+
+		},
+
+		initialize: function(data) {
+
+			this.fromUpcoming = data.fromUpcoming;
+
+			if( typeof data.seatRequest !== typeof undefined) {
+				this.seatRequest = data.seatRequest;
+			}
+		},
 
 		book: function() {
 
@@ -40,6 +86,23 @@ define([
 
 				_.each(files, function(fh) {
 					self.$el.find('.slide-group').append('<div class="slide"><div class="img" style="background-image:url('+fh.get('file').url()+')"></div></div>');
+				});
+				
+			});
+
+			var query = this.model.relation('seatRequests').query();
+			query.equalTo('status', 'approved');
+			query.include('profile');
+			query.find().then(function(requests) {
+				console.log(requests);
+
+				if(requests.length == 0) {
+					self.$el.find('.confirmed-guests').html('No confirmed guests');
+					return;
+				}
+
+				_.each(requests, function(request) {
+					self.$el.find('.confirmed-guests .inner').append('<div class="guest"><div class="profile-picture" style="background-image:url('+request.get('profile').get('profilePicture').url()+')"></div>'+request.get('profile').get('displayName')+'</div>');
 				});
 				
 			});

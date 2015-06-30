@@ -9,7 +9,9 @@ define([
 			status: "pending",
 			seats: null,
 			card: null,
-			boatday: null
+			boatday: null,
+			contribution: null,
+			cancelled: false,
 		},
 
 	});

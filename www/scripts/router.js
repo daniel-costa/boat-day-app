@@ -8,13 +8,12 @@ define([
 	'views/BoatDaysView',
 	'views/BoatDaysPastView',
 	'views/BoatDaysUpcomingView',
-	'views/BoatDayView',
 	'views/AboutUsView',
 	'views/TermsView',
 	'views/NotificationsView'
 ], function(
 	SignInView, ProfileInfoView, ProfilePictureView, ProfilePaymentsView, ProfilePaymentsAddView, 
-	BoatDaysHomeView, BoatDaysView, BoatDaysPastView, BoatDaysUpcomingView, BoatDayView, AboutUsView, TermsView, NotificationsView) {
+	BoatDaysHomeView, BoatDaysView, BoatDaysPastView, BoatDaysUpcomingView, AboutUsView, TermsView, NotificationsView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -24,7 +23,6 @@ define([
 			'boatdays': 'showBoatDays',
 			'boatdays-upcoming': 'showBoatDaysUpcoming',
 			'boatdays-past': 'showBoatDaysPast',
-			'boatday/:id': 'showBoatDay',
 			'profile-info': 'showProfileInfo',
 			'profile-picture': 'showProfilePicture',
 			'profile-payments': 'showProfilePayments',
@@ -144,24 +142,6 @@ define([
 
 				self.render(new BoatDaysUpcomingView());
 
-			};
-
-			self.handleSignedIn(cb);
-
-		},
-
-		showBoatDay: function(id) {
-
-			var self = this;
-			var cb = function() {
-
-				var query = new Parse.Query(Parse.Object.extend('BoatDay'));
-				query.include('boat');
-				query.include('captain');
-				query.get(id).then(function(boatday) {
-					self.render(new BoatDayView({ model: boatday }));	
-				})
-				
 			};
 
 			self.handleSignedIn(cb);

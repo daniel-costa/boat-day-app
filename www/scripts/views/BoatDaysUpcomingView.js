@@ -1,8 +1,9 @@
 define([
 'views/BaseView',
+'views/BoatDayView',
 'text!templates/BoatDaysUpcomingTemplate.html',
 'text!templates/BoatDaysUpcomingCardTemplate.html',
-], function(BaseView, BoatDaysUpcomingTemplate, BoatDaysUpcomingCardTemplate){
+], function(BaseView, BoatDayView, BoatDaysUpcomingTemplate, BoatDaysUpcomingCardTemplate){
 	var BoatDaysUpcomingView = BaseView.extend({
 
 		className: 'screen-boatdays-upcoming',
@@ -10,6 +11,7 @@ define([
 		template: _.template(BoatDaysUpcomingTemplate),
 
 		events: {
+			'click .boatday-card': 'showBoatDay'
 		},
 
 		statusbar: true,
@@ -17,6 +19,18 @@ define([
 		drawer: true,
 		
 		boatdays: {},
+
+		requests: {},
+
+		showBoatDay: function(event) {
+
+			this.modal(new BoatDayView({ 
+				model : this.boatdays[$(event.currentTarget).attr('data-id')], 
+				fromUpcoming: true,
+				seatRequest:  this.requests[$(event.currentTarget).attr('request-id')]
+			}));
+
+		},
 
 		render: function( ) {
 
@@ -28,21 +42,24 @@ define([
 			innerQuery.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
 
 			var query = Parse.User.current().get('profile').relation('requests').query();
-			query.include('boatday');
-			// query.include('boatday.boat');
-			query.include('boatday.captain');
+			query.containedIn('status', ['approved', 'pending']);
 			query.matchesQuery("boatday", innerQuery);
+			query.include('boatday');
+			query.include('boatday.boat');
+			query.include('boatday.captain');
 			query.find().then(function(requests) {
 
 				var tpl = _.template(BoatDaysUpcomingCardTemplate);
 
 				self.boatdays = {};
+				self.requests = {};
 
 				_.each(requests, function(request) {
 					
 					var boatday = request.get('boatday');
 
 					self.boatdays[boatday.id] = boatday;
+					self.requests[request.id] = request;
 
 					var data = {
 						status: request.get('status'),
@@ -55,8 +72,9 @@ define([
 						position: boatday.get('locationText'),
 						captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
 						captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
-						captainRating: 5,
+						captainRating: boatday.get('captain').get('rating') ? boatday.get('captain').get('rating') : null,
 						takenSeats: 1,
+						seatRequestId: request.id
 					}
 
 					self.$el.find('.content').append(tpl(data));
