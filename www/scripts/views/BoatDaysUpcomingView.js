@@ -1,9 +1,10 @@
 define([
 'views/BaseView',
 'views/BoatDayView',
+'views/BoatDayChatView',
 'text!templates/BoatDaysUpcomingTemplate.html',
 'text!templates/BoatDaysUpcomingCardTemplate.html',
-], function(BaseView, BoatDayView, BoatDaysUpcomingTemplate, BoatDaysUpcomingCardTemplate){
+], function(BaseView, BoatDayView, BoatDayChatView, BoatDaysUpcomingTemplate, BoatDaysUpcomingCardTemplate){
 	var BoatDaysUpcomingView = BaseView.extend({
 
 		className: 'screen-boatdays-upcoming',
@@ -11,7 +12,8 @@ define([
 		template: _.template(BoatDaysUpcomingTemplate),
 
 		events: {
-			'click .boatday-card': 'showBoatDay'
+			'click .boatday-card': 'showBoatDay',
+			'click .btn-chat': 'showChat',
 		},
 
 		statusbar: true,
@@ -30,6 +32,13 @@ define([
 				seatRequest:  this.requests[$(event.currentTarget).attr('request-id')]
 			}));
 
+		},
+
+		showChat: function(event) {
+
+			event.preventDefault();
+			this.modal(new BoatDayChatView({ model : this.model }));
+			
 		},
 
 		render: function( ) {
