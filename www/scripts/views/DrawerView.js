@@ -7,6 +7,14 @@ define([
 		className: 'snap-drawers',
 
 		template: _.template(DrawerTemplate),
+
+		events: {
+			'click .top': 'profile'
+		},
+
+		profile: function() {
+			Parse.history.navigate('profile-picture', true);
+		}
 		
 	});
 	return DrawerView;

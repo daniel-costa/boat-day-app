@@ -1,8 +1,9 @@
 define([
 'views/BaseView',
 'views/BoatDayBookView',
+'views/BoatDayCancellationView',
 'text!templates/BoatDayTemplate.html'
-], function(BaseView, BoatDayBookView, BoatDayTemplate){
+], function(BaseView, BoatDayBookView, BoatDayCancellationView, BoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatday modal',
@@ -11,7 +12,8 @@ define([
 
 		events: {
 			'click .btn-book': 'book',
-			'click .btn-cancel': 'cancel'
+			'click .btn-cancel': 'cancel',
+			'click .btn-cancel-modal': 'cancelModal'
 		},
 
 		statusbar: true,
@@ -21,6 +23,12 @@ define([
 		fromUpcoming: false,
 
 		seatRequest: null,
+
+		cancelModal: function() {
+			
+			this.modal(new BoatDayCancellationView({ model : this.model }));
+
+		},
 
 		cancel: function() {
 			
@@ -61,6 +69,7 @@ define([
 			if( typeof data.seatRequest !== typeof undefined) {
 				this.seatRequest = data.seatRequest;
 			}
+
 		},
 
 		book: function() {

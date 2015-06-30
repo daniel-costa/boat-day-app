@@ -17,6 +17,7 @@ define([
 		events: {
 			'click header .btn-drawer' : 'openDrawer',
 			'click .snap-drawers a': 'closeDrawer',
+			'click .snap-drawers .top': 'closeDrawer',
 			'click a.open-browser': 'openExternalLink',
 			'globalError': 'displayError',
 			'globalInfo': 'displayInfo',

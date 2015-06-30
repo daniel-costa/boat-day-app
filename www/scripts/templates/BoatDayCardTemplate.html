@@ -15,14 +15,14 @@
 	</div>
 	<div class="details">
 		<h1><%= title %></h1>
+		<div class="seats">
+			<strong><%= availableSeats - bookedSeats %></strong>/<%= availableSeats %> seats
+		</div>
 		<div class="date">
 			<%= dateDisplay + ', ' + timeDisplay %>
 		</div>
 		<div class="duration">
 			Duration: <%= duration %> hours
-		</div>
-		<div class="seats">
-			<strong><%= availableSeats %></strong> seats
 		</div>
 		<div class="position">
 			<strong><span class="fa fa-map-marker"></span></strong> <%= position %>

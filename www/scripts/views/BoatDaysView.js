@@ -71,12 +71,13 @@ define([
 						
 						var data = {
 							id: boatday.id,
-							price: boatday.get('price'),
+							price: self.getGuestPrice(boatday.get('price')),
 							title: boatday.get('name'),
 							dateDisplay: self.dateParseToDisplayDate(boatday.get('date')),
 							timeDisplay: self.departureTimeToDisplayTime(boatday.get('departureTime')),
 							duration: boatday.get('duration'),
 							availableSeats: boatday.get('availableSeats'),
+							bookedSeats: boatday.get('bookedSeats'),
 							position: ((seg.length > 2 ? seg[seg.length - 2] + ',' : '') + seg[seg.length - 1]).trim(),
 							captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
 							captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
