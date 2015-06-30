@@ -48,6 +48,12 @@
 		<div class="map" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=<%= self.model.get('location').latitude %>,<%= self.model.get('location').longitude %>&amp;zoom=14&amp;size=400x260)">
 			<img src="resources/map-pin.png" />
 		</div>
+
+		<% if( status == 'approved' ) { %>
+			<p class="position">
+				<strong><span class="fa fa-map-marker"></span></strong> <%= position %>
+			</p>
+		<% } %>
 		
 		<label>Confirmed Guests</label>
 		<div class="confirmed-guests">

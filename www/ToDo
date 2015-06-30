@@ -5,11 +5,9 @@
 - Run fb in background signIn 
 - "Snapshotting a view that has not been rendered results in an empty snapshot. Ensure your view has been rendered at least once before snapshotting or snapshot after screen updates." -> what is that?
 
-- Delete emergency?
-- Delete terms?
 - Implement Notification for each kind
 - Display text when calling fieldError
 - Check and change Ratchet for SyntaxError: DOM Exception 12: An invalid or illegal string was specified.
 - Add loader to credit card page
 - BoatDayView add '...' after long text.
-- Take view from subViews in modal when closing by the button
+- Take real ratings from parse in the app
