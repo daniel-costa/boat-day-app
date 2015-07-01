@@ -1,12 +1,12 @@
 define([
 'views/BaseView',
-'text!templates/ProfileReportTemplate.html'
-], function(BaseView, ProfileReportTemplate){
-	var ChatReportView = BaseView.extend({
+'text!templates/ReportTemplate.html'
+], function(BaseView, ReportTemplate){
+	var ReportView = BaseView.extend({
 
 		className: 'screen-profile-report modal',
 
-		template: _.template(ProfileReportTemplate),
+		template: _.template(ReportTemplate),
 
 		events: {
 			'click .btn-send': 'report'
@@ -43,5 +43,5 @@ define([
 
 		
 	});
-	return ChatReportView;
+	return ReportView;
 });

@@ -9,10 +9,10 @@ define([
 			status: "creation",
 			action: null,
 			user: null,
-			profile: null,
-			profileReported: null, 
-			boatdayReported: null,
-			message: null,
+			fromProfile: null,
+			profile: null, 
+			boatday: null,
+			message: null
 		},
 
 		validate: function(attributes) {

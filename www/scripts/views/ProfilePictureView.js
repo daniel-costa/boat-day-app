@@ -1,7 +1,7 @@
 define([
 'views/BaseView',
 'text!templates/ProfilePictureTemplate.html'
-], function(BaseView, ProfileReportView, ProfilePictureTemplate){
+], function(BaseView, ProfilePictureTemplate){
 	var ProfilePictureView = BaseView.extend({
 
 		className: 'screen-profile-picture',

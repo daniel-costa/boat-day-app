@@ -1,5 +1,5 @@
 define([
-'model/ReportModel',
+'models/ReportModel',
 'views/BaseView',
 'views/BoatDayBookView',
 'views/ReportView',
@@ -33,11 +33,13 @@ define([
 
 		report: function() {
 
-			var m = ReportModel({
+			console.log('report');
+			var m = new ReportModel({
 				action: 'boatday',
 				boatday: this.model
 			});
-
+			console.log(m);
+			console.log(this.model);
 			this.modal(new ReportView({ model : m }));
 
 		},

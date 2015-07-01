@@ -1,5 +1,5 @@
 define([
-'model/ReportModel',
+'models/ReportModel',
 'models/ChatMessageModel',
 'views/BaseView',
 'views/ReportView',
@@ -34,7 +34,7 @@ define([
 
 		report: function() {
 
-			var m = ReportModel({
+			var m = new ReportModel({
 				action: 'boatday-chat',
 				boatday: this.model
 			});
