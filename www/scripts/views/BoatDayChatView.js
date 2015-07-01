@@ -1,7 +1,8 @@
 define([
 'views/BaseView',
+'models/ChatMessageModel',
 'text!templates/BoatDayChatTemplate.html'
-], function(BaseView, BoatDayChatTemplate){
+], function(BaseView, ChatMessageModel, BoatDayChatTemplate){
 	var BoatDayChatView = BaseView.extend({
 
 		className: 'screen-boatday-chat modal',
@@ -21,7 +22,8 @@ define([
 			new ChatMessageModel({
 				message: this._in('text'),
 				boatday: this.model,
-				profile: Parse.User.current().get('profile')
+				profile: Parse.User.current().get('profile'),
+				addToBoatDay: true
 			}).save().then(function(message) {
 				
 				self.appendMessage(message);
