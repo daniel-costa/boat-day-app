@@ -4,18 +4,24 @@
 			<div class="owner">
 				<div class="header">
 					<% if(status == 'approved')  { %>
-						<div class="left">
-							Your contribution<br/>
-							<sup>$</sup><strong><%= contribution %></strong>
-						</div>
-						<div class="right">
-							Your rating<br/>
-							<% if( rating ) { %>
-								<img src="resources/rating-<%= rating %>.png" />
-							<% } else { %>
-								(no ratings yet)
-							<% } %>
-						</div>
+						<% if( contribution ) { %>
+							<div class="left">
+								Your contribution<br/>
+								<sup>$</sup><strong><%= contribution %></strong>
+							</div>
+							<div class="right">
+								Your rating<br/>
+								<% if( rating ) { %>
+									<img src="resources/rating-<%= rating %>.png" />
+								<% } else { %>
+									(no ratings yet)
+								<% } %>
+							</div>
+						<% } else { %>
+							<div class="center btn-pay">
+								Pay &amp; Rate this BoatDay
+							</div>
+						<% } %>
 					<% } else { %>
 						<div class="center">
 							<%= status == 'cancelled-guest' ? 'You cancelled this event' : '' %>

@@ -1,5 +1,5 @@
 <div class="line <%= message.get('profile').id == Parse.User.current().get('profile').id ? 'me' : '' %>">
-	<div class="profile-picture" style="background-image: url(<%= message.get('profile').get('profilePicture').url() %>)"></div>
+	<div class="profile-picture" style="background-image: url(<%= message.get('profile').get('profilePicture').url() %>)"></div>
 	<div class="text">
 		<div class="speech-bubble">
 			<p><%= message.get('message') %></p>

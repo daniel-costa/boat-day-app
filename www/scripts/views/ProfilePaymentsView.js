@@ -20,7 +20,11 @@ define([
 
 			Parse.User.current().get('profile').relation('cards').query().find().then(function(cards) {
 				
-				self.$el.find('.cards-list .table-view').html('');
+				self.$el.find('.loading').remove();
+				
+				if( cards.length == 0) {
+					self.$el.find('.cards-list .table-view').hide();
+				}
 
 				_.each(cards, function(card) {
 					self.$el.find('.cards-list .table-view').append('<li class="table-view-cell text-center">'+card.get('brand')+': **** **** **** '+card.get('last4')+'</li>');

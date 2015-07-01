@@ -11,7 +11,8 @@ define([
 		template: _.template(BoatDayChatTemplate),
 
 		events: {
-			'click .btn-send': 'send'
+			'click .btn-send': 'send',
+			'keypress input': 'watchEnter',
 		},
 
 		statusbar: true,
@@ -19,6 +20,14 @@ define([
 		drawer: false,
 
 		lastMessage: null,
+
+		watchEnter: function(event) {
+			console.log(event.keyCode);
+			if( event.keyCode != 13 ) {
+				event.preventDefault();
+				self.send();
+			}
+		},
 
 		render: function() {
 
@@ -45,6 +54,8 @@ define([
 		execQuery: function(query) {
 
 			var self = this;
+
+			self.$el.find('.loading').hide();
 
 			query.find().then(function(messages) {
 
@@ -73,6 +84,10 @@ define([
 
 			var self = this;
 
+			if( this._in('text').val() == '' ) {
+				return;
+			}
+
 			new ChatMessageModel({
 				message: this._in('text').val(),
 				boatday: this.model,
@@ -80,6 +95,7 @@ define([
 				addToBoatDay: true
 			}).save().then(function(message) {
 				
+				self.lastMessage = message;
 				self._in('text').val();
 				self.appendMessage(message);
 

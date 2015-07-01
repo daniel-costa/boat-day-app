@@ -59,6 +59,8 @@ define([
 			query.include('boatday.captain');
 			query.find().then(function(requests) {
 
+				self.$el.find('.loading').remove();
+				
 				var tpl = _.template(BoatDaysUpcomingCardTemplate);
 
 				self.boatdays = {};

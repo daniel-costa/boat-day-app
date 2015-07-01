@@ -16,7 +16,11 @@
 	<div class="details">
 		<h1><%= title %></h1>
 		<div class="seats">
-			<strong><%= availableSeats - bookedSeats %></strong>/<%= availableSeats %> seats
+			<% if( availableSeats == bookedSeats ) { %>
+				<strong>Fully</strong><br/>Booked
+			<% } else { %>
+				<strong><%= availableSeats - bookedSeats %></strong>/<%= availableSeats %><br/>seats
+			<% } %>
 		</div>
 		<div class="date">
 			<%= dateDisplay + ', ' + timeDisplay %>

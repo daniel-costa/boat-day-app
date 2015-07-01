@@ -110,7 +110,7 @@ define([
 				}
 
 				_.each(requests, function(request) {
-					self.$el.find('.confirmed-guests .inner').append('<div class="guest"><div class="profile-picture" style="background-image:url('+request.get('profile').get('profilePicture').url()+')"></div>'+request.get('profile').get('displayName')+'</div>');
+					self.$el.find('.confirmed-guests .inner').append('<div class="guest"><div class="profile-picture" style="background-image:url('+request.get('profile').get('profilePicture').url()+')"></div>'+request.get('profile').get('displayName')+'<br/><span> '+request.get('seats')+' seat'+ (request.get('seats') == 1 ? '' : 's') +'</span></div>');
 				});
 				
 			});

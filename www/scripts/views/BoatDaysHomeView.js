@@ -65,22 +65,15 @@ define([
 			var btn = $(event.currentTarget);
 			var category = btn.attr('bd-category');
 
-			if( self.isLoading(btn) ) {
-				return;
-			}
-
-			self.loading(btn);
-
 			var profileUpdatedSuccess = function(profile) {
 				
-				self.loading();
 				Parse.history.navigate('boatdays', true);
 
 			};
 
 			var profileUpdatedError = function(error) {
 
-				console.log('error');
+				console.log(error);
 				self._error('Oops... something went wrong. Try again');
 
 			}

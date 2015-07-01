@@ -20,20 +20,16 @@ div.content a.btn.loading:after {
 	opacity: 1;
 }
 
-#loader {
-	position : fixed;
-	top: 0px;
-	left: 0px;
-	height: 100%;
-	width: 100%;
-	z-index: 100;
-	background: rgba(68, 65, 82, 0.5);
-	display: none;
+
+div.content button.btn.facebook.loading:after,
+div.content a.btn.facebook.loading:after {
+	background: url(../resources/logo-30-white.png) center center no-repeat;
 }
 
-#loader .loader-icon {
+div.loading {
 	width: 100%;
 	height: 100%;
+	position: absolute;
 	background: url(../resources/logo-60.png) center center no-repeat;
 	-webkit-animation: "pulse1" 0.8s ease-in-out alternate infinite;
 	opacity: 1;

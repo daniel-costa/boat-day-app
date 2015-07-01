@@ -67,6 +67,8 @@ define([
 				query.matchesQuery('boat', queryBoatApproved);
 				query.find().then(function(boatdays) {
 
+					self.$el.find('.loading').remove();
+					
 					var tpl = _.template(BoatDayCardTemplate);
 
 					self.boatdays = {};

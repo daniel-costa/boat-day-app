@@ -35,13 +35,14 @@ define([
 
 			new FeedbackModel().save({
 				category: 'guest-feedback',
-				feedback: this._in('feedback').val(), 
+				feedback: this._in('feedback').val(),
 				user: Parse.User.current(),
 				status: 'unread',
 				file1: null,
 				file2: null,
 				file3: null
 			}).then(function() {
+				this._in('feedback').val('');
 				self._info('Thank you for contacting the BoatDay team, we will get back to you soon.');
 			}, function(error) {
 				self.handleSaveErrors(error);

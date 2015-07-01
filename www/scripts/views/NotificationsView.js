@@ -32,6 +32,12 @@ define([
 
 				self.notifications = {};
 
+				self.$el.find('.loading').remove();
+
+				if( matches.length == 0) {
+					self.$el.find('.notification-list').hide();
+				}
+
 				_.each(matches, function(notification) {
 
 					self.notifications[notification.id] = notification;
@@ -46,7 +52,6 @@ define([
 						boatName: notification.get("boat") ? notification.get("boat").get('name') : null,
 						boatdayId: notification.get("boatday") ? notification.get("boatday").id : null,
 						boatdayName: notification.get("boatday") ? notification.get("boatday").get('name') : null,
-						
 						profilePicture: notification.get("fromTeam") ? 'resources/ico-bd.png' : notification.get("from").get('profilePicture').url()
 					};
 
