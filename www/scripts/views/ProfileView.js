@@ -2,7 +2,7 @@ define([
 'views/BaseView',
 'text!templates/ProfileTemplate.html'
 ], function(BaseView, ProfileTemplate){
-	var ChatReportView = BaseView.extend({
+	var ProfileView = BaseView.extend({
 
 		className: 'screen-profile-view modal',
 
@@ -49,5 +49,5 @@ define([
 
 		
 	});
-	return ChatReportView;
+	return ProfileView;
 });

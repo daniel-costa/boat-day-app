@@ -1,11 +1,12 @@
 define([
+'model/ReportModel',
 'views/BaseView',
 'views/BoatDayBookView',
-'views/BoatDayReportView',
+'views/ReportView',
 'views/BoatDayCancellationView',
 'views/ProfileView',
 'text!templates/BoatDayTemplate.html'
-], function(BaseView, BoatDayBookView, BoatDayReportView, BoatDayCancellationView, ProfileView, BoatDayTemplate){
+], function(ReportModel, BaseView, BoatDayBookView, ReportView, BoatDayCancellationView, ProfileView, BoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatday modal',
@@ -16,8 +17,8 @@ define([
 			'click .btn-book': 'book',
 			'click .btn-cancel': 'cancel',
 			'click .btn-cancel-modal': 'cancelModal', 
-			'click .report': 'reportBoatDay', 
-			'click .profile-picture': 'showProfile'
+			'click .report': 'report', 
+			'click .profile-picture': 'profile'
 		},
 
 		statusbar: true,
@@ -29,6 +30,17 @@ define([
 		seatRequest: null,
 
 		profiles: {},
+
+		report: function() {
+
+			var m = ReportModel({
+				action: 'boatday',
+				boatday: this.model
+			});
+
+			this.modal(new ReportView({ model : m }));
+
+		},
 
 		cancelModal: function() {
 			
@@ -78,15 +90,9 @@ define([
 
 		},
 
-		showProfile: function() {
+		profile: function() {
 
-			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).closest('.profile-picture').attr('data-id')] }));
-			//console.log(Parse.User.current().get('profile'));
-		},
-
-		reportBoatDay: function() {
-
-			this.modal(new BoatDayReportView({ model : this.model }));
+			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
 		},
 
 		book: function() {
@@ -115,8 +121,10 @@ define([
 				});
 				
 			});
+			
+			self.profiles[self.model.get('captain').id] = self.model.get('captain');
 
-			var query = this.model.relation('seatRequests').query();
+			var query = self.model.relation('seatRequests').query();
 			query.equalTo('status', 'approved');
 			query.include('profile');
 			query.find().then(function(requests) {
@@ -127,7 +135,8 @@ define([
 				}
 
 				_.each(requests, function(request) {
-					self.$el.find('.confirmed-guests .inner').append('<div class="guest"><div class="profile-picture" style="background-image:url('+request.get('profile').get('profilePicture').url()+')"></div>'+request.get('profile').get('displayName')+'<br/><span> '+request.get('seats')+' seat'+ (request.get('seats') == 1 ? '' : 's') +'</span></div>');
+					self.profiles[request.get('profile').id] = request.get('profile');
+					self.$el.find('.confirmed-guests .inner').append('<div class="guest"><div class="profile-picture" data-id="'+request.get('profile').id+'" style="background-image:url('+request.get('profile').get('profilePicture').url()+')"></div>'+request.get('profile').get('displayName')+'<br/><span> '+request.get('seats')+' seat'+ (request.get('seats') == 1 ? '' : 's') +'</span></div>');
 				});
 				
 			});
