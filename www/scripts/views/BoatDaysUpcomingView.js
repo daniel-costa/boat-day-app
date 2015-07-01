@@ -103,7 +103,7 @@ define([
 
 
 				if( requests.length == 0 ) {
-					self.$el.find('.content').html($('<h1>').text('empty'));
+					self.$el.find('.content').html($('<h4>').text("You don't have any upcoming BoatDays... yet."));
 				}
 
 			}, function(error) {

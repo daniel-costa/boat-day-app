@@ -1,7 +1,8 @@
 define([
 'views/BaseView',
+'views/TermsView',
 'text!templates/AboutUsTemplate.html'
-], function(BaseView, AboutUsTemplate){
+], function(BaseView, TermsView, AboutUsTemplate){
 	var AboutUsView = BaseView.extend({
 
 		className: 'screen-about-us',
@@ -9,12 +10,18 @@ define([
 		template: _.template(AboutUsTemplate),
 
 		events: {
-			'click .btn-send': 'sendFeedback'
+			'click .btn-send': 'sendFeedback', 
+			'click .terms-modal': 'OpenTermsModal'
 		},
 
 		statusbar: true,
 		
 		drawer: true,
+
+		OpenTermsModal: function() {
+
+			this.modal(new TermsView());
+		},
 
 		sendFeedback: function(event) {
 
@@ -44,6 +51,7 @@ define([
 			}).then(function() {
 				this._in('feedback').val('');
 				self._info('Thank you for contacting the BoatDay team, we will get back to you soon.');
+				self.$el.find('.feedback')[0].reset();
 			}, function(error) {
 				self.handleSaveErrors(error);
 			});

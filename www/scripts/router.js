@@ -9,11 +9,10 @@ define([
 	'views/BoatDaysPastView',
 	'views/BoatDaysUpcomingView',
 	'views/AboutUsView',
-	'views/TermsView',
 	'views/NotificationsView'
 ], function(
 	SignInView, ProfileInfoView, ProfilePictureView, ProfilePaymentsView, ProfilePaymentsAddView, 
-	BoatDaysHomeView, BoatDaysView, BoatDaysPastView, BoatDaysUpcomingView, AboutUsView, TermsView, NotificationsView) {
+	BoatDaysHomeView, BoatDaysView, BoatDaysPastView, BoatDaysUpcomingView, AboutUsView, NotificationsView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -28,7 +27,7 @@ define([
 			'profile-payments': 'showProfilePayments',
 			'profile-payments-add': 'showProfilePaymentsAdd',
 			'about-us': 'showAboutUs',
-			'terms': 'showTerms',
+			//'terms': 'showTerms',
 			'notifications': 'showNotifications',
 			'*actions': 'showBoatDaysHome'
 		},
@@ -40,19 +39,6 @@ define([
 			Parse.User.logOut();
 			facebookConnectPlugin.logout();
 			this.showSignInView();
-
-		},
-
-		showTerms: function() {
-
-			var self = this;
-			var cb = function(profile) {
-
-				self.render(new TermsView());
-				
-			};
-
-			self.handleSignedIn(cb);
 
 		},
 

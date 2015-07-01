@@ -1,7 +1,8 @@
 define([
 'views/BaseView',
+'views/ProfileReportView',
 'text!templates/ProfilePictureTemplate.html'
-], function(BaseView, ProfilePictureTemplate){
+], function(BaseView, ProfileReportView, ProfilePictureTemplate){
 	var ProfilePictureView = BaseView.extend({
 
 		className: 'screen-profile-picture',
@@ -12,6 +13,7 @@ define([
 			'click .take-picture': 'takePicture',
 			'click .open-gallery': 'openGallery',
 			'click .save': 'save',
+			'click .report': 'reportProfile'
 		},
 
 		profileSetup: false,
@@ -83,6 +85,12 @@ define([
 			};
 
 			this.model.save(data).then(profileUpdateSuccess, profileUpdateError);
+
+		},
+
+		reportProfile: function() {
+
+			this.modal(new ProfileReportView({ model : this.model }));
 
 		},
 

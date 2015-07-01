@@ -1,9 +1,11 @@
 define([
 'views/BaseView',
 'views/BoatDayBookView',
+'views/BoatDayReportView',
 'views/BoatDayCancellationView',
+'views/ProfileView',
 'text!templates/BoatDayTemplate.html'
-], function(BaseView, BoatDayBookView, BoatDayCancellationView, BoatDayTemplate){
+], function(BaseView, BoatDayBookView, BoatDayReportView, BoatDayCancellationView, ProfileView, BoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatday modal',
@@ -13,7 +15,9 @@ define([
 		events: {
 			'click .btn-book': 'book',
 			'click .btn-cancel': 'cancel',
-			'click .btn-cancel-modal': 'cancelModal'
+			'click .btn-cancel-modal': 'cancelModal', 
+			'click .report': 'reportBoatDay', 
+			'click .profile-picture': 'showProfile'
 		},
 
 		statusbar: true,
@@ -23,6 +27,8 @@ define([
 		fromUpcoming: false,
 
 		seatRequest: null,
+
+		profiles: {},
 
 		cancelModal: function() {
 			
@@ -70,6 +76,17 @@ define([
 				this.seatRequest = data.seatRequest;
 			}
 
+		},
+
+		showProfile: function() {
+
+			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).closest('.profile-picture').attr('data-id')] }));
+			//console.log(Parse.User.current().get('profile'));
+		},
+
+		reportBoatDay: function() {
+
+			this.modal(new BoatDayReportView({ model : this.model }));
 		},
 
 		book: function() {

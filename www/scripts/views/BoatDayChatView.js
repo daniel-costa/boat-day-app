@@ -1,9 +1,10 @@
 define([
 'views/BaseView',
 'models/ChatMessageModel',
+'views/ChatReportView',
 'text!templates/BoatDayChatTemplate.html',
 'text!templates/BoatDayChatCardTemplate.html',
-], function(BaseView, ChatMessageModel, BoatDayChatTemplate, BoatDayChatCardTemplate){
+], function(BaseView, ChatMessageModel, ChatReportView, BoatDayChatTemplate, BoatDayChatCardTemplate){
 	var BoatDayChatView = BaseView.extend({
 
 		className: 'screen-boatday-chat modal',
@@ -13,6 +14,7 @@ define([
 		events: {
 			'click .btn-send': 'send',
 			'keypress input': 'watchEnter',
+			'click .report': 'reportChat'
 		},
 
 		statusbar: true,
@@ -27,6 +29,11 @@ define([
 				event.preventDefault();
 				self.send();
 			}
+		},
+
+		reportChat: function() {
+
+			this.modal(new ChatReportView({ model : this.model }));
 		},
 
 		render: function() {

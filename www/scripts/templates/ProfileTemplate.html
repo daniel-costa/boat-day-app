@@ -1,0 +1,30 @@
+<header class="bar bar-nav">
+	<a class="icon fa fa-times pull-left close-me"></a>
+	<h1 class="title">Profile</h1>
+</header>
+<div class="content">
+	<div class="content-padded text-center">
+		<div class="form-control">
+			<label for="name">Profile picture</label>
+			
+		</div>
+		<div class="form-control">
+			<label for="name">Name</label>
+			<div>
+				<%= self.model.get('displayName') %>
+			</div>	
+		</div>
+		<div class="form-control">
+			<label for="name">About</label>
+			<div>
+				<%= self.model.get('about') %>
+			</div>	
+		</div>
+		<div class="form-control">
+			<label for="name">Mutual friends</label>
+			<div>
+				
+			</div>	
+		</div>
+	</div>
+</div>

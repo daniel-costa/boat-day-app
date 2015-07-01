@@ -107,7 +107,7 @@ define([
 
 
 					if( boatdays.length == 0 ) {
-						self.$el.find('.content').html($('<h1>').text('empty'));
+						self.$el.find('.content').html($('<h1>').text('Currently no BoatDays for this category.'));
 					}
 
 				}, function(error) {
