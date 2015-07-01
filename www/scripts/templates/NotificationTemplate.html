@@ -7,3 +7,32 @@
 		<span class="clear"></span>
 	</p>
 </div>
+<div class="content">
+	<% if( action == "request-approved" ) { %>
+		Your request to join the boatday has been approved.
+	<% } %>
+
+	<% if( action == "request-denied" ) { %>
+		Your request to join the boatday has been denied.
+	<% } %>
+
+	<% if( action == "request-cancelled" ) { %>
+		Your request to join the boatday has been cancelled.
+	<% } %>
+
+	<% if( action == "boatday-cancelled" ) { %>
+		Sorry to tell you that the BoatDay you are going to participate has been cancelled.
+	<% } %>
+
+	<% if( action == "auto-payment" ) { %>
+		Your payment has been changed to auto-payment.
+	<% } %>
+
+	<% if( action == "boatday-message" ) { %>
+		<%= sender.get('displayName')%> just sent you a message regarding <%= boatdayName %>
+	<% } %>
+
+	<% if( action == "boatday-rating" ) { %>
+		Boatday rating.
+	<% } %>
+</div>

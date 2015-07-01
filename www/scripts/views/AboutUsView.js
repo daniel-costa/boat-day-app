@@ -49,9 +49,7 @@ define([
 				file2: null,
 				file3: null
 			}).then(function() {
-				this._in('feedback').val('');
 				self._info('Thank you for contacting the BoatDay team, we will get back to you soon.');
-				self.$el.find('.feedback')[0].reset();
 			}, function(error) {
 				self.handleSaveErrors(error);
 			});
