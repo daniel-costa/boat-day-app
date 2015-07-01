@@ -7,15 +7,11 @@ define([
 
 		defaults: {
 			status: "creation",
-			
 			displayName: null,
 			gender: null,
 			birthday: null,
 			about: null,
-			
 			profilePicture: null,
-			
-			paymentId: null,
 			position:null
 		},
 

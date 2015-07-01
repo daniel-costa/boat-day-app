@@ -27,7 +27,8 @@
 
 .screen-boatdays .boatday-card .details,
 .screen-boatdays-past .boatday-card .details,
-.screen-boatdays-upcoming .boatday-card .details {
+.screen-boatdays-upcoming .boatday-card > .details,
+.screen-boatdays-upcoming .boatday-card > div:last-child {
 	background: white;
 	padding: 15px;
 	pading-top: 0px;
@@ -35,6 +36,37 @@
 	border-top: none;
 	border-bottom-left-radius: 15px;
 	border-bottom-right-radius: 15px;
+}
+
+.screen-boatdays-upcoming .boatday-card > div.details:not(:last-child) {
+	border-radius: 0px;
+}
+
+.screen-boatdays-upcoming .boatday-card > div.chat {
+	background: #f9fbfb;
+}
+
+.screen-boatdays-upcoming .boatday-card > div.chat a {
+	color: @brand-primary;
+	display: block;
+	font-weight: 500;
+	text-align: center;
+	font-size: 0.8em;
+}
+
+.screen-boatdays-upcoming .boatday-card > div.chat .new {
+	background: #f9fbfb;
+	font-size: 0.7em;
+	text-align: center;
+	margin-bottom: 0px;
+}
+
+.screen-boatdays-upcoming .boatday-card > div.chat .new span {
+	background: @btn-action-bg;
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	border-radius: 10px;
 }
 
 .screen-boatdays-past .boatday-card .details {

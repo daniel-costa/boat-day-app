@@ -1,5 +1,5 @@
 <div class="boatday-card card-<%=id%>" data-id="<%= id %>" request-id="<%= seatRequestId %>"> 
-	<div class="boat-img">
+	<div class="boat-img btn-boatday">
 		<div class="picture">
 			<div class="owner">
 				<div class="profile-picture" style="background-image:url(<%= captainProfilePicture %>)"></div>
@@ -12,7 +12,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="details">
+	<div class="details btn-boatday">
 		<h1><%= title %></h1>
 		<div class="date">
 			<%= dateDisplay + ', ' + timeDisplay %>
@@ -30,17 +30,16 @@
 			<%= status == 'cancelled-guest' ? 'Seats Cancelled' : '' %>
 			<%= status == 'cancelled-host' ? 'Seats Cancelled' : '' %>
 		</div>
-		<!--
-		<% if( status == 'approved' ) { %>
-			<div class="position">
-				<strong><span class="fa fa-map-marker"></span></strong> <%= position %>
-			</div>
-		<% } %>
-		-->
-		<div class="open_modal"> 
-			<button class="btn btn-block btn-chat">Chat</button>
-		</div>
-
 	</div>
+	<% if( status == 'approved' ) { %>
+		<div class="chat btn-chat">
+			<a>Open Group Discussion</a>
+			<% if( newMessages > 0 ) { %> 
+				<p class="new">
+					<span class="bullet"></span> <%= newMessages %> New Message<%= newMessages == 1 ? '' : 's' %>
+				</p>
+			<% } %>
+		</div>
+	<% } %>
 </div>
 	

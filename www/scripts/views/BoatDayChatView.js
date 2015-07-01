@@ -9,13 +9,29 @@ define([
 		template: _.template(BoatDayChatTemplate),
 
 		events: {
-			
+			'click .btn-send': 'send'
 		},
 
-		// statusbar: true,
+		statusbar: true,
 		
-		// drawer: false,
+		drawer: false,
 
+		send: function() {
+
+			new ChatMessageModel({
+				message: this._in('text'),
+				boatday: this.model,
+				profile: Parse.User.current().get('profile')
+			}).save().then(function(message) {
+				
+				self.appendMessage(message);
+
+			}, function(error) {
+				
+				console.log(error);
+
+			});
+		}
 		
 	});
 	return BoatDayChatView;

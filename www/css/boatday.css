@@ -597,7 +597,8 @@ div.content a.btn.loading:after {
 }
 .screen-boatdays .boatday-card .details,
 .screen-boatdays-past .boatday-card .details,
-.screen-boatdays-upcoming .boatday-card .details {
+.screen-boatdays-upcoming .boatday-card > .details,
+.screen-boatdays-upcoming .boatday-card > div:last-child {
   background: white;
   padding: 15px;
   pading-top: 0px;
@@ -605,6 +606,32 @@ div.content a.btn.loading:after {
   border-top: none;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+}
+.screen-boatdays-upcoming .boatday-card > div.details:not(:last-child) {
+  border-radius: 0px;
+}
+.screen-boatdays-upcoming .boatday-card > div.chat {
+  background: #f9fbfb;
+}
+.screen-boatdays-upcoming .boatday-card > div.chat a {
+  color: #13a7bf;
+  display: block;
+  font-weight: 500;
+  text-align: center;
+  font-size: 0.8em;
+}
+.screen-boatdays-upcoming .boatday-card > div.chat .new {
+  background: #f9fbfb;
+  font-size: 0.7em;
+  text-align: center;
+  margin-bottom: 0px;
+}
+.screen-boatdays-upcoming .boatday-card > div.chat .new span {
+  background: #f5b019;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 10px;
 }
 .screen-boatdays-past .boatday-card .details {
   padding-top: 40px;
@@ -977,6 +1004,84 @@ div.content a.btn.loading:after {
 }
 .screen-boatday .confirmed-guests .guest .profile-picture {
   margin: auto;
+}
+.screen-boatday-chat.modal {
+  background: transparent;
+}
+.screen-boatday-chat .content {
+  background: rgba(43, 51, 54, 0.85);
+  margin-bottom: 50px;
+}
+.screen-boatday-chat .line {
+  margin-top: 15px;
+  clear: both;
+}
+.screen-boatday-chat .text {
+  margin-left: 50px;
+}
+.screen-boatday-chat .me .text {
+  margin-right: 50px;
+}
+.screen-boatday-chat .profile-picture {
+  width: 40px;
+  height: 40px;
+  float: left;
+}
+.screen-boatday-chat .me .profile-picture {
+  width: 40px;
+  height: 40px;
+  float: right;
+}
+.screen-boatday-chat .speech-bubble {
+  background: #f9fbfb;
+  border-radius: 5px;
+  padding: 10px;
+  float: left;
+  display: inline-block;
+  margin-left: 15px;
+  position: relative;
+  border: 1px solid #e0ebed;
+}
+.screen-boatday-chat .speech-bubble:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 5px;
+  left: -19px;
+  background: url(../resources/speech-bubble-left.png) top left no-repeat;
+}
+.screen-boatday-chat .me .speech-bubble:after {
+  left: auto;
+  right: -19px;
+  background: url(../resources/speech-bubble-right.png) top right no-repeat;
+}
+.screen-boatday-chat .me .speech-bubble {
+  float: right;
+  margin-left: 0px;
+  margin-right: 15px;
+}
+.screen-boatday-chat .speech-bubble p {
+  margin: 0px;
+}
+.screen-boatday-chat .field {
+  margin-right: 50px;
+}
+.screen-boatday-chat .field input[type="text"] {
+  border-radius: 0px;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  float: left;
+  margin: 0px;
+}
+.screen-boatday-chat button {
+  width: 50px;
+  height: 52px;
+  float: right;
+  border-radius: 0px;
+  border-right: none;
+  border-bottom: none;
 }
 .screen-boatday-book p {
   text-align: center;

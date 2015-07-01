@@ -103,7 +103,6 @@ define([
 			query.equalTo('status', 'approved');
 			query.include('profile');
 			query.find().then(function(requests) {
-				console.log(requests);
 
 				if(requests.length == 0) {
 					self.$el.find('.confirmed-guests').html('<p class="text-center">No confirmed guests</p>');

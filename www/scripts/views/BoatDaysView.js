@@ -49,14 +49,22 @@ define([
 					boatdaysId.push(request.get('boatday').id);
 				});
 
-				console.log('ids');
-				console.log(boatdaysId);
+				var queryBoatApproved = new Parse.Query(Parse.Object.extend('Boat'));
+				queryBoatApproved.equalTo('status', 'approved');
+
+				var queryHostApproved = new Parse.Query(Parse.Object.extend('Host'));
+				queryHostApproved.equalTo('status', 'approved');
+
+				var queryProfileApproved = new Parse.Query(Parse.Object.extend('Profile'));
+				queryProfileApproved.matchesQuery('host', queryHostApproved);
 
 				var query = new Parse.Query(Parse.Object.extend('BoatDay'));
 				query.include('boat');
 				query.include('captain');
 				query.equalTo("category", Parse.User.current().get('profile').get('displayBDCategory'));
 				query.notContainedIn('objectId', boatdaysId);
+				query.matchesQuery('captain', queryProfileApproved);
+				query.matchesQuery('boat', queryBoatApproved);
 				query.find().then(function(boatdays) {
 
 					var tpl = _.template(BoatDayCardTemplate);
@@ -104,6 +112,8 @@ define([
 					console.log(error);
 				});
 
+			}, function(error) {
+				console.log(error);
 			});
 			
 

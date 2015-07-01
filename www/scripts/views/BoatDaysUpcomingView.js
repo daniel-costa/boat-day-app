@@ -12,7 +12,7 @@ define([
 		template: _.template(BoatDaysUpcomingTemplate),
 
 		events: {
-			'click .boatday-card': 'showBoatDay',
+			'click .btn-boatday': 'showBoatDay',
 			'click .btn-chat': 'showChat',
 		},
 
@@ -26,10 +26,11 @@ define([
 
 		showBoatDay: function(event) {
 
+			event.preventDefault();
 			this.modal(new BoatDayView({ 
-				model : this.boatdays[$(event.currentTarget).attr('data-id')], 
+				model : this.boatdays[$(event.currentTarget).closest('.boatday-card').attr('data-id')],
 				fromUpcoming: true,
-				seatRequest:  this.requests[$(event.currentTarget).attr('request-id')]
+				seatRequest:  this.requests[$(event.currentTarget).closest('.boatday-card').attr('request-id')]
 			}));
 
 		},
@@ -37,7 +38,7 @@ define([
 		showChat: function(event) {
 
 			event.preventDefault();
-			this.modal(new BoatDayChatView({ model : this.model }));
+			this.modal(new BoatDayChatView({ model : this.boatdays[$(event.currentTarget).closest('.boatday-card').attr('data-id')] }));
 			
 		},
 
@@ -82,8 +83,9 @@ define([
 						captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
 						captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
 						captainRating: boatday.get('captain').get('rating') ? boatday.get('captain').get('rating') : null,
-						takenSeats: 1,
-						seatRequestId: request.id
+						takenSeats: boatday.get('bookedSeats'),
+						seatRequestId: request.id,
+						newMessages: 3
 					}
 
 					self.$el.find('.content').append(tpl(data));
