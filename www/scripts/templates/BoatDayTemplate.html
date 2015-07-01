@@ -17,7 +17,7 @@
 	</div>
 
 	<div class="captain">
-		<div class="profile-picture" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)"></div>
+		<div class="profile-picture" data-id="<%= self.model.get('captain').id %>" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)"></div>
 		<p class="text">
 			Hosted by <strong><%= self.model.get('captain').get('displayName') %></strong><br/>
 			Boat <strong><%= self.model.get('boat').get('name') %></strong><br/>

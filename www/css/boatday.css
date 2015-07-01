@@ -429,20 +429,24 @@ div.loading {
 }
 .screen-profile-info .content h1,
 .screen-profile-picture .content h1,
+.screen-profile .content h1,
 .screen-profile-payments .content h1 {
   margin: 0px;
   margin-bottom: 40px;
 }
 .screen-profile-info .content-padded > *:first-child,
 .screen-profile-picture .content-padded > *:first-child,
+.screen-profile .content-padded > *:first-child,
 .screen-profile-payments .content-padded > *:first-child {
   margin-top: 50px;
 }
-.screen-profile-picture label {
+.screen-profile-picture label,
+.screen-profile .about {
   margin-top: 20px;
   display: block;
 }
-.screen-profile-picture .profile-picture {
+.screen-profile-picture .profile-picture,
+.screen-profile .profile-picture {
   width: 160px;
   height: 160px;
   border-radius: 500px;

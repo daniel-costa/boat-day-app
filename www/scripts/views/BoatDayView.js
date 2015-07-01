@@ -33,13 +33,10 @@ define([
 
 		report: function() {
 
-			console.log('report');
 			var m = new ReportModel({
 				action: 'boatday',
 				boatday: this.model
 			});
-			console.log(m);
-			console.log(this.model);
 			this.modal(new ReportView({ model : m }));
 
 		},
@@ -92,9 +89,10 @@ define([
 
 		},
 
-		profile: function() {
+		profile: function(event) {
 
 			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
+
 		},
 
 		book: function() {

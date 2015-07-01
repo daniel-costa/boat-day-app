@@ -1,29 +1,21 @@
 <header class="bar bar-nav">
 	<a class="icon fa fa-times pull-left close-me"></a>
-	<h1 class="title">Profile</h1>
+	<h1 class="title"><%= displayName %></h1>
+	<a class="icon fa fa-flag-o pull-right report"></a>
 </header>
 <div class="content">
 	<div class="content-padded text-center">
-		<div class="form-control">
-			<label for="name">Profile picture</label>
-		</div>
-		<div class="form-control">
-			<label>Name</label>
-			<p>
-				<%= displayName %>
-			</p>	
-		</div>
-		<div class="form-control">
-			<label>About</label>
-			<p>
-				<%= about %>
-			</p>	
-		</div>
-		<div class="form-control">
-			<label>Mutual friends</label>
-			<div>
-				
-			</div>	
+
+		<div class="profile-picture" style="background-image:url(<%= profilePicture.url %>)"></div>
+
+		<p class="about">
+			<%= about %>
+		</p>
+	</div>
+	<div class="clip-to-bottom">
+		<div class="content-padded">
+			<label>Facebook Friends</label>
+			<p>No friends in common</p>
 		</div>
 	</div>
 </div>
