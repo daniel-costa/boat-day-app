@@ -7,8 +7,7 @@
 	
 	<div class="content-padded">
 		<h1>Contribution Calculator</h1>
-		<!-- <p>After the BoatDay has taken place you will be asked to make a payment. If you wish to surprise your host and contribute a little extra, that will be possible too!</p> -->
-	
+		
 		<div class="seats">
 			<select name="seats">
 				<% for(var i = 1; i <= availableSeats; i++) { %>
@@ -32,20 +31,11 @@
 			</p>
 		</div>
 
-		<!-- <div class="message">
-			<textarea name="message" cols="3" ></textarea>
-		</div> -->
-
 		<div class="payment">
 			<label>Pick a credit card</label>
 			<div class="field-card">
 				<select name="card"></select>
 			</div>
-			<!--
-			<div class="text-center">
-				<a class="btn-payments">Manage credit cards</a>
-			</div>
-			-->
 		</div>
 
 		<button class="btn btn-block btn-book btn-action">Book seats</button>

@@ -57,7 +57,9 @@ header.bar.bar-nav h1 {
   margin-top: 16px;
   color: white;
   font-family: museo;
-  padding: 0px 50px 0px 25px;
+  left: 50px;
+  right: 50px;
+  width: auto;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -973,15 +975,13 @@ div.loading {
 .screen-boatday .book p.price sub {
   font-size: 0.3em;
 }
-/*
-.screen-boatday .book a {
+.screen-boatday .book a.btn-cancel-modal {
   display: block;
   margin-top: 20px;
   text-align: center;
-	font-size: 0.7em;
-	font-weight: 500;
+  font-size: 0.7em;
+  font-weight: 500;
 }
-*/
 .screen-boatday .btn.btn-action {
   margin-top: 15px;
 }

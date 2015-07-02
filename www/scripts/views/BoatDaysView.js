@@ -96,7 +96,9 @@ define([
 
 						self.$el.find('.content').append(tpl(data));
 
-						boatday.get('boat').relation('boatPictures').query().first().then(function(fileholder) {
+						var queryPictures = boatday.get('boat').relation('boatPictures').query();
+						queryPictures.ascending('order');
+						queryPictures.first().then(function(fileholder) {
 							
 							if( fileholder ) {
 								self.$el.find('.boatday-card.card-'+boatday.id+' .picture').css({ backgroundImage: 'url('+fileholder.get('file').url()+')' });

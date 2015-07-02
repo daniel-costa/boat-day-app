@@ -46,6 +46,8 @@ define([
 
 		displayMessage: function(event, params) {
 
+			console.log(params);
+			
 			var self = this;
 			var hasHeader = $('header').length != 0;
 

@@ -107,7 +107,9 @@ define([
 
 			var self = this;
 
-			this.model.get('boat').relation('boatPictures').query().find().then(function(files) {
+			var queryPictures = this.model.get('boat').relation('boatPictures').query();
+			queryPictures.ascending('order');
+			queryPictures.find().then(function(files) {
 
 				if(files.length == 0) {
 					console.log('No pictures for this boat');
