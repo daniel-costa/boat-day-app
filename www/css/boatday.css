@@ -57,6 +57,10 @@ header.bar.bar-nav h1 {
   margin-top: 16px;
   color: white;
   font-family: museo;
+  padding: 0px 50px 0px 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .bar-nav ~ .content {
   padding-top: 60px;
@@ -578,6 +582,16 @@ div.loading {
   width: 100%;
   background: url(../resources/boatday-category-corner.png) top right no-repeat;
 }
+.screen-boatdays-home header.bar.bar-nav {
+  background: transparent;
+  border: none;
+}
+.screen-boatdays-home header.bar.bar-nav a.icon {
+  color: #546e7a;
+}
+.screen-boatdays-home .content {
+  padding-top: 0px;
+}
 .screen-boatdays .content,
 .screen-boatdays-past .content,
 .screen-boatdays-upcoming .content {
@@ -883,8 +897,8 @@ div.loading {
 .screen-boatday td {
   border-top: 1px solid #e1e6ea ;
   border-bottom: 1px solid #e1e6ea ;
-  padding: 15px;
-  font-size: 0.75em;
+  padding: 15px 10px;
+  font-size: 0.7em;
   color: #b2c0cc;
   font-weight: 500;
 }
@@ -959,13 +973,15 @@ div.loading {
 .screen-boatday .book p.price sub {
   font-size: 0.3em;
 }
+/*
 .screen-boatday .book a {
   display: block;
   margin-top: 20px;
   text-align: center;
-  font-size: 0.7em;
-  font-weight: 500;
+	font-size: 0.7em;
+	font-weight: 500;
 }
+*/
 .screen-boatday .btn.btn-action {
   margin-top: 15px;
 }

@@ -125,7 +125,7 @@ define([
 
 		dateParseToDisplayDate: function (date) {
 			
-			return this.dayToEnDay(new Date(date.iso ? date.iso : date).getDay) + ' ' + new Date(date.iso ? date.iso : date).toLocaleDateString();
+			return this.dayToEnDay(new Date(date.iso ? date.iso : date).getDay()) + ' ' + new Date(date.iso ? date.iso : date).toLocaleDateString();
 
 		},
 

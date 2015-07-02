@@ -1,5 +1,5 @@
 <header class="bar bar-nav">
-	<a class="icon fa fa-times pull-left close-me"></a>
+	<a class="icon icon-close pull-left close-me"></a>
 	<h1 class="title"><%= name %></h1>
 	<a class="icon fa fa-flag-o pull-right report"></a>
 </header>
@@ -37,8 +37,8 @@
 			<td>Time <strong><%= self.departureTimeToDisplayTime(departureTime) %></strong></td>
 		</tr>
 		<tr>
-			<td>Duration <strong><%= duration %>h</strong></td>
 			<td>Available seats <strong><%= availableSeats - bookedSeats + '/' + availableSeats %></strong></td>
+			<td>Duration <strong><%= duration %>h</strong></td>
 		</tr>
 	</table>
 
@@ -261,7 +261,7 @@
 	<div class="book">
 		<div class="content-padded">
 			<% if( self.fromUpcoming && self.seatRequest ) { %>
-				<p><%=  self.seatRequest.get('seats') %> seat<%= self.seatRequest.get('seats') == 1 ? 's' : '' %> <%= self.seatRequest.get('status') == 'approved' ? 'booked' : 'requested' %></p>
+				<p><%= self.seatRequest.get('seats') %> seat<%= self.seatRequest.get('seats') == 1 ? 's' : '' %> <%= self.seatRequest.get('status') == 'approved' ? 'booked' : 'requested' %></p>
 			<% } %>
 
 			<p class="price"><sup>$</sup><%= self.getGuestPrice(price) %><sub>/person</sub></p>

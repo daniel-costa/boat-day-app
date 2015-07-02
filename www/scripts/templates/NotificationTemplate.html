@@ -6,34 +6,37 @@
 		<br/>
 
 		<% if( action == "request-approved" ) { %>
-			Your seat request to join <strong><%= boatday.get('name') %></strong> has been accepted.
-			You can now find this BoatDay in your <a href="#/boatdays-upcoming">Upcoming BoatDays</A>.
+			I have approved your request for <%= request.get('seats') %> seat<%= request.get('seats') == 1 ? '' : 's' %> on my BoatDay <strong><%= boatday.get('name') %></strong>.
+			You can now find this BoatDay in your <a href="#/boatdays-upcoming">Upcoming BoatDays</A>. Welcome aboard!
 		<% } %>
 
 		<% if( action == "request-denied" ) { %>
-			Your seat request to join <strong><%= boatday.get('name') %></strong> has been denied.
+			Unfortunately, I can't approve your seat request for my BoatDay <strong><%= boatday.get('name') %></strong>.
 			You can now find this BoatDay in your <a href="#/boatdays-past">Past BoatDays</a>.
 		<% } %>
 
 		<% if( action == "request-cancelled" ) { %>
-			Your seat request for <strong><%= boatday.get('name') %></strong> has been cancelled.
+			Bad news, I had to cancel your reserved seat<%= request.get('seats') == 1 ? '' : 's' %> for the BoatDay <strong><%= boatday.get('name') %></strong>.
 			You can now find this BoatDay in your <a href="#/boatdays-past">Past BoatDays</a>.
 		<% } %>
 
 		<% if( action == "boatday-cancelled" ) { %>
-			BoatDay <strong><%= boatday.get('name') %></strong> has been cancelled by the host.
+			Bad news, I had to cancel the BoatDay <strong><%= boatday.get('name') %></strong>.
+			Check out your <a href="#/boatdays-past">Past BoatDays</a> to know the reason.
 		<% } %>
 
 		<% if( action == "auto-payment" ) { %>
-			Your payment for <strong><%= boatday.get('name') %></strong> has been auto-charged for <sup>$</sup><%= request.get('contribution') %>
+			A <sup>$</sup><%= request.get('contribution') %> contribution for your BoatDay <strong><%= boatday.get('name') %></strong> has been charged.
+			Come back soon for another great BoatDay experience!
 		<% } %>
 
 		<% if( action == "boatday-message" ) { %>
-			New message in <strong><%= boatday.get('name') %></strong>.
+			I just wrote a message on the chat wall for <strong><%= boatday.get('name') %></strong>.
 		<% } %>
 
 		<% if( action == "boatday-rating" ) { %>
-			You was rated for the BoatDay <strong><%= boatday.get('name') %></strong>.
+			I just left you a rating for our BoatDay <strong><%= boatday.get('name') %></strong>.
+			You can now find this BoatDay in your <a href="#/boatdays-past">Past BoatDays</a>.
 		<% } %>
 
 		<% if( action == "bd-message" ) { %>
