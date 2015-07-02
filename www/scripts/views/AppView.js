@@ -25,7 +25,7 @@ define([
 			'disableDrawer': 'disableDrawer',
 			'enableDrawer': 'enableDrawer',
 			'menuHover': 'menuHover',
-			'initDrawer': 'initDrawer'
+			'loadProfile': 'loadProfile'
 		},
 
 		msgStack: [],
@@ -109,17 +109,28 @@ define([
 
 		},
 
-		initialize: function( cb ) {
+		loadProfile: function(event, cb) {
+
 
 			var self = this;
 
 			var profileSuccess = function(profile) {
 
-				self.initDrawer();
+				self.snap = new Snap({
+					element: document.getElementById('content'),
+					disable: 'right',
+					hyperextensible: false,
+					easing: 'ease',
+					transitionSpeed: 0.3,
+					tapToClose: true
+				});
+
+				$('#app').append( new DrawerView({ model: profile }).render().el );
+
 				// ToDo add this value in parse config.
 				setInterval(self.updateGeoPoint, self.__POSITION_REFRESH_DELAY__);
 				self.updateGeoPoint();
-				cb();
+				if( cb ) cb();
 
 			}
 
@@ -135,9 +146,16 @@ define([
 				if( Parse.User.current() && Parse.User.current().get("profile") ) {
 					Parse.User.current().get("profile").fetch().then(profileSuccess, forceLogout);
 				} else {
-					cb();
+					if( cb ) cb();
 				}
 			});
+		},
+
+		initialize: function( cb ) {
+
+			var self = this;
+
+			self.loadProfile(event, cb);
 			
 			
 			// prevent bug on feedback page with a jumping keyboard
@@ -150,22 +168,6 @@ define([
 			function isTextInput(node) { return ['INPUT', 'TEXTAREA'].indexOf(node.nodeName) !== -1; }
 			document.addEventListener('touchstart', touchstart, false);
 
-
-		},
-
-		initDrawer: function() {
-			
-			this.snap = new Snap({
-				element: document.getElementById('content'),
-				disable: 'right',
-				hyperextensible: false,
-				easing: 'ease',
-				transitionSpeed: 0.3,
-				tapToClose: true
-			});
-
-
-			$('#app').append( new DrawerView({ model: Parse.User.current().get('profile') }).render().el );
 
 		},
 

@@ -16,7 +16,7 @@ define([
 
 		statusbar: true,
 		
-		drawer: true,
+		drawer: false,
 		
 		initialize: function(data) {
 

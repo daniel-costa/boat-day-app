@@ -54,6 +54,11 @@ define([
 				
 				self.cards = {};
 
+				if( cards.length == 0 ) {
+					self.$el.find('.field-card').html('<p class="align-center">You don\'t have a credit card attach to your account. You can add a credit card from the <a href="#/profile-payments">Payment Information</a> section.</p>')
+					return;
+				}
+
 				self._in('card').html('');
 
 				_.each(cards, function(card) {
@@ -76,13 +81,19 @@ define([
 			self.cleanForm();
 			self.loading('Saving');
 
-			// Check if card not empty
+			console.log(self._in('card').val());
 
+			if( !self._in('card').val() ) {
+				self.fieldError('card', '');
+				self._error('Please, select a credit card to book a seat. You can add a credit card in the payment section.');
+			}
+			
 			new SeatRequestModel().save({
 				user: Parse.User.current(),
 				profile: Parse.User.current().get('profile'),
 				seats: parseInt(self._in('seats').val()),
 				card: self.cards[self._in('card').val()],
+				// message: self.cards[self._in('message').val()],
 				boatday: self.model,
 				addToBoatDay: true,
 			}).then(function(request) {

@@ -12,6 +12,7 @@ define([
 			boatday: null,
 			contribution: null,
 			cancelled: false,
+			message: null
 		},
 
 	});

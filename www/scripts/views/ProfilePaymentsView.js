@@ -23,7 +23,7 @@ define([
 				self.$el.find('.loading').remove();
 				
 				if( cards.length == 0) {
-					self.$el.find('.cards-list .table-view').hide();
+					self.$el.find('.cards-list').hide();
 				}
 
 				_.each(cards, function(card) {

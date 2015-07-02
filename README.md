@@ -22,6 +22,8 @@
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.inappbrowser`
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.labs.keyboard`
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.statusbar`
+* `sudo cordova plugin add pluginsBase/org.apache.cordova.file`
+* `sudo cordova plugin add pluginsBase/org.apache.cordova.media`
 
 ## Change rights
 * `sudo chown -R Daniel .`

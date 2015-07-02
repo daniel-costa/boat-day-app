@@ -28,6 +28,7 @@ define([
 			query.include('from');
 			query.include('boat');
 			query.include('boatday');
+			query.include('request');
 			query.find().then(function(matches){
 
 				self.notifications = {};
@@ -47,12 +48,9 @@ define([
 						fromTeam: notification.get("fromTeam"),
 						action: notification.get("action"),
 						message: notification.get("message") ? notification.get("message").replace(/\n/g, "<br>") : '',
-						sender: notification.get('from'),
-						boatId: notification.get("boat") ? notification.get("boat").id : null,
-						boatName: notification.get("boat") ? notification.get("boat").get('name') : null,
-						boatdayId: notification.get("boatday") ? notification.get("boatday").id : null,
-						boatdayName: notification.get("boatday") ? notification.get("boatday").get('name') : null,
-						profilePicture: notification.get("fromTeam") ? 'resources/ico-bd.png' : notification.get("from").get('profilePicture').url()
+						from: notification.get("from"),
+						boatday: notification.get('boatday'),
+						request: notification.get('request'),
 					};
 
 					self.$el.find('.notification-list').append(_.template(NotificationTemplate)(data));

@@ -83,7 +83,7 @@ define([
 
 
 				if( requests.length == 0 ) {
-					self.$el.find('.content').html($('<h4>').text("You don't have any past BoatDays... yet."));
+					self.$el.find('.content').html('<div class="content-padded"><h6>You don\'t have any past BoatDays... yet.</h6></div>');
 				}
 
 			}, function(error) {

@@ -25,11 +25,13 @@ define([
 		lastMessage: null,
 
 		watchEnter: function(event) {
-			console.log(event.keyCode);
-			if( event.keyCode != 13 ) {
+
+			if( event.keyCode == 13 ) {
 				event.preventDefault();
-				self.send();
+				this._in('text').blur();
+				this.send(event);
 			}
+
 		},
 
 		report: function() {
@@ -50,13 +52,18 @@ define([
 
 			var query = this.model.relation('chatMessages').query();
 			query.include('profile');
-			self.execQuery(query);
+			query.descending('createdAt');
+			self.execQuery(query, false);
 
 			setInterval(function() {
 				if( self.lastMessage ) {
-					console.log('exec with'+self.lastMessage.createdAt);
+
+					var query = self.model.relation('chatMessages').query();
+					query.include('profile');
+					query.ascending('createdAt');
 					query.greaterThan('createdAt', self.lastMessage.createdAt);
-					self.execQuery(query);
+					
+					self.execQuery(query, true);
 				}
 			}, 10000);
 
@@ -64,20 +71,36 @@ define([
 
 		},
 
-		execQuery: function(query) {
+		afterRenderInsertedToDom: function() {
+			
+			this.$el.find('.content').scrollTop(this.$el.find('.content').prop('scrollHeight'));
+			
+		},
+
+		execQuery: function(query, append) {
 
 			var self = this;
 
 			self.$el.find('.loading').hide();
 
+
 			query.find().then(function(messages) {
 
+				console.log(messages);
+
 				_.each(messages, function(message) {
-					self.appendMessage(message);
-					self.lastMessage = message;
+					if(append) {
+						self.appendMessage(message);
+					} else {
+						self.prependMessage(message);
+					}
+
+					if( self.lastMessage && self.lastMessage.createdAt < message.createdAt) {
+						self.lastMessage = message;
+					}
 				});
 
-				self.$el.find('.content-padded').scrollTop(self.$el.find('.content-padded').prop('scrollHeight'));
+				self.afterRenderInsertedToDom();
 
 			});
 
@@ -86,8 +109,15 @@ define([
 		appendMessage: function(message) {
 
 			var tpl = _.template(BoatDayChatCardTemplate);
-
 			this.$el.find('.content-padded').append(tpl({ message: message }));
+
+		},
+
+
+		prependMessage: function(message) {
+
+			var tpl = _.template(BoatDayChatCardTemplate);
+			this.$el.find('.content-padded').prepend(tpl({ message: message }));
 
 		},
 
@@ -109,8 +139,9 @@ define([
 			}).save().then(function(message) {
 				
 				self.lastMessage = message;
-				self._in('text').val();
+				self._in('text').val('');
 				self.appendMessage(message);
+				self.afterRenderInsertedToDom();
 
 			}, function(error) {
 				

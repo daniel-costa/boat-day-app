@@ -94,6 +94,7 @@ define([
 
 				if( !Parse.User.current().get('profile').get('displayBDCategory') ) {
 					
+					console.log('**no-boatdays-redirect**');
 					self.render(new BoatDaysHomeView());
 
 				} else {
@@ -221,10 +222,15 @@ define([
 
 			$("#content").html( view.render().el );
 
+			// I don't know why, but puttin in a timeout,
+			// we can have the element rendered
+			setTimeout(function() { view.afterRenderInsertedToDom() }, 0);
+
 			this.currentView = view;
 
 			if($('#app').is(":hidden")) {
-				$('#app').fadeIn();	
+				$('#app').fadeIn();
+				$('video').remove();
 			}
 		}
 

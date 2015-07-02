@@ -41,10 +41,15 @@ require.config({
 
 require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs'], function(FastClick, Parse, AppRouter, AppView) {
 	
+	$('video').get(0).play();
+
 	var run = function() {
 
 		console.log("device ready");
-		
+	
+		my_media = new Media("resources/sfx/opening.wav", function(){}, function(error){ console.log(error) });
+		my_media.play();
+
 		Keyboard.onshowing = function () {
 			StatusBar.hide();
 		}

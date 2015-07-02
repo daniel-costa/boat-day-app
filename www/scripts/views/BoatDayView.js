@@ -71,7 +71,7 @@ define([
 			};
 			
 			navigator.notification.confirm(
-				"Are you sure you want to cancel the BoatDay?", 
+				"Are you sure you want to cancel your reserved Seat(s)?", 
 				prompt, 
 				"BoatDay Cancellation",
 				["No", "Yes"]

@@ -7,7 +7,7 @@
 	
 	<div class="content-padded">
 		<h1>Contribution Calculator</h1>
-		<p>After the BoatDay has taken place you will be asked to make a payment. If you wish to surprise your host and contribute a little extra, that will be possible too!</p>
+		<!-- <p>After the BoatDay has taken place you will be asked to make a payment. If you wish to surprise your host and contribute a little extra, that will be possible too!</p> -->
 	
 		<div class="seats">
 			<select name="seats">
@@ -19,24 +19,28 @@
 			<table>
 				<tr>
 					<td>Trust &amp; Safety Fee</td>
-					<td class="fee">2 x $4</td>
+					<td class="fee"></td>
 				</tr>
 				<tr>
-					<td>Suggested Contribution</td>
+					<td>Contribution per seat</td>
 					<td class="price"></td>
 				</tr>
 			</table>
 
 			<p class="total">
-				<sup>$</sup><span class="price-total">120</span>
+				<sup>$</sup><span class="price-total"></span>
 			</p>
 		</div>
 
+		<!-- <div class="message">
+			<textarea name="message" cols="3" ></textarea>
+		</div> -->
+
 		<div class="payment">
 			<label>Pick a credit card</label>
-			<select name="card">
-				<option value="null">loading...</option>
-			</select>
+			<div class="field-card">
+				<select name="card"></select>
+			</div>
 			<div class="text-center">
 				<a class="btn-payments">Manage credit cards</a>
 			</div>

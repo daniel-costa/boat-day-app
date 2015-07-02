@@ -26,6 +26,8 @@ define([
 		
 		drawer: true,
 
+		afterRenderInsertedToDom: function() { },
+		
 		getBoatDayTitle: function(id) {
 			switch(id) {
 				case 'leisure' : return 'Leisure'; break;
@@ -123,8 +125,20 @@ define([
 
 		dateParseToDisplayDate: function (date) {
 			
-			return new Date(date.iso ? date.iso : date).toLocaleDateString();
+			return this.dayToEnDay(new Date(date.iso ? date.iso : date).getDay) + ' ' + new Date(date.iso ? date.iso : date).toLocaleDateString();
 
+		},
+
+		dayToEnDay: function(n) {
+			switch(n) {
+				case 0 : return 'Mon'; break;
+				case 1 : return 'Tue'; break;
+				case 2 : return 'Wed'; break;
+				case 3 : return 'Thur'; break;
+				case 4 : return 'Fri'; break;
+				case 5 : return 'Sat'; break;
+				case 6 : return 'Sun'; break;
+			}
 		},
 
 		departureTimeToDisplayTime: function(time) {

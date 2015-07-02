@@ -23,10 +23,10 @@ define([
 			var self = this, i = 1;
 			
 			var updatePicture = function(){
-				self.setBackground('leisure', i, 19);
-				self.setBackground('sports', i, 9);
-				self.setBackground('fishing', i, 18);
-				self.setBackground('sailing', i, 29);
+				self.setBackground('leisure', i, 1);
+				self.setBackground('sports', i, 1);
+				self.setBackground('fishing', i, 1);
+				self.setBackground('sailing', i, 1);
 				i++;
 			};
 
@@ -61,12 +61,14 @@ define([
 
 		pickCategory: function(event) {
 
+			console.log(event);
+			
 			var self = this;
 			var btn = $(event.currentTarget);
 			var category = btn.attr('bd-category');
 
 			var profileUpdatedSuccess = function(profile) {
-				
+
 				Parse.history.navigate('boatdays', true);
 
 			};

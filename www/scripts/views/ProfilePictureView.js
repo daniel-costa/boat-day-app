@@ -55,9 +55,11 @@ define([
 			var profileUpdateSuccess = function() {
 				
 				if( self.profileSetup ) {
-					Parse.history.navigate("profile-payments", true);
+					$(document).trigger('loadProfile', function() {
+						Parse.history.navigate("profile-payments", true);
+					});
 				} else {
-					Parse.history.navigate("boatdays-home", true);
+					self._info('Profile saved');
 				}
 
 			};

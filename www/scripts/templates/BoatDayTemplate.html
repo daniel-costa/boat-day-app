@@ -50,11 +50,9 @@
 			<img src="resources/map-pin.png" />
 		</div>
 
-		<% if( self.seatRequest && self.seatRequest.get('status') == 'approved' ) { %>
-			<p class="position">
-				<strong><span class="fa fa-map-marker"></span></strong> <%= locationText %>
-			</p>
-		<% } %>
+		<p class="position">
+			<strong><span class="fa fa-map-marker"></span></strong> <%= self.seatRequest && self.seatRequest.get('status') == 'approved' ? locationText : 'Exact address will be visible to confirmed guests.' %>
+		</p>
 		
 		<label>Confirmed Guests</label>
 		<div class="confirmed-guests">
@@ -262,6 +260,10 @@
 
 	<div class="book">
 		<div class="content-padded">
+			<% if( self.fromUpcoming && self.seatRequest ) { %>
+				<p><%=  self.seatRequest.get('seats') %> seat<%= self.seatRequest.get('seats') == 1 ? 's' : '' %> <%= self.seatRequest.get('status') == 'approved' ? 'booked' : 'requested' %></p>
+			<% } %>
+
 			<p class="price"><sup>$</sup><%= self.getGuestPrice(price) %><sub>/person</sub></p>
 			<% if( self.fromUpcoming ) { %>
 				<button class="btn btn-block btn-action btn-cancel">Cancel BoatDay</button>

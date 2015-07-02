@@ -16,7 +16,6 @@ define([
 			"click button.sign-in" : "signIn",
 			"click button.sign-up" : "signUp",
 			"click button.facebook" : "signInFacebook",
-			"click button.twitter" : "signInTwitter",
 		},
 
 		statusbar: true,
@@ -49,27 +48,27 @@ define([
 		signIn: function(event) {
 
 			console.log("sign in with email");
+
 			event.preventDefault(); 
 			var self = this;
 
 			if(this._in('email').val() == '') {
-				self._error("Oops, you missed one");
-
+				self.fieldError("email", "Oops, you missed one");
+				return;
 			}
 
 			if(this._in('password').val() == '') {
-				self._error("Oops, you missed one");
-
+				self.fieldError("password", "Oops, you missed one");
+				return;
 			}
 
-			var logInSuccess = function() {
+			Parse.User.logIn(this._in('email').val(), this._in('password').val()).then(function() {
 
-				$(document).trigger('initDrawer');
-				Parse.history.navigate('boatdays-home', true);
+				$(document).trigger('loadProfile', function() {
+					Parse.history.navigate('boatdays-home', true);
+				});
 
-			};
-
-			var logInError = function(error) {
+			}, function(error) {
 
 				self.loading();
 
@@ -82,9 +81,7 @@ define([
 						self._error("An error occured, please try later");
 						break;
 				}
-			};
-
-			Parse.User.logIn(this._in('email').val(), this._in('password').val()).then(logInSuccess, logInError);
+			});
 
 		},
 
@@ -95,33 +92,27 @@ define([
 			var self = this;
 
 			if(this._in('signUpEmail').val() == "") {
-
-				self._error("Oops, you missed one");
+				self.fieldError('signUpEmail', "Oops, you missed one");
+				return; 
 			}
 
 			if(this._in('signUpPassword').val() == "") {
-
-				self._error("Oops, you missed one");
+				self.fieldError('signUpPassword', "Oops, you missed one");
+				return; 
 			}
 
-			var data = {
-
+			new Parse.User().signUp({
 				email: this._in('signUpEmail').val(), 
 				username: this._in('signUpEmail').val(), 
 				password: this._in('signUpPassword').val(), 
 				type: "guest", 
 				profile: new ProfileModel()
-			};
+			}).then(signUpSuccess = function() {
 
-			var signUpSuccess = function() {
+				Parse.history.navigate('boatdays-home', true);
 
-				Parse.history.navigate('profile-info', true);
+			}, function( error ) {
 
-			};
-
-			var signUpError =  function( error ) {
-
-				console.log("Sign up error");
 				self.loading();
 
 				switch(error.code) {
@@ -136,17 +127,7 @@ define([
 						break;
 				}
 
-
-			};
-
-			new Parse.User().signUp(data).then(signUpSuccess, signUpError);
-
-		},
-
-		signInTwitter: function() {
-
-			console.log("sign in twitter");
-
+			});
 		},
 
 		signInFacebook: function() {
@@ -208,9 +189,8 @@ define([
 			var self = this;
 
 			if( user.get("profile") ) {
-				Parse.User.current().get("profile").fetch().then(function() {
-					$(document).trigger('initDrawer');
-					Parse.history.navigate('boatdays-home', true);
+				$(document).trigger('loadProfile', function() {
+					Parse.history.navigate('boatdays-home', true);	
 				});
 			} else {
 				console.log('redirect to createProfile');
@@ -257,8 +237,9 @@ define([
 
 			var userUpdated = function() {
 
-				$(document).trigger('initDrawer');
-				Parse.history.navigate('boatdays-home', true);
+				$(document).trigger('loadProfile', function() {
+					Parse.history.navigate('boatdays-home', true);
+				});
 
 			};
 

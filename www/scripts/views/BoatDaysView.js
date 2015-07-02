@@ -107,7 +107,7 @@ define([
 
 
 					if( boatdays.length == 0 ) {
-						self.$el.find('.content').html($('<h1>').text('Currently no BoatDays for this category.'));
+						self.$el.find('.content').html('<div class="content-padded"><h6>Currently no BoatDays for this category.</h6></div>');
 					}
 
 				}, function(error) {
