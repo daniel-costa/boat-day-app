@@ -15,7 +15,7 @@
 			You can now find this BoatDay in your <a href="#/boatdays-past">Past BoatDays</a>.
 		<% } %>
 
-		<% if( action == "request-cancelled" ) { %>
+		<% if( action == "request-cancelled-host" ) { %>
 			Bad news, I had to cancel your reserved seat<%= request.get('seats') == 1 ? '' : 's' %> for the BoatDay <strong><%= boatday.get('name') %></strong>.
 			You can now find this BoatDay in your <a href="#/boatdays-past">Past BoatDays</a>.
 		<% } %>

@@ -106,7 +106,7 @@ define([
 				username: this._in('signUpEmail').val(), 
 				password: this._in('signUpPassword').val(), 
 				type: "guest", 
-				profile: new ProfileModel()
+				profile: new ProfileModel({ user: Parse.User.current() });
 			}).then(signUpSuccess = function() {
 
 				Parse.history.navigate('boatdays-home', true);
@@ -264,7 +264,8 @@ define([
 					lastName: me.last_name ? me.last_name : null,
 					gender: me.gender ? me.gender : null,
 					birthday: me.birthday ? new Date(ds[2], ds[0]-1, ds[1]) : null,
-					about: me.bio ? me.bio : null
+					about: me.bio ? me.bio : null,
+					user: Parse.User.current()
 				});
 
 				profile.save().then(updateUser, handleErrors);
