@@ -62,7 +62,7 @@ define([
 				query.include('boat');
 				query.include('captain');
 				query.include('captain.host');
-				query.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+				query.greaterThan("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
 				query.equalTo("category", Parse.User.current().get('profile').get('displayBDCategory'));
 				query.notContainedIn('objectId', boatdaysId);
 				query.matchesQuery('captain', queryProfileApproved);
