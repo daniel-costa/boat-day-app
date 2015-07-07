@@ -59,6 +59,7 @@ define([
 					self.boatdays[boatday.id] = boatday;
 
 					var data = {
+						boatday: boatday,
 						id: boatday.id,
 						status: request.get('status'),
 						title: boatday.get('name'),

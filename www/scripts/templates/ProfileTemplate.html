@@ -7,7 +7,33 @@
 	<div class="content-padded text-center">
 
 		<div class="profile-picture" style="background-image:url(<%= profilePicture.url %>)"></div>
-
+		<% if( rating ) { %> 
+			<p class="rating">
+				<img src="resources/rating-<%= rating %>.png" />
+			</p>
+		<% } %>
+		<% if( self.model.get('host') ) { %> 
+			<p class="certifications">
+				<% if( self.model.get('host').get('certStatusBSC') == 'approved' ) { %>
+					<img src="resources/certs/BSC.png" />
+				<% } %>
+				<% if( self.model.get('host').get('certStatusCCL') == 'approved' ) { %>
+					<img src="resources/certs/CCL.png" />
+				<% } %>
+				<% if( self.model.get('host').get('certStatusFAC') == 'approved' ) { %>
+					<img src="resources/certs/FAC.png" />
+				<% } %>
+				<% if( self.model.get('host').get('certStatusFL') == 'approved' ) { %>
+					<img src="resources/certs/FL.png" />
+				<% } %>
+				<% if( self.model.get('host').get('certStatusMCL') == 'approved' ) { %>
+					<img src="resources/certs/MCL.png" />
+				<% } %>
+				<% if( self.model.get('host').get('certStatusSL') == 'approved' ) { %>
+					<img src="resources/certs/SL.png" />
+				<% } %>
+			</p>
+		<% } %>
 		<p class="about">
 			<%= about %>
 		</p>

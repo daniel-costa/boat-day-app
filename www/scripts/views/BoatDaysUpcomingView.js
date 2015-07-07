@@ -38,7 +38,10 @@ define([
 		showChat: function(event) {
 
 			event.preventDefault();
-			this.modal(new BoatDayChatView({ model : this.boatdays[$(event.currentTarget).closest('.boatday-card').attr('data-id')] }));
+			this.modal(new BoatDayChatView({ 
+				model : this.boatdays[$(event.currentTarget).closest('.boatday-card').attr('data-id')],
+				seatRequest: this.requests[$(event.currentTarget).closest('.boatday-card').attr('request-id')]
+			}));
 			
 		},
 
@@ -57,6 +60,7 @@ define([
 			query.include('boatday');
 			query.include('boatday.boat');
 			query.include('boatday.captain');
+			query.include('boatday.captain.host');
 			query.find().then(function(requests) {
 
 				self.$el.find('.loading').remove();
@@ -98,6 +102,19 @@ define([
 						
 						if( fileholder ) {
 							self.$el.find('.boatday-card.card-'+boatday.id+' .picture').css({ backgroundImage: 'url('+fileholder.get('file').url()+')' });
+						}
+
+					});
+
+					var queryLastRead = boatday.relation('chatMessages').query();
+					if( request.get('guestLastRead') ) {
+						queryLastRead.greaterThan('createdAt', new Date(request.get('guestLastRead')) );
+					}
+					queryLastRead.ascending('createdAt');
+					queryLastRead.count().then(function(total) {
+
+						if( total > 0 ) {
+							self.$el.find('.boatday-card.card-'+boatday.id+' .new').show().find('.amount').html(total + ' New Message' + (total != 1 ? 's' : ''));
 						}
 
 					});

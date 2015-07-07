@@ -492,6 +492,18 @@ div.loading {
   color: #b2c0cc;
   font-size: 0.8em;
 }
+.screen-profile .rating img {
+  height: 15px;
+  margin-top: 15px;
+}
+.screen-profile p.certifications {
+  text-align: center;
+  margin-top: 15px;
+}
+.screen-profile p.certifications img {
+  height: 28px;
+  margin: 0px 5px;
+}
 .screen-sign-in .btn.facebook {
   border-color: #6782bc;
   color: white;
@@ -647,7 +659,7 @@ div.loading {
   text-align: center;
   margin-bottom: 0px;
 }
-.screen-boatdays-upcoming .boatday-card > div.chat .new span {
+.screen-boatdays-upcoming .boatday-card > div.chat .new span.bullet {
   background: #f5b019;
   width: 10px;
   height: 10px;
@@ -883,10 +895,18 @@ div.loading {
   font-weight: 500;
   color: #546e7a;
 }
-.screen-boatday .captain p img {
+.screen-boatday .captain p img.rating {
   height: 14px;
   position: relative;
   top: 2px;
+}
+.screen-boatday .captain p.certifications {
+  text-align: center;
+  margin-top: 20px;
+}
+.screen-boatday .captain p.certifications img {
+  height: 28px;
+  margin: 0px 5px;
 }
 .screen-boatday .content h1 {
   line-height: 60px;
@@ -1156,4 +1176,17 @@ div.loading {
   font-size: 0.75em;
   margin: 0px 0px 15px 0px;
   display: block;
+}
+.screen-boatday-cancellation .policy {
+  margin-bottom: 40px;
+}
+.screen-boatday-cancellation .policy:not(.active) h1,
+.screen-boatday-cancellation .policy:not(.active) p {
+  color: #b2c0cc;
+}
+.screen-certifications .ico-cert {
+  display: blocK;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 5px;
 }

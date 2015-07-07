@@ -74,6 +74,10 @@ define([
 			return Math.ceil(price / (1 - Parse.Config.current().get("PRICE_GUEST_PART")));
 		},
 
+		getGuestFee: function(price) {
+			return Math.ceil(price / (1 - Parse.Config.current().get("PRICE_GUEST_PART"))) - price;
+		},
+
 		render: function( init ) {
 			
 			var data = {
@@ -184,7 +188,7 @@ define([
 					btn = this.$el.find(btn);
 				}
 
-				btn.addClass('loading');	
+				btn.addClass('loading');
 
 			} else {
 

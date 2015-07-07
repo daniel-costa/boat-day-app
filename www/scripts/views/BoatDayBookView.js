@@ -31,14 +31,17 @@ define([
 
 		updatePrice: function() {
 
-			var self = this;
+			var self  = this;
 			var seats = this._in('seats').val();
-			var fee = Parse.Config.current().get("TRUST_AND_SAFETY_FEE");
-			var price = self.getGuestPrice(self.model.get('price'));
+			var price = self.model.get('price');
+			var bdfee = self.getGuestFee(self.model.get('price'))
+			var fee   = Parse.Config.current().get("TRUST_AND_SAFETY_FEE");
+			
 
 			self.$el.find('.price').text(seats + " x $" + price);
+			self.$el.find('.bdfee').text(seats + " x $" + bdfee);
 			self.$el.find('.fee').text(seats + " x $" + fee);
-			self.$el.find('.price-total').text(seats * (price + fee));
+			self.$el.find('.price-total').text(seats * (price + fee + bdfee));
 
 		},
 
@@ -79,9 +82,7 @@ define([
 			var self = this;
 
 			self.cleanForm();
-			self.loading('Saving');
-
-			console.log(self._in('card').val());
+			self.loading('.btn-book');
 
 			if( !self._in('card').val() ) {
 				self.fieldError('card', '');

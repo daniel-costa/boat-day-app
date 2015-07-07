@@ -35,8 +35,8 @@
 		<div class="chat btn-chat">
 			<a>Open Group Discussion</a>
 			<% if( newMessages > 0 ) { %> 
-				<p class="new">
-					<span class="bullet"></span> <%= newMessages %> New Message<%= newMessages == 1 ? '' : 's' %>
+				<p class="new" style="display:none">
+					<span class="bullet"></span> <span class="amount"></span>
 				</p>
 			<% } %>
 		</div>

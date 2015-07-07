@@ -22,9 +22,29 @@
 			Hosted by <strong><%= self.model.get('captain').get('displayName') %></strong><br/>
 			Boat <strong><%= self.model.get('boat').get('name') %></strong><br/>
 			<% if( self.model.get('captain').get('rating') ) { %>
-				<img src="resources/rating-<%= self.model.get('captain').get('rating') %>.png" />
+				<img class="rating" src="resources/rating-<%= self.model.get('captain').get('rating') %>.png" />
 			<% } else { %>
 				(no ratings yet)
+			<% } %>
+		</p>
+		<p class="certifications">
+			<% if( self.model.get('captain').get('host').get('certStatusBSC') == 'approved' ) { %>
+				<img src="resources/certs/BSC.png" />
+			<% } %>
+			<% if( self.model.get('captain').get('host').get('certStatusCCL') == 'approved' ) { %>
+				<img src="resources/certs/CCL.png" />
+			<% } %>
+			<% if( self.model.get('captain').get('host').get('certStatusFAC') == 'approved' ) { %>
+				<img src="resources/certs/FAC.png" />
+			<% } %>
+			<% if( self.model.get('captain').get('host').get('certStatusFL') == 'approved' ) { %>
+				<img src="resources/certs/FL.png" />
+			<% } %>
+			<% if( self.model.get('captain').get('host').get('certStatusMCL') == 'approved' ) { %>
+				<img src="resources/certs/MCL.png" />
+			<% } %>
+			<% if( self.model.get('captain').get('host').get('certStatusSL') == 'approved' ) { %>
+				<img src="resources/certs/SL.png" />
 			<% } %>
 		</p>
 	</div>

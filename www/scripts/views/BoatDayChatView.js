@@ -24,6 +24,10 @@ define([
 
 		lastMessage: null,
 
+		initialize: function(data) {
+			this.seatRequest = data.seatRequest;
+		},
+
 		watchEnter: function(event) {
 
 			if( event.keyCode == 13 ) {
@@ -86,8 +90,6 @@ define([
 
 			query.find().then(function(messages) {
 
-				console.log(messages);
-
 				_.each(messages, function(message) {
 					if(append) {
 						self.appendMessage(message);
@@ -101,6 +103,8 @@ define([
 				});
 
 				self.afterRenderInsertedToDom();
+
+				self.seatRequest.save('guestLastRead', new Date());
 
 			});
 

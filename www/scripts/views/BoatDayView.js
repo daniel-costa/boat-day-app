@@ -5,8 +5,9 @@ define([
 'views/ReportView',
 'views/BoatDayCancellationView',
 'views/ProfileView',
+'views/CertificationsView',
 'text!templates/BoatDayTemplate.html'
-], function(ReportModel, BaseView, BoatDayBookView, ReportView, BoatDayCancellationView, ProfileView, BoatDayTemplate){
+], function(ReportModel, BaseView, BoatDayBookView, ReportView, BoatDayCancellationView, ProfileView, CertificationsView, BoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatday modal',
@@ -18,7 +19,8 @@ define([
 			'click .btn-cancel': 'cancel',
 			'click .btn-cancel-modal': 'cancelModal', 
 			'click .report': 'report', 
-			'click .profile-picture': 'profile'
+			'click .profile-picture': 'profile',
+			'click .certifications': 'certifications'
 		},
 
 		statusbar: true,
@@ -92,6 +94,12 @@ define([
 		profile: function(event) {
 
 			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
+
+		},
+
+		certifications: function(event) {
+
+			this.modal(new CertificationsView());
 
 		},
 
