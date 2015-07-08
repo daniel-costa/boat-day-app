@@ -53,6 +53,7 @@ define([
 
 			var innerQuery = new Parse.Query(Parse.Object.extend('BoatDay'));
 			innerQuery.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+			innerQuery.containedIn('status', ['complete']);
 
 			var query = Parse.User.current().get('profile').relation('requests').query();
 			query.containedIn('status', ['approved', 'pending']);
@@ -112,7 +113,8 @@ define([
 					}
 					queryLastRead.ascending('createdAt');
 					queryLastRead.count().then(function(total) {
-
+						console.log("total"+total);
+						
 						if( total > 0 ) {
 							self.$el.find('.boatday-card.card-'+boatday.id+' .new').show().find('.amount').html(total + ' New Message' + (total != 1 ? 's' : ''));
 						}

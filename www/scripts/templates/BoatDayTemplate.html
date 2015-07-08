@@ -6,7 +6,7 @@
 
 <div class="content">
 	
-	<div class="badge-price"><sup>$</sup><%= self.getGuestPrice(price) %><sub>/person</sub></div>
+	<div class="badge-price"><sup>$</sup><%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %><sub>/person</sub></div>
 
 	<div class="slider" id="mySlider">
 		<div class="slide-group">
@@ -284,7 +284,7 @@
 				<p><%= self.seatRequest.get('seats') %> seat<%= self.seatRequest.get('seats') == 1 ? 's' : '' %> <%= self.seatRequest.get('status') == 'approved' ? 'booked' : 'requested' %></p>
 			<% } %>
 
-			<p class="price"><sup>$</sup><%= self.getGuestPrice(price) %><sub>/person</sub></p>
+			<p class="price"><sup>$</sup><%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %><sub>/person</sub></p>
 			<% if( self.fromUpcoming ) { %>
 				<button class="btn btn-block btn-action btn-cancel">Cancel BoatDay</button>
 			<% } else { %>

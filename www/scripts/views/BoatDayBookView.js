@@ -34,7 +34,8 @@ define([
 			var self  = this;
 			var seats = this._in('seats').val();
 			var price = self.model.get('price');
-			var bdfee = self.getGuestFee(self.model.get('price'))
+			var guestPart = self.getGuestRate(self.model.get('captain').get('host').get('type'));
+			var bdfee = self.getGuestFee(self.model.get('price'), guestPart)
 			var fee   = Parse.Config.current().get("TRUST_AND_SAFETY_FEE");
 			
 
@@ -59,6 +60,7 @@ define([
 
 				if( cards.length == 0 ) {
 					self.$el.find('.field-card').html('<p class="align-center">You don\'t have a credit card attach to your account. You can add a credit card from the <a href="#/profile-payments">Payment Information</a> section.</p>')
+					self.$el.find('.btn-action').hide();
 					return;
 				}
 

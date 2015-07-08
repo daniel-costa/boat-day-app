@@ -62,8 +62,9 @@ define([
 				query.include('boat');
 				query.include('captain');
 				query.include('captain.host');
-				query.greaterThan("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+				query.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
 				query.equalTo("category", Parse.User.current().get('profile').get('displayBDCategory'));
+				query.equalTo("status", 'complete');
 				query.notContainedIn('objectId', boatdaysId);
 				query.matchesQuery('captain', queryProfileApproved);
 				query.matchesQuery('boat', queryBoatApproved);
@@ -80,10 +81,10 @@ define([
 						self.boatdays[boatday.id] = boatday;
 
 						var seg = boatday.get('locationText').split(',');
-						
+						var guestPart = self.getGuestRate(boatday.get('captain').get('host').get('type'));
 						var data = {
 							id: boatday.id,
-							price: self.getGuestPrice(boatday.get('price')),
+							price: self.getGuestPrice(boatday.get('price'), guestPart),
 							title: boatday.get('name'),
 							dateDisplay: self.dateParseToDisplayDate(boatday.get('date')),
 							timeDisplay: self.departureTimeToDisplayTime(boatday.get('departureTime')),
@@ -101,11 +102,9 @@ define([
 						var queryPictures = boatday.get('boat').relation('boatPictures').query();
 						queryPictures.ascending('order');
 						queryPictures.first().then(function(fileholder) {
-							
 							if( fileholder ) {
 								self.$el.find('.boatday-card.card-'+boatday.id+' .picture').css({ backgroundImage: 'url('+fileholder.get('file').url()+')' });
 							}
-
 						});
 					});
 

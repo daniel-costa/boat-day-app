@@ -9,10 +9,11 @@ define([
 	'views/BoatDaysPastView',
 	'views/BoatDaysUpcomingView',
 	'views/AboutUsView',
-	'views/NotificationsView'
+	'views/NotificationsView',
+	'views/BoatDayActiveView'
 ], function(
 	SignInView, ProfileInfoView, ProfilePictureView, ProfilePaymentsView, ProfilePaymentsAddView, 
-	BoatDaysHomeView, BoatDaysView, BoatDaysPastView, BoatDaysUpcomingView, AboutUsView, NotificationsView) {
+	BoatDaysHomeView, BoatDaysView, BoatDaysPastView, BoatDaysUpcomingView, AboutUsView, NotificationsView, BoatDayActiveView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -190,9 +191,6 @@ define([
 
 			}
 
-			
-			console.log("handleSignedIn");
-
 			if( Parse.User.current().get('profile').get("status") == "creation" ) {
 				console.log("-> info");
 				self.render(new ProfileInfoView({ model: Parse.User.current().get('profile'), setup: true }));
@@ -210,8 +208,40 @@ define([
 			// 	self.render(new ProfilePaymentsAddView({ setup: true }));
 			// 	return ;
 			// }
+			this.handleEventGoingNow(cb);
 
-			cb();
+		},
+
+		handleEventGoingNow: function(cb) {
+
+			var self = this;
+
+			var timeNow = new Date().getHours() + ( new Date().getMinutes() > 30 ? 0.5 : 0 );
+
+			var innerQuery = new Parse.Query(Parse.Object.extend('BoatDay'));
+			innerQuery.greaterThanOrEqualTo('date', new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
+			innerQuery.lessThanOrEqualTo('date', new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate(), 23, 59, 59, 999));
+			innerQuery.lessThanOrEqualTo('departureTime', timeNow);
+			innerQuery.greaterThan('arrivalTime', timeNow);
+
+			var query = Parse.User.current().get('profile').relation('requests').query();
+			query.equalTo('status', 'approved');
+			query.matchesQuery('boatday', innerQuery);
+			query.include('boatday');
+			query.include('boatday.captain');
+			query.include('boatday.captain.host');
+			query.find().then(function(requests) {
+
+				if( requests.length == 0 ) {
+					cb();
+					return;
+				}
+
+				self.render(new BoatDayActiveView({ model: requests[0] }));
+
+			}, function(error) {
+				console.log(error);
+			});
 
 		},
 
@@ -230,7 +260,7 @@ define([
 
 			if($('#app').is(":hidden")) {
 				$('#app').fadeIn();
-				$('video').remove();
+				$('video#intro').remove();
 			}
 		}
 

@@ -11,9 +11,13 @@ define([
 			card: null,
 			boatday: null,
 			contribution: null,
+			contributionPaid: false,
 			cancelled: false,
 			message: null,
 			guestLastRead: null,
+			reviewGuest: null,
+			ratingGuest: null,
+			ratingHost: null,
 		},
 
 	});

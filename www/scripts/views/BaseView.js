@@ -35,8 +35,12 @@ define([
 				case 'sailing' : return 'Sailing'; break;
 				case 'fishing' : return 'Fishing'; break;
 			}
+		},		
+
+		getGuestRate: function(type) {
+			return type == 'business' ? Parse.Config.current().get("PRICE_GUEST_CHARTER_PART") : Parse.Config.current().get("PRICE_GUEST_PRIVATE_PART");
 		},
-		
+
 		modal: function(view) {
 
 			var self = this;
@@ -45,10 +49,11 @@ define([
 			// self.subViews.push(view);
 
 			$el.insertAfter(this.$el);
-			
+
 			$el.on('click', '.close-me', function() {
 				
-				$(document).trigger('enableDrawer');
+				self.handleStatusBarAndDrawer(self.statusbar, self.drawer);
+
 				$el.removeClass('active');
 
 				setTimeout(function() { 
@@ -66,16 +71,53 @@ define([
 
 		},
 
+		censorEmailFronString: function(str) {
+
+			var pattern = /[^@\s]*@[^@\s]*\.[^@\s]*/g;
+			var replacement = "[censored]";
+			return str.replace(pattern, replacement);
+
+		},
+
+		censorLinksFronString: function(str) {
+
+			// var pattern = /[a-zA-Z]*[:\/\/]*[A-Za-z0-9\-_]+\.+[A-Za-z0-9\.\/%&=\?\-_]+/ig;
+			var pattern = /\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/ig;
+			var replacement = "[censored]";
+			return str.replace(pattern, replacement);
+
+		},
+
+		censorPhoneNumbersFronString: function(str) {
+
+			var pattern = /(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/ig;
+			var replacement = "[censored]";
+			return str.replace(pattern, replacement);
+
+		},
+
+		censorAll: function(str) {
+
+			return  this.censorPhoneNumbersFronString(this.censorLinksFronString(this.censorEmailFronString(str)));
+
+		},
+
+		censorField: function(event) {
+
+			$(event.currentTarget).val( this.censorAll($(event.currentTarget).val()));
+			
+		},
+		
 		close: function() {
 			this.$el.find('.close-me').click();
 		},
 
-		getGuestPrice: function(price) {
-			return Math.ceil(price / (1 - Parse.Config.current().get("PRICE_GUEST_PART")));
+		getGuestPrice: function(price, guestPart) {
+			return Math.ceil(price / (1 - guestPart));
 		},
 
-		getGuestFee: function(price) {
-			return Math.ceil(price / (1 - Parse.Config.current().get("PRICE_GUEST_PART"))) - price;
+		getGuestFee: function(price, guestPart) {
+			return Math.ceil(price / (1 - guestPart)) - price;
 		},
 
 		render: function( init ) {
@@ -98,17 +140,22 @@ define([
 			
 			this.$el.html(this.template(data));
 			
-			$(document).trigger( this.drawer ? 'enableDrawer' : 'disableDrawer');
-			
-			if( this.statusbar ) {
-				StatusBar.show();
-			} else {
-				StatusBar.hide();
-			}
+			this.handleStatusBarAndDrawer(this.statusbar, this.drawer);
 			
 			console.log("### Render (" + this.className + ") ###");
 			
 			return this;
+		},
+
+		handleStatusBarAndDrawer: function(sb, drawer) {
+
+			$(document).trigger( drawer ? 'enableDrawer' : 'disableDrawer');
+			
+			if( sb ) {
+				StatusBar.show();
+			} else {
+				StatusBar.hide();
+			}
 		},
 
 		cleanForm: function() {

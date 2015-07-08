@@ -1,40 +1,38 @@
 <header class="bar bar-nav">
 	<a class="icon icon-close pull-left close-me"></a>
-	<h1 class="title">Contribute &amp; Review</h1>
+	<h1 class="title">Rate &amp; Pay</h1>
 </header>
 
 <div class="content">
 	
 	<div class="content-padded">
-		<h1>Rating</h1>
+		<h1>Rate BoatDay</h1>
 		
-		<label>BoatDay Experience</label>
-		<img class="rating-3 star" src="resources/star.png" />
-		<img class="rating-3 star" src="resources/star.png" />
-		<img class="rating-3 star" src="resources/star.png" />
-		<img class="rating-3 star" src="resources/star.png" />
-		<img class="rating-3 star" src="resources/star.png" />
+		<div class="stars text-center">
+			<img class="rating" src="resources/star.png" data-rating="1" />
+			<img class="rating" src="resources/star.png" data-rating="2" />
+			<img class="rating" src="resources/star.png" data-rating="3" />
+			<img class="rating" src="resources/star.png" data-rating="4" />
+			<img class="rating" src="resources/star.png" data-rating="5" />
+		</div>
 
-		<label>Host Communication</label>
-		<img class="rating-1 star" src="resources/star.png" />
-		<img class="rating-1 star" src="resources/star.png" />
-		<img class="rating-1 star" src="resources/star.png" />
-		<img class="rating-1 star" src="resources/star.png" />
-		<img class="rating-1 star" src="resources/star.png" />
+		<textarea name="review" rows="2" placeholder="Tell us how this BoatDay went"></textarea>
 
-		<label>Listing Accuracy</label>
-		<img class="rating-2 star" src="resources/star.png" />
-		<img class="rating-2 star" src="resources/star.png" />
-		<img class="rating-2 star" src="resources/star.png" />
-		<img class="rating-2 star" src="resources/star.png" />
-		<img class="rating-2 star" src="resources/star.png" />
+		<% if( typeof contribution == typeof undefined || !contribution ) { %>
+			<h1>Pay for <%= seats %> seat <%= seats == 1 ? '' : 's' %></h1>
+			<div class="pay">
+				<button class="btn btn-minus btn-primary">-</button>
+				<span class="price">
+					<sup>$</sup><span class="total"><%= self.price %></span>
+				</span>
+				<button class="btn btn-plus btn-primary">+</button>
+			</div>
+		<% } %>
+	</div>
 
-		<label>Host Review</label>
-		<textarea name="review" rows="3"></textarea>
-
-		<h1>Payment</h1>
-
-
-		<button class="btn btn-block btn-book btn-action">Contribute &amp; Review</button>
+	<div class="clip-to-bottom">
+		<div class="content-padded">
+			<button class="btn btn-block btn-pay">Contribute &amp; Review</button>
+		</div>
 	</div>
 </div>

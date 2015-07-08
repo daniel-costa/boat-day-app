@@ -61,9 +61,11 @@ define([
 						break;
 					case 2: 
 
+						self.loading('.btn-cancel');
+
 						self.seatRequest.save({ status: 'cancelled-guest' }).then(function() {
 							self._info('BoatDay Cancelled. You can find this event in the Past BoatDays section');
-							Parse.history.navigate('#/boatdays-upcoming', true);
+							Parse.history.navigate('boatdays-past', true);
 						});
 						
 						break;

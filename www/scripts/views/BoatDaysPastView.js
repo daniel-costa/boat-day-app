@@ -1,22 +1,36 @@
 define([
 'views/BaseView',
+'views/BoatDayPayView',
+'views/ProfileView',
 'text!templates/BoatDaysPastTemplate.html',
 'text!templates/BoatDaysPastCardTemplate.html',
-], function(BaseView, BoatDaysPastTemplate, BoatDaysPastCardTemplate){
-	var BoatDaysUpcomingView = BaseView.extend({
+], function(BaseView, BoatDayPayView, ProfileView, BoatDaysPastTemplate, BoatDaysPastCardTemplate){
+	var BoatDaysPastView = BaseView.extend({
 
 		className: 'screen-boatdays-past',
 
 		template: _.template(BoatDaysPastTemplate),
 
 		events: {
+			'click .btn-pay': 'pay',
+			'click .profile-picture': 'profile',
 		},
 
 		statusbar: true,
 		
 		drawer: true,
-		
-		boatdays: {},
+
+		requests: {},
+
+		profiles: {},
+
+		pay: function(event) {
+			this.modal(new BoatDayPayView({ model : this.requests[$(event.currentTarget).closest('.boatday-card').attr('data-request')] }) );
+		},
+
+		profile: function(event) {
+			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
+		},
 
 		render: function( ) {
 
@@ -39,36 +53,30 @@ define([
 			var queryPast = Parse.User.current().get('profile').relation('requests').query();
 			queryPast.matchesQuery("boatday", innerQueryPast);
 
-
 			var mainQuery = Parse.Query.or(queryPast, queryByStatus);
 			mainQuery.include('boatday');
 			mainQuery.include('boatday.boat');
 			mainQuery.include('boatday.captain');
+			mainQuery.include('boatday.captain.host');
 			mainQuery.find().then(function(requests) {
 
 				self.$el.find('.loading').remove();
 				
 				var tpl = _.template(BoatDaysPastCardTemplate);
 
-				self.boatdays = {};
+				self.requests = {};
 
 				_.each(requests, function(request) {
 					
 					var boatday = request.get('boatday');
 
-					self.boatdays[boatday.id] = boatday;
+					self.requests[request.id] = request;
+					self.profiles[boatday.get('captain').id] = boatday.get('captain');
 
 					var data = {
+						self: self,
 						boatday: boatday,
-						id: boatday.id,
-						status: request.get('status'),
-						title: boatday.get('name'),
-						dateDisplay: self.dateParseToDisplayDate(boatday.get('date')),
-						timeDisplay: self.departureTimeToDisplayTime(boatday.get('departureTime')),
-						captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
-						captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
-						rating: request.get('rating') ? request.get('rating') : null,
-						contribution: request.get('contribution')
+						request: request,
 					}
 
 					self.$el.find('.content').append(tpl(data));
@@ -97,5 +105,5 @@ define([
 		}
 
 	});
-	return BoatDaysUpcomingView;
+	return BoatDaysPastView;
 });

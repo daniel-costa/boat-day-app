@@ -106,7 +106,7 @@ define([
 				username: this._in('signUpEmail').val(), 
 				password: this._in('signUpPassword').val(), 
 				type: "guest", 
-				profile: new ProfileModel({ user: Parse.User.current() });
+				profile: new ProfileModel({ user: Parse.User.current() })
 			}).then(signUpSuccess = function() {
 
 				Parse.history.navigate('boatdays-home', true);
