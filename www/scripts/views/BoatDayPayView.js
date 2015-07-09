@@ -34,8 +34,8 @@ define([
 			var guestPart = this.getGuestRate(this.model.get('boatday').get('captain').get('host').get('type'));
 			this.price = ( this.getGuestPrice(this.model.get('boatday').get('price'), guestPart) + Parse.Config.current().get("TRUST_AND_SAFETY_FEE") ) * this.model.get('seats');
 			this.priceBase = this.price;
-			this.mediaMinus = new Media("resources/sfx/minus-button.wav", function(){}, function(error){ console.log(error) });
-			this.mediaPlus = new Media("resources/sfx/plus-button.wav", function(){}, function(error){ console.log(error) });
+			this.mediaMinus = new Media("resources/sfx/minus-button.wav");
+			this.mediaPlus = new Media("resources/sfx/plus-button.wav");
 
 		},
 
@@ -64,8 +64,11 @@ define([
 			var self = this;
 			var review = this._in('review').val();
 
+			if( self.loading('.btn-pay') ) {
+				console.log('abort');
+				return ;
+			}
 			self.cleanForm();
-			self.loading('.btn-pay');
 
 			if( !this.rating ) {
 				self._error('Oops... You forgot to rate the BoatDay.');
@@ -89,7 +92,18 @@ define([
 				ratingGuest: parseInt(self.rating),
 				reviewGuest: review,
 			}).then(function() {
-				Parse.history.loadUrl(Parse.history.fragment);
+				var profile = self.model.get('boatday').get('captain');
+				var rating = typeof profile.get('rating') != typeof undefined && profile.get('rating') ? profile.get('rating') : 0;
+				var ratingAmount = profile.get('ratingAmount');
+
+				self.model.get('boatday').get('captain').save({
+					rating : ( rating * ratingAmount  + parseInt(self.rating) ) / (ratingAmount + 1),
+					ratingAmount: ratingAmount + 1
+				}).then(function() {
+					Parse.history.loadUrl(Parse.history.fragment);
+				}, function(error) {
+					console.log(error);
+				});
 			}, function(error) {
 				console.log(error)
 			});

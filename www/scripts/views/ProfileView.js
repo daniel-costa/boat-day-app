@@ -35,9 +35,7 @@ define([
 		},
 
 		certifications: function(event) {
-
 			this.modal(new CertificationsView());
-
 		},
 
 		profile: function(event) {

@@ -324,14 +324,16 @@ div.content a.btn.facebook.loading:after,
 div.content a.btn.btn-action.loading:after {
   background: url(../resources/logo-30-white.png) center center no-repeat;
 }
+/*
 div.loading {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: url(../resources/logo-60.png) center center no-repeat;
-  -webkit-animation: "pulse1" 0.8s ease-in-out alternate infinite;
-  opacity: 1;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: url(../resources/logo-60.png) center center no-repeat;
+	-webkit-animation: "pulse1" 0.8s ease-in-out alternate infinite;
+	opacity: 1;
 }
+*/
 @-webkit-keyframes "pulse1" {
   0% {
     -webkit-transform: scale(1.1);
@@ -355,6 +357,7 @@ div.loading {
   padding: 10px;
   padding-top: 20px;
   z-index: 10000;
+  font-size: 0.8em;
   -webkit-animation-name: fadeOut;
   -webkit-animation-duration: 3s;
   -webkit-animation-timing-function: linear;
@@ -382,7 +385,7 @@ div.loading {
   }
 }
 .message.message-info {
-  background: #67616c;
+  background: #13a7bf;
 }
 .message.message-error {
   background: #d9534f;
@@ -1023,6 +1026,18 @@ div.loading {
   width: 10px;
   margin-right: 5px;
 }
+.screen-boatday .position strong {
+  font-size: 1.5em;
+  position: relative;
+  top: 2px;
+  margin-right: 5px;
+  color: #13a7bf;
+}
+.screen-boatday .position {
+  font-size: 0.8em;
+  text-align: center;
+  margin-top: 5px;
+}
 .screen-boatday .book {
   clear: both;
   background: #f9fbfb;
@@ -1041,6 +1056,12 @@ div.loading {
 }
 .screen-boatday .book p.price sub {
   font-size: 0.3em;
+}
+.screen-boatday .book p.seats {
+  text-align: center;
+  color: #13a7bf;
+  font-weight: 500;
+  margin-bottom: 20px;
 }
 .screen-boatday .book a.btn-cancel-modal {
   display: block;

@@ -51,13 +51,27 @@ define([
 
 			var self = this;
 
-			var innerQuery = new Parse.Query(Parse.Object.extend('BoatDay'));
-			innerQuery.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
-			innerQuery.containedIn('status', ['complete']);
+			var innerQueryToday = new Parse.Query(Parse.Object.extend('BoatDay'));
+			innerQueryToday.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
+			innerQueryToday.lessThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59, 599));
+			innerQueryToday.greaterThan('departureTime', new Date().getHours() + ( new Date().getMinutes() > 30 ? 0.5 : 0 ));
+			innerQueryToday.containedIn('status', ['complete']); 
 
-			var query = Parse.User.current().get('profile').relation('requests').query();
-			query.containedIn('status', ['approved', 'pending']);
-			query.matchesQuery("boatday", innerQuery);
+			var queryToday = Parse.User.current().get('profile').relation('requests').query();
+			queryToday.containedIn('status', ['approved', 'pending']);
+			queryToday.matchesQuery("boatday", innerQueryToday);
+
+
+			var innerQueryTomorrow = new Parse.Query(Parse.Object.extend('BoatDay'));
+			innerQueryTomorrow.greaterThan("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59, 599));
+			innerQueryTomorrow.containedIn('status', ['complete']);
+
+			var queryTomorrow = Parse.User.current().get('profile').relation('requests').query();
+			queryTomorrow.containedIn('status', ['approved', 'pending']);
+			queryTomorrow.matchesQuery("boatday", innerQueryTomorrow);
+
+
+			var query = Parse.Query.or(queryToday, queryTomorrow);
 			query.include('boatday');
 			query.include('boatday.boat');
 			query.include('boatday.captain');
@@ -113,7 +127,6 @@ define([
 					}
 					queryLastRead.ascending('createdAt');
 					queryLastRead.count().then(function(total) {
-						console.log("total"+total);
 						
 						if( total > 0 ) {
 							self.$el.find('.boatday-card.card-'+boatday.id+' .new').show().find('.amount').html(total + ' New Message' + (total != 1 ? 's' : ''));

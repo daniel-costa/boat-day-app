@@ -95,7 +95,6 @@ define([
 
 				if( !Parse.User.current().get('profile').get('displayBDCategory') ) {
 					
-					console.log('**no-boatdays-redirect**');
 					self.render(new BoatDaysHomeView());
 
 				} else {
@@ -192,22 +191,15 @@ define([
 			}
 
 			if( Parse.User.current().get('profile').get("status") == "creation" ) {
-				console.log("-> info");
 				self.render(new ProfileInfoView({ model: Parse.User.current().get('profile'), setup: true }));
 				return ;
 			}
 
 			if( !Parse.User.current().get('profile').get("profilePicture") ) {
-				console.log("-> picture");
 				self.render(new ProfilePictureView({ model: Parse.User.current().get('profile'), setup: true }));
 				return ;
 			}
 
-			// if( !Parse.User.current().get('profile').get("paymentId") ) {
-			// 	console.log("-> payments");
-			// 	self.render(new ProfilePaymentsAddView({ setup: true }));
-			// 	return ;
-			// }
 			this.handleEventGoingNow(cb);
 
 		},

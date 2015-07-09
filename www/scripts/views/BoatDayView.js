@@ -52,7 +52,12 @@ define([
 		cancel: function() {
 			
 			var self = this;
-			
+
+			if( self.loading('.btn-cancel') ) {
+				console.log('abort');
+				return ;
+			}
+
 			var prompt = function(buttonIndex) {
 
 				switch(buttonIndex) {
@@ -63,7 +68,17 @@ define([
 
 						self.loading('.btn-cancel');
 
+						
+
+						var base = self.seatRequest.get('status');
+
 						self.seatRequest.save({ status: 'cancelled-guest' }).then(function() {
+
+							if( base == 'approved' ) {
+								self.model.increment('bookedSeats', -1);
+								self.model.save();
+							}
+
 							self._info('BoatDay Cancelled. You can find this event in the Past BoatDays section');
 							Parse.history.navigate('boatdays-past', true);
 						});
@@ -71,6 +86,8 @@ define([
 						break;
 				}
 
+				self.loading();
+				
 				return ;
 			};
 			
@@ -122,7 +139,6 @@ define([
 			queryPictures.find().then(function(files) {
 
 				if(files.length == 0) {
-					console.log('No pictures for this boat');
 					return;
 				}
 

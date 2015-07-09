@@ -131,6 +131,10 @@ define([
 
 			var self = this;
 
+			if( self.loading('.btn-send') ) {
+				return ;
+			}
+
 			if( this._in('text').val() == '' ) {
 				return;
 			}
@@ -141,16 +145,13 @@ define([
 				profile: Parse.User.current().get('profile'),
 				addToBoatDay: true
 			}).save().then(function(message) {
-				
+				self.loading();
 				self.lastMessage = message;
 				self._in('text').val('');
 				self.appendMessage(message);
 				self.afterRenderInsertedToDom();
-
 			}, function(error) {
-				
 				console.log(error);
-
 			});
 		}
 		

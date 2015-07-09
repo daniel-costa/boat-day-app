@@ -60,12 +60,15 @@ define([
 		},
 
 		pickCategory: function(event) {
-
-			console.log(event);
 			
 			var self = this;
 			var btn = $(event.currentTarget);
 			var category = btn.attr('bd-category');
+
+			if( self.loading(btn) ) {
+				console.log('abort');
+				return ;
+			}
 
 			var profileUpdatedSuccess = function(profile) {
 

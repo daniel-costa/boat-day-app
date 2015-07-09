@@ -22,7 +22,7 @@
 			Hosted by <strong><%= self.model.get('captain').get('displayName') %></strong><br/>
 			Boat <strong><%= self.model.get('boat').get('name') %></strong><br/>
 			<% if( self.model.get('captain').get('rating') ) { %>
-				<img class="rating" src="resources/rating-<%= self.model.get('captain').get('rating') %>.png" />
+				<img class="rating" src="resources/rating-<%= Math.ceil(self.model.get('captain').get('rating')) %>.png" />
 			<% } else { %>
 				(no ratings yet)
 			<% } %>
@@ -58,7 +58,7 @@
 		</tr>
 		<tr>
 			<td>Available seats <strong><%= availableSeats - bookedSeats + '/' + availableSeats %></strong></td>
-			<td>Duration <strong><%= duration %>h</strong></td>
+			<td>Duration <strong><%= duration %> hour<%= duration == 1 ? '' : 's' %></strong></td>
 		</tr>
 	</table>
 
@@ -281,7 +281,7 @@
 	<div class="book">
 		<div class="content-padded">
 			<% if( self.fromUpcoming && self.seatRequest ) { %>
-				<p><%= self.seatRequest.get('seats') %> seat<%= self.seatRequest.get('seats') == 1 ? 's' : '' %> <%= self.seatRequest.get('status') == 'approved' ? 'booked' : 'requested' %></p>
+				<p class="seats"><%= self.seatRequest.get('seats') %> seat<%= self.seatRequest.get('seats') == 1 ? '' : 's' %> <%= self.seatRequest.get('status') == 'approved' ? 'booked' : 'requested' %></p>
 			<% } %>
 
 			<p class="price"><sup>$</sup><%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %><sub>/person</sub></p>

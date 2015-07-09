@@ -9,7 +9,7 @@
 		<div class="profile-picture" style="background-image:url(<%= profilePicture.url %>)"></div>
 		<% if( typeof rating != typeof undefined && rating ) { %> 
 			<p class="rating">
-				<img src="resources/rating-<%= rating %>.png" />
+				<img src="resources/rating-<%= Math.ceil(rating) %>.png" />
 			</p>
 		<% } %>
 		<% if( self.model.get('host') ) { %> 

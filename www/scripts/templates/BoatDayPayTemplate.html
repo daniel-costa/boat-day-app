@@ -1,6 +1,6 @@
 <header class="bar bar-nav">
 	<a class="icon icon-close pull-left close-me"></a>
-	<h1 class="title">Rate &amp; Pay</h1>
+	<h1 class="title"><%= self.model.get('boatday').get('name') %></h1>
 </header>
 
 <div class="content">
@@ -16,10 +16,10 @@
 			<img class="rating" src="resources/star.png" data-rating="5" />
 		</div>
 
-		<textarea name="review" rows="2" placeholder="Tell us how this BoatDay went"></textarea>
+		<textarea name="review" rows="2" placeholder="Review your Host and BoatDay experience"></textarea>
 
 		<% if( typeof contribution == typeof undefined || !contribution ) { %>
-			<h1>Pay for <%= seats %> seat <%= seats == 1 ? '' : 's' %></h1>
+			<h1>Contribution (<%= seats %> seat<%= seats == 1 ? '' : 's' %>)</h1>
 			<div class="pay">
 				<button class="btn btn-minus btn-primary">-</button>
 				<span class="price">
@@ -32,7 +32,7 @@
 
 	<div class="clip-to-bottom">
 		<div class="content-padded">
-			<button class="btn btn-block btn-pay">Contribute &amp; Review</button>
+			<button class="btn btn-block btn-pay">Submit</button>
 		</div>
 	</div>
 </div>

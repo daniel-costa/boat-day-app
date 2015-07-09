@@ -12,7 +12,9 @@ define([
 			birthday: null,
 			about: null,
 			profilePicture: null,
-			position:null
+			position:null,
+			rating: null,
+			ratingAmount: 0
 		},
 
 		validate: function(attributes) {

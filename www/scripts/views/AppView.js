@@ -45,8 +45,6 @@ define([
 		},
 
 		displayMessage: function(event, params) {
-
-			console.log(params);
 			
 			var self = this;
 			var hasHeader = $('header').length != 0;
@@ -187,10 +185,7 @@ define([
 			}
 
 			var positionError = function (error) {
-	
-				console.log("Retrieve position error:");
 				console.log(error);
-
 			};
 
 			var positionSuccess = function(position) {

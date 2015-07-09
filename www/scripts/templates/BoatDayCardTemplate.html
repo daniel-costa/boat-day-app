@@ -7,7 +7,7 @@
 				<div class="name"><strong><%= captainName %></strong></div>
 				<% if( captainRating ) { %>
 					<div class="rating">
-						<img src="resources/rating-<%= captainRating %>.png" />
+						<img src="resources/rating-<%= Math.ceil(captainRating) %>.png" />
 					</div>
 				<% } %>
 			</div>

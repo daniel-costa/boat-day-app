@@ -23,8 +23,7 @@ define([
 		cards: {},
 
 		payments: function() {
-			
-			// this.modal(new ProfilePaymentsAddView({ model : this.model, modal: true }));
+
 			Parse.history.navigate("profile-payments", true);
 
 		},
@@ -83,8 +82,11 @@ define([
 
 			var self = this;
 
+			if( self.loading('.btn-book') ) {
+				console.log('abort');
+				return ;
+			}
 			self.cleanForm();
-			self.loading('.btn-book');
 
 			if( !self._in('card').val() ) {
 				self.fieldError('card', '');

@@ -45,8 +45,11 @@ define([
 			var err = false;
 			var config = Parse.Config.current();
 
+			if( self.loading('.save') ) {
+				console.log('abort');
+				return ;
+			}
 			self.cleanForm();
-			self.loading('.save');
 			
 			var number = this._input('number').val();
 			var cvv = this._input('cvv').val();	

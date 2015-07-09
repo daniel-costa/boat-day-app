@@ -29,12 +29,15 @@ define([
 
 			var self = this;
 
-			self.loading('Saving');
+			if( self.loading('.btn-send') ) {
+				return ;
+			}
+
 			self.cleanForm();
 
 			if( this._in('feedback').val() == '' ) {
 				this.fieldError('feedback', 'This field cannot be empty');
-				this.loading();
+				self.loading();
 				return;
 			}
 
@@ -49,8 +52,12 @@ define([
 				file2: null,
 				file3: null
 			}).then(function() {
+				self.loading();
+				self._in('feedback').val('');
 				self._info('Thank you for contacting the BoatDay team, we will get back to you soon.');
+				self.loading();
 			}, function(error) {
+				self.loading();
 				self.handleSaveErrors(error);
 			});
 		}

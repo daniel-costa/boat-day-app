@@ -45,6 +45,10 @@ define([
 
 			var self = this;
 
+			if( self.loading('.save') ) {
+				console.log('abort');
+				return ;
+			}
 			self.cleanForm();
 
 			if( !this.profileSetup && !this.tempPicture ) {
@@ -67,7 +71,6 @@ define([
 			var profileUpdateError = function(error) {
 
 				if( error.type && error.type == 'model-validation' ) {
-					console.log(error.fields);
 					_.map(error.fields, function(message, field) { 
 						self.fieldError(field, message);
 					});

@@ -59,15 +59,15 @@ define([
 				queryProfileApproved.matchesQuery('host', queryHostApproved);
 
 				var query = new Parse.Query(Parse.Object.extend('BoatDay'));
-				query.include('boat');
-				query.include('captain');
-				query.include('captain.host');
-				query.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+				query.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
 				query.equalTo("category", Parse.User.current().get('profile').get('displayBDCategory'));
 				query.equalTo("status", 'complete');
 				query.notContainedIn('objectId', boatdaysId);
 				query.matchesQuery('captain', queryProfileApproved);
 				query.matchesQuery('boat', queryBoatApproved);
+				query.include('boat');
+				query.include('captain');
+				query.include('captain.host');
 				query.find().then(function(boatdays) {
 
 					self.$el.find('.loading').remove();

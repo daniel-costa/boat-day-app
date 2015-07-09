@@ -6,13 +6,13 @@
 		<br/>
 
 		<% if( action == "request-approved" ) { %>
-			I have approved your request for <%= request.get('seats') %> seat<%= request.get('seats') == 1 ? '' : 's' %> on my BoatDay <strong><%= boatday.get('name') %></strong>.
-			You can now find this BoatDay in your <a href="#/boatdays-upcoming">Upcoming BoatDays</A>. Welcome aboard!
+			I have approved your request for <%= request.get('seats') %> seat<%= request.get('seats') == 1 ? '' : 's' %> on <strong><%= boatday.get('name') %></strong>.
+			You can now find in your <a href="#/boatdays-upcoming">Upcoming BoatDays</A>. Welcome aboard!
 		<% } %>
 
 		<% if( action == "request-denied" ) { %>
-			Unfortunately, I can't approve your seat request for my BoatDay <strong><%= boatday.get('name') %></strong>.
-			You can now find this BoatDay in your <a href="#/boatdays-past">Past BoatDays</a>.
+			Unfortunately, I can't approve your seat request for <strong><%= boatday.get('name') %></strong>.
+			You can now find in your <a href="#/boatdays-past">Past BoatDays</a>.
 		<% } %>
 
 		<% if( action == "request-cancelled-host" ) { %>

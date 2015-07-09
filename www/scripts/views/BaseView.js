@@ -209,9 +209,6 @@ define([
 		
 		teardown: function() {
 
-			console.log("** teardown **");
-			console.log(this.subViews);
-
 			if( this.model ) {
 				this.model.off(null, null, this);
 			}
@@ -235,7 +232,12 @@ define([
 					btn = this.$el.find(btn);
 				}
 
-				btn.addClass('loading');
+				if( btn.hasClass('loading') ) {
+					return true;
+				} else {
+					btn.addClass('loading');
+					return false;
+				}
 
 			} else {
 

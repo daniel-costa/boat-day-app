@@ -19,10 +19,13 @@ define([
 		report: function(event) {
 
 			event.preventDefault();
-
 			var self = this;
 
-			self.loading('Reporting');
+			if( self.loading('.report') ) {
+				console.log('abort');
+				return ;
+			}
+
 			self.cleanForm();
 
 			self.model.save({
@@ -30,14 +33,11 @@ define([
 				fromProfile: Parse.User.current().get('profile'),
 				message: this._in('message').val(),
 			}).then(function() {
-				
+				self.loading();
 				self._info('Thank you for the report.');
 				self.close();
-
 			}, function(error) {
-				
 				console.log(error);
-
 			});
 		}
 

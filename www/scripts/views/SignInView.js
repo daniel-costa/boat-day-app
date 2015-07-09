@@ -47,22 +47,30 @@ define([
 
 		signIn: function(event) {
 
-			console.log("sign in with email");
+			event.preventDefault();
 
-			event.preventDefault(); 
 			var self = this;
+
+			if( self.loading('.sign-in') ) {
+				console.log('abort');
+				return ;
+			}
 
 			if(this._in('email').val() == '') {
 				self.fieldError("email", "Oops, you missed one");
+				self.loading();
 				return;
 			}
 
 			if(this._in('password').val() == '') {
 				self.fieldError("password", "Oops, you missed one");
+				self.loading();
 				return;
 			}
 
 			Parse.User.logIn(this._in('email').val(), this._in('password').val()).then(function() {
+
+				self.loading();
 
 				$(document).trigger('loadProfile', function() {
 					Parse.history.navigate('boatdays-home', true);
@@ -73,13 +81,8 @@ define([
 				self.loading();
 
 				switch(error.code) {
-					case 101:
-						self._error("Invalid email/password");
-						break;
-
-					default:
-						self._error("An error occured, please try later");
-						break;
+					case 101: self._error("Invalid email/password"); break;
+					default: self._error("An error occured, please try later"); break;
 				}
 			});
 
@@ -91,13 +94,20 @@ define([
 
 			var self = this;
 
+			if( self.loading('.sign-up') ) {
+				console.log('abort');
+				return ;
+			}
+
 			if(this._in('signUpEmail').val() == "") {
 				self.fieldError('signUpEmail', "Oops, you missed one");
+				self.loading();
 				return; 
 			}
 
 			if(this._in('signUpPassword').val() == "") {
 				self.fieldError('signUpPassword', "Oops, you missed one");
+				self.loading();
 				return; 
 			}
 
@@ -134,12 +144,12 @@ define([
 
 			var self = this;
 
-			if( self.isLoading('button.facebook') ) {
-				return;
+
+			if( self.loading('.facebook') ) {
+				console.log('abort');
+				return ;
 			}
-
-			self.loading('button.facebook');
-
+			
 			var fbLoginSuccess = function(userData) {
 
 				if (!userData.authResponse){

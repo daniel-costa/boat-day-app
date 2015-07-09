@@ -6,7 +6,7 @@
 				<div class="name"><strong><%= captainName %></strong></div>
 				<% if( captainRating ) { %>
 					<div class="rating">
-						<img src="resources/rating-<%= captainRating %>.png" />
+						<img src="resources/rating-<%= Math.ceil(captainRating) %>.png" />
 					</div>
 				<% } %>
 			</div>
@@ -33,7 +33,7 @@
 	</div>
 	<% if( status == 'approved' ) { %>
 		<div class="chat btn-chat">
-			<a>Open Group Discussion</a>
+			<a>Open Group Chat</a>
 			<% if( newMessages > 0 ) { %> 
 				<p class="new" style="display:none">
 					<span class="bullet"></span> <span class="amount"></span>

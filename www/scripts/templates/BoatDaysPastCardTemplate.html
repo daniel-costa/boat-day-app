@@ -16,7 +16,7 @@
 							<div class="right">
 								Your Rating<br/>
 								<% if( request.get('ratingGuest') ) { %>
-									<img src="resources/rating-<%= request.get('ratingGuest') %>.png" />
+									<img src="resources/rating-<%= Math.ceil(request.get('ratingGuest')) %>.png" />
 								<% } else { %>
 									(no ratings yet)
 								<% } %>
@@ -33,7 +33,7 @@
 
 					<% } else { %>
 						<div class="center">
-							<%= request.get('status') == 'cancelled-guest' ? 'You cancelled this event' : '' %>
+							<%= request.get('status') == 'cancelled-guest' ? 'You cancelled your seats for this BoatDay' : '' %>
 							<%= request.get('status') == 'cancelled-host' ? 'Host cancelled this event' : '' %>
 							<%= request.get('status') == 'denied' ? 'Seat request denied' : '' %>
 							<%= request.get('status') == 'pending' ? 'This seat request was not not acceepted.' : '' %>

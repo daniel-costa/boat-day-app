@@ -40,6 +40,12 @@ define([
 
 			var self = this;
 
+			if( self.loading('.save') ) {
+				console.log('abort');
+				return ;
+			}
+
+
 			self.cleanForm();
 
 			var data = {
@@ -51,17 +57,7 @@ define([
 			};
 			
 			var profileUpdateSuccess = function() {
-				
-				if( self.profileSetup ) {
-					
-					Parse.history.navigate("profile-picture", true);
-
-				} else {
-
-					Parse.history.navigate("profile-picture", true);
-
-				}
-
+				Parse.history.navigate("profile-picture", true);
 			};
 
 			var profileUpdateError = function(error) {
