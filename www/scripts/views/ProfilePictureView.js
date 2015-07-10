@@ -28,6 +28,9 @@ define([
 			this.profileSetup = data ? data.setup : false;
 			this.drawer = !this.profileSetup;
 			
+			if( this.model.get('profilePicture') ) {
+				this.tempPicture = this.model.get('profilePicture');
+			}
 		},
 
 		render: function() {
@@ -46,15 +49,16 @@ define([
 			var self = this;
 
 			if( self.loading('.save') ) {
-				console.log('abort');
 				return ;
 			}
 			self.cleanForm();
 
+			/*
 			if( !this.profileSetup && !this.tempPicture ) {
 				Parse.history.navigate("profile-home", true);
 				return;
 			}
+			*/
 
 			var profileUpdateSuccess = function() {
 				
@@ -63,6 +67,7 @@ define([
 						Parse.history.navigate("profile-payments", true);
 					});
 				} else {
+					self.loading();
 					self._info('Profile saved');
 				}
 
@@ -133,11 +138,9 @@ define([
 
 			var self = this;
 
-			if( self.isLoading('button.take-picture') ) {
-				return;
+			if( self.loading('.take-picture') ) {
+				return ;
 			}
-
-			self.loading('button.take-picture');
 
 			var pictureSaveSuccess = function(imageData) {
 

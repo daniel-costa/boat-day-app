@@ -182,13 +182,13 @@ define([
 
 		dayToEnDay: function(n) {
 			switch(n) {
-				case 0 : return 'Mon'; break;
-				case 1 : return 'Tue'; break;
-				case 2 : return 'Wed'; break;
-				case 3 : return 'Thur'; break;
-				case 4 : return 'Fri'; break;
-				case 5 : return 'Sat'; break;
-				case 6 : return 'Sun'; break;
+				case 0 : return 'Sun'; break;
+				case 1 : return 'Mon'; break;
+				case 2 : return 'Tue'; break;
+				case 3 : return 'Wed'; break;
+				case 4 : return 'Thur'; break;
+				case 5 : return 'Fri'; break;
+				case 6 : return 'Sat'; break;
 			}
 		},
 
