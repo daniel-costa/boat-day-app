@@ -15,7 +15,8 @@ require.config({
 		snapjs:     'vendor/Snap.js/snap',
 		facebook: 	'http://connect.facebook.net/en_US/all',
 		fastclick:  'vendor/fastclick/lib/fastclick',
-		stripe:     'https://js.stripe.com/v2/?1'
+		stripe:     'https://js.stripe.com/v2/?1',
+		async:		'vendor/requirejs-plugins/src/async',
 	},
 	shim: {
 		"ratchet" : { 

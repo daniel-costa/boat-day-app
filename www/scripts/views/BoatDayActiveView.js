@@ -1,8 +1,9 @@
 define([
 'views/BaseView',
 'views/BoatDayChatView',
+'views/MapView',
 'text!templates/BoatDayActiveTemplate.html'
-], function(BaseView, BoatDayChatView, BoatDayActiveTemplate){
+], function(BaseView, BoatDayChatView, MapView, BoatDayActiveTemplate){
 	var BoatDayActiveView = BaseView.extend({
 
 		className: 'screen-boatday-active',
@@ -33,9 +34,8 @@ define([
 
 		},
 
-
 		map: function() {
-
+			this.modal(new MapView({ model : this.model.get('boatday'), precise: true }));
 		},
 
 		call: function() {

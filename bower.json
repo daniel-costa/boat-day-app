@@ -1,6 +1,6 @@
 {
   "name": "boat-day-app",
-  "version": "2.0.0",
+  "version": "2.4.6",
   "authors": [
     "Daniel Costa <costa@vixinet.ch>"
   ],
@@ -27,6 +27,7 @@
     "Snap.js": "1.9.3",
     "fastclick": "1.0.6",
     "animate.css": "3.2.5",
-    "components-font-awesome": null
+    "components-font-awesome": null,
+    "requirejs-plugins": "1.0.3"
   }
 }

@@ -19,8 +19,7 @@ define([
 
 			$.ajax({
 				type: 'GET',
-				// url: Parse.Config.current().get('TOS_URL'),
-				url: 'http://www.boatdayapp.com/app-tos.html',
+				url: Parse.Config.current().get('TOS_URL'),
         		crossDomain: true,
 				success: function(data) {
 					self.$el.find('.loading').remove();

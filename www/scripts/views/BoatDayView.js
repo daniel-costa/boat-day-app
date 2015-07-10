@@ -6,8 +6,9 @@ define([
 'views/BoatDayCancellationView',
 'views/ProfileView',
 'views/CertificationsView',
+'views/MapView',
 'text!templates/BoatDayTemplate.html'
-], function(ReportModel, BaseView, BoatDayBookView, ReportView, BoatDayCancellationView, ProfileView, CertificationsView, BoatDayTemplate){
+], function(ReportModel, BaseView, BoatDayBookView, ReportView, BoatDayCancellationView, ProfileView, CertificationsView, MapView, BoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatday modal',
@@ -20,7 +21,8 @@ define([
 			'click .btn-cancel-modal': 'cancelModal', 
 			'click .report': 'report', 
 			'click .profile-picture': 'profile',
-			'click .certifications': 'certifications'
+			'click .certifications': 'certifications',
+			'click .map': 'map',
 		},
 
 		statusbar: true,
@@ -46,6 +48,12 @@ define([
 		cancelModal: function() {
 			
 			this.modal(new BoatDayCancellationView({ model : this.model }));
+
+		},
+
+		map: function() {
+			
+			this.modal(new MapView({ model : this.model, precise: false }));
 
 		},
 
