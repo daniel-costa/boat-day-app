@@ -68,6 +68,7 @@ define([
 				query.include('boat');
 				query.include('captain');
 				query.include('captain.host');
+				query.ascending('date,departureTime,price,bookedSeats');
 				query.find().then(function(boatdays) {
 
 					self.$el.find('.loading').remove();
@@ -110,7 +111,7 @@ define([
 
 
 					if( boatdays.length == 0 ) {
-						self.$el.find('.content').html('<div class="content-padded"><h6>Currently no BoatDays for this category.</h6></div>');
+						self.$el.find('.content').html('<div class="content-padded"><img src="resources/logo-colors.png" class="logo-placeholder" /><p class="text-center">Currently no BoatDays for this category.</p></div>');
 					}
 
 				}, function(error) {

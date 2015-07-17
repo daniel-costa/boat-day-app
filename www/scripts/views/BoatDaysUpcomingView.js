@@ -76,6 +76,7 @@ define([
 			query.include('boatday.boat');
 			query.include('boatday.captain');
 			query.include('boatday.captain.host');
+			query.ascending('date,departureTime,price,bookedSeats');
 			query.find().then(function(requests) {
 
 				self.$el.find('.loading').remove();
@@ -137,7 +138,7 @@ define([
 
 
 				if( requests.length == 0 ) {
-					self.$el.find('.content').html('<div class="content-padded"><h6>You don\'t have any upcoming BoatDays... yet.</h6></div>');
+					self.$el.find('.content').html('<div class="content-padded"><img src="resources/logo-colors.png" class="logo-placeholder" /><p class="text-center">You don\'t have any upcoming BoatDays... yet.</p></div>');
 				}
 
 			}, function(error) {

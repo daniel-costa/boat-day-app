@@ -117,7 +117,13 @@ define([
 				}).then(function(card) {
 					Parse.User.current().get('profile').relation('cards').add(card);
 					Parse.User.current().get('profile').save().then(function() {
-						Parse.history.navigate("profile-payments", true);
+
+						if( self.profileSetup ) {
+							Parse.history.navigate("boatdays-home", true);	
+						} else {
+							Parse.history.navigate("profile-payments", true);	
+						}
+						
 					});
 				});
 

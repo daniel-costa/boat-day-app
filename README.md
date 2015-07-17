@@ -24,6 +24,12 @@
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.statusbar`
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.file`
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.media`
+* `sudo cordova plugin add pluginsBase/PushPlugin-feature-parse`
 
 ## Change rights
 * `sudo chown -R Daniel .`
+* `sudo chmod -R 777 .`
+
+## Add notifications
+* follow steps at https://parse.com/apps/quickstart#parse_push/ios/native/existing
+* and http://www.hiddentao.com/archives/2015/04/10/parse-push-notifications-for-your-android-and-ios-cordova-app/

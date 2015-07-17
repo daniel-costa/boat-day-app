@@ -14,6 +14,12 @@ define([
 
 		profile: function() {
 			Parse.history.navigate('profile-picture', true);
+		},
+
+		render: function() {
+			BaseView.prototype.render.call(this);
+			$(document).trigger('updateNotificationsAmount', this.$el.find('.total-notifications'));
+			return this;
 		}
 		
 	});

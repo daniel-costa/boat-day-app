@@ -23,11 +23,19 @@ define([
 				self.$el.find('.loading').remove();
 				
 				if( cards.length == 0) {
-					self.$el.find('.cards-list').hide();
+					self.$el.find('.main-content').html('<img src="resources/logo-colors.png" class="logo-placeholder" /><p class="text-center">Skip for now and start <a href="#/boatdays-home">browsing BoatDays</a></p>');
+				} else {
+					self.$el.find('.cards-list').show();
 				}
 
 				_.each(cards, function(card) {
-					self.$el.find('.cards-list .table-view').append('<li class="table-view-cell text-center">'+card.get('brand')+': **** **** **** '+card.get('last4')+'</li>');
+					switch( card.get('brand') ) {
+						case "American Express" : var _cardName = "american-express"; break;
+						case "Visa" : var _cardName = "visa"; break;
+						case "MasterCard" : var _cardName = "mastercard"; break;
+						default: var _cardName = "default"; break;
+					}
+					self.$el.find('.cards-list .table-view').append('<li class="table-view-cell"><img src="resources/cards/'+_cardName+'.png" /> <strong>* * * *   * * * *   * * * *</strong> '+card.get('last4')+'</li>');
 				});
 
 			});

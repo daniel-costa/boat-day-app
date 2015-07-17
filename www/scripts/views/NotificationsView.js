@@ -61,6 +61,8 @@ define([
 					}
 				});
 
+				$(document).trigger('updateNotificationsAmount()');
+
 				self.$el.find('.notifications-unread').text("You have " + unread + " new notification" + (unread != 1 ? 's' : '') + ".");
 			});
 

@@ -1,9 +1,11 @@
 define([
 'views/BaseView',
 'views/ProfilePaymentsAddView',
+'views/BoatDayCancellationView',
+'views/TermsView',
 'models/SeatRequestModel',
 'text!templates/BoatDayBookTemplate.html'
-], function(BaseView, ProfilePaymentsAddView, SeatRequestModel, BoatDayBookTemplate){
+], function(BaseView, ProfilePaymentsAddView, BoatDayCancellationView, TermsView, SeatRequestModel, BoatDayBookTemplate){
 	var BoatDayBookView = BaseView.extend({
 
 		className: 'screen-boatday-book modal',
@@ -13,7 +15,8 @@ define([
 		events: {
 			'change [name="seats"]': 'updatePrice',
 			'click .btn-book': 'book',
-			'click .btn-payments': 'payments'
+			'click .btn-payments': 'payments',
+			'click .btn-terms': 'terms'
 		},
 
 		statusbar: true,
@@ -23,9 +26,15 @@ define([
 		cards: {},
 
 		payments: function() {
-
 			Parse.history.navigate("profile-payments", true);
+		},
 
+		cancellation: function() {
+			this.modal(new BoatDayCancellationView({ model : this.model }));
+		},
+
+		terms: function() {
+			this.modal(new TermsView());
 		},
 
 		updatePrice: function() {
@@ -36,13 +45,14 @@ define([
 			var guestPart = self.getGuestRate(self.model.get('captain').get('host').get('type'));
 			var bdfee = self.getGuestFee(self.model.get('price'), guestPart)
 			var fee   = Parse.Config.current().get("TRUST_AND_SAFETY_FEE");
-			
 
-			self.$el.find('.price').text(seats + " x $" + price);
-			self.$el.find('.bdfee').text(seats + " x $" + bdfee);
-			self.$el.find('.fee').text(seats + " x $" + fee);
+			self.$el.find('.amount-seats').text(seats + "x");
+			self.$el.find('.price').text(price);
+			self.$el.find('.bdfee').text(bdfee);
+			self.$el.find('.fee').text(fee);
 			self.$el.find('.price-total').text(seats * (price + fee + bdfee));
-
+			
+			self.$el.find('.bdfee-label').text( bdfee < 0 ? 'BoatDay Discount' : 'BoatDay Fee');
 		},
 
 		render: function() {
@@ -58,7 +68,7 @@ define([
 				self.cards = {};
 
 				if( cards.length == 0 ) {
-					self.$el.find('.field-card').html('<p class="align-center">You don\'t have a credit card attach to your account. You can add a credit card from the <a href="#/profile-payments">Payment Information</a> section.</p>')
+					self.$el.find('.field-card').html('<p class="align-center">You don\'t have a credit card attach to your account. You can add a credit card from the <a href="#/profile-payments-add">Payment Information</a> section.</p>')
 					self.$el.find('.btn-action').hide();
 					return;
 				}
@@ -67,9 +77,9 @@ define([
 
 				_.each(cards, function(card) {
 					self.cards[card.id] = card;
-					var text = card.get('brand') + ' **** **** **** ' + card.get('last4');
+					var text = card.get('brand') + ' ...' + card.get('last4');
 					var option = $('<option>').attr('value', card.id).text(text);
-					self._in('card').html(option);
+					self._in('card').append(option);
 				});
 
 			});

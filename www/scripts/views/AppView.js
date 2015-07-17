@@ -25,12 +25,14 @@ define([
 			'disableDrawer': 'disableDrawer',
 			'enableDrawer': 'enableDrawer',
 			'menuHover': 'menuHover',
-			'loadProfile': 'loadProfile'
+			'loadProfile': 'loadProfile',
+			'updateNotificationsAmount': 'updateNotificationsAmount'
 		},
 
 		msgStack: [],
 
 		snap: null,
+		notificationSound: null,
 
 		displayError: function(event, message) {
 
@@ -109,12 +111,61 @@ define([
 
 		},
 
-		loadProfile: function(event, cb) {
+		notifications: 0,
+		notificationsHolder: null,
 
+		updateNotificationsAmount: function(event, holder) {
+			
+			if( holder ) {	
+				this.notificationsHolder = holder;
+			}
+
+			var self = this;
+
+			var cb = function() {
+				if ( self.notificationsHolder ) {
+					if( self.notifications == 0)  {
+						$(self.notificationsHolder).text(self.notifications).hide();
+					} else {
+						if($(self.notificationsHolder).text() < self.notifications) {
+							var delta = self.notifications - $(self.notificationsHolder).text();
+							$(document).trigger('globalInfo', 'You have '+delta+' new notification'+ (delta == 1 ? '' : 's.' ) );
+							self.notificationSound.play();
+						}
+						$(self.notificationsHolder).text(self.notifications).show();
+					}
+				}
+			};
+
+			this.checkNotifications(cb);
+
+		},
+
+		checkNotifications: function(cb) {
+			var self = this;
+			var query = new Parse.Query(Parse.Object.extend("Notification"));
+			query.equalTo('to', Parse.User.current().get('profile'));
+			query.equalTo('read', undefined);
+			query.count().then(function(total) {
+				self.notifications = total;
+				cb();
+			});
+		},
+
+		loadProfile: function(event, cb) {
 
 			var self = this;
 
 			var profileSuccess = function(profile) {
+
+				self.updateNotificationsAmount();
+				setInterval(function() { self.updateNotificationsAmount() }, 10 * 1000);
+
+				Parse.Cloud.run('attachUserProfileToInstallation', {
+					token: window.installation.token,
+					user: Parse.User.current().id,
+					profile: profile.id,
+				})
 
 				self.snap = new Snap({
 					element: document.getElementById('content'),
@@ -155,6 +206,7 @@ define([
 
 			var self = this;
 
+			self.notificationSound = new Media("resources/sfx/notification.wav");
 			self.loadProfile(event, cb);
 			
 			
@@ -167,8 +219,6 @@ define([
 			}
 			function isTextInput(node) { return ['INPUT', 'TEXTAREA'].indexOf(node.nodeName) !== -1; }
 			document.addEventListener('touchstart', touchstart, false);
-
-
 		},
 
 		updateGeoPoint: function() {

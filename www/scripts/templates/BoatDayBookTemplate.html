@@ -1,6 +1,6 @@
 <header class="bar bar-nav">
 	<a class="icon icon-close pull-left close-me"></a>
-	<h1 class="title">Book seats</h1>
+	<h1 class="title">Book Seats</h1>
 </header>
 
 <div class="content">
@@ -10,22 +10,28 @@
 		
 		<div class="seats">
 			<select name="seats">
-				<% for(var i = 1; i <= availableSeats; i++) { %>
+				<% for(var i = 1; i <= (availableSeats - bookedSeats); i++) { %>
 				<option value="<%= i %>"><%= i %> seat<%= i != 1 ? 's' : '' %></option>
 				<% } %>
 			</select>
 
 			<table>
 				<tr>
-					<td>Contribution per seat</td>
+					<td>Contribution</td>
+					<td class="amount-seats"></td>
+					<!-- <td class="">$</td> -->
 					<td class="price"></td>
 				</tr>
 				<tr>
-					<td>BoatDay Fee</td>
+					<td class="bdfee-label">BoatDay Fee</td>
+					<td class="amount-seats"></td>
+					<!-- <td class="">$</td> -->
 					<td class="bdfee"></td>
 				</tr>
 				<tr>
 					<td>Trust &amp; Safety Fee</td>
+					<td class="amount-seats"></td>
+					<!-- <td class="">$</td> -->
 					<td class="fee"></td>
 				</tr>
 			</table>
@@ -42,6 +48,7 @@
 			</div>
 		</div>
 
-		<button class="btn btn-block btn-book btn-action">Book seats</button>
+		<button class="btn btn-block btn-book btn-action">Submit Seat Request</button>
+		<p class="text-center">By tapping on "Submit Seat Request" you agree to the <a class="terms">Terms &amp; Conditions</a> and <a class="cancellation">Cancellation Policy</a>.<p>
 	</div>
 </div>

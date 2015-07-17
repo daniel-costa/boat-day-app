@@ -259,7 +259,7 @@ define([
 
 				var updateUser = function( profile ) {
 					user.save({ 
-						email: me.email, 
+						email: me.email,
 						profile: profile,
 						type: "guest"
 					}).then(userUpdated, handleErrors);

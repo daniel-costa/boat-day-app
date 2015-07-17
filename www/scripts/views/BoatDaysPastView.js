@@ -69,12 +69,12 @@ define([
 			var queryCancelled = Parse.User.current().get('profile').relation('requests').query();
 			queryCancelled.matchesQuery("boatday", innerQueryCancelled);
 
-
 			var mainQuery = Parse.Query.or(queryYesterday, queryToday, queryByFuturByStatus, queryCancelled);
 			mainQuery.include('boatday');
 			mainQuery.include('boatday.boat');
 			mainQuery.include('boatday.captain');
 			mainQuery.include('boatday.captain.host');
+			mainQuery.descending('date,departureTime');
 			mainQuery.find().then(function(requests) {
 
 				self.$el.find('.loading').remove();
@@ -110,7 +110,7 @@ define([
 
 
 				if( requests.length == 0 ) {
-					self.$el.find('.content').html('<div class="content-padded"><h6>You don\'t have any past BoatDays... yet.</h6></div>');
+					self.$el.find('.content').html('<div class="content-padded"><img src="resources/logo-colors.png" class="logo-placeholder" /><p class="text-center">You don\'t have any past BoatDays... yet.</h6></p>');
 				}
 
 			}, function(error) {
