@@ -18,10 +18,6 @@ define([
 			"click button.facebook" : "signInFacebook",
 		},
 
-		statusbar: true,
-		
-		drawer: false,
-
 		render: function() {
 
 			BaseView.prototype.render.call(this);

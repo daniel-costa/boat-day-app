@@ -8,10 +8,6 @@ define([
 
 		template: _.template(TermsTemplate),
 
-		statusbar: true,
-		
-		drawer: true,
-
 		render: function() {
 			BaseView.prototype.render.call(this);
 

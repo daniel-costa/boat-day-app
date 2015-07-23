@@ -16,8 +16,8 @@
 		</div>
 	</div>
 
-	<div class="captain">
-		<div class="profile-picture" data-id="<%= self.model.get('captain').id %>" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)"></div>
+	<div class="captain open-profile-picture" data-id="<%= self.model.get('captain').id %>">
+		<div class="profile-picture" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)"></div>
 		<p class="text">
 			Hosted by <strong><%= self.model.get('captain').get('displayName') %></strong><br/>
 			Boat <strong><%= self.model.get('boat').get('name') %></strong><br/>
@@ -63,6 +63,12 @@
 	</table>
 
 	<div class="content-padded">
+		<label>Confirmed Guests</label>
+		<div class="confirmed-guests">
+			<div class="inner"></div>
+			<span class="clear"></span>
+		</div>
+
 		<label>Description</label>
 		<p class="description"><%= description %></p>
 		
@@ -73,12 +79,6 @@
 		<p class="position">
 			<strong><span class="fa fa-map-marker"></span></strong> <%= self.seatRequest && self.seatRequest.get('status') == 'approved' ? locationText : 'Exact address will be visible to confirmed guests.' %>
 		</p>
-		
-		<label>Confirmed Guests</label>
-		<div class="confirmed-guests">
-			<div class="inner"></div>
-			<span class="clear"></span>
-		</div>
 
 		<label>BoatDay Features</label>
 		<div class="features">
@@ -287,10 +287,10 @@
 			<p class="price"><sup>$</sup><%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %><sub>/person</sub></p>
 			<% if( self.fromUpcoming ) { %>
 				<button class="btn btn-block btn-action btn-cancel">Cancel BoatDay</button>
+				<a class="btn-cancel-modal">Cancellation policy</a>
 			<% } else { %>
 				<button class="btn btn-block btn-action btn-book">Request Seats</button>
 			<% } %>
-			<!-- <a class="btn-cancel-modal">Cancellation policy</a> -->
 		</div>
 	</div>
 </div>

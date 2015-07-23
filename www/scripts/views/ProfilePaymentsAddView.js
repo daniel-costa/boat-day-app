@@ -17,14 +17,10 @@ define([
 
 		profileSetup: false,
 
-		statusbar: true,
-		
-		drawer: true,
+		initialize: function() {
 
-		initialize: function(data) {
-
-			this.profileSetup = data ? data.setup : false;
-			this.drawer = !this.profileSetup;
+			// this.profileSetup = data ? data.setup : false;
+			// this.drawer = !this.profileSetup;
 			
 		},
 
@@ -49,6 +45,7 @@ define([
 				console.log('abort');
 				return ;
 			}
+
 			self.cleanForm();
 			
 			var number = this._input('number').val();
@@ -117,14 +114,15 @@ define([
 				}).then(function(card) {
 					Parse.User.current().get('profile').relation('cards').add(card);
 					Parse.User.current().get('profile').save().then(function() {
-
-						if( self.profileSetup ) {
-							Parse.history.navigate("boatdays-home", true);	
+						if( self.isModal ) {
+							self.close({ render: true });
 						} else {
-							Parse.history.navigate("profile-payments", true);	
+							Parse.history.navigate("profile-payments", true);
 						}
-						
 					});
+				}, function(error) {
+					self._error(error.message);
+					self.loading();
 				});
 
 			});

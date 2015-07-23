@@ -8,7 +8,7 @@ define([
 ], function(BaseView, ProfilePaymentsAddView, BoatDayCancellationView, TermsView, SeatRequestModel, BoatDayBookTemplate){
 	var BoatDayBookView = BaseView.extend({
 
-		className: 'screen-boatday-book modal',
+		className: 'screen-boatday-book',
 
 		template: _.template(BoatDayBookTemplate),
 
@@ -16,17 +16,14 @@ define([
 			'change [name="seats"]': 'updatePrice',
 			'click .btn-book': 'book',
 			'click .btn-payments': 'payments',
-			'click .btn-terms': 'terms'
+			'click .btn-terms': 'terms',
+			'click .btn-cancellation': 'cancellation',
 		},
-
-		statusbar: true,
-		
-		drawer: false,
 
 		cards: {},
 
 		payments: function() {
-			Parse.history.navigate("profile-payments", true);
+			this.modal(new ProfilePaymentsAddView());
 		},
 
 		cancellation: function() {
@@ -68,8 +65,8 @@ define([
 				self.cards = {};
 
 				if( cards.length == 0 ) {
-					self.$el.find('.field-card').html('<p class="align-center">You don\'t have a credit card attach to your account. You can add a credit card from the <a href="#/profile-payments-add">Payment Information</a> section.</p>')
-					self.$el.find('.btn-action').hide();
+					self.$el.find('.field-card').html('<p class="align-center">You don\'t have a credit card attach to your account.</p><a class="btn btn-block btn-default btn-payments">Add Credit Card</a>')
+					self.$el.find('.submit-request').hide();
 					return;
 				}
 
@@ -89,6 +86,18 @@ define([
 		},
 
 		book: function() {
+			var self = this;
+			navigator.notification.confirm(
+				"You’re about to request " + self._in('seats').val() + " seat" + (self._in('seats').val() == 1 ? '' : 's') + " for $" + self.$el.find('.price-total').text() + "! Ready for #betterboating?",
+				function(buttonIndex) {
+					if( buttonIndex == 2 ) self.bookSave();
+				},
+				"Book Now!",
+				["Cancel", "Continue"]
+			);
+		},
+
+		bookSave: function() {
 
 			var self = this;
 
@@ -115,7 +124,7 @@ define([
 				
 				Parse.User.current().get('profile').relation('requests').add(request);
 				Parse.User.current().get('profile').save().then(function() {
-					self._info('Seat request submited.');	
+					self._info('Seat request submitted.');
 					Parse.history.navigate('boatdays-upcoming', true);
 				});
 

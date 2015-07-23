@@ -208,13 +208,11 @@ define([
 
 			var self = this;
 
-			var timeNow = new Date().getHours() + ( new Date().getMinutes() > 30 ? 0.5 : 0 );
-
 			var innerQuery = new Parse.Query(Parse.Object.extend('BoatDay'));
 			innerQuery.greaterThanOrEqualTo('date', new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
 			innerQuery.lessThanOrEqualTo('date', new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate(), 23, 59, 59, 999));
-			innerQuery.lessThanOrEqualTo('departureTime', timeNow);
-			innerQuery.greaterThan('arrivalTime', timeNow);
+			innerQuery.lessThanOrEqualTo('departureTime', new Date(new Date().getTime() + 30 * 60000).getHours() + ( new Date(new Date().getTime() + 30 * 60000).getMinutes() > 30 ? 0.5 : 0 ));
+			innerQuery.greaterThan('arrivalTime', new Date().getHours() + ( new Date().getMinutes() > 30 ? 0.5 : 0 ));
 
 			var query = Parse.User.current().get('profile').relation('requests').query();
 			query.equalTo('status', 'approved');

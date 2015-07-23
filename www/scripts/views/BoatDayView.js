@@ -11,7 +11,7 @@ define([
 ], function(ReportModel, BaseView, BoatDayBookView, ReportView, BoatDayCancellationView, ProfileView, CertificationsView, MapView, BoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
-		className: 'screen-boatday modal',
+		className: 'screen-boatday',
 
 		template: _.template(BoatDayTemplate),
 
@@ -20,19 +20,14 @@ define([
 			'click .btn-cancel': 'cancel',
 			'click .btn-cancel-modal': 'cancelModal', 
 			'click .report': 'report', 
+			'click .open-profile-picture': 'profile',
 			'click .profile-picture': 'profile',
 			'click .certifications': 'certifications',
 			'click .map': 'map',
 		},
 
-		statusbar: true,
-		
-		drawer: false,
-
 		fromUpcoming: false,
-
 		seatRequest: null,
-
 		profiles: {},
 
 		report: function() {
@@ -76,16 +71,29 @@ define([
 
 						self.loading('.btn-cancel');
 
-						
-
 						var base = self.seatRequest.get('status');
+
+						if( self.seatRequest.get('status') == 'pending' ) {
+							self.seatRequest.set('cancelled', true);
+						}
 
 						self.seatRequest.save({ status: 'cancelled-guest' }).then(function() {
 
 							if( base == 'approved' ) {
-								self.model.increment('bookedSeats', -1);
+								self.model.increment('bookedSeats', -1 * self.seatRequest.get('seats'));
 								self.model.save();
 							}
+					
+							var Notification = Parse.Object.extend('Notification');
+							new Notification().save({
+								action: 'bd-message',
+								fromTeam: true,
+								message: "You have successfully cancelled "+self.seatRequest.get('seats')+" reserved seat"+(self.seatRequest.get('seats')==1?'':'s')+" on "+self.model.get('name')+".",
+								to: Parse.User.current().get('profile'),
+								sendEmail: false
+							}).then(function() {
+								Parse.history.navigate("profile-payments", true);
+							});
 
 							self._info('BoatDay Cancelled. You can find this event in the Past BoatDays section');
 							Parse.history.navigate('boatdays-past', true);

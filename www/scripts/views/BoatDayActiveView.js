@@ -19,7 +19,6 @@ define([
 		},
 
 		statusbar: false,
-		
 		drawer: false,
 
 		initialize: function() {

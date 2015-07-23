@@ -12,9 +12,7 @@ define([
 			'click div.category': 'pickCategory'
 		},
 
-		statusbar: true,
-		
-		drawer: true,
+		statusbar: false,
 
 		render: function() {
 			

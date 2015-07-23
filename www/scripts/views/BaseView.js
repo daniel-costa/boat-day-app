@@ -23,8 +23,8 @@ define([
 		},
 
 		statusbar: true,
-		
 		drawer: true,
+		isModal: false,
 
 		afterRenderInsertedToDom: function() { },
 		
@@ -44,23 +44,33 @@ define([
 		modal: function(view) {
 
 			var self = this;
+
+			view.className = view.className + ' modal';
+			view.drawer = false;
+			view.isModal = true;
+			view.$el.attr('class', view.className);
+
 			var $el = view.render().$el;
 
-			// self.subViews.push(view);
 
 			$el.insertAfter(this.$el);
 
-			$el.on('click', '.close-me', function() {
-				
+			$el.on('click', '.close-me', function(event, data) {
+
+				if( typeof data == typeof undefined ) {
+					var data = {};
+				}
+
 				self.handleStatusBarAndDrawer(self.statusbar, self.drawer);
+				
+				if( data.render ) {
+					self.render();
+				}
 
 				$el.removeClass('active');
 
 				setTimeout(function() { 
-					
-					// self.subViews.splice(self.subViews.indexOf(view), 1);
 					view.teardown();
-
 				}, 1000);
 
 			});
@@ -108,8 +118,10 @@ define([
 			
 		},
 		
-		close: function() {
-			this.$el.find('.close-me').click();
+		close: function(data) {
+			console.log('**data');
+			console.log(data);
+			this.$el.find('.close-me').trigger('click', data ? data : {} );
 		},
 
 		getGuestPrice: function(price, guestPart) {

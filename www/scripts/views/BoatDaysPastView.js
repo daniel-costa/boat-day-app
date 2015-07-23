@@ -16,12 +16,7 @@ define([
 			'click .profile-picture': 'profile',
 		},
 
-		statusbar: true,
-		
-		drawer: true,
-
 		requests: {},
-
 		profiles: {},
 
 		pay: function(event) {

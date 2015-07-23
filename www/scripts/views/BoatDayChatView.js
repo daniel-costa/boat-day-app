@@ -8,7 +8,7 @@ define([
 ], function(ReportModel, ChatMessageModel, BaseView, ReportView, BoatDayChatTemplate, BoatDayChatCardTemplate){
 	var BoatDayChatView = BaseView.extend({
 
-		className: 'screen-boatday-chat modal',
+		className: 'screen-boatday-chat',
 
 		template: _.template(BoatDayChatTemplate),
 
@@ -17,10 +17,6 @@ define([
 			'keypress input': 'watchEnter',
 			'click .report': 'report'
 		},
-
-		statusbar: true,
-		
-		drawer: false,
 
 		lastMessage: null,
 

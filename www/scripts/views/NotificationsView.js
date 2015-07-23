@@ -1,19 +1,28 @@
 define([
 'views/BaseView',
+'views/ProfileView',
 'text!templates/NotificationsTemplate.html',
 'text!templates/NotificationTemplate.html',
-], function(BaseView, NotificationsTemplate, NotificationTemplate){
+], function(BaseView, ProfileView, NotificationsTemplate, NotificationTemplate){
 	var NotificationsView = BaseView.extend({
 
 		className: 'screen-notifications',
 
 		template: _.template(NotificationsTemplate),
 
-		statusbar: true,
-		
-		drawer: true,
-
 		notifications: {},
+
+		events: {
+			'click .profile-picture': 'profile',
+		},
+
+		profiles: {},
+
+		profile: function(event) {
+			if( $(event.currentTarget).attr('data-id') ) {
+				this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
+			}
+		},
 
 		render: function() {
 
@@ -53,6 +62,10 @@ define([
 						request: notification.get('request'),
 					};
 
+					if( notification.get("from") ) {
+						self.profiles[notification.get("from").id] = notification.get("from");
+					}
+					
 					self.$el.find('.notification-list').append(_.template(NotificationTemplate)(data));
 
 					if(!notification.get("read")) {

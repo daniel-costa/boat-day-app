@@ -15,12 +15,7 @@ define([
 		},
 
 		profileSetup: false,
-		
 		tempPicture: null,
-
-		statusbar: true,
-		
-		drawer: true,
 
 		// ToDo optimize the methods to have less repetitions in takePicture and openGallery
 		initialize: function(data) {
@@ -64,7 +59,16 @@ define([
 				
 				if( self.profileSetup ) {
 					$(document).trigger('loadProfile', function() {
-						Parse.history.navigate("profile-payments", true);
+						var Notification = Parse.Object.extend('Notification');
+						new Notification().save({
+							action: 'bd-message',
+							fromTeam: true,
+							message: Parse.Config.current().get('WELCOME_MESSAGE_GUEST'),
+							to: Parse.User.current().get('profile'),
+							sendEmail: false
+						}).then(function() {
+							Parse.history.navigate("profile-payments", true);
+						});
 					});
 				} else {
 					self.loading();

@@ -14,10 +14,6 @@ define([
 			'click .terms-modal': 'OpenTermsModal'
 		},
 
-		statusbar: true,
-		
-		drawer: true,
-
 		OpenTermsModal: function() {
 
 			this.modal(new TermsView());
@@ -28,6 +24,7 @@ define([
 			event.preventDefault();
 
 			var self = this;
+			var err = false;
 
 			if( self.loading('.btn-send') ) {
 				return ;
@@ -37,6 +34,15 @@ define([
 
 			if( this._in('feedback').val() == '' ) {
 				this.fieldError('feedback', 'This field cannot be empty');
+				err = true;
+			}
+
+			if( this._in('email').val() == '' ) {
+				this.fieldError('email', 'This field cannot be empty');
+				err = true;
+			}
+
+			if( err ) {
 				self.loading();
 				return;
 			}
@@ -48,12 +54,14 @@ define([
 				feedback: this._in('feedback').val(),
 				user: Parse.User.current(),
 				status: 'unread',
+				email: this._in('email').val(),
 				file1: null,
 				file2: null,
 				file3: null
 			}).then(function() {
 				self.loading();
 				self._in('feedback').val('');
+				self._in('email').val('');
 				self._info('Thank you for contacting the BoatDay team, we will get back to you soon.');
 				self.loading();
 			}, function(error) {

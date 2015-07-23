@@ -4,7 +4,7 @@ define([
 ], function(BaseView, BoatDayPayTemplate){
 	var BoatDayPayView = BaseView.extend({
 
-		className: 'screen-boatday-pay modal',
+		className: 'screen-boatday-pay',
 
 		template: _.template(BoatDayPayTemplate),
 
@@ -16,14 +16,8 @@ define([
 			'blur [name="review"]': 'censorField',
 		},
 
-		statusbar: true,
-		
-		drawer: false,
-
 		rating: null,
-
 		price: null,
-
 		priceBase: null,
 
 		mediaPlus: null,

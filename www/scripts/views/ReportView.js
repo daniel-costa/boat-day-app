@@ -4,17 +4,13 @@ define([
 ], function(BaseView, ReportTemplate){
 	var ReportView = BaseView.extend({
 
-		className: 'screen-profile-report modal',
+		className: 'screen-profile-report',
 
 		template: _.template(ReportTemplate),
 
 		events: {
 			'click .btn-send': 'report'
 		},
-
-		statusbar: true,
-		
-		drawer: false,
 
 		report: function(event) {
 

@@ -13,10 +13,6 @@ define([
 		},
 
 		profileSetup: false,
-
-		statusbar: true,
-		
-		drawer: false,
 		
 		initialize: function(data) {
 
@@ -32,7 +28,15 @@ define([
 			if( !this.drawer ) {
 				this.$el.find('.btn-drawer').hide();
 			}
-
+			
+			// Not working on iOS, maybe on Android for later
+			// var maxDate = new Date(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate());
+			// var maxDateY = maxDate.getFullYear();
+			// var maxDateM = (maxDate.getMonth() + 1 < 10 ? '0' : '') + (maxDate.getMonth()+1);
+			// var maxDateD = maxDate.getDate();
+			
+			// this._input('birthday').attr('max', maxDateY+'-'+maxDateM+'-'+maxDateD);
+			
 			return this;
 		},
 

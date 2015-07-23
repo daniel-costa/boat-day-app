@@ -1,6 +1,6 @@
 <header class="bar bar-nav">
 	<a class="icon icon-bars pull-left btn-drawer"></a>
-	<h1 class="title">Picture</h1>
+	<h1 class="title">Profile</h1>
 </header>
 
 <div class="content">
@@ -11,7 +11,7 @@
 			<img src="resources/profile-step-2.png" class="step" />
 		<% } %>
 
-		<h1>Profile</h1>
+		<!-- <h1>Profile</h1> -->
 		
 		<div class="profile-picture take-picture profilePicture" style="background-image: url(<%= typeof profilePicture !== 'undefined' && profilePicture ? profilePicture.url : 'resources/profile-picture-placeholder.png' %>)"></div>
 		
@@ -26,6 +26,7 @@
 		<textarea rows="3" name="about" placeholder="Tell the BoatDay community why it will be great to share a BoatDay with you."><%= about %></textarea>
 
 		<button class="btn btn-block btn-default save"><%= self.profileSetup ? 'Continue' : 'Save' %></button>
+		
 	</div>
 
 </div>

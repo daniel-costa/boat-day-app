@@ -8,7 +8,7 @@ define([
 ], function(ReportModel, BaseView, ReportView, CertificationsView, ProfileTemplate, ProfileReviewTemplate){
 	var ProfileView = BaseView.extend({
 
-		className: 'screen-profile modal',
+		className: 'screen-profile',
 
 		template: _.template(ProfileTemplate),
 
@@ -17,10 +17,6 @@ define([
 			'click .certifications': 'certifications',
 			'click .profile-picture': 'profile',
 		},
-
-		statusbar: true,
-		
-		drawer: false,
 		
 		profiles: {},
 
@@ -57,8 +53,8 @@ define([
 				var query = new Parse.Query(Parse.Object.extend('SeatRequest'));
 				query.matchesQuery('boatday', innerQuery);
 				query.equalTo('status', 'approved');
-				query.exists('reviewGuest');
 				query.notEqualTo('reviewGuest', '');
+				query.notEqualTo('reviewGuest', null);
 				query.include('profile');
 				query.find().then(function(requests) {
 
@@ -72,15 +68,13 @@ define([
 					var _tpl = _.template(ProfileReviewTemplate);
 
 					_.each(requests, function(request) {
-						self.profiles[request.get('profile').id] = request.get('profile');
-						self.$el.find('.reviews').append(_tpl({ request : request }));
+						// if( request.get('reviewGuest') != "" ) {
+							self.profiles[request.get('profile').id] = request.get('profile');
+							self.$el.find('.reviews').append(_tpl({ request : request }));
+						// }
 					});
-
 				});
-
 			}
-
-			
 
 			return this;
 		}

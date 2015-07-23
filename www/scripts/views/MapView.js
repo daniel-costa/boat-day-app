@@ -5,13 +5,9 @@ define([
 ], function(gmaps, BaseView, MapTemplate){
 	var MapView = BaseView.extend({
 
-		className: 'screen-map modal',
+		className: 'screen-map',
 
 		template: _.template(MapTemplate),
-
-		statusbar: true,
-		
-		drawer: false,
 
 		initialize: function(data) {
 			this.precise = data.precise

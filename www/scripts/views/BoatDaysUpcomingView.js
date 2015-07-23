@@ -15,10 +15,6 @@ define([
 			'click .btn-boatday': 'showBoatDay',
 			'click .btn-chat': 'showChat',
 		},
-
-		statusbar: true,
-		
-		drawer: true,
 		
 		boatdays: {},
 

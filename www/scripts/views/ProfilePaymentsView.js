@@ -8,10 +8,6 @@ define([
 
 		template: _.template(ProfilePaymentsTemplate),
 
-		statusbar: true,
-		
-		drawer: true,
-
 		render: function() {
 
 			BaseView.prototype.render.call(this);

@@ -29,7 +29,7 @@
 		<input type="text" name="lastName" placeholder="Last Name" value="<%= typeof lastName !== 'undefined' && lastName ? lastName : '' %>">
 
 		<label>Birthday</label>
-		<input type="date" name="birthday" placeholder="Birthday" value="<%=  dt_value ? dt_value : '' %>">
+		<input type="date" name="birthday" placeholder="Birthday" max="" value="<%=  dt_value ? dt_value : '' %>">
 
 		<button class="btn btn-block btn-default save"><%= self.profileSetup ? 'Continue' : 'Update' %></button>
 	</div>
