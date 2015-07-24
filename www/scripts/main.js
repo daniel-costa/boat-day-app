@@ -18,6 +18,7 @@ require.config({
 		stripe:     'https://js.stripe.com/v2/?1',
 		async:		'vendor/requirejs-plugins/src/async',
 	},
+
 	shim: {
 		"ratchet" : { 
 			deps: ['jquery']
@@ -40,21 +41,7 @@ require.config({
 	}
 });
 
-var pushNotification;
-
 window.installation = {};
-
-function successHandler (result) {
-    console.log('result = ' + result);
-}
-
-function errorHandler (error) {
-    console.log('error = ' + error);
-}
-
-function tokenHandler (result) {
-	window.installation.token = result;
-}
 
 function onNotificationAPN (event) {
 
@@ -70,7 +57,7 @@ function onNotificationAPN (event) {
     }
 
     if ( event.badge ) {
-        pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, event.badge);
+        window.plugins.pushNotification.setApplicationIconBadgeNumber(function (result) { console.log('result = ' + result); }, function (error) { console.log('error = ' + error); }, event.badge);
     }
 
 }
@@ -83,9 +70,11 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs'], 
 
 		console.log("device ready");
 
-		pushNotification = window.plugins.pushNotification;
-
-		pushNotification.register(tokenHandler, errorHandler, {
+		window.plugins.pushNotification.register(function (result) {
+			window.installation.token = result;
+		}, function (error) { 
+			console.log('error = ' + error); 
+		}, {
             "badge":"true",
             "sound":"true",
             "alert":"true",
