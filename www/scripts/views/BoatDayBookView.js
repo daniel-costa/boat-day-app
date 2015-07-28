@@ -36,20 +36,57 @@ define([
 
 		updatePrice: function() {
 
-			var self  = this;
-			var seats = this._in('seats').val();
-			var price = self.model.get('price');
-			var guestPart = self.getGuestRate(self.model.get('captain').get('host').get('type'));
-			var bdfee = self.getGuestFee(self.model.get('price'), guestPart)
-			var fee   = Parse.Config.current().get("TRUST_AND_SAFETY_FEE");
-
-			self.$el.find('.amount-seats').text(seats + "x");
-			self.$el.find('.price').text(price);
-			self.$el.find('.bdfee').text(bdfee);
-			self.$el.find('.fee').text(fee);
-			self.$el.find('.price-total').text(seats * (price + fee + bdfee));
+			var self = this;
 			
-			self.$el.find('.bdfee-label').text( bdfee < 0 ? 'BoatDay Discount' : 'BoatDay Fee');
+			var seats = this._in('seats').val();
+			self.$el.find('.amount-seats').text(seats + "x");
+
+			var contribution = self.model.get('price');
+			self.$el.find('.contribution .amount').text('$' + contribution);
+
+			var fee = self.getGuestFee(self.model.get('price'), self.getGuestRate(self.model.get('host').get('type')));
+			if( fee != 0 ) {
+				self.$el.find('.fee').show();
+				self.$el.find('.fee .amount').text('$' + fee);
+			}
+
+			var tsf = Parse.Config.current().get("TRUST_AND_SAFETY_FEE");
+			if( tsf != 0 ) {
+				self.$el.find('.tsf').show();
+				self.$el.find('.tsf .amount').text('$' + tsf);
+			}
+
+			var discountPerSeat = Parse.Config.current().get("PRICE_SEAT_DISCOUNT_USD");
+			if( discountPerSeat != 0 ) {
+				self.$el.find('.discount-per-seat').show();
+				self.$el.find('.discount-per-seat .label').text(Parse.Config.current().get("PRICE_SEAT_DISCOUNT_LABEL"));
+				self.$el.find('.discount-per-seat .amount').text('-$' + discountPerSeat);
+			}
+
+			var promoPerSeat = Parse.Config.current().get("TRUST_AND_SAFETY_FEE");
+			if( promoPerSeat != 0 ) {
+				self.$el.find('.promo-per-seat').show();
+				self.$el.find('.promo-per-seat .label').text('Promo Code Per Seat');
+				self.$el.find('.promo-per-seat .amount').text('-$' + promoPerSeat);
+			}
+
+			var discount  = Parse.Config.current().get("PRICE_DISCOUNT_USD");
+			if( discount != 0 ) {
+				self.$el.find('.discount').show();
+				self.$el.find('.discount .label').text(Parse.Config.current().get("PRICE_DISCOUNT_LABEL"));
+				self.$el.find('.discount .amount').text('-$' + discount);
+			}
+
+			var promo = Parse.Config.current().get("TRUST_AND_SAFETY_FEE");
+			if( promo != 0 ) {
+				self.$el.find('.promo').show();
+				self.$el.find('.promo .label').text('Promo Code');
+				self.$el.find('.promo .amount').text('-$' + promo);
+			}
+
+			var total = seats * (contribution + fee + tsf - discountPerSeat - promoPerSeat) - promo - discount;
+			self.$el.find('.price-total').text(total);
+
 		},
 
 		render: function() {
