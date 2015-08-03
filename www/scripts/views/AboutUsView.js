@@ -15,7 +15,6 @@ define([
 		},
 
 		OpenTermsModal: function() {
-
 			this.modal(new TermsView());
 		},
 

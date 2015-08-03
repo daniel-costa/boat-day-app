@@ -19,7 +19,8 @@
 			<% if( availableSeats == bookedSeats ) { %>
 				<strong>Fully</strong><br/>Booked
 			<% } else { %>
-				<strong><%= availableSeats - bookedSeats %></strong>/<%= availableSeats %><br/>seats open
+				<strong><%= availableSeats - bookedSeats %></strong><br/>seat<%= (availableSeats - bookedSeats) == 1 ? '' : 's' %> left
+				<!-- <strong><%= availableSeats - bookedSeats %></strong>/<%= availableSeats %><br/>seats open -->
 			<% } %>
 		</div>
 		<div class="date">

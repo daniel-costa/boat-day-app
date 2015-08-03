@@ -58,21 +58,23 @@ define([
 				query.include('profile');
 				query.find().then(function(requests) {
 
-					if( requests.length == 0 ) {
-						self.$el.find('.reviews').html('<p class="text-center">No reviews for this host</p>');
-						return;
-					}
-
-					self.$el.find('.reviews').html('<h5>Reviews</h5>');
-
 					var _tpl = _.template(ProfileReviewTemplate);
+					var displayed = 0;
 
 					_.each(requests, function(request) {
-						// if( request.get('reviewGuest') != "" ) {
+						if( request.get('reviewGuest') != "" ) {
+							displayed++;
 							self.profiles[request.get('profile').id] = request.get('profile');
 							self.$el.find('.reviews').append(_tpl({ request : request }));
-						// }
+						}
 					});
+
+					if( displayed == 0 ) {
+						self.$el.find('.reviews').html('<p class="text-center">No reviews for this host</p>');
+						return;
+					} else {
+						self.$el.find('.reviews').prepend('<h5>Reviews</h5>');
+					}
 				});
 			}
 

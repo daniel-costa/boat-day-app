@@ -51,14 +51,14 @@ function onNotificationAPN (event) {
         $(document).trigger('updateNotificationsAmount');
     }
 
-    if ( event.sound ) {
-        var snd = new Media(event.sound);
-        snd.play();
-    }
+    // if ( event.sound ) {
+    //     var snd = new Media(event.sound);
+    //     snd.play();
+    // }
 
-    if ( event.badge ) {
-        window.plugins.pushNotification.setApplicationIconBadgeNumber(function (result) { console.log('result = ' + result); }, function (error) { console.log('error = ' + error); }, event.badge);
-    }
+    // if ( event.badge ) {
+    //     window.plugins.pushNotification.setApplicationIconBadgeNumber(function (result) {  }, function (error) {  }, event.badge);
+    // }
 
 }
 
@@ -66,7 +66,9 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs'], 
 	
 	$('video').get(0).play();
 
-	var run = function() {
+	FastClick.attach(document.body);
+
+	document.addEventListener("deviceReady", function() {
 
 		console.log("device ready");
 
@@ -92,22 +94,15 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs'], 
 			StatusBar.show();
 		}
 
-		Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
-		// Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
+		// Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
+		Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
 
-		var init = function() {
+		new AppView(function() {
 			new AppRouter();
 			Parse.history.start();
-		};
+		});
 
-		new AppView(init);
-
-	};
-
-
-	FastClick.attach(document.body);
-
-	document.addEventListener("deviceReady", run, false);
+	}, false);
 
 
 });

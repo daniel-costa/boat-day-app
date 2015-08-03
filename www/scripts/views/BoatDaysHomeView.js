@@ -75,7 +75,7 @@ define([
 			};
 
 			var profileUpdatedError = function(error) {
-
+				self.loading();
 				console.log(error);
 				self._error('Oops... something went wrong. Try again');
 

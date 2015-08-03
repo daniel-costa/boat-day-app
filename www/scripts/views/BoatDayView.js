@@ -64,9 +64,6 @@ define([
 			var prompt = function(buttonIndex) {
 
 				switch(buttonIndex) {
-					case 1: 
-					
-						break;
 					case 2: 
 
 						self.loading('.btn-cancel');
@@ -90,7 +87,8 @@ define([
 								fromTeam: true,
 								message: "You have successfully cancelled "+self.seatRequest.get('seats')+" reserved seat"+(self.seatRequest.get('seats')==1?'':'s')+" on "+self.model.get('name')+".",
 								to: Parse.User.current().get('profile'),
-								sendEmail: false
+								sendEmail: false,
+								request: self.seatRequest,
 							}).then(function() {
 								Parse.history.navigate("profile-payments", true);
 							});
@@ -158,10 +156,16 @@ define([
 					return;
 				}
 
+
+				self.$el.find('.total-pictures').text('1 / ' + files.length);
 				self.$el.find('.slide-group').html('');
 
 				_.each(files, function(fh) {
 					self.$el.find('.slide-group').append('<div class="slide"><div class="img" style="background-image:url('+fh.get('file').url()+')"></div></div>');
+				});
+
+				self.$el.find('.content').on('slide', function(event) {
+					console.log(event);
 				});
 				
 			});

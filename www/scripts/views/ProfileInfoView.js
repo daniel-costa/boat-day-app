@@ -49,7 +49,6 @@ define([
 				return ;
 			}
 
-
 			self.cleanForm();
 
 			var data = {
@@ -70,6 +69,7 @@ define([
 					_.map(error.fields, function(message, field) { 
 						self.fieldError(field, message);
 					});
+					self.loading();
 					self._error('One or more fields contain errors.');
 				} else {
 					self._error(error);

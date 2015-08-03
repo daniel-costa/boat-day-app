@@ -69,6 +69,7 @@ define([
 			mainQuery.include('boatday.boat');
 			mainQuery.include('boatday.captain');
 			mainQuery.include('boatday.captain.host');
+			mainQuery.include('promoCode');
 			mainQuery.descending('date,departureTime');
 			mainQuery.find().then(function(requests) {
 

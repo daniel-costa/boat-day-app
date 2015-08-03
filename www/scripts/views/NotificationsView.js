@@ -48,6 +48,8 @@ define([
 					self.$el.find('.notification-list').hide();
 				}
 
+				var notificationsRead = [];
+
 				_.each(matches, function(notification) {
 
 					self.notifications[notification.id] = notification;
@@ -70,11 +72,14 @@ define([
 
 					if(!notification.get("read")) {
 						unread++;
-						notification.save({ read: new Date()});
+						notification.set('read', new Date())
+						notificationsRead.push(notification);
 					}
 				});
 
-				$(document).trigger('updateNotificationsAmount()');
+				Parse.Object.saveAll(notificationsRead).then(function() {
+					$(document).trigger('updateNotificationsAmount');
+				})
 
 				self.$el.find('.notifications-unread').text("You have " + unread + " new notification" + (unread != 1 ? 's' : '') + ".");
 			});

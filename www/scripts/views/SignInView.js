@@ -184,7 +184,7 @@ define([
 
 			var fbLogged = new Parse.Promise();
 
-			facebookConnectPlugin.login(["public_profile"], fbLoginSuccess, transferError);
+			facebookConnectPlugin.login(["public_profile", "email", "user_about_me", "user_birthday", "user_friends"], fbLoginSuccess, transferError);
 
 			fbLogged.then(transferFbUserToParse, transferError).then(transferSuccess, transferError);
 			
@@ -195,8 +195,10 @@ define([
 			var self = this;
 
 			if( user.get("profile") ) {
-				$(document).trigger('loadProfile', function() {
-					Parse.history.navigate('boatdays-home', true);	
+				self.updateUserProfileFacebook(user, function() {
+					$(document).trigger('loadProfile', function() {
+						Parse.history.navigate('boatdays-home', true);	
+					});
 				});
 			} else {
 				console.log('redirect to createProfile');
@@ -216,6 +218,25 @@ define([
 		},
 
 		createUserProfileEmail: function() {
+
+		},
+
+		updateUserProfileFacebook: function(user, cb) {
+
+			var self = this;
+
+			var handleErrors = function(error) {
+				self.loading();
+				self._error("Oops... something wrong happen. Please, try later");
+				Parse.history.navigate('sign-out', true);
+			};
+
+			facebookConnectPlugin.api('/me?fields=email,first_name,last_name,gender,birthday,picture,bio', null, function(me) {
+				console.log(me);
+				user.save({ 
+					email: me.email,
+				}).then(cb, handleErrors);
+			}, handleErrors);
 
 		},
 

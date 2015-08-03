@@ -4,41 +4,66 @@
 }
 
 .screen-boatday-book select {
-	font-size: 1.2em;
-	font-weight: 500;
+	font-size: 1.1em;
 	text-align: center;
 }
 
 .screen-boatday-book .seats {
 	margin-top: 30px;
+	background: #f9fbfb;
+	padding-top: 30px;
+	padding-bottom: 30px;
 }
 
 .screen-boatday-book .seats table {
 	width: 100%;
 	margin-top: 20px;
 }
-	
-.screen-boatday-book .seats table td {
-	line-height: 40px;
+
+.screen-boatday-book .seats table tr td {
+	line-height: 35px;
 }
 
-.screen-boatday-book .seats table tr td:first-child {
-	color: #13a7bf;
-	font-weight: 400;
+.screen-boatday-book .seats table tr td.label {
+	color: #546e7a ;
+	font-weight: 500;
 	font-size: 0.8em;
 }
-
-.screen-boatday-book .seats table tr td:last-child {
+.screen-boatday-book .seats table tr td.amount-seats {
+	color: #b1bfcc;
+	line-height: 35px;
+	font-size: 1.15em;
+}
+.screen-boatday-book .seats table tr td.amount {
+	color: #546e7a;
 	text-align: right;
-	font-size: 1em;
+	font-weight: 500;
+}
+
+.screen-boatday-book .seats table tr.discount td.amount,
+.screen-boatday-book .seats table tr.discount-per-seat td.amount,
+.screen-boatday-book .seats table tr.promo td.amount,
+.screen-boatday-book .seats table tr.promo-per-seat td.amount {
+	color: #23acc2;
 }
 
 .screen-boatday-book .seats p {
-	text-align: right;
-	font-size: 2em;
-	margin-top: 5px;
-	border-top: 1px solid #e1e6ea;
-	padding-top: 15px;
+  text-align: right;
+  margin-top: 25px;
+  border-top: 1px solid #e1e6ea;
+  padding-top: 25px;
+}
+
+.screen-boatday-book .seats .price-total {
+	font-size: 2.4em;
+	font-weight: 2em;
+	padding-right: 10px;
+}
+
+.screen-boatday-book .seats .add-promo {
+	float: left;
+	font-size: 1em;
+	padding-left: 10px;
 }
 
 .screen-boatday-book .seats p sup {
@@ -48,9 +73,13 @@
 }
 
 .screen-boatday-book .payment {
-	margin-top: 50px;
+	margin-top: 25px;
 }
 
 .screen-boatday-book .payment a {
 	
+}
+
+.screen-boatday-book .submit-request p {
+	font-size: 0.7em;
 }

@@ -25,6 +25,7 @@
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.file`
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.media`
 * `sudo cordova plugin add pluginsBase/com.phonegap.plugins.PushPlugin`
+* `sudo cordova plugin add pluginsBase/cordova-plugin-appinfo`
 
 ## Change rights
 * `sudo chown -R Daniel .`

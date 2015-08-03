@@ -33,6 +33,7 @@ define([
 				self._info('Thank you for the report.');
 				self.close();
 			}, function(error) {
+				self.loading();
 				console.log(error);
 			});
 		}

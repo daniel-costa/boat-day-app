@@ -124,6 +124,9 @@ define([
 
 			var cb = function() {
 				if ( self.notificationsHolder ) {
+					
+					window.plugins.pushNotification.setApplicationIconBadgeNumber(function (result) {  }, function (error) {  }, self.notifications);
+
 					if( self.notifications == 0)  {
 						$(self.notificationsHolder).text(self.notifications).hide();
 					} else {
@@ -155,8 +158,8 @@ define([
 		loadProfile: function(event, cb) {
 
 			var self = this;
-
-			var profileSuccess = function(profile) {
+			
+			Parse.User.current().get("profile").fetch().then(function(profile) {
 
 				self.updateNotificationsAmount();
 				setInterval(function() { self.updateNotificationsAmount() }, 10 * 1000);
@@ -181,23 +184,34 @@ define([
 				// ToDo add this value in parse config.
 				setInterval(self.updateGeoPoint, self.__POSITION_REFRESH_DELAY__);
 				self.updateGeoPoint();
-				if( cb ) cb();
+				
+				if( cb ) {
+					cb();
+				}
 
-			}
-
-			var forceLogout = function() {
+			}, function() {
 				// At this point, the router is not initialize, so we logOut in a hard way
 				Parse.User.logOut();
 				facebookConnectPlugin.logout();
-			}
+			});
 
-			// Cache config
-			Parse.Config.get().then(function(config) {
-				// Cache profile
-				if( Parse.User.current() && Parse.User.current().get("profile") ) {
-					Parse.User.current().get("profile").fetch().then(profileSuccess, forceLogout);
+		},
+		
+		checkVersion: function(cb) {
+			navigator.appInfo.getVersion(function(version) {
+				if( Parse.Config.current().get('CURRENT_VERSION') !== version ) {
+					navigator.notification.alert(
+						'It looks like you’re using an older version of BoatDay.  Download the newest version of the app to get the latest bells and whistles!',
+						function() {
+							window.open('itms-apps://itunes.apple.com/us/app/boatday/id953574487', '_system');
+						},
+						'It’s time for an Update!',
+						'Update'
+					);
 				} else {
-					if( cb ) cb();
+					if( cb ) {
+						cb();
+					}
 				}
 			});
 		},
@@ -205,11 +219,27 @@ define([
 		initialize: function( cb ) {
 
 			var self = this;
-
+			
 			self.notificationSound = new Media("resources/sfx/notification.wav");
-			self.loadProfile(event, cb);
-			
-			
+
+			Parse.Config.get().then(function(config) {
+
+				self.checkVersion(function() {
+					if( Parse.User.current() && Parse.User.current().get("profile") ) {
+						self.loadProfile(event, cb);
+					} else {
+						cb();
+					}
+				});
+				
+			});
+
+			setInterval(function() {
+				Parse.Config.get().then(function() {
+					self.checkVersion();
+				})
+			}, 120 * 1000);
+
 			// prevent bug on feedback page with a jumping keyboard
 			var touchstart = function (e) {
 				if (!isTextInput(e.target) && isTextInput(document.activeElement)) {
@@ -217,6 +247,7 @@ define([
 					e.preventDefault();
 				}
 			}
+
 			function isTextInput(node) { return ['INPUT', 'TEXTAREA'].indexOf(node.nodeName) !== -1; }
 			document.addEventListener('touchstart', touchstart, false);
 		},

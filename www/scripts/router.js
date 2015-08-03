@@ -113,9 +113,7 @@ define([
 
 			var self = this;
 			var cb = function() {
-
 				self.render(new BoatDaysPastView());
-
 			};
 
 			self.handleSignedIn(cb);

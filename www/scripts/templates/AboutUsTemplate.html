@@ -11,7 +11,7 @@
 		<img src="resources/logo-colors.png" class="logo" />
 
 		<div class="feedback">
-			<input type="email" name="email" value="<%= typeof Parse.User.current().get('email') != typeof undefined ? '' : Parse.User.current().get('email') %>" />
+			<input type="email" name="email" placeholder="E-mail" value="<%= typeof Parse.User.current().get('email') != typeof undefined ? '' : Parse.User.current().get('email') %>" />
 			<textarea name="feedback" rows="3" placeholder="It is our mission to create the best boating app for you. Tell us what's on your mind."></textarea>
 			<button class="btn btn-block btn-send">
 				<span class="fa fa-paper-plane-o"></span>

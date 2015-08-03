@@ -132,6 +132,7 @@ define([
 			}
 
 			if( this._in('text').val() == '' ) {
+				self.loading();
 				return;
 			}
 
@@ -147,6 +148,7 @@ define([
 				self.appendMessage(message);
 				self.afterRenderInsertedToDom();
 			}, function(error) {
+				self.loading();
 				console.log(error);
 			});
 		}

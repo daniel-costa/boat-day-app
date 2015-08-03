@@ -46,6 +46,7 @@ define([
 			if( self.loading('.save') ) {
 				return ;
 			}
+
 			self.cleanForm();
 
 			/*
@@ -78,16 +79,16 @@ define([
 			};
 
 			var profileUpdateError = function(error) {
-
 				if( error.type && error.type == 'model-validation' ) {
 					_.map(error.fields, function(message, field) { 
 						self.fieldError(field, message);
 					});
+					self.loading();
 					self._error('One or more fields contain errors.');
 				} else {
+					self.loading();
 					self._error(error);
 				}
-
 			};
 
 			var data = { 

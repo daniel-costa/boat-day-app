@@ -35,7 +35,37 @@ define([
 				case 'sailing' : return 'Sailing'; break;
 				case 'fishing' : return 'Fishing'; break;
 			}
-		},		
+		},
+
+		hideOverlay: function(overlay) {
+			overlay.find('.overlay-close').click();
+		},
+
+		showOverlay: function(data) {
+
+			var self = this;
+			var _target = data.target;
+			var _box = data.target.find('.box');
+
+			if( _target.hasClass('active') ) {
+				return ;
+			}
+
+			if( data.closeBtn && data.target.find('.overlay-close').length == 0 ) {
+				$('<span class="overlay-close icon icon-close pull-right"></span>').click(function(event) {
+					_target.removeClass('active');
+					data.cbClose(_target);
+				}).prependTo(_box);
+			}
+
+			_target.css('visibility', 'hidden').addClass('active');
+
+			_box.css({
+				marginTop: ( $(window).height() - _box.outerHeight() ) / 2
+			});;
+
+			_target.css('visibility', 'visible');
+		},
 
 		getGuestRate: function(type) {
 			return type == 'business' ? Parse.Config.current().get("PRICE_GUEST_CHARTER_PART") : Parse.Config.current().get("PRICE_GUEST_PRIVATE_PART");
@@ -125,7 +155,7 @@ define([
 		},
 
 		getGuestPrice: function(price, guestPart) {
-			return Math.ceil(price / (1 - guestPart));
+			return Math.ceil(price / (1 - guestPart)) - (Parse.Config.current().get("PRICE_SEAT_DISCOUNT_USD") !== 0 ? Parse.Config.current().get("PRICE_SEAT_DISCOUNT_USD") : 0);
 		},
 
 		getGuestFee: function(price, guestPart) {

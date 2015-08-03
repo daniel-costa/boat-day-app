@@ -34,7 +34,7 @@ div.content .bar-header-secondary {
   -webkit-transform: translateZ(0);
   -webkit-box-shadow: none;
   border-bottom: 1px solid #13a7bf;
-  background: -webkit-linear-gradient(right, #13a7bf, #0ab8c8);
+  background: -webkit-linear-gradient(15deg, #23a7bf, #25b8c8);
 }
 header.bar.bar-nav a.icon,
 header.bar.bar-nav button.btn-nav {
@@ -70,32 +70,35 @@ header.bar.bar-nav h1 {
 div.content {
   background: white;
 }
+.content-padded {
+  padding: 15px;
+}
 div.content h1,
 div.content h2,
 div.content h3,
 div.content h4,
 div.content h5,
 div.content h6 {
-  color: #13a7bf;
+  color: #546e7a;
   text-align: center;
   font-weight: 200;
   margin-top: 30px;
   margin-bottom: 20px;
 }
 div.content h1 {
-  font-size: 1.5em;
+  font-size: 1em;
 }
 div.content h2 {
-  font-size: 1.4em;
+  font-size: 1em;
 }
 div.content h3 {
-  font-size: 1.3em;
+  font-size: 1em;
 }
 div.content h4 {
-  font-size: 1.2em;
+  font-size: 1em;
 }
 div.content h5 {
-  font-size: 1.1em;
+  font-size: 1em;
 }
 div.content h6 {
   font-size: 1em;
@@ -188,8 +191,9 @@ textarea {
   /* height + padding + border */
 }
 select {
+  font-weight: 400 !important;
   -webkit-box-shadow: none;
-  background: url(../resources/select-arrows.png) no-repeat center right 10px #f9fbfb;
+  background: url(../resources/select-arrows.png) no-repeat center right 0px white;
 }
 .field-flag-error {
   border-color: #f86335 !important;
@@ -233,6 +237,53 @@ video {
   max-width: 120px;
   margin: 20px auto;
   margin-top: 120px;
+}
+a {
+  color: #13a7bf;
+  font-weight: 500;
+}
+.overlay {
+  background: rgba(74, 79, 84, 0.9);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  -webkit-transform: translate3d(0, 0, 1px);
+  display: none;
+}
+.overlay.active {
+  display: block;
+}
+.overlay .box {
+  margin: 0px 25px;
+  background: white;
+  border-radius: 20px;
+  position: relative;
+}
+.overlay .inner {
+  padding: 35px;
+}
+.overlay h1 {
+  font-size: 1em;
+  text-align: center;
+  font-weight: 500;
+  color: #546e7a ;
+  margin: 15px 0px 30px 0px;
+  line-height: normal;
+}
+.overlay label {
+  font-weight: 700;
+}
+.overlay .inner > *:last-child {
+  margin-bottom: 0px;
+}
+.overlay .overlay-close {
+  color: #24acc2;
+  font-weight: 900;
+  top: 15px;
+  right: 15px;
+  position: absolute;
 }
 .snap-drawer {
   background: transparent;
@@ -880,6 +931,7 @@ div.loading {
   width: 50px;
   text-align: center;
   float: right;
+  margin-top: 12px;
 }
 .screen-boatdays-upcoming .boatday-card .details .status {
   float: none;
@@ -996,7 +1048,8 @@ div.loading {
   margin: 0px 5px;
 }
 .screen-boatday .content h1 {
-  line-height: 60px;
+  margin: 45px 0px;
+  line-height: normal;
   font-size: 1.1em;
   font-weight: 400;
 }
@@ -1158,6 +1211,16 @@ div.loading {
 .screen-boatday .confirmed-guests .guest .profile-picture {
   margin: auto;
 }
+.screen-boatday .total-pictures {
+  position: absolute;
+  color: red;
+  bottom: 10px;
+  right: 10px;
+  color: white;
+  font-size: 0.95em;
+  z-index: 2;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(0, 0, 0, 0.8), -1px 1px 2px rgba(0, 0, 0, 0.8), 1px -1px 2px rgba(0, 0, 0, 0.8);
+}
 .screen-boatday-chat.modal {
   background: transparent;
 }
@@ -1240,42 +1303,68 @@ div.loading {
   text-align: center;
 }
 .screen-boatday-book select {
-  font-size: 1.2em;
-  font-weight: 500;
+  font-size: 1.1em;
   text-align: center;
 }
 .screen-boatday-book .seats {
   margin-top: 30px;
+  background: #f9fbfb;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 .screen-boatday-book .seats table {
   width: 100%;
   margin-top: 20px;
 }
-.screen-boatday-book .seats table td {
-  line-height: 40px;
+.screen-boatday-book .seats table tr td {
+  line-height: 35px;
 }
-.screen-boatday-book .seats table tr td:first-child {
-  color: #13a7bf;
-  font-weight: 400;
+.screen-boatday-book .seats table tr td.label {
+  color: #546e7a ;
+  font-weight: 500;
   font-size: 0.8em;
 }
-.screen-boatday-book .seats table tr td:last-child {
+.screen-boatday-book .seats table tr td.amount-seats {
+  color: #b1bfcc;
+  line-height: 35px;
+  font-size: 1.15em;
+}
+.screen-boatday-book .seats table tr td.amount {
+  color: #546e7a;
   text-align: right;
-  font-size: 1em;
+  font-weight: 500;
+}
+.screen-boatday-book .seats table tr.discount td.amount,
+.screen-boatday-book .seats table tr.discount-per-seat td.amount,
+.screen-boatday-book .seats table tr.promo td.amount,
+.screen-boatday-book .seats table tr.promo-per-seat td.amount {
+  color: #23acc2;
 }
 .screen-boatday-book .seats p {
   text-align: right;
-  font-size: 2em;
-  margin-top: 5px;
+  margin-top: 25px;
   border-top: 1px solid #e1e6ea;
-  padding-top: 15px;
+  padding-top: 25px;
+}
+.screen-boatday-book .seats .price-total {
+  font-size: 2.4em;
+  font-weight: 2em;
+  padding-right: 10px;
+}
+.screen-boatday-book .seats .add-promo {
+  float: left;
+  font-size: 1em;
+  padding-left: 10px;
 }
 .screen-boatday-book .seats p sup {
   font-size: 0.6em;
   position: relative;
 }
 .screen-boatday-book .payment {
-  margin-top: 50px;
+  margin-top: 25px;
+}
+.screen-boatday-book .submit-request p {
+  font-size: 0.7em;
 }
 .screen-boatday-cancellation .policy {
   margin-bottom: 40px;
@@ -1339,36 +1428,92 @@ div.loading {
   margin: 0px 5px;
   max-width: 20px;
 }
-.screen-boatday-pay .btn-minus,
-.screen-boatday-pay .btn-plus {
-  min-width: 50px;
-  font-size: 1.5em;
-  font-weight: 500;
-  line-height: normal;
-  float: left;
-  margin: 8px 15px;
+.screen-boatday-pay textarea {
+  margin-bottom: 0px;
 }
-.screen-boatday-pay .btn-plus {
-  float: right;
-}
-.screen-boatday-pay .pay {
-  clear: both;
+.screen-boatday-pay .grey-area {
   background: #f9fbfb;
   padding: 20px 0px;
   margin: 15px 0px;
   text-align: center;
   color: #546e7a;
+  line-height: auto;
 }
-.screen-boatday-pay .pay .price {
-  font-size: 3em;
-  text-align: center;
+.screen-boatday-pay .grey-area .seats {
+  font-size: 2em;
   font-weight: 200;
   line-height: normal;
 }
-.screen-boatday-pay .pay .price sup {
+.screen-boatday-pay .grey-area .price {
+  font-size: 3em;
+  font-weight: 200;
+  line-height: normal;
+}
+.screen-boatday-pay .grey-area .price sup {
   font-size: 0.45em;
   position: relative;
   top: -20px;
+}
+.screen-boatday-pay .grey-area a {
+  display: block;
+  font-size: 0.75em;
+  font-weight: 400;
+}
+.screen-boatday-pay .grey-area a.btn-adjust {
+  margin: 20px 0px 10px 0px;
+}
+.screen-boatday-pay .grey-area a .icon {
+  font-size: 0.75em;
+  font-weight: 500;
+  margin-left: 5px;
+}
+.screen-boatday-pay .grey-area .btn-minus,
+.screen-boatday-pay .grey-area .btn-plus {
+  font-size: 1.5em;
+  min-width: 50px;
+  margin: 0px 10px;
+  margin: 10px;
+  font-weight: 400;
+}
+.screen-boatday-pay .details table {
+  width: 100%;
+  margin-top: 20px;
+}
+.screen-boatday-pay .details table tr td {
+  line-height: 35px;
+}
+.screen-boatday-pay .details table tr td.label {
+  color: #546e7a ;
+  font-weight: 500;
+  font-size: 0.8em;
+  text-align: left;
+}
+.screen-boatday-pay .details table tr td.amount-seats {
+  color: #b1bfcc;
+  line-height: 35px;
+  font-size: 1.15em;
+}
+.screen-boatday-pay .details table tr td.amount {
+  color: #546e7a;
+  text-align: right;
+  font-weight: 500;
+}
+.screen-boatday-pay .details table tr.discount td.amount,
+.screen-boatday-pay .details table tr.discount-per-seat td.amount,
+.screen-boatday-pay .details table tr.promo td.amount,
+.screen-boatday-pay .details table tr.promo-per-seat td.amount {
+  color: #23acc2;
+}
+.screen-boatday-pay .details p {
+  text-align: right;
+  margin-top: 25px;
+  border-top: 1px solid #e1e6ea;
+  padding-top: 25px;
+}
+.screen-boatday-pay .details .price-total {
+  font-size: 2.4em;
+  font-weight: 2em;
+  padding-right: 10px;
 }
 .screen-certifications .ico-cert {
   display: blocK;

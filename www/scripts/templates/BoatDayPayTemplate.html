@@ -4,35 +4,122 @@
 </header>
 
 <div class="content">
-	
-	<div class="content-padded">
-		<h1>Rate BoatDay</h1>
-		
-		<div class="stars text-center">
-			<img class="rating" src="resources/star.png" data-rating="1" />
-			<img class="rating" src="resources/star.png" data-rating="2" />
-			<img class="rating" src="resources/star.png" data-rating="3" />
-			<img class="rating" src="resources/star.png" data-rating="4" />
-			<img class="rating" src="resources/star.png" data-rating="5" />
-		</div>
-
-		<textarea name="review" rows="2" placeholder="Review your Host and BoatDay experience"></textarea>
-
-		<% if( typeof contribution == typeof undefined || !contribution ) { %>
-			<h1>Contribution (<%= seats %> seat<%= seats == 1 ? '' : 's' %>)</h1>
-			<div class="pay">
-				<button class="btn btn-minus btn-primary">-</button>
-				<span class="price">
-					<sup>$</sup><span class="total"><%= self.price %></span>
-				</span>
-				<button class="btn btn-plus btn-primary">+</button>
+	<h1>How’d it go?</h1>
+	<div class="grey-area">
+		<div class="content-padded">
+			<div class="stars text-center">
+				<img class="rating" src="resources/star.png" data-rating="1">
+				<img class="rating" src="resources/star.png" data-rating="2">
+				<img class="rating" src="resources/star.png" data-rating="3">
+				<img class="rating" src="resources/star.png" data-rating="4">
+				<img class="rating" src="resources/star.png" data-rating="5">
 			</div>
-		<% } %>
+
+			<textarea name="review" rows="2" placeholder="Review your Host and BoatDay experience"></textarea>
+		</div>
 	</div>
 
-	<div class="clip-to-bottom">
-		<div class="content-padded">
-			<button class="btn btn-block btn-pay">Submit</button>
+	<% if( typeof contribution == typeof undefined || !contribution ) { %>
+		<h1>You booked</h1>
+		<div class="grey-area">
+			<span class="seats">
+				<%= seats %> seat<%= seats == 1 ? '' : 's' %>
+			</span>
 		</div>
+
+		<h1>For</h1>
+		<div class="grey-area">
+			<p class="price">
+				<sup>$</sup><span><%= self.price %></span>
+			</p>
+			
+			<a class="btn-details">more details <span class="icon icon-down-nav"></span></a>
+
+			<div class="content-padded details" style="display:none">
+				<table>
+					<tr class="contribution">
+						<td class="label">Contribution</td>
+						<td class="amount-seats"><%= seats %>x</td>
+						<td class="amount">$<%= self.model.get('boatday').get('price') %></td>
+					</tr>
+					<tr class="fee">
+						<td class="label">BoatDay Fee</td>
+						<td class="amount-seats"><%= seats %>x</td>
+						<td class="amount">$<%= self.guestPart %></td>
+					</tr>
+					<tr class="tsf">
+						<td class="label">Trust &amp; Safety Fee</td>
+						<td class="amount-seats"><%= seats %>x</td>
+						<td class="amount">$<%= Parse.Config.current().get("TRUST_AND_SAFETY_FEE") %></td>
+					</tr>
+					<% if( bdDiscountPerSeat != 0 ) { %> 
+						<tr class="discount-per-seat">
+							<td class="label"><%= bdDiscountPerSeatLabel %></td>
+							<td class="amount-seats"><%= seats %>x</td>
+							<td class="amount">-$<%= bdDiscountPerSeat %></td>
+						</tr>
+					<% } %>
+					<% if( self.model.get('promoCode') && self.model.get('promoCode').get('perSeat') ) { %> 
+						<tr class="promo-per-seat">
+							<td class="label"><%= self.model.get('promoCode').get('name') %></td>
+							<td class="amount-seats"><%= seats %>x</td>
+							<td class="amount">-$<%= self.model.get('promoCode').get('discount') %></td>
+						</tr>
+					<% } %>
+					<% if( bdDiscount != 0 ) { %> 
+						<tr class="discount">
+							<td class="label"><%= bdDiscountLabel %></td>
+							<td></td>
+							<td class="amount">-$<%= bdDiscount %></td>
+						</tr>
+					<% } %>
+					<% if( self.model.get('promoCode') && !self.model.get('promoCode').get('perSeat') ) { %> 
+						<tr class="promo">
+							<td class="label"><%= self.model.get('promoCode').get('name') %></td>
+							<td></td>
+							<td class="amount">-$<%= self.model.get('promoCode').get('discount') %></td>
+						</tr>
+					<% } %>
+				</table>
+			</div>
+		</div>
+			
+		<h1>Add a tip for your Host?</h1>
+		<div class="grey-area">
+			<div>
+				<button class="btn btn-primary btn-tip" percent="0">No tip</button>
+				<button class="btn btn-primary btn-tip" percent="0.05">5%</button>
+				<button class="btn btn-primary btn-tip" percent="0.10">10%</button>
+				<button class="btn btn-primary btn-tip" percent="0.15">15%</button>
+				<button class="btn btn-primary btn-tip" percent="0.20">20%</button>
+				<button class="btn btn-primary btn-tip" percent="0.25">25%</button>
+			</div>
+			
+			<a class="btn-adjust" style="display:none">Adjust payment <span class="icon icon-down-nav"></span></a>
+
+			<div class="adjust-price" style="display:none">
+				<button class="btn btn-primary btn-minus">-</button>
+				<button class="btn btn-primary btn-plus">+</button>
+			</div>
+		</div>
+
+		<h1>Total Contribution</h1>
+		<div class="grey-area">
+			<p class="price">
+				<sup>$</sup><span class="total-to-pay"><%= self.price %></span>
+			</p>
+		</div>
+	<% } else { %> 
+
+	<% } %>
+
+	<div class="content-padded">
+		<button class="btn btn-block btn-primary btn-pay">
+			<% if( typeof contribution == typeof undefined || !contribution ) { %>
+				Rate &amp; Pay
+			<% } else { %>
+				Rate
+			<% } %>
+		</button>
 	</div>
 </div>

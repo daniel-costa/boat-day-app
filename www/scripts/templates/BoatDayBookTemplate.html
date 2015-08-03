@@ -7,8 +7,10 @@
 	
 	<div class="content-padded">
 		<h1>Contribution Calculator</h1>
-		
-		<div class="seats">
+	</div>
+
+	<div class="seats">
+		<div class="content-padded ">
 			<select name="seats">
 				<% for(var i = 1; i <= (availableSeats - bookedSeats); i++) { %>
 				<option value="<%= i %>"><%= i %> seat<%= i != 1 ? 's' : '' %></option>
@@ -52,12 +54,14 @@
 					<td class="amount"></td>
 				</tr>
 			</table>
-
-			<p class="total">
-				<sup>$</sup><span class="price-total"></span>
-			</p>
 		</div>
+		<p class="total">
+			<a class="add-promo">Add promo code</a>
+			<span class="price-total"></span>
+		</p>
+	</div>
 
+	<div class="content-padded">
 		<div class="payment">
 			<label>Pick a credit card</label>
 			<div class="field-card">
@@ -67,7 +71,18 @@
 
 		<div class="submit-request">
 			<button class="btn btn-block btn-book btn-action">Submit Seat Request</button>
-			<p class="text-center">By tapping on "Submit Seat Request" you agree to the <a class="btn-terms">Terms &amp; Conditions</a> and <a class="btn-cancellation">Cancellation Policy</a>.<p>
+			<p class="text-center">By tapping on "Submit Seat Request" you agree to the <a class="btn-terms">Terms &amp; Conditions</a>, <a class="btn-water">Water Sports Policy</a> and <a class="btn-cancellation">Cancellation Policy</a>.<p>
+		</div>
+	</div>
+</div>
+
+<div class="overlay">
+	<div class="box">
+		<div class="inner">
+			<h1>Have a promo code?<br/>Lucky you!</h1>
+			<label>Add your promo code</label>
+			<input type="text" name="promo" value="" placeholder="Promo Code"/>
+			<button class="btn btn-primary btn-block btn-promo">Update Price</button>
 		</div>
 	</div>
 </div>
