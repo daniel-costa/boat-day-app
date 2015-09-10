@@ -26,7 +26,8 @@ define([
 			'enableDrawer': 'enableDrawer',
 			'menuHover': 'menuHover',
 			'loadProfile': 'loadProfile',
-			'updateNotificationsAmount': 'updateNotificationsAmount'
+			'updateNotificationsAmount': 'updateNotificationsAmount',
+			'updateGeoPoint': 'updateGeoPoint'
 		},
 
 		msgStack: [],
@@ -162,13 +163,15 @@ define([
 			Parse.User.current().get("profile").fetch().then(function(profile) {
 
 				self.updateNotificationsAmount();
-				setInterval(function() { self.updateNotificationsAmount() }, 10 * 1000);
+				setInterval(function() { 
+					self.updateNotificationsAmount() 
+				}, 10 * 1000);
 
 				Parse.Cloud.run('attachUserProfileToInstallation', {
 					token: window.installation.token,
 					user: Parse.User.current().id,
 					profile: profile.id,
-				})
+				}).then(function(){}, function(error){});
 
 				self.snap = new Snap({
 					element: document.getElementById('content'),
@@ -183,23 +186,23 @@ define([
 
 				// ToDo add this value in parse config.
 				setInterval(self.updateGeoPoint, self.__POSITION_REFRESH_DELAY__);
-				self.updateGeoPoint();
+				self.updateGeoPoint(cb);
 				
-				if( cb ) {
-					cb();
-				}
-
 			}, function() {
 				// At this point, the router is not initialize, so we logOut in a hard way
 				Parse.User.logOut();
 				facebookConnectPlugin.logout();
+				cb();
 			});
 
 		},
 		
 		checkVersion: function(cb) {
 			navigator.appInfo.getVersion(function(version) {
-				if( Parse.Config.current().get('CURRENT_VERSION') !== version ) {
+				var _cv = Parse.Config.current().get('CURRENT_VERSION').split('.');
+				var _v = version.split('.');
+
+				if( parseInt(_cv[0]) > parseInt(_v[0]) || parseInt(_cv[1]) > parseInt(_v[1]) || parseInt(_cv[2]) > parseInt(_v[2]) ) {
 					navigator.notification.alert(
 						'It looks like you’re using an older version of BoatDay.  Download the newest version of the app to get the latest bells and whistles!',
 						function() {
@@ -226,7 +229,14 @@ define([
 
 				self.checkVersion(function() {
 					if( Parse.User.current() && Parse.User.current().get("profile") ) {
-						self.loadProfile(event, cb);
+						if( typeof Parse.User.current().get('email') === typeof undefined ) {
+							console.log('Ooops... Email undefined');
+							Parse.User.logOut();
+							facebookConnectPlugin.logout();
+							cb();
+						} else {
+							self.loadProfile(event, cb);
+						}
 					} else {
 						cb();
 					}
@@ -252,10 +262,10 @@ define([
 			document.addEventListener('touchstart', touchstart, false);
 		},
 
-		updateGeoPoint: function() {
+		updateGeoPoint: function(cb) {
 
 			if(!Parse.User.current()) {
-				
+				cb();
 				// Even if we start the timer after checking the existence
 				// of a current user AND a ready state in the profile,
 				// we still want to insure that the user is still connected
@@ -267,19 +277,17 @@ define([
 
 			var positionError = function (error) {
 				console.log(error);
+				cb();
 			};
 
-			var positionSuccess = function(position) {
-
-				var geopoint = new Parse.GeoPoint({ 
-					latitude: position.coords.latitude, 
-					longitude: position.coords.longitude 
-				});
-
-				Parse.User.current().get("profile").save({ position: geopoint }).then(function(){}, positionError);
-			};
-
-			navigator.geolocation.getCurrentPosition(positionSuccess, positionError);
+			navigator.geolocation.getCurrentPosition(function(position) {
+				Parse.User.current().get("profile").save({ 
+					position: new Parse.GeoPoint({ 
+						latitude: position.coords.latitude, 
+						longitude: position.coords.longitude 
+					})
+				}).then(cb, positionError);
+			}, positionError);
 
 		},
 

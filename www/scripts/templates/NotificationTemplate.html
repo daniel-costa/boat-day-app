@@ -1,47 +1,53 @@
 <div class="notification <%= read ? 'read' : '' %>">
 	<p>
-		<% if( !fromTeam ) { %>
-			<span class="profile-picture" style="background-image:url(<%= from && from.get('profilePicture') ? from.get('profilePicture').url() : 'resources/ico-bd.png' %>)" data-id="<%= from.id %>"></span>
+		<% if( !fromTeam && from ) { %>
+			<span class="profile-picture" style="background-image:url(<%= from.get('profilePicture') ? from.get('profilePicture').url() : 'resources/ico-bd.png' %>)" data-id="<%= from.id %>"></span>
 		<% } else { %>
 			<span class="profile-picture" style="background-image:url(resources/bd-team.png)"></span>
 		<% }  %>
 
 		<span class="sender"><%= fromTeam ? 'BoatDay Team' : from.get('displayName') %></span>
-		<!-- <span class="time">9:30 PM</span> -->
-		<br/>
+		<span class="time"><%= self.dateParseToDisplayDate( notification.createdAt ) %></span>
 
-		<% if( action == "request-approved" ) { %>
+		<% console.log( new Date(notification.createdAt) ) %>
+
+		<% if( action == "request-approved" && request && boatday ) { %>
 			I have approved your request for <%= request.get('seats') %> seat<%= request.get('seats') == 1 ? '' : 's' %> on <strong><%= boatday.get('name') %></strong>.
 			You can now find it in your <a href="#/boatdays-upcoming">Upcoming BoatDays</A>. Welcome aboard!
 		<% } %>
 
-		<% if( action == "request-denied" ) { %>
+		<% if( action == "request-denied" && boatday ) { %>
 			Unfortunately, I can't approve your seat request for <strong><%= boatday.get('name') %></strong>.
 			You can now find in your <a href="#/boatdays-past">Past BoatDays</a>.
 		<% } %>
 
-		<% if( action == "request-cancelled-host" ) { %>
+		<% if( action == "request-cancelled-host" && boatday && request ) { %>
 			Bad news, I had to cancel your reserved seat<%= request.get('seats') == 1 ? '' : 's' %> for the BoatDay <strong><%= boatday.get('name') %></strong>.
 			You can now find this BoatDay in your <a href="#/boatdays-past">Past BoatDays</a>.
 		<% } %>
 
-		<% if( action == "boatday-cancelled" ) { %>
+		<% if( action == "boatday-cancelled" && boatday ) { %>
 			Bad news, I had to cancel the BoatDay <strong><%= boatday.get('name') %></strong>.
 			Check out your <a href="#/boatdays-past">Past BoatDays</a> to know the reason.
 		<% } %>
 
-		<% if( action == "auto-payment" ) { %>
+		<% if( action == "auto-payment" && request && boatday ) { %>
 			A <sup>$</sup><%= request.get('contribution') %> contribution for your BoatDay <strong><%= boatday.get('name') %></strong> has been charged.
 			Come back soon for another great BoatDay experience!
 		<% } %>
 
-		<% if( action == "boatday-message" ) { %>
+		<% if( action == "boatday-message" && boatday ) { %>
 			I just wrote a message on the chat wall for <strong><%= boatday.get('name') %></strong>.
 		<% } %>
 
-		<% if( action == "boatday-rating" ) { %>
+		<% if( action == "boatday-rating" && boatday) { %>
 			I just left you a rating for our BoatDay <strong><%= boatday.get('name') %></strong>.
 			You can now find this BoatDay in your <a href="#/boatdays-past">Past BoatDays</a>.
+		<% } %>
+
+		<% if( action == "boatday-answer" && boatday) { %>
+			The host answered to your question for the BoatDay <strong><%= boatday.get('name') %></strong>.
+			(<a class="open-boatday" data-id="<%= boatday.id %>">Open BoatDay</a>)
 		<% } %>
 
 		<% if( action == "bd-message" ) { %>

@@ -49,6 +49,11 @@ define([
 					_return.fields.lastName = "Indicate lastName";
 				}
 
+
+				if( !attributes.phone ) {
+					_return.fields.phone = "Indicate lastName";
+				}
+
 				if( !attributes.birthday ) {
 					_return.fields.birthday = "Indicate birthdate";
 				}

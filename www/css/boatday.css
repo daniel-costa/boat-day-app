@@ -11,7 +11,8 @@ body {
   -webkit-touch-callout: none;
   -webkit-text-size-adjust: none;
   -webkit-user-select: none;
-  background: url(../resources/loader.gif) center center no-repeat;
+  background: url(../resources/index-loading.png) center center no-repeat;
+  background-size: cover;
 }
 .clip-to-bottom {
   position: fixed;
@@ -67,11 +68,14 @@ header.bar.bar-nav h1 {
 .bar-nav ~ .content {
   padding-top: 60px;
 }
+.bar-header-secondary ~ .content {
+  padding-top: 120px;
+}
 div.content {
   background: white;
 }
 .content-padded {
-  padding: 15px;
+  padding: 5px;
 }
 div.content h1,
 div.content h2,
@@ -273,6 +277,7 @@ a {
   line-height: normal;
 }
 .overlay label {
+  margin-top: 20px;
   font-weight: 700;
 }
 .overlay .inner > *:last-child {
@@ -284,6 +289,83 @@ a {
   top: 15px;
   right: 15px;
   position: absolute;
+}
+.segmented-control-multi {
+  position: relative;
+  display: table;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: white;
+  border: 1px solid #13a7bf;
+  border-radius: 3px;
+}
+.segmented-control-multi .control-item {
+  display: table-cell;
+  width: 1%;
+  padding-top: 6px;
+  padding-bottom: 7px;
+  overflow: hidden;
+  line-height: 1;
+  color: #13a7bf;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-left: 1px solid #13a7bf;
+}
+.segmented-control-multi .control-item:first-child {
+  border-left-width: 0;
+}
+.segmented-control-multi .control-item:active {
+  background-color: #13a7bf;
+  color: white;
+}
+.segmented-control-multi .control-item.active {
+  background-color: #13a7bf;
+  color: white;
+}
+.hidden-content {
+  position: absolute;
+  width: 0px;
+  overflow: hidden;
+}
+.hidden-content * {
+  opacity: 0;
+}
+.bar-header-secondary {
+  top: 60px;
+  height: 60px;
+  border-bottom: 2px solid #0B0B0C;
+  overflow: hidden;
+  background: #3B3D3C;
+  white-space: nowrap;
+  padding: 0px;
+}
+.bar-header-secondary.filter-categories {
+  font-size: 0px;
+  text-align: center;
+}
+.bar-header-secondary.filter-categories a.control-item {
+  color: #B0B0B0;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 60px;
+  padding: 0px 10px;
+  display: inline-block;
+  margin: 0px;
+}
+.bar-header-secondary.filter-categories a.active,
+.bar-header-secondary.filter-categories a:active {
+  color: white;
+}
+.bar-header-secondary.filter-categories span.control-item-handler {
+  background: #F9FBFB;
+  border-top: 1px solid #CCCECE;
+  border-bottom: 1px solid #8B8C8D;
+  position: absolute;
+  bottom: 0px;
+  height: 1px;
 }
 .snap-drawer {
   background: transparent;
@@ -610,7 +692,7 @@ div.loading {
   margin-top: 15px;
 }
 .screen-profile .review .review {
-  text-align: center;
+  text-align: left;
   margin-top: 5px;
   clear: both;
 }
@@ -676,20 +758,20 @@ div.loading {
   min-height: 72px;
 }
 .screen-notifications .notification.read {
-  border-bottom: 1px solid #e1e6ea ;
+  border-bottom: 1px solid #e1e6ea;
   background: #f9fbfb;
 }
 .screen-notifications .notification .profile-picture {
   margin: 0px 10px 0px 0px;
-  width: 52px;
-  height: 52px;
+  width: 40px;
+  height: 40px;
   float: left;
   border: 1px solid #11abc1;
 }
 .screen-notifications .notification .bd-picture {
   margin: 0px 10px 0px 0px;
-  width: 52px;
-  height: 52px;
+  width: 40px;
+  height: 40px;
   float: left;
 }
 .screen-notifications .notification p {
@@ -701,10 +783,15 @@ div.loading {
 }
 .screen-notifications .notification span.sender {
   color: #11abc1;
+  line-height: 20px;
+  display: block;
 }
 .screen-notifications .notification span.time {
   margin: 0px;
-  font-weight: 500;
+  margin-bottom: 5px;
+  line-height: 20px;
+  display: block;
+  font-weight: 400;
   color: #b1bfcc;
 }
 .screen-boatdays-home .category {
@@ -921,7 +1008,7 @@ div.loading {
 .screen-boatdays-upcoming .boatday-card .details .position {
   color: #b2c0cc;
   padding-top: 15px;
-  text-align: center;
+  text-align: left;
 }
 .screen-boatdays-upcoming .boatday-card .details .position {
   margin-right: 0px;
@@ -1009,6 +1096,13 @@ div.loading {
   color: #13a7bf;
   font-weight: 500;
 }
+.screen-boatdays .content .filters .location {
+  text-align: center;
+  margin: 0px;
+}
+.screen-boatdays .logo-placeholder {
+  margin-top: 60px;
+}
 .screen-boatday .slider {
   background: #b2c0cc;
 }
@@ -1061,8 +1155,10 @@ div.loading {
   border-bottom: 1px solid #e1e6ea ;
   padding: 15px 10px;
   font-size: 0.7em;
-  color: #b2c0cc;
   font-weight: 500;
+}
+.screen-boatday td span {
+  color: #13a7bf;
 }
 .screen-boatday td strong {
   color: #546e7a;
@@ -1093,13 +1189,13 @@ div.loading {
   position: relative;
 }
 .screen-boatday .map img {
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -30px;
-  margin-left: -30px;
+  margin-top: -50px;
+  margin-left: -50px;
 }
 .screen-boatday .features {
   margin-bottom: 20px;
@@ -1188,7 +1284,7 @@ div.loading {
   color: white;
 }
 .screen-boatday .slide .img {
-  height: 200px;
+  min-height: 200px;
   width: 100%;
   background: center center no-repeat;
   background-size: cover;
@@ -1220,6 +1316,48 @@ div.loading {
   font-size: 0.95em;
   z-index: 2;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(0, 0, 0, 0.8), -1px 1px 2px rgba(0, 0, 0, 0.8), 1px -1px 2px rgba(0, 0, 0, 0.8);
+}
+.screen-boatday .questions-list .inner.q,
+.screen-boatday .questions-list .inner.a {
+  border-top: 1px solid #E1E6EA;
+  padding: 20px;
+}
+.screen-boatday .questions-list .inner.a {
+  background: #F9FBFB;
+}
+.screen-boatday .questions-list .inner.q p {
+  color: #546E7A;
+  margin: 0px;
+}
+.screen-boatday .questions-list .inner.a p {
+  color: #B1BFCC;
+  margin: 0px;
+}
+.screen-boatday .questions-list {
+  margin-bottom: 30px;
+}
+.screen-boatday .questions-list .questions:not(.empty) {
+  border-bottom: 1px solid #E1E6EA;
+}
+.screen-boatday .questions-list button {
+  padding: 5px 10px;
+  margin-top: 20px;
+}
+.screen-boatday .questions-list table,
+.screen-boatday .questions-list table tr,
+.screen-boatday .questions-list table tr td {
+  border: none;
+  padding: 0px;
+  margin: 0px;
+  font-weight: normal;
+  color: #546E7A;
+}
+.screen-boatday .questions-list table tr td:last-child {
+  padding-left: 10px;
+  text-align: right;
+}
+.screen-boatday .questions-list .question-toggle img {
+  width: 24px;
 }
 .screen-boatday-chat.modal {
   background: transparent;

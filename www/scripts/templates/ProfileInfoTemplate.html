@@ -23,13 +23,16 @@
 		<h1>Personal Information</h1>
 
 		<label>First Name</label>
-		<input type="text" name="firstName" placeholder="First Name" value="<%= typeof firstName !== 'undefined' && firstName ? firstName : '' %>">
+		<input type="text" name="firstName" placeholder="First Name" value="<%= typeof firstName !== 'undefined' && firstName ? firstName : '' %>" <%= self.profileSetup ? '' : 'readonly' %>>
 
 		<label>Last Name</label> 
-		<input type="text" name="lastName" placeholder="Last Name" value="<%= typeof lastName !== 'undefined' && lastName ? lastName : '' %>">
+		<input type="text" name="lastName" placeholder="Last Name" value="<%= typeof lastName !== 'undefined' && lastName ? lastName : '' %>" <%= self.profileSetup ? '' : 'readonly' %>>
 
 		<label>Birthday</label>
-		<input type="date" name="birthday" placeholder="Birthday" max="" value="<%=  dt_value ? dt_value : '' %>">
+		<input type="date" name="birthday" placeholder="Birthday" value="<%=  dt_value ? dt_value : '' %>">
+
+		<label>Phone number</label>
+		<input type="number" name="phone" placeholder="Phone Number" value="<%= typeof phone !== 'undefined' && phone ? phone : '' %>"  pattern="[0-9]*">
 
 		<button class="btn btn-block btn-default save"><%= self.profileSetup ? 'Continue' : 'Update' %></button>
 	</div>

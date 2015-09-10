@@ -1,10 +1,11 @@
 define([
 'views/BaseView',
 'views/BoatDayView',
+'views/MapView',
 'text!templates/BoatDaysTemplate.html',
 'text!templates/BoatDayCardTemplate.html',
 'text!templates/BoatDayTemplate.html'
-], function(BaseView, BoatDayView, BoatDaysTemplate, BoatDayCardTemplate, BoatDayTemplate){
+], function(BaseView, BoatDayView, MapView, BoatDaysTemplate, BoatDayCardTemplate, BoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatdays',
@@ -12,7 +13,11 @@ define([
 		template: _.template(BoatDaysTemplate),
 
 		events: {
-			'click .boatday-card': 'showBoatDay'
+			'click .boatday-card': 'showBoatDay',
+			'click .btn-map': 'map',
+			'click .control-item': 'pickCategory',
+			'click .location': 'showLocations',
+			'change [name="location"]': 'pickLocation',
 		},
 
 		statusbar: true,
@@ -33,13 +38,165 @@ define([
 
 		},
 
+		map: function() {
+
+			var self = this;
+			var _boatdays = [];
+
+			_.each(this.boatdays, function(boatday) {
+				_boatdays.push({
+					precise: true,
+					obj: boatday,
+					openOnClick: true,
+				})
+			});
+
+			var center = self.getCurrentPosition();
+
+			this.modal(new MapView({ boatdays: _boatdays, center: center, zoomLevel: 11 }));
+		},
+		
+		getCurrentPosition: function() {
+			if( Parse.User.current() && Parse.User.current().get('profile') && Parse.User.current().get('profile').get('position') ) {
+				return center = {
+					latitude: parseFloat(Parse.User.current().get('profile').get('position').latitude),
+					longitude: parseFloat(Parse.User.current().get('profile').get('position').longitude)
+				};
+			} else {
+				return center = {
+					latitude: parseFloat(25.774382),
+					longitude: parseFloat(-80.185515)
+				};
+			}
+		},
+
+		showLocations: function() {
+			this._in('location').focus();
+		},
+
+		defineFilters: function() {
+			var self = this;
+			if( self.filtersDefined() ) {
+				return Parse.User.current().get('profile').get('filters');
+			} else {
+				return {
+					position: {
+						name: 'my-location',
+						latitude: null,
+						longitude: null
+					},
+					category: 'all'
+				};
+			}
+		},
+
+		pickLocation: function() {
+
+			var self = this;
+			var opt = $(event.currentTarget).find(':selected');
+
+			self.$el.find('.change-location').text(opt.text());
+
+			var newFilters = self.defineFilters();
+			
+			newFilters.position = {
+				name: opt.val(),
+				latitude: opt.attr('lat'),
+				longitude: opt.attr('lng')
+			};
+
+			Parse.User.current().get('profile').save({
+				filters: newFilters
+			}).then(function() {
+				self.render();
+			});
+
+		},
+
+		pickCategory: function(event) {
+
+			var self = this;
+
+			var newFilters = self.defineFilters();
+
+			this.$el.find('.filter-categories .control-item.active').removeClass('active');
+			
+			$(event.currentTarget).addClass('active');
+
+			newFilters.category = $(event.currentTarget).attr('value');
+
+			this.moveHandler();
+
+			Parse.User.current().get('profile').save({
+				filters: newFilters
+			}).then(function() {
+				self.displayBoatDays();
+			});
+
+		},
+
+		moveHandler: function() {
+
+			var target = this.$el.find('.filter-categories .control-item.active');
+			var handler = this.$el.find('.filter-categories .control-item-handler');
+			
+			handler.animate({
+				left: target.offset().left,
+				width: target.outerWidth(),
+			});
+
+		},
+
+		initHandler: function() {
+
+			var target = this.$el.find('.filter-categories .control-item.active');
+			var handler = this.$el.find('.filter-categories .control-item-handler');
+
+			console.log(target);
+			console.log(handler);
+
+			handler.css({
+				left: target.offset().left,
+				width: target.outerWidth(),
+			});
+
+		},
+
+		afterRenderInsertedToDom: function() {
+			this.initHandler();
+		},
+
 		render: function( init ) {
 
 			BaseView.prototype.render.call(this);
 
 			var self = this;
 
-			this.$el.find('h1.title').text(self.getBoatDayTitle(Parse.User.current().get('profile').get('displayBDCategory')));
+			if( self.filtersDefined() && Parse.User.current().get('profile').get('filters').category ) {
+				this.$el.find('.filter-categories .control-item[value="'+Parse.User.current().get('profile').get('filters').category+'"]').addClass('active');
+			} else {
+				this.$el.find('.filter-categories .control-item[value="all"]').addClass('active');
+			}
+
+			if( self.filtersDefined() && Parse.User.current().get('profile').get('filters').position  ) {
+				self._in('location').val(Parse.User.current().get('profile').get('filters').position.name);
+				self.$el.find('.change-location').text(self._in('location').find(':selected').text());
+			}
+
+			this.$el.find('h1.title').text("BoatDays");
+
+			this.displayBoatDays();
+
+			return this;
+
+		},
+
+		displayBoatDays: function() {
+
+			var self = this;
+
+			self.$el.find('.loading').show();
+			self.$el.find('.category-empty').hide();
 
 			Parse.User.current().get('profile').relation('requests').query().find().then(function(requests) {
 
@@ -60,7 +217,25 @@ define([
 
 				var query = new Parse.Query(Parse.Object.extend('BoatDay'));
 				query.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
-				query.equalTo("category", Parse.User.current().get('profile').get('displayBDCategory'));
+				
+				if( self.filtersDefined() ) {
+					
+					var _filters = Parse.User.current().get('profile').get('filters');
+
+					if( _filters.category == 'all' ) {
+						query.containedIn("category", ['sailing', 'sports', 'leisure', 'fishing']);
+					} else {
+						query.containedIn("category", [_filters.category]);
+					}
+
+					var around = new Parse.GeoPoint({ 
+						latitude : _filters.position.name == 'my-location' ? parseFloat(self.getCurrentPosition().latitude) : parseFloat(_filters.position.latitude),
+						longitude: _filters.position.name == 'my-location' ? parseFloat(self.getCurrentPosition().longitude) : parseFloat(_filters.position.longitude)
+					});
+
+					query.withinMiles("location", around, Parse.Config.current().get('FILTER_AROUND_RADIUS'));
+				}
+				
 				query.equalTo("status", 'complete');
 				query.notContainedIn('objectId', boatdaysId);
 				query.matchesQuery('captain', queryProfileApproved);
@@ -68,14 +243,19 @@ define([
 				query.include('boat');
 				query.include('captain');
 				query.include('captain.host');
-				query.ascending('date,departureTime,price,bookedSeats');
+				query.ascending('featured,date,departureTime,price,bookedSeats');
 				query.find().then(function(boatdays) {
 
-					self.$el.find('.loading').remove();
-					
 					var tpl = _.template(BoatDayCardTemplate);
 
 					self.boatdays = {};
+
+					var myPosition = new Parse.GeoPoint({
+						latitude: self.getCurrentPosition().latitude,
+						longitude: self.getCurrentPosition().longitude
+					});
+
+					self.$el.find('.content .inner').html('');
 
 					_.each(boatdays, function(boatday) {
 						
@@ -92,13 +272,13 @@ define([
 							duration: boatday.get('duration'),
 							availableSeats: boatday.get('availableSeats'),
 							bookedSeats: boatday.get('bookedSeats'),
-							position: ((seg.length > 2 ? seg[seg.length - 2] + ',' : '') + seg[seg.length - 1]).trim(),
+							position: parseInt(boatday.get('location').milesTo(myPosition)) + ' miles away from me',
 							captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
 							captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
 							captainRating: boatday.get('captain').get('rating') ? boatday.get('captain').get('rating') : null
 						};
 
-						self.$el.find('.content').append(tpl(data));
+						self.$el.find('.content .inner').append(tpl(data));
 
 						var queryPictures = boatday.get('boat').relation('boatPictures').query();
 						queryPictures.ascending('order');
@@ -109,10 +289,11 @@ define([
 						});
 					});
 
-
 					if( boatdays.length == 0 ) {
-						self.$el.find('.content').html('<div class="content-padded"><img src="resources/logo-colors.png" class="logo-placeholder" /><p class="text-center">Currently no BoatDays for this category.</p></div>');
+						self.$el.find('.category-empty').show();
 					}
+
+					self.$el.find('.loading').hide();
 
 				}, function(error) {
 					console.log(error);
@@ -121,11 +302,6 @@ define([
 			}, function(error) {
 				console.log(error);
 			});
-			
-
-
-			return this;
-
 		}
 
 	});

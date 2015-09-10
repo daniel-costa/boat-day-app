@@ -1,9 +1,10 @@
 define([
 'views/BaseView',
 'views/ProfileView',
+'views/BoatDayView',
 'text!templates/NotificationsTemplate.html',
 'text!templates/NotificationTemplate.html',
-], function(BaseView, ProfileView, NotificationsTemplate, NotificationTemplate){
+], function(BaseView, ProfileView, BoatDayView, NotificationsTemplate, NotificationTemplate){
 	var NotificationsView = BaseView.extend({
 
 		className: 'screen-notifications',
@@ -14,14 +15,22 @@ define([
 
 		events: {
 			'click .profile-picture': 'profile',
+			'click .open-boatday': 'boatday'
 		},
 
 		profiles: {},
+		boatdays: {},
 
 		profile: function(event) {
 			if( $(event.currentTarget).attr('data-id') ) {
 				this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
 			}
+		},
+
+		boatday: function(event) {
+			if( $(event.currentTarget).attr('data-id') ) {
+				this.modal(new BoatDayView({ model : this.boatdays[$(event.currentTarget).attr('data-id')], fromUpcoming: false }));
+			}	
 		},
 
 		render: function() {
@@ -37,6 +46,9 @@ define([
 			query.include('from');
 			query.include('boat');
 			query.include('boatday');
+			query.include('boatday.boat');
+			query.include('boatday.captain');
+			query.include('boatday.captain.host');
 			query.include('request');
 			query.find().then(function(matches){
 
@@ -55,6 +67,7 @@ define([
 					self.notifications[notification.id] = notification;
 
 					var data = {
+						self: self,
 						read:  notification.get("read"),
 						fromTeam: notification.get("fromTeam"),
 						action: notification.get("action"),
@@ -62,10 +75,16 @@ define([
 						from: notification.get("from"),
 						boatday: notification.get('boatday'),
 						request: notification.get('request'),
+						notification: notification
 					};
 
 					if( notification.get("from") ) {
 						self.profiles[notification.get("from").id] = notification.get("from");
+					}
+					
+
+					if( notification.get("boatday") ) {
+						self.boatdays[notification.get("boatday").id] = notification.get("boatday");
 					}
 					
 					self.$el.find('.notification-list').append(_.template(NotificationTemplate)(data));

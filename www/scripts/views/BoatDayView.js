@@ -1,5 +1,6 @@
 define([
 'models/ReportModel',
+'models/QuestionModel',
 'views/BaseView',
 'views/BoatDayBookView',
 'views/ReportView',
@@ -8,7 +9,7 @@ define([
 'views/CertificationsView',
 'views/MapView',
 'text!templates/BoatDayTemplate.html'
-], function(ReportModel, BaseView, BoatDayBookView, ReportView, BoatDayCancellationView, ProfileView, CertificationsView, MapView, BoatDayTemplate){
+], function(ReportModel, QuestionModel, BaseView, BoatDayBookView, ReportView, BoatDayCancellationView, ProfileView, CertificationsView, MapView, BoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatday',
@@ -24,11 +25,60 @@ define([
 			'click .profile-picture': 'profile',
 			'click .certifications': 'certifications',
 			'click .map': 'map',
+			'click .btn-ask-question': 'askOverlay',
+			'click .btn-question': 'ask',
+			'click .question-toggle': 'toggleQuestion',
+			'blur [name="question"]': 'censorField'
 		},
 
 		fromUpcoming: false,
 		seatRequest: null,
 		profiles: {},
+		questions: {},
+
+		toggleQuestion: function(event) {
+			var e = $(event.currentTarget);
+			var parent = e.closest('.question');
+
+			if( e.hasClass('open') ) {
+				e.removeClass('open')
+				e.find('img').attr('src', 'resources/ico-plus.png');
+				parent.find('.inner.a').hide();
+			} else {
+				e.addClass('open')
+				e.find('img').attr('src', 'resources/ico-minus.png');
+				parent.find('.inner.a').show();
+			}
+		},
+
+		ask: function() {
+			var overlay = this.$el.find('.overlay');
+			var self = this;
+
+			new QuestionModel().save({
+				from: Parse.User.current().get('profile'),
+				question: this._in('question').val(),
+				boatday: this.model,
+				public: this._in('public').val() == 'true'
+			}).then(function() {
+				self._info('Thank you! The question is sent to the Host. Once he answered, you will receive a notification');
+				self.hideOverlay(overlay);
+				self.render();
+			}, function(error) {
+				console.log(error);
+			})
+		},
+
+		askOverlay: function() {
+			var self = this;
+			self.showOverlay({
+				target: self.$el.find('.overlay'),
+				closeBtn: true,
+				cbClose: function(overlay) {
+					overlay.find('textarea').val('');
+				}
+			});
+		},
 
 		report: function() {
 
@@ -185,6 +235,25 @@ define([
 				_.each(requests, function(request) {
 					self.profiles[request.get('profile').id] = request.get('profile');
 					self.$el.find('.confirmed-guests .inner').append('<div class="guest"><div class="profile-picture" data-id="'+request.get('profile').id+'" style="background-image:url('+request.get('profile').get('profilePicture').url()+')"></div>'+request.get('profile').get('displayName')+'<br/><span> '+request.get('seats')+' seat'+ (request.get('seats') == 1 ? '' : 's') +'</span></div>');
+				});
+				
+			});
+
+			var queryQuestions = self.model.relation('questions').query();
+			queryQuestions.equalTo('status', 'approved');
+			queryQuestions.notEqualTo('answer', null);
+			queryQuestions.equalTo('public', true);
+			queryQuestions.include('profile');
+			queryQuestions.find().then(function(questions) {
+
+				if(questions.length == 0) {
+					self.$el.find('.questions').addClass('empty').html('<p class="text-center">No questions asked yet</p>');
+					return;
+				}
+
+				_.each(questions, function(question) {
+					self.questions[question.id] = question;
+					self.$el.find('.questions').append('<div class="question"><div class="inner q question-toggle"><table><tr><td><p>'+question.get('question').replace(/\n/g, "<br>")+'</p></td><td><img src="resources/ico-plus.png" /></td></tr></table></div><div class="inner a" style="display:none"><p>'+question.get('answer').replace(/\n/g, "<br>")+'</p></div></div>');
 				});
 				
 			});

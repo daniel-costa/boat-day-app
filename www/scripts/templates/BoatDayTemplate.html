@@ -18,7 +18,7 @@
 	</div>
 
 	<div class="captain open-profile-picture" data-id="<%= self.model.get('captain').id %>">
-		<div class="profile-picture" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)"></div>
+		<div class="profile-picture" data-id="<%= self.model.get('captain').id %>" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)"></div>
 		<p class="text">
 			Hosted by <strong><%= self.model.get('captain').get('displayName') %></strong><br/>
 			Boat <strong><%= self.model.get('boat').get('name') %></strong><br/>
@@ -28,6 +28,10 @@
 				(no ratings yet)
 			<% } %>
 		</p>
+		<p class="text-center">
+			<a>Open Host Profile</a>
+		</p>
+		<!--
 		<p class="certifications">
 			<% if( self.model.get('captain').get('host').get('certStatusBSC') == 'approved' ) { %>
 				<img src="resources/certs/BSC.png" />
@@ -48,18 +52,19 @@
 				<img src="resources/certs/SL.png" />
 			<% } %>
 		</p>
+		-->
 	</div>
 	
 	<h1><%= name %></h1>
 	
 	<table>
 		<tr>
-			<td>Day <strong><%= self.dateParseToDisplayDate(date) %></strong></td>
-			<td>Time <strong><%= self.departureTimeToDisplayTime(departureTime) %></strong></td>
+			<td><span class="fa fa-fw fa-calendar-o"></span> <strong><%= self.dateParseToDisplayDate(date) %></strong></td>
+			<td><span class="fa fa-fw fa-clock-o"></span> <strong><%= self.departureTimeToDisplayTime(departureTime) %></strong></td>
 		</tr>
 		<tr>
-			<td>Available seats <strong><%= availableSeats - bookedSeats + '/' + availableSeats %></strong></td>
-			<td>Duration <strong><%= duration %> hour<%= duration == 1 ? '' : 's' %></strong></td>
+			<td><span class="fa fa-fw fa-users"></span> <strong><%= availableSeats - bookedSeats + '/' + availableSeats %> seats left</strong></td>
+			<td><span class="fa fa-fw fa-hourglass"></span> <strong><%= duration %> hour<%= duration == 1 ? '' : 's' %></strong></td>
 		</tr>
 	</table>
 
@@ -70,10 +75,10 @@
 			<span class="clear"></span>
 		</div>
 
-		<label>Description</label>
-		<p class="description"><%= description %></p>
+		<label>About this BoatDay</label>
+		<p class="description"><%= description.replace(/\n/g, "<br>") %></p>
 		
-		<div class="map" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=<%= self.model.get('location').latitude %>,<%= self.model.get('location').longitude %>&amp;zoom=14&amp;size=400x260)">
+		<div class="map" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=<%= self.model.get('location').latitude %>,<%= self.model.get('location').longitude %>&amp;zoom=13&amp;size=400x260)">
 			<img src="resources/map-pin.png" />
 		</div>
 
@@ -210,7 +215,11 @@
 			<% if( self.model.get('features').extras.inflatables ) { %>
 				<p><img src="resources/check-green.png" /> Inflatables</p>
 			<% } %>
+			<span class="clear"></span>
+		</div>
 
+		<label>Boat Amenities</label>
+		<div class="features">
 			<!-- Boat Features -->
 			<% if( self.model.get('boat').get('features').airConditioning ) { %>
 				<p><img src="resources/check-green.png" /> Air Conditioning</p>
@@ -279,6 +288,15 @@
 		</div>
 	</div>
 
+	<div class="questions-list">
+		<label>Looking for more information about this BoatDay?</label>
+		<div class="questions"></div>
+		<div class="text-center">
+			<button class="btn btn-default btn-ask-question">Ask the Host a question</button>
+		</div>
+	</div>
+
+
 	<div class="book">
 		<div class="content-padded">
 			<% if( self.fromUpcoming && self.seatRequest ) { %>
@@ -290,8 +308,26 @@
 				<button class="btn btn-block btn-action btn-cancel">Cancel BoatDay</button>
 				<a class="btn-cancel-modal">Cancellation policy</a>
 			<% } else { %>
-				<button class="btn btn-block btn-action btn-book">Request Seats</button>
+				<button class="btn btn-block btn-action btn-book">Request to Book</button>
 			<% } %>
+		</div>
+	</div>
+</div>
+
+<div class="overlay">
+	<div class="box">
+		<div class="inner">
+			<h1>Have a question for the Host?<br/>Just ask!</h1>
+			
+			<textarea rows="2" name="question" placeholder="Ask your question to the host."></textarea>
+			
+			<label>Who can see your question?</label>
+			<select name="public">
+				<option value="true" selected>Everybody</option>
+				<option value="false">Only me</option>
+			</select>
+			
+			<button class="btn btn-default btn-block btn-question">Submit Question</button>
 		</div>
 	</div>
 </div>

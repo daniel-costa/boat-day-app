@@ -37,6 +37,10 @@ define([
 			}
 		},
 
+		filtersDefined: function() {
+			return typeof Parse.User.current().get('profile').get('filters') !== typeof undefined;
+		},
+
 		hideOverlay: function(overlay) {
 			overlay.find('.overlay-close').click();
 		},
@@ -81,8 +85,6 @@ define([
 			view.$el.attr('class', view.className);
 
 			var $el = view.render().$el;
-
-
 			$el.insertAfter(this.$el);
 
 			$el.on('click', '.close-me', function(event, data) {

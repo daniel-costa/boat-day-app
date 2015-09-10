@@ -4,7 +4,6 @@ define([
 	'views/ProfilePictureView',
 	'views/ProfilePaymentsView',
 	'views/ProfilePaymentsAddView',
-	'views/BoatDaysHomeView',
 	'views/BoatDaysView',
 	'views/BoatDaysPastView',
 	'views/BoatDaysUpcomingView',
@@ -13,13 +12,12 @@ define([
 	'views/BoatDayActiveView'
 ], function(
 	SignInView, ProfileInfoView, ProfilePictureView, ProfilePaymentsView, ProfilePaymentsAddView, 
-	BoatDaysHomeView, BoatDaysView, BoatDaysPastView, BoatDaysUpcomingView, AboutUsView, NotificationsView, BoatDayActiveView) {
+	BoatDaysView, BoatDaysPastView, BoatDaysUpcomingView, AboutUsView, NotificationsView, BoatDayActiveView) {
 	
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
 			'sign-out': 'signOut',
-			'boatdays-home': 'showBoatDaysHome',
 			'boatdays': 'showBoatDays',
 			'boatdays-upcoming': 'showBoatDaysUpcoming',
 			'boatdays-past': 'showBoatDaysPast',
@@ -28,9 +26,9 @@ define([
 			'profile-payments': 'showProfilePayments',
 			'profile-payments-add': 'showProfilePaymentsAdd',
 			'about-us': 'showAboutUs',
-			//'terms': 'showTerms',
 			'notifications': 'showNotifications',
-			'*actions': 'showBoatDaysHome'
+			'*actions': 'showBoatDays'
+			// '*actions': 'showProfileInfo'
 		},
 		
 		currentView: null,
@@ -75,34 +73,13 @@ define([
 
 		},
 
-		showBoatDaysHome: function() {
-
-			var self = this;
-			var cb = function(profile) {
-
-				self.render(new BoatDaysHomeView());
-				
-			};
-
-			self.handleSignedIn(cb);
-
-		},
-
 		showBoatDays: function() {
 
 			var self = this;
 			var cb = function() {
 
-				if( !Parse.User.current().get('profile').get('displayBDCategory') ) {
-					
-					self.render(new BoatDaysHomeView());
+				self.render(new BoatDaysView());
 
-				} else {
-
-					self.render(new BoatDaysView());
-
-				}
-				
 			};
 
 			self.handleSignedIn(cb);
@@ -208,7 +185,7 @@ define([
 
 			var innerQuery = new Parse.Query(Parse.Object.extend('BoatDay'));
 			innerQuery.greaterThanOrEqualTo('date', new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
-			innerQuery.lessThanOrEqualTo('date', new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate(), 23, 59, 59, 999));
+			innerQuery.lessThanOrEqualTo('date', new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59, 999));
 			innerQuery.lessThanOrEqualTo('departureTime', new Date(new Date().getTime() + 30 * 60000).getHours() + ( new Date(new Date().getTime() + 30 * 60000).getMinutes() > 30 ? 0.5 : 0 ));
 			innerQuery.greaterThan('arrivalTime', new Date().getHours() + ( new Date().getMinutes() > 30 ? 0.5 : 0 ));
 
@@ -242,6 +219,7 @@ define([
 
 			// I don't know why, but puttin in a timeout,
 			// we can have the element rendered
+			// Hint: may be because setTimout creates a new Thread
 			setTimeout(function() { view.afterRenderInsertedToDom() }, 0);
 
 			this.currentView = view;

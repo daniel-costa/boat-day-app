@@ -34,7 +34,7 @@
 				<% } %>
 			</p>
 		<% } %>
-		<p class="about"><%= about %></p>
+		<p class="about"><%= about.replace(/\n/g, "<br>") %></p>
 		<div class="reviews"></div>
 		<!--
 			<div class="content-padded text-center">

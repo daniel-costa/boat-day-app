@@ -32,6 +32,10 @@ define([
 
 			BaseView.prototype.render.call(this);
 			
+			// ToDo (check other files for it)
+			// - we may not need this code. 
+			// - In one of the last releases, we put this control in the render function of the BaseView
+			// - Need to try & test before deleting it
 			if( !this.drawer ) {
 				this.$el.find('.btn-drawer').hide();
 			}

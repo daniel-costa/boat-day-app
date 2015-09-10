@@ -1,6 +1,7 @@
 define([
 'views/BaseView',
-'text!templates/ProfileInfoTemplate.html'
+'text!templates/ProfileInfoTemplate.html',
+'masks'
 ], function(BaseView, ProfileInfoTemplate){
 	var ProfileInfoView = BaseView.extend({
 
@@ -25,17 +26,15 @@ define([
 
 			BaseView.prototype.render.call(this);
 			
+			// ToDo (check other files for it)
+			// - we may not need this code. 
+			// - In one of the last releases, we put this control in the render function of the BaseView
+			// - Need to try & test before deleting it
 			if( !this.drawer ) {
 				this.$el.find('.btn-drawer').hide();
 			}
-			
-			// Not working on iOS, maybe on Android for later
-			// var maxDate = new Date(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate());
-			// var maxDateY = maxDate.getFullYear();
-			// var maxDateM = (maxDate.getMonth() + 1 < 10 ? '0' : '') + (maxDate.getMonth()+1);
-			// var maxDateD = maxDate.getDate();
-			
-			// this._input('birthday').attr('max', maxDateY+'-'+maxDateM+'-'+maxDateD);
+
+			// this._input('phone').mask('(000) 000-0000');
 			
 			return this;
 		},
@@ -52,15 +51,25 @@ define([
 			self.cleanForm();
 
 			var data = {
-				status: "complete-info",
-				displayName: this._input('firstName').val() + ' ' + this._input('lastName').val().slice(0,1) + '.',
-				firstName: this._input('firstName').val(),
-				lastName: this._input('lastName').val(),
+				phone: this._input('phone').val(),
 				birthday: this._input('birthday').val() ? new Date(this._input('birthday').val()) : null
 			};
-			
+
+			if( this.profileSetup ) {
+				_.extend(data, {
+					status: "complete-info",
+					displayName: this._input('firstName').val() + ' ' + this._input('lastName').val().slice(0,1) + '.',
+					firstName: this._input('firstName').val(),
+					lastName: this._input('lastName').val(),
+				});
+			}
+
 			var profileUpdateSuccess = function() {
-				Parse.history.navigate("profile-picture", true);
+				if( this.profileSetup ) {
+					Parse.history.navigate("profile-picture", true);
+				} else {
+					Parse.history.navigate("boatdays", true);
+				}
 			};
 
 			var profileUpdateError = function(error) {
@@ -76,6 +85,9 @@ define([
 				}
 
 			};
+
+			console.log('** data sent **');
+			console.log(data);
 
 			this.model.save(data).then(profileUpdateSuccess, profileUpdateError);
 

@@ -69,7 +69,7 @@ define([
 				self.loading();
 
 				$(document).trigger('loadProfile', function() {
-					Parse.history.navigate('boatdays-home', true);
+					Parse.history.navigate('boatdays', true);
 				});
 
 			}, function(error) {
@@ -112,10 +112,11 @@ define([
 				username: this._in('signUpEmail').val(), 
 				password: this._in('signUpPassword').val(), 
 				type: "guest", 
+				// ToDo : Bug fix, user is not saved in profile
 				profile: new ProfileModel({ user: Parse.User.current() })
 			}).then(signUpSuccess = function() {
 
-				Parse.history.navigate('boatdays-home', true);
+				Parse.history.navigate('boatdays', true);
 
 			}, function( error ) {
 
@@ -197,7 +198,7 @@ define([
 			if( user.get("profile") ) {
 				self.updateUserProfileFacebook(user, function() {
 					$(document).trigger('loadProfile', function() {
-						Parse.history.navigate('boatdays-home', true);	
+						Parse.history.navigate('boatdays', true);
 					});
 				});
 			} else {
@@ -265,7 +266,7 @@ define([
 			var userUpdated = function() {
 
 				$(document).trigger('loadProfile', function() {
-					Parse.history.navigate('boatdays-home', true);
+					Parse.history.navigate('boatdays', true);
 				});
 
 			};

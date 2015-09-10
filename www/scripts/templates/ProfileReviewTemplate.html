@@ -2,5 +2,5 @@
 	<div class="profile-picture" data-id="<%= request.get('profile').id %>" style="background-image:url(<%= request.get('profile').get('profilePicture').url() %>)"></div>
 	<img class="rating" src="resources/rating-<%= Math.ceil(request.get('ratingGuest')) %>.png" />
 	<strong><%= request.get('profile').get('displayName') %></strong>
-	<p class="review"><%= request.get('reviewGuest') %></p>
+	<p class="review"><%= request.get('reviewGuest').replace(/\n/g, "<br>") %></p>
 </div>

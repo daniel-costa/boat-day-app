@@ -1,9 +1,36 @@
 <header class="bar bar-nav">
-	<a class="icon icon-left-nav pull-left" href="#/boatdays-home"></a>
+	<a class="icon icon-bars pull-left btn-drawer"></a>
 	<h1 class="title"></h1>
-	<!-- <a class="icon fa fa-sliders pull-right btn-filter"></a> -->
+	<a class="icon fa fa-map-marker pull-right btn-map"></a>
 </header>
+
+<div class="bar bar-standard bar-header-secondary filter-categories">
+	<a class="control-item" value="all">All</a>
+	<a class="control-item" value="leisure">Leisure</a>
+	<a class="control-item" value="sailing">Sailing</a>
+	<a class="control-item" value="fishing">Fishing</a>
+	<a class="control-item" value="sports">Water Sports</a>
+	<span class="control-item-handler"></span>
+</div>
 
 <div class="content">
 	<div class="loading"></div>
+	<div class="filters">
+		<div class="content-padded">
+			<p class="location">BoatDays around: <a class="change-location">My location</a></p>
+			<div class="hidden-content">
+				<select name="location">
+					<option value="my-location" lat="" lng="">My location</option>
+					<option value="wpb-fl" lat="26.713361" lng="-80.048790">West Palm Beach, FL</option>
+					<option value="ftl-fl" lat="26.119363" lng="-80.129802">Ft. Lauderdale, FL</option>
+					<option value="mia-fl" lat="25.774382" lng="-80.185515">Miami, FL</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="content-padded category-empty">
+		<img src="resources/logo-colors.png" class="logo-placeholder" />
+		<p class="text-center">Currently no BoatDays for this category.</p>
+	</div>
+	<div class="inner"></div>
 </div>

@@ -1,50 +1,90 @@
 define([
 'async!https://maps.google.com/maps/api/js?sensor=false',
 'views/BaseView',
+'views/BoatDayView',
 'text!templates/MapTemplate.html'
-], function(gmaps, BaseView, MapTemplate){
+], function(gmaps, BaseView, BoatDayView, MapTemplate){
 	var MapView = BaseView.extend({
 
 		className: 'screen-map',
 
 		template: _.template(MapTemplate),
 
+		// for markers
+		_boatdays: [],
+
 		initialize: function(data) {
-			this.precise = data.precise
+
+			if( data.boatdays ) {
+				this._boatdays = data.boatdays;
+			} else {
+				this._boatdays = [{
+					obj: this.model,
+					precise: data.precise,
+					openOnClick: false
+				}];
+			}
+
+			this.zoomLevel = data.zoomLevel ? data.zoomLevel : 13
+
+			if( data.center ) {
+				
+				this.center = data.center;
+
+			} else {
+				
+				this.center = {
+					latitude: this.model.get('location').latitude,
+					longitude: this.model.get('location').longitude
+				}
+
+			}
+				
 		},
 
 		render: function() {
+
 			BaseView.prototype.render.call(this);
 
 			var self = this;
+			var center = new google.maps.LatLng(self.center.latitude, self.center.longitude);
 
-			var position = new google.maps.LatLng(self.model.get('location').latitude, self.model.get('location').longitude);
-			
-			map = new google.maps.Map(self.$el.find('.map').get(0), {
-				zoom: 12,
-				center: position
+			var map = new google.maps.Map(self.$el.find('.map').get(0), {
+				zoom: this.zoomLevel,
+				center: center
 			});
 
-			var data = {
-				map: map,
-				draggable: false,
-				animation: google.maps.Animation.DROP,
-				position: position,
-				
-			};
+			google.maps.event.addListenerOnce(map, "idle", function(){
+				google.maps.event.trigger(map, 'resize');
+				map.setCenter(center);
+			}); 
 
-			if( !this.precise ) {
-				data.icon = 'resources/map-pin.png';
-			}
+			_.each(self._boatdays, function(boatday) {
 
-			new google.maps.Marker(data);
+				var data = {
+					map: map,
+					draggable: false,
+					animation: google.maps.Animation.DROP,
+					position: new google.maps.LatLng(boatday.obj.get('location').latitude, boatday.obj.get('location').longitude),
+				};
+
+				if( !boatday.precise ) {
+					data.icon = 'resources/map-pin.png';
+				}
+
+				var marker = new google.maps.Marker(data);
+
+				if( boatday.openOnClick ) {
+					google.maps.event.addListener(marker, "click", function() {
+						self.modal(new BoatDayView({ 
+							model: boatday.obj, 
+							fromUpcoming: false
+						}));
+					});
+				}
+			});
 
 			self.$el.find('.loading').remove();
-			
-			google.maps.event.addListener(map, "idle", function(){
-				map.setCenter(position);
-				google.maps.event.trigger(map, 'resize');
-			}); 
 
 			return this;
 		}

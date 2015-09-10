@@ -50,8 +50,10 @@
 	border-bottom: 1px solid #e1e6ea ;
 	padding: 15px 10px;
 	font-size: 0.7em;
-	color: #b2c0cc;
 	font-weight: 500;
+}
+.screen-boatday td  span {
+  color: @brand-primary;
 }
 .screen-boatday td strong {
 	color: #546e7a;
@@ -86,13 +88,13 @@
 }
 
 .screen-boatday .map img {
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -30px;
-  margin-left: -30px;
+  margin-top: -50px;
+  margin-left: -50px;
 }
 
 .screen-boatday .features {
@@ -193,13 +195,11 @@
 }
 
 .screen-boatday .slide .img {
-	height: 200px;
+	min-height: 200px;
 	width: 100%;
 	background: center center no-repeat;
 	background-size: cover;
 }
-
-
 
 .screen-boatday .confirmed-guests .guest span {
   color: @text-color-secondary;
@@ -231,4 +231,59 @@
   font-size: 0.95em;
   z-index: 2;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(0, 0, 0, 0.8), -1px 1px 2px rgba(0, 0, 0, 0.8), 1px -1px 2px rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+.screen-boatday .questions-list .inner.q,
+.screen-boatday .questions-list .inner.a {
+  border-top: 1px solid #E1E6EA;
+  padding: 20px;
+}
+
+.screen-boatday .questions-list .inner.a {
+  background: #F9FBFB;
+}
+
+.screen-boatday .questions-list .inner.q p {
+  color: #546E7A;
+  margin:0px;
+}
+
+.screen-boatday .questions-list .inner.a p {
+  color: #B1BFCC;
+  margin:0px;
+}
+  
+.screen-boatday .questions-list {
+  margin-bottom: 30px;
+}
+
+.screen-boatday .questions-list .questions:not(.empty) {
+  border-bottom: 1px solid #E1E6EA;
+}
+
+.screen-boatday .questions-list button {
+  padding: 5px 10px;  
+  margin-top: 20px;
+}
+
+.screen-boatday .questions-list table,
+.screen-boatday .questions-list table tr, 
+.screen-boatday .questions-list table tr td {
+  border:none;
+  padding:0px;
+  margin:0px;
+  font-weight: normal;
+  color: #546E7A;
+}
+
+.screen-boatday .questions-list table tr td:last-child {
+  padding-left: 10px;
+  text-align:right;
+}
+
+.screen-boatday .questions-list .question-toggle img {
+  width: 24px;
 }

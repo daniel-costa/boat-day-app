@@ -1,12 +1,12 @@
 <header class="bar bar-nav">
 	<a class="icon icon-close pull-left close-me"></a>
-	<h1 class="title">Book Seats</h1>
+	<h1 class="title">Confirm Details</h1>
 </header>
 
 <div class="content">
 	
 	<div class="content-padded">
-		<h1>Contribution Calculator</h1>
+		<h1><%= self.model.get('name') %></h1>
 	</div>
 
 	<div class="seats">
@@ -70,7 +70,7 @@
 		</div>
 
 		<div class="submit-request">
-			<button class="btn btn-block btn-book btn-action">Submit Seat Request</button>
+			<button class="btn btn-block btn-book btn-action">Confirm and Pay</button>
 			<p class="text-center">By tapping on "Submit Seat Request" you agree to the <a class="btn-terms">Terms &amp; Conditions</a>, <a class="btn-water">Water Sports Policy</a> and <a class="btn-cancellation">Cancellation Policy</a>.<p>
 		</div>
 	</div>

@@ -19,7 +19,7 @@ define([
 				self.$el.find('.loading').remove();
 				
 				if( cards.length == 0) {
-					self.$el.find('.main-content').html('<img src="resources/logo-colors.png" class="logo-placeholder" /><p class="text-center">Skip for now and start <a href="#/boatdays-home">browsing BoatDays</a></p>');
+					self.$el.find('.main-content').html('<img src="resources/logo-colors.png" class="logo-placeholder" /><p class="text-center">Skip for now and start <a href="#/boatdays">browsing BoatDays</a></p>');
 				} else {
 					self.$el.find('.cards-list').show();
 				}
