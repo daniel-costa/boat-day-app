@@ -57,18 +57,13 @@ define([
 
 			_.each(self._boatdays, function(boatday) {
 
-				var data = {
+				var marker = new google.maps.Marker({
 					map: map,
 					draggable: false,
 					animation: google.maps.Animation.DROP,
 					position: new google.maps.LatLng(boatday.obj.get('location').latitude, boatday.obj.get('location').longitude),
-				};
-
-				if( !boatday.precise ) {
-					data.icon = 'resources/map-pin.png';
-				}
-
-				var marker = new google.maps.Marker(data);
+					icon: !boatday.precise  ? 'resources/map-pin.png' : 'resources/map-pin-blue.png'
+				});
 
 				if( boatday.openOnClick ) {
 					google.maps.event.addListener(marker, "click", function() {
