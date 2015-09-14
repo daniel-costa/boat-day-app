@@ -9,8 +9,6 @@
 		<span class="sender"><%= fromTeam ? 'BoatDay Team' : from.get('displayName') %></span>
 		<span class="time"><%= self.dateParseToDisplayDate( notification.createdAt ) %></span>
 
-		<% console.log( new Date(notification.createdAt) ) %>
-
 		<% if( action == "request-approved" && request && boatday ) { %>
 			I have approved your request for <%= request.get('seats') %> seat<%= request.get('seats') == 1 ? '' : 's' %> on <strong><%= boatday.get('name') %></strong>.
 			You can now find it in your <a href="#/boatdays-upcoming">Upcoming BoatDays</A>. Welcome aboard!

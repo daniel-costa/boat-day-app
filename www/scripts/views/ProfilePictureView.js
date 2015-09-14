@@ -133,7 +133,7 @@ define([
 			var pictureSaveError = function(error) {
 
 				self.loading();
-				console.log(error);
+
 				if( error != "no image selected" ) {
 					self._error('Oops... Something went wrong. Try later or if it persists close totally the app and open it again.');
 				}
@@ -169,7 +169,7 @@ define([
 			var pictureSaveError = function(error) {
 
 				self.loading();
-				console.log(error);
+
 				if( error != "no image selected" ) {
 					self._error('Oops... Something went wrong. Try later or if it persists close totally the app and open it again.');
 				}

@@ -111,7 +111,6 @@ define([
 			var review = this._in('review').val();
 
 			if( self.loading('.btn-pay') ) {
-				console.log('abort');
 				return ;
 			}
 			self.cleanForm();

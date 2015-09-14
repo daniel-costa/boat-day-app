@@ -18,7 +18,6 @@ define([
 			var self = this;
 
 			if( self.loading('.report') ) {
-				console.log('abort');
 				return ;
 			}
 

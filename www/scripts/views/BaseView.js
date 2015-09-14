@@ -151,8 +151,6 @@ define([
 		},
 		
 		close: function(data) {
-			console.log('**data');
-			console.log(data);
 			this.$el.find('.close-me').trigger('click', data ? data : {} );
 		},
 

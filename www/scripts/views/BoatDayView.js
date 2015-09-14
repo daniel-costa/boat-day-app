@@ -10,7 +10,7 @@ define([
 'views/MapView',
 'text!templates/BoatDayTemplate.html'
 ], function(ReportModel, QuestionModel, BaseView, BoatDayBookView, ReportView, BoatDayCancellationView, ProfileView, CertificationsView, MapView, BoatDayTemplate){
-	var BoatDaysView = BaseView.extend({
+	var BoatDayView = BaseView.extend({
 
 		className: 'screen-boatday',
 
@@ -35,6 +35,16 @@ define([
 		seatRequest: null,
 		profiles: {},
 		questions: {},
+
+		initialize: function(data) {
+
+			this.fromUpcoming = data.fromUpcoming;
+
+			if( typeof data.seatRequest !== typeof undefined) {
+				this.seatRequest = data.seatRequest;
+			}
+
+		},
 
 		toggleQuestion: function(event) {
 			var e = $(event.currentTarget);
@@ -107,7 +117,6 @@ define([
 			var self = this;
 
 			if( self.loading('.btn-cancel') ) {
-				console.log('abort');
 				return ;
 			}
 
@@ -164,16 +173,6 @@ define([
 
 		},
 
-		initialize: function(data) {
-
-			this.fromUpcoming = data.fromUpcoming;
-
-			if( typeof data.seatRequest !== typeof undefined) {
-				this.seatRequest = data.seatRequest;
-			}
-
-		},
-
 		profile: function(event) {
 
 			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
@@ -214,10 +213,6 @@ define([
 					self.$el.find('.slide-group').append('<div class="slide"><div class="img" style="background-image:url('+fh.get('file').url()+')"></div></div>');
 				});
 
-				self.$el.find('.content').on('slide', function(event) {
-					console.log(event);
-				});
-				
 			});
 			
 			self.profiles[self.model.get('captain').id] = self.model.get('captain');
@@ -239,10 +234,17 @@ define([
 				
 			});
 
-			var queryQuestions = self.model.relation('questions').query();
-			queryQuestions.equalTo('status', 'approved');
-			queryQuestions.notEqualTo('answer', null);
-			queryQuestions.equalTo('public', true);
+			var queryQuestionsPublic = self.model.relation('questions').query();
+			queryQuestionsPublic.equalTo('status', 'approved');
+			queryQuestionsPublic.notEqualTo('answer', null);
+			queryQuestionsPublic.equalTo('public', true);
+
+			var queryQuestionsPrivate = self.model.relation('questions').query();
+			queryQuestionsPrivate.equalTo('status', 'approved');
+			queryQuestionsPrivate.equalTo('public', false);
+			queryQuestionsPrivate.equalTo('from', Parse.User.current().get('profile'));
+
+			var queryQuestions = new Parse.Query.or(queryQuestionsPublic, queryQuestionsPrivate);
 			queryQuestions.include('profile');
 			queryQuestions.find().then(function(questions) {
 
@@ -253,15 +255,16 @@ define([
 
 				_.each(questions, function(question) {
 					self.questions[question.id] = question;
-					self.$el.find('.questions').append('<div class="question"><div class="inner q question-toggle"><table><tr><td><p>'+question.get('question').replace(/\n/g, "<br>")+'</p></td><td><img src="resources/ico-plus.png" /></td></tr></table></div><div class="inner a" style="display:none"><p>'+question.get('answer').replace(/\n/g, "<br>")+'</p></div></div>');
+					var answer = typeof question.get('answer') !== typeof undefined && question.get('answer') !== null? question.get('answer').replace(/\n/g, "<br>") : 'No answer yet.';
+					self.$el.find('.questions').append('<div class="question"><div class="inner q question-toggle"><table><tr><td><p>'+question.get('question').replace(/\n/g, "<br>")+'</p></td><td><img src="resources/ico-plus.png" /></td></tr></table></div><div class="inner a" style="display:none"><p>'+answer+'</p></div></div>');
 				});
 				
-			});
+			}, function(error) {console.log(error)});
 
 			return this;
 
 		}
 
 	});
-	return BoatDaysView;
+	return BoatDayView;
 });

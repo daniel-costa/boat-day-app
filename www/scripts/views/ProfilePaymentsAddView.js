@@ -46,7 +46,6 @@ define([
 			var config = Parse.Config.current();
 
 			if( self.loading('.save') ) {
-				console.log('abort');
 				return ;
 			}
 

@@ -41,29 +41,53 @@ define([
 		map: function() {
 
 			var self = this;
-			var _boatdays = [];
 
-			_.each(this.boatdays, function(boatday) {
-				_boatdays.push({
-					precise: true,
-					obj: boatday,
-					openOnClick: true,
-				})
+			self.getBoatdaysBaseQuery().then(function(query) {
+
+				query.limit(1000);
+				query.find().then(function(boatdays) {
+
+					var _boatdays = [];
+
+					_.each(boatdays, function(boatday) {
+						_boatdays.push({
+							precise: true,
+							obj: boatday,
+							openOnClick: true,
+						})
+					});
+
+					
+					
+					if( self.filtersDefined() && Parse.User.current().get('profile').get('filters').position  ) {
+						var center = {
+							latitude: parseFloat(Parse.User.current().get('profile').get('filters').position.latitude),
+							longitude: parseFloat(Parse.User.current().get('profile').get('filters').position.longitude)
+						};
+					} else {
+						var center = self.getCurrentPosition();	
+					}
+
+					self.modal(new MapView({ boatdays: _boatdays, center: center, zoomLevel: 10 }));
+
+				}, function(error) {
+					console.log(error);
+				});
+
 			});
 
-			var center = self.getCurrentPosition();
 
-			this.modal(new MapView({ boatdays: _boatdays, center: center, zoomLevel: 11 }));
+			
 		},
 		
 		getCurrentPosition: function() {
 			if( Parse.User.current() && Parse.User.current().get('profile') && Parse.User.current().get('profile').get('position') ) {
-				return center = {
+				return {
 					latitude: parseFloat(Parse.User.current().get('profile').get('position').latitude),
 					longitude: parseFloat(Parse.User.current().get('profile').get('position').longitude)
 				};
 			} else {
-				return center = {
+				return {
 					latitude: parseFloat(25.774382),
 					longitude: parseFloat(-80.185515)
 				};
@@ -152,9 +176,6 @@ define([
 			var target = this.$el.find('.filter-categories .control-item.active');
 			var handler = this.$el.find('.filter-categories .control-item-handler');
 
-			console.log(target);
-			console.log(handler);
-
 			handler.css({
 				left: target.offset().left,
 				width: target.outerWidth(),
@@ -191,15 +212,12 @@ define([
 
 		},
 
-		displayBoatDays: function() {
+		getBoatdaysBaseQuery: function() {
 
-			var self = this;
-
-			self.$el.find('.loading').show();
-			self.$el.find('.category-empty').hide();
+			var promise = new Parse.Promise();
 
 			Parse.User.current().get('profile').relation('requests').query().find().then(function(requests) {
-
+				
 				var boatdaysId = [];
 
 				_.each(requests, function(request) {
@@ -217,7 +235,31 @@ define([
 
 				var query = new Parse.Query(Parse.Object.extend('BoatDay'));
 				query.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
-				
+				query.equalTo("status", 'complete');
+				query.notContainedIn('objectId', boatdaysId);
+				query.matchesQuery('captain', queryProfileApproved);
+				query.matchesQuery('boat', queryBoatApproved);
+				query.include('boat');
+				query.include('captain');
+				query.include('captain.host');
+
+				promise.resolve(query);
+
+			});
+
+			return promise;
+
+		},
+
+		displayBoatDays: function() {
+
+			var self = this;
+
+			self.$el.find('.loading').show();
+			self.$el.find('.category-empty').hide();
+
+			self.getBoatdaysBaseQuery().then(function(query) {
+
 				if( self.filtersDefined() ) {
 					
 					var _filters = Parse.User.current().get('profile').get('filters');
@@ -235,15 +277,9 @@ define([
 
 					query.withinMiles("location", around, Parse.Config.current().get('FILTER_AROUND_RADIUS'));
 				}
-				
-				query.equalTo("status", 'complete');
-				query.notContainedIn('objectId', boatdaysId);
-				query.matchesQuery('captain', queryProfileApproved);
-				query.matchesQuery('boat', queryBoatApproved);
-				query.include('boat');
-				query.include('captain');
-				query.include('captain.host');
+
 				query.ascending('featured,date,departureTime,price,bookedSeats');
+
 				query.find().then(function(boatdays) {
 
 					var tpl = _.template(BoatDayCardTemplate);
@@ -261,11 +297,9 @@ define([
 						
 						self.boatdays[boatday.id] = boatday;
 
-						var seg = boatday.get('locationText').split(',');
-						var guestPart = self.getGuestRate(boatday.get('captain').get('host').get('type'));
-						var data = {
+						self.$el.find('.content .inner').append(tpl({
 							id: boatday.id,
-							price: self.getGuestPrice(boatday.get('price'), guestPart),
+							price: self.getGuestPrice(boatday.get('price'), self.getGuestRate(boatday.get('captain').get('host').get('type'))),
 							title: boatday.get('name'),
 							dateDisplay: self.dateParseToDisplayDate(boatday.get('date')),
 							timeDisplay: self.departureTimeToDisplayTime(boatday.get('departureTime')),
@@ -276,9 +310,7 @@ define([
 							captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
 							captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
 							captainRating: boatday.get('captain').get('rating') ? boatday.get('captain').get('rating') : null
-						};
-
-						self.$el.find('.content .inner').append(tpl(data));
+						}));
 
 						var queryPictures = boatday.get('boat').relation('boatPictures').query();
 						queryPictures.ascending('order');
@@ -287,6 +319,7 @@ define([
 								self.$el.find('.boatday-card.card-'+boatday.id+' .picture').css({ backgroundImage: 'url('+fileholder.get('file').url()+')' });
 							}
 						});
+
 					});
 
 					if( boatdays.length == 0 ) {
@@ -299,8 +332,6 @@ define([
 					console.log(error);
 				});
 
-			}, function(error) {
-				console.log(error);
 			});
 		}
 

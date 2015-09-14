@@ -214,7 +214,6 @@ define([
 			var self = this;
 
 			if( self.loading('.btn-book') ) {
-				console.log('abort');
 				return ;
 			}
 			self.cleanForm();

@@ -48,7 +48,6 @@ define([
 			var self = this;
 
 			if( self.loading('.sign-in') ) {
-				console.log('abort');
 				return ;
 			}
 
@@ -91,7 +90,6 @@ define([
 			var self = this;
 
 			if( self.loading('.sign-up') ) {
-				console.log('abort');
 				return ;
 			}
 
@@ -143,7 +141,6 @@ define([
 
 
 			if( self.loading('.facebook') ) {
-				console.log('abort');
 				return ;
 			}
 			
@@ -233,7 +230,6 @@ define([
 			};
 
 			facebookConnectPlugin.api('/me?fields=email,first_name,last_name,gender,birthday,picture,bio', null, function(me) {
-				console.log(me);
 				user.save({ 
 					email: me.email,
 				}).then(cb, handleErrors);
@@ -247,8 +243,6 @@ define([
 
 			var handleErrors = function(error) {
 
-				console.log('** create User Profile error:');
-				console.log(error);
 				if(error.code == 209) {
 					// It can happen that the user is logged in 
 					// and once we delete him from parse without a proper 

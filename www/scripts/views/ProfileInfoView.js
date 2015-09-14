@@ -64,16 +64,13 @@ define([
 				});
 			}
 
-			var profileUpdateSuccess = function() {
+			this.model.save(data).then(function() {
 				if( this.profileSetup ) {
 					Parse.history.navigate("profile-picture", true);
 				} else {
 					Parse.history.navigate("boatdays", true);
 				}
-			};
-
-			var profileUpdateError = function(error) {
-
+			}, function(error) {
 				if( error.type && error.type == 'model-validation' ) {
 					_.map(error.fields, function(message, field) { 
 						self.fieldError(field, message);
@@ -83,13 +80,7 @@ define([
 				} else {
 					self._error(error);
 				}
-
-			};
-
-			console.log('** data sent **');
-			console.log(data);
-
-			this.model.save(data).then(profileUpdateSuccess, profileUpdateError);
+			});
 
 		}
 

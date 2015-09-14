@@ -1,9 +1,8 @@
 define([
 'async!https://maps.google.com/maps/api/js?sensor=false',
 'views/BaseView',
-'views/BoatDayView',
 'text!templates/MapTemplate.html'
-], function(gmaps, BaseView, BoatDayView, MapTemplate){
+], function(gmaps, BaseView, MapTemplate){
 	var MapView = BaseView.extend({
 
 		className: 'screen-map',
@@ -28,11 +27,8 @@ define([
 			this.zoomLevel = data.zoomLevel ? data.zoomLevel : 13
 
 			if( data.center ) {
-				
 				this.center = data.center;
-
 			} else {
-				
 				this.center = {
 					latitude: this.model.get('location').latitude,
 					longitude: this.model.get('location').longitude
@@ -76,10 +72,11 @@ define([
 
 				if( boatday.openOnClick ) {
 					google.maps.event.addListener(marker, "click", function() {
-						self.modal(new BoatDayView({ 
-							model: boatday.obj, 
-							fromUpcoming: false
-						}));
+
+						require(['views/BoatDayView'], function(BoatDayView) {
+							self.modal(new BoatDayView({ model: boatday.obj, fromUpcoming: false }));
+						});
+						
 					});
 				}
 			});
