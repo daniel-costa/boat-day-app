@@ -24,8 +24,9 @@
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.statusbar`
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.file`
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.media`
-* `sudo cordova plugin add pluginsBase/com.phonegap.plugins.PushPlugin`
+* `sudo cordova plugin add pluginsBase/phonegap-plugin-push`
 * `sudo cordova plugin add pluginsBase/cordova-plugin-appinfo`
+* `sudo cordova plugin add pluginsBase/cordova-plugin-customurlscheme --variable URL_SCHEME=boatday`
 
 ## Change rights
 * `sudo chown -R Daniel .`

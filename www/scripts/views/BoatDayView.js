@@ -149,11 +149,10 @@ define([
 								sendEmail: false,
 								request: self.seatRequest,
 							}).then(function() {
-								Parse.history.navigate("profile-payments", true);
+								self._info('BoatDay Cancelled. You can find this event in the Past BoatDays section');
+								Parse.history.navigate('boatdays-past', true);
 							});
-
-							self._info('BoatDay Cancelled. You can find this event in the Past BoatDays section');
-							Parse.history.navigate('boatdays-past', true);
+							
 						});
 						
 						break;

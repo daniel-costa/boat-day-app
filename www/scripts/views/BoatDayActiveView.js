@@ -2,8 +2,9 @@ define([
 'views/BaseView',
 'views/BoatDayChatView',
 'views/MapView',
+'views/BoatDayPayView',
 'text!templates/BoatDayActiveTemplate.html'
-], function(BaseView, BoatDayChatView, MapView, BoatDayActiveTemplate){
+], function(BaseView, BoatDayChatView, MapView, BoatDayPayView, BoatDayActiveTemplate){
 	var BoatDayActiveView = BaseView.extend({
 
 		className: 'screen-boatday-active',
@@ -15,7 +16,7 @@ define([
 			'click .btn-map': 'map',
 			'click .btn-call': 'call',
 			'click .btn-chat': 'chat',
-			// 'click .btn-camera': 'camera',
+			'click .btn-close': 'close',
 		},
 
 		statusbar: false,
@@ -23,18 +24,28 @@ define([
 
 		initialize: function() {
 
-			var timeNow = new Date().getHours() + ( new Date().getMinutes() > 30 ? 0.5 : 0 );
-			var deltaHours = this.model.get('boatday').get('arrivalTime') - timeNow;
-			var deltaMiliSec = deltaHours * 3600000 + 20000; // We add 20 sec to be sure it doesn't reopen the screen. 
+			var self = this;
+			var timeNow = new Date().getHours() + ( new Date().getMinutes() / 60 );
+			var deltaHours = Math.max(0, this.model.get('boatday').get('arrivalTime') - timeNow);
+			var deltaMiliSec = deltaHours * 3600000 + 61000; // We add 61 sec to be sure it doesn't reopen the screen. 
+
+			console.log('timeNow='+timeNow);
+			console.log('deltaHours='+deltaHours);
+			console.log('deltaMiliSec='+deltaMiliSec);
 
 			setTimeout(function() {
-				Parse.history.navigate('boatdays-past', true);
+				self.$el.find('.btn-close').closest('.option').show();
+				self.modal(new BoatDayPayView({ model : self.model }) );
 			}, deltaMiliSec);
 
 		},
 
+		close: function() {
+			Parse.history.loadUrl(Parse.history.fragment);
+		},
+
 		map: function() {
-			this.modal(new MapView({ model : this.model.get('boatday'), precise: true }));
+			this.modal(new MapView({ model : this.model.get('boatday'), precise: true, getdirection: true, getuber: true }));
 		},
 
 		call: function() {

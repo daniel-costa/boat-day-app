@@ -12,30 +12,52 @@ define([
 		// for markers
 		_boatdays: [],
 
+		events: {
+			'click .btn-more': 'more',
+		},
+
+		more: function() {
+			
+			var self = this;
+
+			navigator.notification.confirm(
+				"", 
+				function(buttonIndex) {
+					var boatday = self._boatdays[0].obj;
+					switch(buttonIndex) {
+						case 1: 
+							var url = 'comgooglemaps://?directionsmode=driving&daddr='+boatday.get('location').latitude + ',' + boatday.get('location').longitude;
+							window.open(url, '_system');
+							break;
+						case 2: 
+							var url = 'uber://';
+							url += '?client_id='+Parse.Config.current().get('UBER_CLIENT_ID');
+							url += '&action=setPickup';
+							url += '&pickup=my_location';
+							url += '&dropoff[latitude]='+boatday.get('location').latitude;
+							url += '&dropoff[longitude]='+boatday.get('location').longitude;
+							// url += '&dropoff[nickname]='+encodeURI(boatday.get('name'));
+							url += '&dropoff[formatted_address]='+encodeURI(boatday.get('locationText'));
+
+							console.log(url);
+							window.open(url, '_system');
+
+							break;
+					}
+				}, 
+				"More options",
+				["Get Directions", "Get Uber", "Cancel"]
+			);
+		},
+
 		initialize: function(data) {
 
-			if( data.boatdays ) {
-				this._boatdays = data.boatdays;
-			} else {
-				this._boatdays = [{
-					obj: this.model,
-					precise: data.precise,
-					openOnClick: false
-				}];
-			}
-
-			this.zoomLevel = data.zoomLevel ? data.zoomLevel : 13
-
-			if( data.center ) {
-				this.center = data.center;
-			} else {
-				this.center = {
-					latitude: this.model.get('location').latitude,
-					longitude: this.model.get('location').longitude
-				}
-
-			}
-				
+			this.zoomLevel     = data.zoomLevel    ? data.zoomLevel    : 13
+			this.getdirection  = data.getdirection ? data.getdirection : false;
+			this.getuber       = data.getuber      ? data.getuber      : false;
+			this._boatdays     = data.boatdays     ? data.boatdays     : [{ obj: this.model, precise: data.precise, openOnClick: false }];
+			this.center        = data.center       ? data.center       : { latitude: this.model.get('location').latitude, longitude: this.model.get('location').longitude };
+			
 		},
 
 		render: function() {
@@ -75,6 +97,10 @@ define([
 					});
 				}
 			});
+
+			if( self.getuber === false && self.getdirection === false) {
+				this.$el.find('.btn-more').hide();
+			}
 
 			self.$el.find('.loading').remove();
 

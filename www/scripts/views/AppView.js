@@ -167,19 +167,23 @@ define([
 					self.updateNotificationsAmount() 
 				}, 10 * 1000);
 
-				Parse.Cloud.run('attachUserProfileToInstallation', {
-					token: window.installation.token,
-					user: Parse.User.current().id,
-					profile: profile.id,
-				}).then(function(){}, function(error){});
-
+				if( window.installation.token ) {
+					Parse.Cloud.run('attachUserProfileToInstallation', {
+						token: window.installation.token,
+						user: Parse.User.current().id,
+						profile: profile.id,
+					}).then(function(){}, function(error){});
+				}
+				
 				self.snap = new Snap({
 					element: document.getElementById('content'),
 					disable: 'right',
 					hyperextensible: false,
 					easing: 'ease',
 					transitionSpeed: 0.3,
-					tapToClose: true
+					tapToClose: true,
+					// minDragDistance: 20,
+					touchToDrag: false,
 				});
 
 				$('#app').append( new DrawerView({ model: profile }).render().el );
