@@ -13,9 +13,9 @@
 * `sudo cordova build`
 
 ## Add plugins
-* `sudo cordova plugin add pluginsBase/cordova-plugin-facebook4-master --variable APP_ID=1442439216059238 --variable APP_NAME=BoatDay`
+* `sudo cordova plugin add pluginsBase/cordova-plugin-facebook4 --save --variable APP_ID=1442439216059238 --variable APP_NAME=BoatDay`
 * `sudo cordova plugin add pluginsBase/cordova-plugin-whitelist`
-* `sudo cordova plugin add pluginsBase/cordova-plugin-camera-master`
+* `sudo cordova plugin add pluginsBase/cordova-plugin-camera`
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.console`
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.dialogs`
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.geolocation`

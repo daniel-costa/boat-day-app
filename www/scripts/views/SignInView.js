@@ -146,6 +146,9 @@ define([
 			
 			var fbLoginSuccess = function(userData) {
 
+				console.log("fbLoginSuccess");
+				console.log(userData);
+
 				if (!userData.authResponse){
 					transferError("Cannot find the authResponse");
 					return;
@@ -162,17 +165,19 @@ define([
 			};
 
 			var transferFbUserToParse = function (authData) {
-				console.log("** Transfer to parse");
+				console.log("transferFbUserToParse");
+				console.log(authData);
 				return Parse.FacebookUtils.logIn(authData);
 			};
 
 			var transferSuccess = function(user) {
-				console.log("** Transfer success");
+				console.log("transferSuccess");
+				console.log(user);
 				self.handleSignIn("facebook", user);
 			};
 
 			var transferError = function(error) {
-				console.log("** Login error:");
+				console.log("transferError");
 				console.log(error);
 				// Sometimes while a crash, the user stays log out and it 
 				// may trigger this error
@@ -189,6 +194,9 @@ define([
 		},
 
 		handleSignIn: function(type, user) {
+			console.log("handleSignIn");
+			console.log(type);
+			console.log(user);
 			
 			var self = this;
 
@@ -220,83 +228,131 @@ define([
 		},
 
 		updateUserProfileFacebook: function(user, cb) {
+			console.log("updateUserProfileFacebook");
+			console.log(user);
 
 			var self = this;
 
-			var handleErrors = function(error) {
-				self.loading();
-				self._error("Oops... something wrong happen. Please, try later");
-				Parse.history.navigate('sign-out', true);
-			};
+			// Bug on Facebook SDK
+			// For now, we skip it
 
-			facebookConnectPlugin.api('/me?fields=email,first_name,last_name,gender,birthday,picture,bio', null, function(me) {
-				user.save({ 
-					email: me.email,
-				}).then(cb, handleErrors);
-			}, handleErrors);
+			// var handleErrors = function(error) {
+			// 	console.log("handleErrors");
+			// 	console.log(error);
+			// 	self.loading();
+			// 	self._error("Oops... something wrong happen. Please, try later");
+			// 	Parse.history.navigate('sign-out', true);
+			// };
 
+			// facebookConnectPlugin.api('/me?fields=email', ["public_profile", "email"], function(me) {
+			// 	user.save({ 
+			// 		email: me.email,
+			// 	}).then(cb, handleErrors);
+			// }, handleErrors);
+	
+			cb();
 		},
 
 		createUserProfileFacebook: function(user) {
+			console.log("createUserProfileFacebook");
+			console.log(user);
 
 			var self = this;
 
 			var handleErrors = function(error) {
-
+				console.log("handleErrors");
+				console.log(error);
 				if(error.code == 209) {
-					// It can happen that the user is logged in 
-					// and once we delete him from parse without a proper 
-					// logout it stays blocked on the first page without any action possible or button displayed
-					// To prevent that we do a natural logout
-					// It nust never happen but we never now
 					Parse.history.navigate('sign-out', true);
 				}
-
 				self.loading();
 				self._error("Oops... something wrong happen. Please, try later");
-
 			};
 
-			var userUpdated = function() {
+			var profile = new ProfileModel({ user: Parse.User.current() });
 
-				$(document).trigger('loadProfile', function() {
-					Parse.history.navigate('boatdays', true);
-				});
+			profile.save().then(function( profile ) {
+				user.save({ 
+					profile: profile,
+					type: "guest"
+				}).then(function() {
+					$(document).trigger('loadProfile', function() {
+						Parse.history.navigate('boatdays', true);
+					});
+				}, handleErrors);
+			}, handleErrors);
+		},
 
-			};
+		// This function won't work. Graph API of facebook is not working with the plugin currently iOS 9 changes
 
-			var facebookApiSuccess = function(me) {
-				console.log('** FB Api success:');
-				console.log(me);
+		// createUserProfileFacebook: function(user) {
+		// 	console.log("createUserProfileFacebook");
+		// 	console.log(user);
 
-				var updateUser = function( profile ) {
-					user.save({ 
-						email: me.email,
-						profile: profile,
-						type: "guest"
-					}).then(userUpdated, handleErrors);
-				};
+		// 	var self = this;
 
-				if( me.birthday ) {
-					var ds = me.birthday.split('/');	
-				}
+		// 	var handleErrors = function(error) {
+		// 		console.log("handleErrors");
+		// 		console.log(error);
 
-				var profile = new ProfileModel({
-					firstName: me.first_name ? me.first_name : null,
-					lastName: me.last_name ? me.last_name : null,
-					gender: me.gender ? me.gender : null,
-					birthday: me.birthday ? new Date(ds[2], ds[0]-1, ds[1]) : null,
-					about: me.bio ? me.bio : null,
-					user: Parse.User.current()
-				});
+		// 		if(error.code == 209) {
+		// 			// It can happen that the user is logged in 
+		// 			// and once we delete him from parse without a proper 
+		// 			// logout it stays blocked on the first page without any action possible or button displayed
+		// 			// To prevent that we do a natural logout
+		// 			// It nust never happen but we never now
+		// 			Parse.history.navigate('sign-out', true);
+		// 		}
 
-				profile.save().then(updateUser, handleErrors);
+		// 		self.loading();
+		// 		self._error("Oops... something wrong happen. Please, try later");
 
-			};
+		// 	};
 
-			facebookConnectPlugin.api('/me?fields=email,first_name,last_name,gender,birthday,picture,bio', null, facebookApiSuccess, handleErrors);
+		// 	var userUpdated = function() {
+		// 		console.log("userUpdated");
 
-		}
+		// 		$(document).trigger('loadProfile', function() {
+		// 			Parse.history.navigate('boatdays', true);
+		// 		});
+
+		// 	};
+
+		// 	var facebookApiSuccess = function(me) {
+		// 		console.log('facebookApiSuccess');
+		// 		console.log(me);
+
+		// 		var updateUser = function( profile ) {
+		// 			console.log('updateUser');
+		// 			console.log(profile);
+					
+		// 			user.save({ 
+		// 				email: me.email,
+		// 				profile: profile,
+		// 				type: "guest"
+		// 			}).then(userUpdated, handleErrors);
+		// 		};
+
+		// 		if( me.birthday ) {
+		// 			var ds = me.birthday.split('/');	
+		// 		}
+
+		// 		var profile = new ProfileModel({
+		// 			firstName: me.first_name ? me.first_name : null,
+		// 			lastName: me.last_name ? me.last_name : null,
+		// 			gender: me.gender ? me.gender : null,
+		// 			birthday: me.birthday ? new Date(ds[2], ds[0]-1, ds[1]) : null,
+		// 			about: me.bio ? me.bio : null,
+		// 			user: Parse.User.current()
+		// 		});
+
+		// 		profile.save().then(updateUser, handleErrors);
+
+		// 	};
+
+		// 	facebookConnectPlugin.api('/me?fields=email,first_name,last_name,gender,birthday,picture,bio', null, facebookApiSuccess, handleErrors);
+
+		// }
 
 	});
 	return SignInView;

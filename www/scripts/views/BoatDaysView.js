@@ -56,8 +56,6 @@ define([
 							openOnClick: true,
 						})
 					});
-
-					
 					
 					if( self.filtersDefined() && Parse.User.current().get('profile').get('filters').position  ) {
 						var center = {
@@ -75,9 +73,6 @@ define([
 				});
 
 			});
-
-
-			
 		},
 		
 		getCurrentPosition: function() {

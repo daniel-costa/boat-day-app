@@ -46,8 +46,13 @@ require.config({
 });
 
 window.installation = {};
+window.deepLinking = null;
 
 function handleOpenURL(url) {
+
+	if( url.indexOf('?') == -1 ) {
+		url += '?';
+	}
 
 	var link = {
 		action: url.substring(url.indexOf('://') + 3, url.indexOf('?')),
@@ -61,7 +66,9 @@ function handleOpenURL(url) {
 		link.params[match[0]] = match[1];
 	}
 
-	console.log(link);
+	window.deepLinking = link;
+
+	Parse.history.loadUrl(Parse.history.fragment);
 
 }
 
@@ -113,7 +120,6 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs'], 
 		push.on('notification', function(data) {
 			console.log("new notification");
 			console.log(data);
-
 			if ( event.alert ) {
 				// We do not show the notification when in the app
 				// $(document).trigger('globalInfo', event.alert);
@@ -124,7 +130,6 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs'], 
 		push.on('error', function(e) {
 			console.log('error in notifications');
 			console.log(e);
-
 			startApp();
 		});
 

@@ -4,6 +4,7 @@ define([
 	'views/ProfilePictureView',
 	'views/ProfilePaymentsView',
 	'views/ProfilePaymentsAddView',
+	'views/BoatDayView',
 	'views/BoatDaysView',
 	'views/BoatDaysPastView',
 	'views/BoatDaysUpcomingView',
@@ -11,13 +12,14 @@ define([
 	'views/NotificationsView',
 	'views/BoatDayActiveView'
 ], function(
-	SignInView, ProfileInfoView, ProfilePictureView, ProfilePaymentsView, ProfilePaymentsAddView, 
+	SignInView, ProfileInfoView, ProfilePictureView, ProfilePaymentsView, ProfilePaymentsAddView, BoatDayView,
 	BoatDaysView, BoatDaysPastView, BoatDaysUpcomingView, AboutUsView, NotificationsView, BoatDayActiveView) {
 	
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
 			'sign-out': 'signOut',
+			'boatday/:id': 'showBoatDay',
 			'boatdays': 'showBoatDays',
 			'boatdays-upcoming': 'showBoatDaysUpcoming',
 			'boatdays-past': 'showBoatDaysPast',
@@ -45,9 +47,7 @@ define([
 
 			var self = this;
 			var cb = function(profile) {
-
-				self.render(new NotificationsView());
-				
+				self.render(new NotificationsView());	
 			};
 
 			self.handleSignedIn(cb);
@@ -58,9 +58,7 @@ define([
 
 			var self = this;
 			var cb = function(profile) {
-
 				self.render(new AboutUsView());
-				
 			};
 
 			self.handleSignedIn(cb);
@@ -68,18 +66,30 @@ define([
 		},
 
 		showSignInView: function() {
-
 			this.render(new SignInView());
+		},
 
+		showBoatDay: function(id) {
+			
+			var self = this;
+			var cb = function() {
+				var query = new Parse.Query(Parse.Object.extend('BoatDay'));
+				query.include('boat');
+				query.include('captain');
+				query.include('captain.host');
+				query.get(id).then(function(boatday) {
+					self.render(new BoatDayView({ model: boatday }));
+				});
+			};
+
+			self.handleSignedIn(cb);
 		},
 
 		showBoatDays: function() {
 
 			var self = this;
 			var cb = function() {
-
 				self.render(new BoatDaysView());
-
 			};
 
 			self.handleSignedIn(cb);
@@ -101,9 +111,7 @@ define([
 
 			var self = this;
 			var cb = function() {
-
 				self.render(new BoatDaysUpcomingView());
-
 			};
 
 			self.handleSignedIn(cb);
@@ -198,7 +206,7 @@ define([
 			query.find().then(function(requests) {
 
 				if( requests.length == 0 ) {
-					cb();
+					self.handleDeepLinking(cb)
 					return;
 				}
 
@@ -210,7 +218,36 @@ define([
 
 		},
 
+		handleDeepLinking: function(cb) {
+
+			var self = this;
+
+			if( window.deepLinking ) {
+				
+				var dl = window.deepLinking;
+
+				window.deepLinking = null;
+
+				console.log('Huhuhu handle deep linking');
+				
+				switch( dl.action ) {
+					case 'boatday' : 
+						self.showBoatDay(dl.params.id);
+						break;
+					default :
+						cb();
+						break;
+				}
+			} else {
+				cb();
+			}
+		},
+
+		canHandleDeepLinking: false,
+
 		render: function(view) {
+
+			var self = this;
 
 			if( this.currentView ) 
 				this.currentView.teardown();
@@ -220,7 +257,9 @@ define([
 			// I don't know why, but puttin in a timeout,
 			// we can have the element rendered
 			// Hint: may be because setTimout creates a new Thread
-			setTimeout(function() { view.afterRenderInsertedToDom() }, 0);
+			setTimeout(function() { 
+				view.afterRenderInsertedToDom();
+			}, 0);
 
 			this.currentView = view;
 

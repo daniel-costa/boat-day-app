@@ -124,9 +124,11 @@ define([
 			var self = this;
 
 			var cb = function() {
+
 				if ( self.notificationsHolder ) {
 					
-					window.plugins.pushNotification.setApplicationIconBadgeNumber(function (result) {  }, function (error) {  }, self.notifications);
+					// ToDo Find alternative for new plugin.
+					// window.plugins.pushNotification.setApplicationIconBadgeNumber(function (result) {  }, function (error) {  }, self.notifications);
 
 					if( self.notifications == 0)  {
 						$(self.notificationsHolder).text(self.notifications).hide();
@@ -139,6 +141,7 @@ define([
 						$(self.notificationsHolder).text(self.notifications).show();
 					}
 				}
+				
 			};
 
 			this.checkNotifications(cb);
@@ -164,7 +167,9 @@ define([
 
 				self.updateNotificationsAmount();
 				setInterval(function() { 
-					self.updateNotificationsAmount() 
+					if( Parse.User.current() ) {
+						self.updateNotificationsAmount() 
+					}
 				}, 10 * 1000);
 
 				if( window.installation.token ) {
@@ -233,6 +238,8 @@ define([
 
 				self.checkVersion(function() {
 					if( Parse.User.current() && Parse.User.current().get("profile") ) {
+
+						/* Rollback: sometimes somepeople does not have an email on facebook and the app logout in a loop
 						if( typeof Parse.User.current().get('email') === typeof undefined ) {
 							console.log('Ooops... Email undefined');
 							Parse.User.logOut();
@@ -241,6 +248,9 @@ define([
 						} else {
 							self.loadProfile(event, cb);
 						}
+						*/
+
+						self.loadProfile(event, cb);
 					} else {
 						cb();
 					}
