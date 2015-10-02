@@ -173,7 +173,7 @@ define([
 		},
 
 		profile: function(event) {
-
+			alert("YES");
 			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
 
 		},

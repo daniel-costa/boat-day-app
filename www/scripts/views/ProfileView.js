@@ -4,8 +4,9 @@ define([
 'views/ReportView',
 'views/CertificationsView',
 'text!templates/ProfileTemplate.html',
-'text!templates/ProfileReviewTemplate.html'
-], function(ReportModel, BaseView, ReportView, CertificationsView, ProfileTemplate, ProfileReviewTemplate){
+'text!templates/ProfileReviewTemplate.html', 
+'text!templates/ProfileBoatTemplate.html'
+], function(ReportModel, BaseView, ReportView, CertificationsView, ProfileTemplate, ProfileReviewTemplate, ProfileBoatTemplate){
 	var ProfileView = BaseView.extend({
 
 		className: 'screen-profile',
@@ -35,6 +36,8 @@ define([
 		},
 
 		profile: function(event) {
+			event.preventDefault();
+			console.log($(event.currentTarget).attr('data-id'));
 			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
 		},
 
@@ -56,12 +59,14 @@ define([
 				query.notEqualTo('reviewGuest', '');
 				query.notEqualTo('reviewGuest', null);
 				query.include('profile');
+				query.include('boatday');
 				query.find().then(function(requests) {
 
 					var _tpl = _.template(ProfileReviewTemplate);
 					var displayed = 0;
 
 					_.each(requests, function(request) {
+						
 						if( request.get('reviewGuest') != "" ) {
 							displayed++;
 							self.profiles[request.get('profile').id] = request.get('profile');
@@ -72,15 +77,36 @@ define([
 					if( displayed == 0 ) {
 						self.$el.find('.reviews').html('<p class="text-center">No reviews for this host</p>');
 						return;
-					} else {
-						self.$el.find('.reviews').prepend('<h5>Reviews</h5>');
-					}
+					} 
+					// else {
+					// 	self.$el.find('.reviews').prepend('<h5>Reviews</h5>');
+					// }
+				});
+
+				var boatquery = new Parse.Query(Parse.Object.extend('Boat'));
+				boatquery.equalTo('host', this.model.get('host'));
+				boatquery.equalTo('status', 'approved');
+				boatquery.find().then(function(boats) {
+					_.each(boats, function(boat) {
+
+						self.$el.find('.host-boats').append(_.template(ProfileBoatTemplate)({ model:boat }));
+
+						var boatPictures = boat.relation('boatPictures').query();
+						boatPictures.ascending('order');
+						boatPictures.first().then(function(fileholder) {
+							if( fileholder ) {
+								var target =  self.$el.find('.boat-details .boat-image');
+								console.log("Target: " + target);
+								console.log("Image file: " + fileholder.get("file").url());
+								target.css({ backgroundImage: 'url('+fileholder.get('file').url()+')' });
+							}
+						});
+					});
 				});
 			}
 
 			return this;
 		}
-
 	});
 	return ProfileView;
 });

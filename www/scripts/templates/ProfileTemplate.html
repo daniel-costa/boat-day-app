@@ -6,41 +6,40 @@
 <div class="content">
 	<div class="content-padded text-center">
 
-		<div class="profile-picture" style="background-image:url(<%= profilePicture.url %>)"></div>
-		<% if( typeof rating != typeof undefined && rating ) { %> 
-			<p class="rating">
-				<img src="resources/rating-<%= Math.ceil(rating) %>.png" />
-			</p>
-		<% } %>
-		<% if( self.model.get('host') ) { %> 
-			<p class="certifications">
-				<% if( self.model.get('host').get('certStatusBSC') == 'approved' ) { %>
-					<img src="resources/certs/BSC.png" />
-				<% } %>
-				<% if( self.model.get('host').get('certStatusCCL') == 'approved' ) { %>
-					<img src="resources/certs/CCL.png" />
-				<% } %>
-				<% if( self.model.get('host').get('certStatusFAC') == 'approved' ) { %>
-					<img src="resources/certs/FAC.png" />
-				<% } %>
-				<% if( self.model.get('host').get('certStatusFL') == 'approved' ) { %>
-					<img src="resources/certs/FL.png" />
-				<% } %>
-				<% if( self.model.get('host').get('certStatusMCL') == 'approved' ) { %>
-					<img src="resources/certs/MCL.png" />
-				<% } %>
-				<% if( self.model.get('host').get('certStatusSL') == 'approved' ) { %>
-					<img src="resources/certs/SL.png" />
-				<% } %>
-			</p>
+		<div class="profile-picture" style="background-image:url(<%= profilePicture.url %>)"></div><br>
+		<strong><%= displayName %></strong>
+		<% if (self.model.get('host')) {%>
+			<p>Host since <%= new Date(self.model.get('host').createdAt).toLocaleDateString() %><p> 
 		<% } %>
 		<p class="about"><%= about.replace(/\n/g, "<br>") %></p>
+		<% if (self.model.get('host')) {%>
+			<p class="certifications">
+				<% if( self.model.get('host').get('certStatusBSC') == 'approved' ) { %>
+					<h6>Certificate of Boat Safety Course</h6>
+				<% } %>
+				<% if( self.model.get('host').get('certStatusCCL') == 'approved' ) { %>
+					<h6>Certificate of Charterboat Captain</h6>
+				<% } %>
+				<% if( self.model.get('host').get('certStatusFAC') == 'approved' ) { %>
+					<h6>Certificate of First Aid Certification</h6>
+				<% } %>
+				<% if( self.model.get('host').get('certStatusFL') == 'approved' ) { %>
+					<h6>Certificate of Fishing License</h6>
+				<% } %>
+				<% if( self.model.get('host').get('certStatusMCL') == 'approved' ) { %>
+					<h6>Certificate of Master Captain's License</h6>
+				<% } %>
+				<% if( self.model.get('host').get('certStatusSL') == 'approved' ) { %>
+					<h6>Certificate of Sailing Certification</h6>
+				<% } %>
+			</p>
+		<% } %>
 		<div class="reviews"></div>
-		<!--
-			<div class="content-padded text-center">
-				<label>Facebook Friends</label>
-				<p>No friends in common</p>
+		<% if (self.model.get('host')) {%>
+			<div class="host-boats">
+				<strong><%= self.model.get('host').get('firstname').toUpperCase() %>'S BOAT</strong>
 			</div>
-		-->
+		<% } %>
 	</div>
 </div>
+
