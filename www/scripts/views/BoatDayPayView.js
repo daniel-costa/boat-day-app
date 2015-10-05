@@ -31,6 +31,9 @@ define([
 		mediaMinus: null,
 
 		tip: function(event) {
+
+			Parse.Analytics.track('pay-click-tip');
+
 			var e = $(event.currentTarget);
 			var percent = e.attr('percent');
 
@@ -46,6 +49,9 @@ define([
 		},
 
 		showAdjust: function() {
+
+			Parse.Analytics.track('pay-click-adjust');
+
 			if( this.$el.find('.adjust-price').is(':visible') ) {
 				this.$el.find('.adjust-price').hide();
 				this.$el.find('.btn-adjust .icon').removeClass('icon-up-nav');
@@ -58,6 +64,9 @@ define([
 		},
 
 		showDetails: function() {
+
+			Parse.Analytics.track('pay-click-details');
+
 			if( this.$el.find('.details').is(':visible') ) {
 				this.$el.find('.details').hide();
 				this.$el.find('.btn-details .icon').removeClass('icon-up-nav');

@@ -20,10 +20,16 @@ define([
 		profiles: {},
 
 		pay: function(event) {
+			
+			Parse.Analytics.track('boatdays-past-click-pay');
+
 			this.modal(new BoatDayPayView({ model : this.requests[$(event.currentTarget).closest('.boatday-card').attr('data-request')] }) );
 		},
 
 		profile: function(event) {
+
+			Parse.Analytics.track('boatdays-past-click-profile');
+
 			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
 		},
 

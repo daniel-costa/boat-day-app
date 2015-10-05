@@ -62,6 +62,9 @@ define([
 		},
 
 		ask: function() {
+
+			Parse.Analytics.track('boatday-send-question');
+
 			var overlay = this.$el.find('.overlay');
 			var self = this;
 
@@ -75,11 +78,15 @@ define([
 				self.hideOverlay(overlay);
 				self.render();
 			}, function(error) {
+				Parse.Analytics.track('boatday-send-question-fail');
 				console.log(error);
 			})
 		},
 
 		askOverlay: function() {
+
+			Parse.Analytics.track('boatday-click-ask');
+
 			var self = this;
 			self.showOverlay({
 				target: self.$el.find('.overlay'),
@@ -92,6 +99,8 @@ define([
 
 		report: function() {
 
+			Parse.Analytics.track('boatday-click-report');
+
 			var m = new ReportModel({
 				action: 'boatday',
 				boatday: this.model
@@ -102,12 +111,16 @@ define([
 
 		cancelModal: function() {
 			
+			Parse.Analytics.track('boatday-click-cancel');
+
 			this.modal(new BoatDayCancellationView({ model : this.model }));
 
 		},
 
 		map: function() {
 			
+			Parse.Analytics.track('boatday-click-map');
+
 			this.modal(new MapView({ model : this.model, precise: false }));
 
 		},
@@ -173,11 +186,16 @@ define([
 		},
 
 		profile: function(event) {
+
+			Parse.Analytics.track('boatday-click-profile');
+			
 			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
 
 		},
 
 		certifications: function(event) {
+
+			Parse.Analytics.track('boatday-click-certifications');
 
 			this.modal(new CertificationsView());
 
@@ -185,6 +203,8 @@ define([
 
 		book: function() {
 
+			Parse.Analytics.track('boatday-click-book');
+			
 			this.modal(new BoatDayBookView({ model : this.model }));
 
 		},

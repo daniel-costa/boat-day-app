@@ -71,6 +71,9 @@ define([
 					Parse.history.navigate("boatdays", true);
 				}
 			}, function(error) {
+
+				Parse.Analytics.track('profile-save-fail');
+
 				if( error.type && error.type == 'model-validation' ) {
 					_.map(error.fields, function(message, field) { 
 						self.fieldError(field, message);

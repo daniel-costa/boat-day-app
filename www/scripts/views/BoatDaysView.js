@@ -26,19 +26,17 @@ define([
 		
 		boatdays: {},
 
-		initialize: function() {
-
-			var self = this;
-
-		},
-
 		showBoatDay: function(event) {
+
+			Parse.Analytics.track('boatdays-click-boatday');
 
 			this.modal(new BoatDayView({ model : this.boatdays[$(event.currentTarget).attr('data-id')], fromUpcoming: false }));
 
 		},
 
 		map: function() {
+
+			Parse.Analytics.track('boatdays-click-map');
 
 			var self = this;
 
@@ -124,6 +122,8 @@ define([
 				longitude: opt.attr('lng')
 			};
 
+			Parse.Analytics.track('boatdays-pick-location', { location: newFilters.position.name } );
+
 			Parse.User.current().get('profile').save({
 				filters: newFilters
 			}).then(function() {
@@ -144,6 +144,8 @@ define([
 
 			newFilters.category = $(event.currentTarget).attr('value');
 
+			Parse.Analytics.track('boatdays-pick-category', { category: newFilters.category } );
+			
 			this.moveHandler();
 
 			Parse.User.current().get('profile').save({

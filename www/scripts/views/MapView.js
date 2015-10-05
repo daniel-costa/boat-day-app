@@ -18,6 +18,8 @@ define([
 
 		more: function() {
 			
+			Parse.Analytics.track('map-click-more');
+
 			var self = this;
 
 			navigator.notification.confirm(
@@ -26,10 +28,16 @@ define([
 					var boatday = self._boatdays[0].obj;
 					switch(buttonIndex) {
 						case 1: 
+							
+							Parse.Analytics.track('map-get-gmaps');
+							
 							var url = 'comgooglemaps://?directionsmode=driving&daddr='+boatday.get('location').latitude + ',' + boatday.get('location').longitude;
 							window.open(url, '_system');
 							break;
 						case 2: 
+							
+							Parse.Analytics.track('map-get-uber');
+							
 							var url = 'uber://';
 							url += '?client_id='+Parse.Config.current().get('UBER_CLIENT_ID');
 							url += '&action=setPickup';
@@ -38,10 +46,7 @@ define([
 							url += '&dropoff[longitude]='+boatday.get('location').longitude;
 							// url += '&dropoff[nickname]='+encodeURI(boatday.get('name'));
 							url += '&dropoff[formatted_address]='+encodeURI(boatday.get('locationText'));
-
-							console.log(url);
 							window.open(url, '_system');
-
 							break;
 					}
 				}, 

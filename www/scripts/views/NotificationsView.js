@@ -23,12 +23,14 @@ define([
 
 		profile: function(event) {
 			if( $(event.currentTarget).attr('data-id') ) {
+				Parse.Analytics.track('notifications-click-profile');
 				this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
 			}
 		},
 
 		boatday: function(event) {
 			if( $(event.currentTarget).attr('data-id') ) {
+				Parse.Analytics.track('notifications-click-boatday');
 				this.modal(new BoatDayView({ model : this.boatdays[$(event.currentTarget).attr('data-id')], fromUpcoming: false }));
 			}	
 		},

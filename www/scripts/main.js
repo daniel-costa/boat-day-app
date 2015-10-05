@@ -53,9 +53,14 @@ function handleOpenURL(url) {
 	if( url.indexOf('?') == -1 ) {
 		url += '?';
 	}
+	var action = url.substring(url.indexOf('://') + 3, url.indexOf('?'));
 
+	if( action !== 'boatday' ) {
+		return;
+	}
+	
 	var link = {
-		action: url.substring(url.indexOf('://') + 3, url.indexOf('?')),
+		action: action,
 		params: {}
 	};
 

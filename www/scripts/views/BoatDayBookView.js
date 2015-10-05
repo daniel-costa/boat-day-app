@@ -29,6 +29,9 @@ define([
 		promo: null,
 
 		showPromo: function() {
+
+			Parse.Analytics.track('book-show-promo');
+
 			var self = this;
 			self.showOverlay({
 				target: self.$el.find('.overlay'),
@@ -40,18 +43,30 @@ define([
 		},
 
 		payments: function() {
+
+			Parse.Analytics.track('book-click-payments');
+
 			this.modal(new ProfilePaymentsAddView());
 		},
 
 		cancellation: function() {
+			
+			Parse.Analytics.track('book-click-cancellation');
+			
 			this.modal(new BoatDayCancellationView({ model : this.model }));
 		},
 
 		terms: function() {
+			
+			Parse.Analytics.track('book-click-terms');
+			
 			this.modal(new TermsView());
 		},
 
 		water: function() {
+			
+			Parse.Analytics.track('book-click-water-policy');
+			
 			this.modal(new WaterPolicyView());
 		},
 
@@ -198,10 +213,14 @@ define([
 		},
 
 		book: function() {
+
+			Parse.Analytics.track('book-click-confirmation');
+
 			var self = this;
 			navigator.notification.confirm(
 				"You’re about to request " + self._in('seats').val() + " seat" + (self._in('seats').val() == 1 ? '' : 's') + " for " + self.$el.find('.price-total').text() + "! Ready for #BetterBoating?",
 				function(buttonIndex) {
+					Parse.Analytics.track('book-confirmation', { buttonIndex: buttonIndex });
 					if( buttonIndex == 2 ) self.bookSave();
 				},
 				"Book Now!",
@@ -246,6 +265,8 @@ define([
 					Parse.history.navigate('boatdays-upcoming', true);
 				});
 
+			}, function(error) {
+				Parse.Analytics.track('book-save-fail');
 			});
 
 		}

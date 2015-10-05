@@ -36,6 +36,8 @@ define([
 
 		report: function() {
 
+			Parse.Analytics.track('chat-click-report');
+
 			var m = new ReportModel({
 				action: 'boatday-chat',
 				boatday: this.model
@@ -148,6 +150,9 @@ define([
 				self.appendMessage(message);
 				self.afterRenderInsertedToDom();
 			}, function(error) {
+				
+				Parse.Analytics.track('chat-save-fail');
+
 				self.loading();
 				console.log(error);
 			});

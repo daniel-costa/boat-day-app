@@ -22,6 +22,8 @@ define([
 
 		showBoatDay: function(event) {
 
+			Parse.Analytics.track('boatdays-upcoming-click-boatday');
+
 			event.preventDefault();
 			this.modal(new BoatDayView({ 
 				model : this.boatdays[$(event.currentTarget).closest('.boatday-card').attr('data-id')],
@@ -32,6 +34,8 @@ define([
 		},
 
 		showChat: function(event) {
+
+			Parse.Analytics.track('boatdays-upcoming-click-chat');
 
 			event.preventDefault();
 			this.modal(new BoatDayChatView({ 

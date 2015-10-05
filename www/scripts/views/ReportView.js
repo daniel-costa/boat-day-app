@@ -32,6 +32,7 @@ define([
 				self._info('Thank you for the report.');
 				self.close();
 			}, function(error) {
+				Parse.Analytics.track('profile-report-fail');
 				self.loading();
 				console.log(error);
 			});

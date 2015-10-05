@@ -41,14 +41,23 @@ define([
 		},
 
 		close: function() {
+			
+			Parse.Analytics.track('bd-active-click-close');
+			
 			Parse.history.loadUrl(Parse.history.fragment);
 		},
 
 		map: function() {
+			
+			Parse.Analytics.track('bd-active-click-map');
+			
 			this.modal(new MapView({ model : this.model.get('boatday'), precise: true, getdirection: true, getuber: true }));
 		},
 
 		call: function() {
+			
+			Parse.Analytics.track('bd-active-click-call');
+			
 			var tel = this.model.get('boatday').get('captain').get('host').get('phone').replace(/-/g, "").replace(/ /g, "").trim();
 
 			if( tel.slice(0, 1) != '+') {
@@ -59,6 +68,9 @@ define([
 		},
 
 		chat: function(event) {
+			
+			Parse.Analytics.track('bd-active-click-chat');
+			
 			event.preventDefault();
 			this.modal(new BoatDayChatView({ 
 				model : this.model.get('boatday'),
@@ -69,7 +81,12 @@ define([
 		// camera: function() { },
 
 		emergency: function(event) {
+			
+			Parse.Analytics.track('bd-active-click-emergency');
+
 			var prompt = function(buttonIndex) {
+
+				Parse.Analytics.track('bd-active-emergency', { boatday: this.model.id, buttonIndex: buttonIndex });
 
 				switch(buttonIndex) {
 					case 1: 

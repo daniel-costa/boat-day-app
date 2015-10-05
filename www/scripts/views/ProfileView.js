@@ -27,6 +27,8 @@ define([
 
 		report: function() {
 
+			Parse.Analytics.track('profile-click-report');
+
 			var m = new ReportModel({
 				action: 'profile',
 				profile: this.model
@@ -36,11 +38,18 @@ define([
 		},
 
 		certifications: function(event) {
+			
+			Parse.Analytics.track('profile-click-certifications');
+
 			this.modal(new CertificationsView());
 		},
 
 		profile: function(event) {
+
 			event.preventDefault();
+
+			Parse.Analytics.track('profile-click-profile');
+
 			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
 		},
 

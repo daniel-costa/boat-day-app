@@ -62,6 +62,8 @@ define([
 
 			var profileUpdateSuccess = function() {
 				
+				Parse.Analytics.track('profile-save');
+
 				if( self.profileSetup ) {
 					$(document).trigger('loadProfile', function() {
 						var Notification = Parse.Object.extend('Notification');
@@ -107,6 +109,8 @@ define([
 
 		openGallery: function() {
 			
+			Parse.Analytics.track('profile-open-gallery');
+
 			var self = this;
 
 			if( self.isLoading('button.open-gallery') ) {
@@ -144,6 +148,8 @@ define([
 		},
 
 		takePicture: function() {
+
+			Parse.Analytics.track('profile-take-picture');
 
 			var self = this;
 

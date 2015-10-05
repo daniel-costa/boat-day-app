@@ -124,6 +124,7 @@ define([
 						}
 					});
 				}, function(error) {
+					Parse.Analytics.track('payments-save-fail');
 					self._error(error.message);
 					self.loading();
 				});

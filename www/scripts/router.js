@@ -227,8 +227,6 @@ define([
 				var dl = window.deepLinking;
 
 				window.deepLinking = null;
-
-				console.log('Huhuhu handle deep linking');
 				
 				switch( dl.action ) {
 					case 'boatday' : 
@@ -251,6 +249,8 @@ define([
 
 			if( this.currentView ) 
 				this.currentView.teardown();
+			
+			Parse.Analytics.track('render-view', { view: view.className });
 
 			$("#content").html( view.render().el );
 

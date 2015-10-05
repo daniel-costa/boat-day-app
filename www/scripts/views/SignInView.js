@@ -43,6 +43,8 @@ define([
 
 		signIn: function(event) {
 
+			Parse.Analytics.track('sign-in-sign-in');
+
 			event.preventDefault();
 
 			var self = this;
@@ -84,6 +86,8 @@ define([
 		},
 
 		signUp: function(event) {
+
+			Parse.Analytics.track('sign-in-sign-up');
 
 			event.preventDefault();
 
@@ -137,8 +141,9 @@ define([
 
 		signInFacebook: function() {
 
-			var self = this;
+			Parse.Analytics.track('sign-in-facebook');
 
+			var self = this;
 
 			if( self.loading('.facebook') ) {
 				return ;
@@ -176,9 +181,12 @@ define([
 				self.handleSignIn("facebook", user);
 			};
 
-			var transferError = function(error) {
+			var transferError = function(error, err) {
 				console.log("transferError");
 				console.log(error);
+				console.log(err);
+				self.loading();
+				self._error("Oops... something wrong happen. Please, try later");
 				// Sometimes while a crash, the user stays log out and it 
 				// may trigger this error
 				// The best workarround  is to sign him out properly.
@@ -194,9 +202,6 @@ define([
 		},
 
 		handleSignIn: function(type, user) {
-			console.log("handleSignIn");
-			console.log(type);
-			console.log(user);
 			
 			var self = this;
 
