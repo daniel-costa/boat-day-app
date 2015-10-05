@@ -35,9 +35,11 @@
 			</p>
 		<% } %>
 		<div class="reviews"></div>
+
 		<% if (self.model.get('host')) {%>
-			<div class="host-boats">
+			<div class="my-boats">
 				<strong><%= self.model.get('host').get('firstname').toUpperCase() %>'S BOAT</strong>
+				<div class="boat-details"></div>
 			</div>
 		<% } %>
 	</div>

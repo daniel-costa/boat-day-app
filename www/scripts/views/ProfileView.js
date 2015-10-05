@@ -2,11 +2,12 @@ define([
 'models/ReportModel',
 'views/BaseView',
 'views/ReportView',
+'views/BoatView',
 'views/CertificationsView',
 'text!templates/ProfileTemplate.html',
 'text!templates/ProfileReviewTemplate.html', 
 'text!templates/ProfileBoatTemplate.html'
-], function(ReportModel, BaseView, ReportView, CertificationsView, ProfileTemplate, ProfileReviewTemplate, ProfileBoatTemplate){
+], function(ReportModel, BaseView, ReportView, BoatView, CertificationsView, ProfileTemplate, ProfileReviewTemplate, ProfileBoatTemplate){
 	var ProfileView = BaseView.extend({
 
 		className: 'screen-profile',
@@ -17,9 +18,12 @@ define([
 			'click .report': 'report',
 			'click .certifications': 'certifications',
 			'click .profile-picture': 'profile',
+			'click .my-boat-details': 'boat'
 		},
 		
 		profiles: {},
+
+		boats: {}, 
 
 		report: function() {
 
@@ -37,8 +41,14 @@ define([
 
 		profile: function(event) {
 			event.preventDefault();
-			console.log($(event.currentTarget).attr('data-id'));
 			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
+		},
+
+		boat: function(event) {
+			event.preventDefault();
+			this.modal(new BoatView({ model: this.boats[$(event.currentTarget).attr('data-id')] }));
+			//alert($(event.currentTarget).attr('data-id'));
+
 		},
 
 		render: function() {
@@ -88,17 +98,15 @@ define([
 				boatquery.equalTo('status', 'approved');
 				boatquery.find().then(function(boats) {
 					_.each(boats, function(boat) {
-
-						self.$el.find('.host-boats').append(_.template(ProfileBoatTemplate)({ model:boat }));
+						self.boats[boat.id] = boat;
+						self.$el.find('.my-boats .boat-details').append(_.template(ProfileBoatTemplate)({ model:boat }));
 
 						var boatPictures = boat.relation('boatPictures').query();
 						boatPictures.ascending('order');
 						boatPictures.first().then(function(fileholder) {
 							if( fileholder ) {
 								var target =  self.$el.find('.boat-details .boat-image');
-								console.log("Target: " + target);
-								console.log("Image file: " + fileholder.get("file").url());
-								target.css({ backgroundImage: 'url('+fileholder.get('file').url()+')' });
+								target.html(fileholder.get("file").url());
 							}
 						});
 					});
