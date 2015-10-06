@@ -1601,3 +1601,12 @@ div.loading {
   margin-top: 20px;
   margin-bottom: 5px;
 }
+.screen-boat .content .grey-area {
+  background: #f9fbfb;
+  border-bottom: 2px solid rgba(29, 29, 28, 0.05);
+}
+.screen-boat .content .boat-card {
+  height: 166px;
+  width: 174px;
+  background-size: cover;
+}

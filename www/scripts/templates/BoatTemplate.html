@@ -3,88 +3,81 @@
 	<h1 class="title">BOAT</h1>
 </header>
 <div class="content">
-	<div class="content-padded text-center">
-		<div class="boat-card"></div>
-		<div class="boat-pictures"></div>
-		<div class="boat-info">
-			<div class="row row-left">
-				<h4>SOME INFO?</h4>
-			<div>
-			<div class="row row-right">
-				<h4>Name</h4> <p><%= name %></p>
-				<h4>Build year</h4> <p><%= buildYear %></p>
-				<h4>Capacity</h4> <p><%= capacity %></p>
-				<h4>Length</h4> <p><%= length %> ft.</p>
-				<h4>Type</h4> <p><%= type %></p>
-			</div>
-		</div>
-		<div class="boat-amenities">
-			<h4>BOAT AMENITIES</h4>
-			<div class="features">
-				<% if( self.model.get('features').airConditioning ) { %>
-					<p>Air Conditioning</p>
-				<% } %>
-				<% if( self.model.get('features').autopilot ) { %>
-					<p>Autopilot</p>
-				<% } %>
-				<% if( self.model.get('features').cooler ) { %>
-					<p>Cooler</p>
-				<% } %>
-				<% if( self.model.get('features').depthFinder ) { %>
-					<p>Depth Finder</p>
-				<% } %>
-				<% if( self.model.get('features').fishFinder ) { %>
-					<p>Fish Finder</p>
-				<% } %>
-				<% if( self.model.get('features').gps ) { %>
-					<p>GPS</p>
-				<% } %>
-				<% if( self.model.get('features').grill ) { %>
-					<p>Grill</p>
-				<% } %>
-				<% if( self.model.get('features').internet ) { %>
-					<p>Internet</p>
-				<% } %>
-				<% if( self.model.get('features').liveBaitWell ) { %>
-					<p>Live Bait Well</p>
-				<% } %>
-				<% if( self.model.get('features').microwave ) { %>
-					<p>Microwave</p>
-				<% } %>
-				<% if( self.model.get('features').refrigeration ) { %>
-					<p>Refrigeration</p>
-				<% } %>
-				<% if( self.model.get('features').rodHolder ) { %>
-					<p>Rod Holder</p>
-				<% } %>
-				<% if( self.model.get('features').shower ) { %>
-					<p>Shower</p>
-				<% } %>
-				<% if( self.model.get('features').sink ) { %>
-					<p>Sink</p>
-				<% } %>
-				<% if( self.model.get('features').stereo ) { %>
-					<p>Stereo</p>
-				<% } %>
-				<% if( self.model.get('features').stereoAuxInput ) { %>
-					<p>Stereo Aux Input</p>
-				<% } %>
-				<% if( self.model.get('features').sonar ) { %>
-					<p>Sonar</p>
-				<% } %>
-				<% if( self.model.get('features').swimLadder ) { %>
-					<p>Swim Ladder</p>
-				<% } %>
-				<% if( self.model.get('features').tvDvd ) { %>
-					<p>TV/DVD</p>
-				<% } %>
-				<% if( self.model.get('features').trollingMotor ) { %>
-					<p>Trolling Motor</p>
-				<% } %>
-				<% if( self.model.get('features').wakeboardTower ) { %>
-					<p>Wakeboard Tower</p>
-				<% } %>
-			</div>
+	<div class="boat-card"></div>
+	<div class="boat-pictures"></div>
+	<div class="boat-info grey-area">
+		<h4>Name</h4><p><%= name %></p>
+		<h4>Build year</h4> <p><%= buildYear %></p>
+		<h4>Capacity</h4> <p><%= capacity %></p>
+		<h4>Length</h4> <p><%= length %> ft.</p>
+		<h4>Type</h4> <p><%= type %></p>
+	</div>
+	<div class="boat-amenities grey-area">
+		<h4>BOAT AMENITIES</h4>
+		<div class="features">
+			<% if( self.model.get('features').airConditioning ) { %>
+				<p>Air Conditioning</p>
+			<% } %>
+			<% if( self.model.get('features').autopilot ) { %>
+				<p>Autopilot</p>
+			<% } %>
+			<% if( self.model.get('features').cooler ) { %>
+				<p>Cooler</p>
+			<% } %>
+			<% if( self.model.get('features').depthFinder ) { %>
+				<p>Depth Finder</p>
+			<% } %>
+			<% if( self.model.get('features').fishFinder ) { %>
+				<p>Fish Finder</p>
+			<% } %>
+			<% if( self.model.get('features').gps ) { %>
+				<p>GPS</p>
+			<% } %>
+			<% if( self.model.get('features').grill ) { %>
+				<p>Grill</p>
+			<% } %>
+			<% if( self.model.get('features').internet ) { %>
+				<p>Internet</p>
+			<% } %>
+			<% if( self.model.get('features').liveBaitWell ) { %>
+				<p>Live Bait Well</p>
+			<% } %>
+			<% if( self.model.get('features').microwave ) { %>
+				<p>Microwave</p>
+			<% } %>
+			<% if( self.model.get('features').refrigeration ) { %>
+				<p>Refrigeration</p>
+			<% } %>
+			<% if( self.model.get('features').rodHolder ) { %>
+				<p>Rod Holder</p>
+			<% } %>
+			<% if( self.model.get('features').shower ) { %>
+				<p>Shower</p>
+			<% } %>
+			<% if( self.model.get('features').sink ) { %>
+				<p>Sink</p>
+			<% } %>
+			<% if( self.model.get('features').stereo ) { %>
+				<p>Stereo</p>
+			<% } %>
+			<% if( self.model.get('features').stereoAuxInput ) { %>
+				<p>Stereo Aux Input</p>
+			<% } %>
+			<% if( self.model.get('features').sonar ) { %>
+				<p>Sonar</p>
+			<% } %>
+			<% if( self.model.get('features').swimLadder ) { %>
+				<p>Swim Ladder</p>
+			<% } %>
+			<% if( self.model.get('features').tvDvd ) { %>
+				<p>TV/DVD</p>
+			<% } %>
+			<% if( self.model.get('features').trollingMotor ) { %>
+				<p>Trolling Motor</p>
+			<% } %>
+			<% if( self.model.get('features').wakeboardTower ) { %>
+				<p>Wakeboard Tower</p>
+			<% } %>
 		</div>
 	</div>
 </div>
