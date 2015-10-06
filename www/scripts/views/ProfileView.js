@@ -6,8 +6,9 @@ define([
 'views/CertificationsView',
 'text!templates/ProfileTemplate.html',
 'text!templates/ProfileReviewTemplate.html', 
-'text!templates/ProfileBoatTemplate.html'
-], function(ReportModel, BaseView, ReportView, BoatView, CertificationsView, ProfileTemplate, ProfileReviewTemplate, ProfileBoatTemplate){
+'text!templates/ProfileBoatTemplate.html', 
+'text!templates/ProfileBoatDaysTemplate.html'
+], function(ReportModel, BaseView, ReportView, BoatView, CertificationsView, ProfileTemplate, ProfileReviewTemplate, ProfileBoatTemplate, ProfileBoatDaysTemplate){
 	var ProfileView = BaseView.extend({
 
 		className: 'screen-profile',
@@ -25,26 +26,19 @@ define([
 
 		boats: {}, 
 
-		report: function() {
+		boatdays: {}, 
 
-			Parse.Analytics.track('profile-click-report');
+		report: function() {
 
 			this.modal(new ReportView({ model : new ReportModel({ action: 'profile', profile: this.model }) }));
 		},
 
 		certifications: function(event) {
-			
-			Parse.Analytics.track('profile-click-certifications');
-
 			this.modal(new CertificationsView());
 		},
 
 		profile: function(event) {
-
 			event.preventDefault();
-
-			Parse.Analytics.track('profile-click-profile');
-
 			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
 		},
 
@@ -93,6 +87,27 @@ define([
 						return;
 					} 
 
+				});
+
+				var boatDayquery = new Parse.Query(Parse.Object.extend('BoatDay'));
+				boatDayquery.equalTo('host', this.model.get('host'));
+				boatDayquery.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
+				boatDayquery.equalTo("status", 'complete');
+				boatDayquery.include('boat');
+				boatDayquery.find().then(function(boatdays) {
+					self.$el.find('.my-boatdays .boatdays-details').html('');
+					_.each(boatdays, function(boatday) {
+						self.boatdays[boatday.id] = boatday;
+						self.$el.find('.my-boatdays .boatdays-details').append(_.template(ProfileBoatDaysTemplate)({ model:boatday }));
+
+						var queryPictures = boatday.get('boat').relation('boatPictures').query();
+						queryPictures.ascending('order');
+						queryPictures.first().then(function(fileholder) {
+							if( fileholder ) {
+								self.$el.find('.boatday-card.card-'+boatday.id+' .picture').html(fileholder.get('file').url());
+							}
+						});
+					});
 				});
 
 				var boatquery = new Parse.Query(Parse.Object.extend('Boat'));
