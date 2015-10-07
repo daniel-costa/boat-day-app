@@ -5,11 +5,13 @@
 </header>
 <div class="content">
 	<div class="header grey-area text-center">
-		<div class="host-picture" style="background-image:url(<%= profilePicture.url %>)"></div>
+		<div class="<%= self.model.get('host') ? 'host' : 'guest' %>-picture" style="background-image:url(<%= profilePicture.url %>)"></div>
 		<h1><%= displayName %></h1>
 		
 		<% if (self.model.get('host')) {%>
 			<h2>Host since <%= new Date(self.model.get('host').createdAt).toLocaleDateString() %></h2>
+		<% } else { %>
+			<h2>Guest since <%= new Date(createdAt).toLocaleDateString() %></h2>
 		<% } %>
 
 		<p class="about">"<%= about.replace(/\n/g, "<br>") %>"</p>
@@ -46,8 +48,8 @@
 			<div class="swiper-container">
 				<div class="swiper-wrapper list"></div>
 				<div class="swiper-pagination"></div>
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev bd-chevron-left"></div>
+				<div class="swiper-button-next bd-chevron-right"></div>
 			</div>
 		</div>
 

@@ -29,7 +29,7 @@ define([
 					switch(buttonIndex) {
 						case 1: 
 							
-							Parse.Analytics.track('map-get-gmaps');
+							// Parse.Analytics.track('map-get-gmaps');
 							
 							var url = 'comgooglemaps://?directionsmode=driving&daddr='+boatday.get('location').latitude + ',' + boatday.get('location').longitude;
 							window.open(url, '_system');

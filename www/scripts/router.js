@@ -78,7 +78,7 @@ define([
 				query.include('captain');
 				query.include('captain.host');
 				query.get(id).then(function(boatday) {
-					self.render(new BoatDayView({ model: boatday }));
+					self.render(new BoatDayView({ model: boatday, fromUpcoming: false }));
 				});
 			};
 

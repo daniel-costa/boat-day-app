@@ -8,12 +8,17 @@
 	padding: 49px 0px 37px 0px
 }
 
-.screen-profile .content .header .host-picture {
+.screen-profile .content .header .host-picture,
+.screen-profile .content .header .guest-picture {
 	width: 78px;
 	height: 78px;
 	border-radius: 5pt;
 	display: inline-block;
 	background-size: cover;
+}
+
+.screen-profile .content .header .guest-picture {
+	border-radius: 78px;
 }
 
 .screen-profile .content .header h1 {
@@ -153,6 +158,7 @@
 	font-size: 0pt;
 }
 
+.screen-profile .content .reviews div.review .host-picture,
 .screen-profile .content .reviews div.review .guest-picture {
 	width: 26pt;
 	height: 26pt;
@@ -160,6 +166,10 @@
 	background-size: cover;
 	vertical-align: middle;
 	display: inline-block;
+}
+
+.screen-profile .content .reviews div.review .host-picture {
+	border-radius: 2.13pt;
 }
 
 .screen-profile .content .reviews div.review h4 {
@@ -248,8 +258,9 @@
 	border: 1px solid red;
 	border-radius: 4.27pt;
 	overflow: hidden;
-	border: 1px solid rgba(228, 233, 235, 1);
+	border: 1px solid #e4e9eb;
 	border-bottom-width: 2px;
+	margin: 0px 66px;
 }
 
 .screen-profile .content .boatdays .boatday-card .boatday-image {
@@ -261,12 +272,78 @@
 	background: white;
 	padding: 20px 13px 16px 13px;
 }
-	
+
 .screen-profile .content .boatdays .boatday-card .details p {
-	color: rgba(84, 110, 122, 1);
+	color: #546e7a;
 	font-size: 11.95pt;
 	font-weight: 400;
 	line-height: 16pt;
 	margin: 0px;
 	padding: 0px;
+}
+
+.screen-profile .content .boatdays .swiper-container {
+	width: 100%;
+	height: 100%;
+	padding: 29px 0px 54px 0px;
+}
+
+
+.screen-profile .content .boatdays .swiper-button-disabled {
+	opacity: 0;
+}
+
+.screen-profile .content .boatdays .swiper-button-prev {
+	left: 23px;
+}
+
+.screen-profile .content .boatdays .swiper-button-next {
+	right: 23px;
+}
+.screen-profile .content .boatdays .swiper-button-next,
+.screen-profile .content .boatdays .swiper-button-prev {
+	background: none;
+	line-height: 22px;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #546e7a;
+	border-radius: 20px;
+	font-size: 8px;
+	text-align: center;
+	margin-top: -10px;
+}
+
+
+.screen-profile .content .boatdays .swiper-button-prev:after,
+.screen-profile .content .boatdays .swiper-button-next:after {
+	content:"";
+	width: 40px;
+	height: 60px;
+	top: -20px;
+	left: -10px;
+	position: absolute;
+	background: transparent;
+}
+
+.screen-profile .content .boatdays .swiper-pagination {
+	bottom: 15px;
+}
+
+.screen-profile .content .boatdays .swiper-pagination-bullet {
+	width: 8px;
+	height: 8px;
+	border-radius: 8px;
+	background: rgba(177, 191, 204, 1);
+}
+
+.screen-profile .content .boatdays .swiper-pagination-bullet-active {
+	background: rgba(17, 171, 193, 1)
+}
+
+.screen-profile-picture .profile-picture {
+	margin:auto;	
+}
+	
+.screen-profile-picture p.display-name {
+	text-align: center;
 }

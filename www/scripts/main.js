@@ -18,7 +18,7 @@ require.config({
 		stripe:		'https://js.stripe.com/v2/?1',
 		async:		'vendor/requirejs-plugins/src/async',
 		masks: 		'vendor/jquery-mask-plugin/dist/jquery.mask.min',
-		swiper: 	'vendor/swiper/dist/js/swiper.jquery.umd.min',
+		Swiper: 	'vendor/swiper/dist/js/swiper.jquery.umd.min',
 	},
 
 	shim: {
@@ -38,7 +38,7 @@ require.config({
 		"masks": {
 			deps: ["jquery"]
 		},
-		"swiper": {
+		"Swiper": {
 			deps: ["jquery"]
 		},
 	},
@@ -81,7 +81,7 @@ function handleOpenURL(url) {
 
 }
 
-require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs', 'swiper'], function(FastClick, Parse, AppRouter, AppView) {
+require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs'], function(FastClick, Parse, AppRouter, AppView) {
 
 	FastClick.attach(document.body);
 
@@ -98,8 +98,8 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs', '
 
 			appStarted = true;
 
-			//Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
-			Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
+			Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
+			// Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
 
 			new AppView(function() {
 				new AppRouter();

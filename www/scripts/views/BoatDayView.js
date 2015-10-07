@@ -38,7 +38,9 @@ define([
 
 		initialize: function(data) {
 
-			this.fromUpcoming = data.fromUpcoming;
+			if( typeof data.fromUpcoming !== typeof undefined) {
+				this.fromUpcoming = data.fromUpcoming;
+			}
 
 			if( typeof data.seatRequest !== typeof undefined) {
 				this.seatRequest = data.seatRequest;

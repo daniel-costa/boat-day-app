@@ -78,15 +78,13 @@ define([
 			}));
 		},
 
-		// camera: function() { },
-
 		emergency: function(event) {
 			
 			Parse.Analytics.track('bd-active-click-emergency');
 
 			var prompt = function(buttonIndex) {
 
-				Parse.Analytics.track('bd-active-emergency', { boatday: this.model.id, buttonIndex: buttonIndex });
+				// Parse.Analytics.track('bd-active-emergency', { boatday: this.model.id, buttonIndex: buttonIndex });
 
 				switch(buttonIndex) {
 					case 1: 

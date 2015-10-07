@@ -220,8 +220,13 @@ define([
 			navigator.notification.confirm(
 				"You’re about to request " + self._in('seats').val() + " seat" + (self._in('seats').val() == 1 ? '' : 's') + " for " + self.$el.find('.price-total').text() + "! Ready for #BetterBoating?",
 				function(buttonIndex) {
-					Parse.Analytics.track('book-confirmation', { buttonIndex: buttonIndex });
-					if( buttonIndex == 2 ) self.bookSave();
+
+					// Parse.Analytics.track('book-confirmation', { });
+
+					if( buttonIndex == 2 ) {
+						self.bookSave();
+					}
+					
 				},
 				"Book Now!",
 				["Cancel", "Continue"]
@@ -235,6 +240,7 @@ define([
 			if( self.loading('.btn-book') ) {
 				return ;
 			}
+
 			self.cleanForm();
 
 			if( !self._in('card').val() ) {
@@ -266,6 +272,7 @@ define([
 				});
 
 			}, function(error) {
+				console.log(error);
 				Parse.Analytics.track('book-save-fail');
 			});
 
