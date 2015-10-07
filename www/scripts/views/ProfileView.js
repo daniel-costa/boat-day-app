@@ -112,7 +112,7 @@ define([
 				});
 
 				var boatDayquery = new Parse.Query(Parse.Object.extend('BoatDay'));
-				boatDayquery.equalTo('host', this.model.get('host'));
+				boatDayquery.equalTo('captain', this.model.get('host').get('profile'));
 				boatDayquery.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
 				boatDayquery.equalTo("status", 'complete');
 				boatDayquery.include('boat');
@@ -142,8 +142,26 @@ define([
 					});
 				});
 
-				var boatQuery = new Parse.Query(Parse.Object.extend('Boat'));
-				boatQuery.equalTo('host', this.model.get('host'));
+
+				var captainRequestQuery = new Parse.Query(Parse.Object.extend('CaptainRequest'));
+				captainRequestQuery.equalTo('captainHost', this.model.get('host'));
+				// captainRequestQuery.find().then(function(x) {
+				// 	console.log(x)
+				// });
+
+				var boatCaptainQuery = new Parse.Query(Parse.Object.extend('Boat'));
+				boatCaptainQuery.matchesQuery('captains', captainRequestQuery);
+				// boatCaptainQuery.find().then(function(x) {
+				// 	console.log(x)
+				// });
+
+				var boatHostQuery = new Parse.Query(Parse.Object.extend('Boat'));
+				boatHostQuery.equalTo('host', this.model.get('host'));
+				// boatHostQuery.find().then(function(x) {
+				// 	console.log(x)
+				// });
+				
+				var boatQuery = new Parse.Query.or(boatHostQuery, boatCaptainQuery);
 				boatQuery.equalTo('status', 'approved');
 				boatQuery.find().then(function(boats) {
 					_.each(boats, function(boat) {
