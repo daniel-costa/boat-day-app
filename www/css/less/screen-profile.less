@@ -11,7 +11,7 @@
 .screen-profile .content .header .host-picture {
 	width: 78px;
 	height: 78px;
-	border-radius: 5px;
+	border-radius: 5pt;
 	display: inline-block;
 	background-size: cover;
 }
@@ -37,8 +37,8 @@
 .screen-profile .content .header p.about {
 	color: rgba(84, 110, 122, 0.79);
 	font-size: 11pt;
-	font-weight: 200;
-	text-style: italic;
+	font-weight: 300;
+	font-style: italic;
 	line-height: 15pt;
 	margin: 16px 45px 3px 45px;
 	padding: 0px;
@@ -66,5 +66,207 @@
 	position: absolute;
 	top: -5.5pt;
 	left: -23pt;
-	background: url(../resources/check-grey.png) center center no-repeat red;
+	background: url(../resources/check-grey.png) center center no-repeat;
+}
+
+.screen-profile .content h3 {
+	color: rgba(84, 110, 122, 1);
+	font-size: 9pt;
+	font-weight: 400;
+	line-height: 14pt;
+	margin: 0px;
+	padding: 4px 14px 6px 14px;
+	background: rgba(223, 239, 241, 1);
+	display: inline-block;
+	border-radius: 0px 0px 2pt 2pt;
+}
+
+.screen-profile .content .boatdays {
+	text-align: center;
+}
+
+.screen-profile .content .boats {
+	text-align: center;
+}
+
+.screen-profile .content .boats .list .boat {
+	margin: 12px 37px 0px 37px;
+	text-align: left;
+	border: 1pt solid rgba(228, 233, 235, 1);
+	border-bottom-width: 2pt;
+	border-radius: 2pt;
+}
+
+.screen-profile .content .boats .list .boat:first-child {
+	margin-top: 31px;
+}
+
+.screen-profile .content .boats .list .boat:last-child {
+	margin-bottom: 39px;
+}
+
+.screen-profile .content .boats .list .boat .boat-image {
+	width: 25px;
+	height: 25px;
+	border-radius: 2pt;
+	background-size: cover;
+	display: inline-block;
+	margin: 12px;
+	vertical-align:middle;
+}
+
+.screen-profile .content .boats .list .boat p {
+	color: #546e7a;
+	font-size: 12pt;
+	font-weight: 400;
+	line-height: 13pt;
+	display: inline-block;
+	vertical-align:middle;
+	margin: 0px;
+}
+
+.screen-profile .content .reviews {
+	padding: 5px 0px;
+	border-bottom: 2px solid rgba(29, 29, 28, 0.05);
+}
+
+.screen-profile .content .reviews p.no-data {
+	color: rgba(84, 110, 122, 0.35);
+	font-size: 11pt;
+	font-weight: 400;
+	line-height: 15pt;
+	margin: 22px 0px;
+	padding: 0px;
+}
+
+.screen-profile .content .reviews div.review {
+	margin: 21px 25px 0px 25px;
+	padding: 0px 0px 30px 0px;
+	border-bottom: 1px solid rgba(29, 29, 36, 0.05);
+}
+
+.screen-profile .content .reviews div.review:last-child {
+	border-bottom: none;
+}
+
+.screen-profile .content .reviews div.review .heading {
+	font-size: 0pt;
+}
+
+.screen-profile .content .reviews div.review .guest-picture {
+	width: 26pt;
+	height: 26pt;
+	border-radius: 26pt;
+	background-size: cover;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.screen-profile .content .reviews div.review h4 {
+	color: rgba(17, 171, 193, 1);
+	font-size: 10.67pt;
+	font-weight: 500;
+	line-height: 15pt;
+	margin: 0px;
+	margin-left: 8px;
+	padding: 0px;
+	vertical-align: middle;
+	display: inline-block;
+	position:relative;
+}
+
+.screen-profile .content .reviews div.review h4:after {
+	content: "";
+	width: 3pt;
+	height: 3pt;
+	border-radius: 3pt;
+	position: absolute;
+	right: -8pt;
+	top: 6pt;
+	background: rgba(84, 110, 122, 1);
+}
+
+.screen-profile .content .reviews div.review .date {
+	color: rgba(177, 191, 204, 1);
+	font-size: 9.53pt;
+	font-weight: 400;
+	line-height: 12pt;
+	margin: 7pt 0px;
+	padding: 0px;
+	display: inline-block;
+	float:right;
+}
+
+
+.screen-profile .content .reviews div.review .rating {
+	width: 60px;
+	margin: 0px;
+	margin-left: 13pt;
+	padding: 0px;
+	line-height: 12pt;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.screen-profile .content .reviews div.review .rating .rating-full {
+	width: 12px;
+	height: 12px;
+	float: left;
+	margin:0px;
+	padding: 0px;
+	background: url(../resources/rating-full.png) center center no-repeat;
+}
+
+.screen-profile .content .reviews div.review .rating .rating-empty {
+	width: 12px;
+	height: 12px;
+	float: left;
+	margin:0px;
+	padding: 0px;
+	background: url(../resources/rating-empty.png) center center no-repeat;	
+}
+
+.screen-profile .content .reviews div.review p.review {
+	color: rgba(84, 110, 122, 1);
+	font-size: 11.52pt;
+	font-weight: 400;
+	line-height: 16pt;
+	margin: 11px 0px 10px 0px;
+	padding: 0px;
+}
+
+.screen-profile .content .reviews div.review p.boatday {
+	color: rgba(177, 191, 204, 1);
+	font-size: 9.39pt;
+	font-weight: 400;
+	line-height: 12pt;
+	margin: 0px;
+	padding: 0px;
+}
+
+.screen-profile .content .boatdays .boatday-card {
+	border: 1px solid red;
+	border-radius: 4.27pt;
+	overflow: hidden;
+	border: 1px solid rgba(228, 233, 235, 1);
+	border-bottom-width: 2px;
+}
+
+.screen-profile .content .boatdays .boatday-card .boatday-image {
+	height: 144px;
+	background-size: cover;
+}
+
+.screen-profile .content .boatdays .boatday-card .details {
+	background: white;
+	padding: 20px 13px 16px 13px;
+}
+	
+.screen-profile .content .boatdays .boatday-card .details p {
+	color: rgba(84, 110, 122, 1);
+	font-size: 11.95pt;
+	font-weight: 400;
+	line-height: 16pt;
+	margin: 0px;
+	padding: 0px;
 }

@@ -7,17 +7,18 @@ require.config({
 	urlArgs: "bust=" + (new Date()).getTime(),
 
 	paths: {
-		jquery:	 'vendor/jquery/dist/jquery.min',
+		jquery:	 	'vendor/jquery/dist/jquery.min',
 		underscore: 'vendor/underscore/underscore-min',
-		parse:	  'vendor/parse/parse.min',
-		text:	   'vendor/requirejs-text/text',
+		parse:		'vendor/parse/parse.min',
+		text: 		'vendor/requirejs-text/text',
 		ratchet:	'vendor/ratchet/dist/js/ratchet',
-		snapjs:	 'vendor/Snap.js/dist/latest/snap',
+		snapjs:	 	'vendor/Snap.js/dist/latest/snap',
 		facebook: 	'http://connect.facebook.net/en_US/all',
 		fastclick:  'vendor/fastclick/lib/fastclick',
-		stripe:	 'https://js.stripe.com/v2/?1',
+		stripe:		'https://js.stripe.com/v2/?1',
 		async:		'vendor/requirejs-plugins/src/async',
-		masks: 		'vendor/jquery-mask-plugin/dist/jquery.mask.min'
+		masks: 		'vendor/jquery-mask-plugin/dist/jquery.mask.min',
+		swiper: 	'vendor/swiper/dist/js/swiper.jquery.umd.min',
 	},
 
 	shim: {
@@ -36,7 +37,10 @@ require.config({
 		},
 		"masks": {
 			deps: ["jquery"]
-		}
+		},
+		"swiper": {
+			deps: ["jquery"]
+		},
 	},
 	googlemaps: {
 		params: {
@@ -77,7 +81,7 @@ function handleOpenURL(url) {
 
 }
 
-require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs'], function(FastClick, Parse, AppRouter, AppView) {
+require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs', 'swiper'], function(FastClick, Parse, AppRouter, AppView) {
 
 	FastClick.attach(document.body);
 

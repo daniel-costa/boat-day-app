@@ -42,12 +42,17 @@
 
 	<% if (self.model.get('host')) {%>
 		<div class="boatdays grey-area">
-			<h3><%= self.model.get('host').get('firstname').toUpperCase() %>'S BOATDAYS</h3>
-			<div class="list"></div>
+			<h3><%= self.model.get('host').get('firstname').toUpperCase() %>'S UPCOMING BOATDAYS</h3>
+			<div class="swiper-container">
+				<div class="swiper-wrapper list"></div>
+				<div class="swiper-pagination"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+			</div>
 		</div>
 
 		<div class="boats">
-			<h3><%= self.model.get('host').get('firstname').toUpperCase() %>'S BOAT</h3>
+			<h3><%= self.model.get('host').get('firstname').toUpperCase() %>'S BOATS</h3>
 			<div class="list"></div>
 		</div>
 	<% } %>

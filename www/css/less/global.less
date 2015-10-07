@@ -1,7 +1,6 @@
 * {
 	/* make transparent link selection, adjust last value opacity 0 to 1.0 */
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -10,6 +9,7 @@ body {
 	-webkit-user-select: none;
 	background : url(../resources/index-loading.png) center center no-repeat;
 	background-size: cover;
+	font-family: Avenir, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 .clip-to-bottom {
@@ -25,11 +25,11 @@ body {
 
 header.bar.bar-nav, 
 div.content .bar-header-secondary {
-	height: 60px !important;
+	height: 55px !important;
 	-webkit-transform: translateZ(0);
 	-webkit-box-shadow: none;
-	border-bottom: 1px solid @header-border;
-	background: -webkit-linear-gradient(15deg, @header-bg-left, @header-bg-right);;
+	border-bottom: none;
+	background: -webkit-linear-gradient(45deg, #0AB8C8 , #13A7BF);
 }
 
 header.bar.bar-nav a.icon, 
@@ -51,10 +51,14 @@ header.bar.bar-nav a.icon:after {
 }
 
 header.bar.bar-nav h1 {
-	line-height: 44px;
-	margin-top : 16px;
-	color : @header-color;
-	font-family: museo;
+	color: white;
+	font-family: Avenir;
+	font-size: 10.24pt;
+	font-weight: 400;
+	line-height: 10.24pt;
+	margin-top: 28px;
+	text-transform: uppercase;
+
 	left: 50px;
 	right: 50px;
 	width: auto;

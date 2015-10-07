@@ -7,8 +7,8 @@ define([
 'text!templates/ProfileTemplate.html',
 'text!templates/ProfileReviewTemplate.html', 
 'text!templates/ProfileBoatTemplate.html', 
-'text!templates/ProfileBoatDaysTemplate.html'
-], function(ReportModel, BaseView, ReportView, BoatView, CertificationsView, ProfileTemplate, ProfileReviewTemplate, ProfileBoatTemplate, ProfileBoatDaysTemplate){
+'text!templates/ProfileBoatDayTemplate.html'
+], function(ReportModel, BaseView, ReportView, BoatView, CertificationsView, ProfileTemplate, ProfileReviewTemplate, ProfileBoatTemplate, ProfileBoatDayTemplate){
 	var ProfileView = BaseView.extend({
 
 		className: 'screen-profile',
@@ -95,25 +95,27 @@ define([
 				boatDayquery.equalTo("status", 'complete');
 				boatDayquery.include('boat');
 				boatDayquery.find().then(function(boatdays) {
-					self.$el.find('.my-boatdays .boatdays-details').html('');
+					self.$el.find('.boatdays .list').html('');
 					_.each(boatdays, function(boatday) {
 						self.boatdays[boatday.id] = boatday;
-						self.$el.find('.my-boatdays .boatdays-details').append(_.template(ProfileBoatDaysTemplate)({ model:boatday }));
+						self.$el.find('.boatdays .list').append(_.template(ProfileBoatDayTemplate)({ model:boatday }));
 
 						var queryPictures = boatday.get('boat').relation('boatPictures').query();
 						queryPictures.ascending('order');
 						queryPictures.first().then(function(fileholder) {
 							if( fileholder ) {
-								self.$el.find('.boatday-card.card-'+boatday.id+' .picture').html(fileholder.get('file').url());
+								self.$el.find('.boatday-card[data-id="'+boatday.id+'"] .boatday-image').css({ backgroundImage: fileholder.get('file').url() });
 							}
 						});
 					});
+
+					var swiperBoatDays = new Swiper(self.$el.find('.swiper-container'), {});
 				});
 
-				var boatquery = new Parse.Query(Parse.Object.extend('Boat'));
-				boatquery.equalTo('host', this.model.get('host'));
-				boatquery.equalTo('status', 'approved');
-				boatquery.find().then(function(boats) {
+				var boatQuery = new Parse.Query(Parse.Object.extend('Boat'));
+				boatQuery.equalTo('host', this.model.get('host'));
+				boatQuery.equalTo('status', 'approved');
+				boatQuery.find().then(function(boats) {
 					_.each(boats, function(boat) {
 						self.boats[boat.id] = boat;
 						self.$el.find('.boats .list').append(_.template(ProfileBoatTemplate)({ model: boat }));
@@ -122,7 +124,7 @@ define([
 						boatPictures.ascending('order');
 						boatPictures.first().then(function(fileholder) {
 							if( fileholder ) {
-								self.$el.find('.boats .list .boat[data-id="'+boat.id+'"] .boat-image').html(fileholder.get("file").url());
+								self.$el.find('.boats .list .boat[data-id="'+boat.id+'"] .boat-image').css({ backgroundImage: 'url('+fileholder.get("file").url()+')' });
 							}
 						});
 					});
