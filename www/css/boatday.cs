@@ -1862,15 +1862,6 @@ div.loading {
   font-size: 8.5pt;
   line-height: 12pt;
 }
-.screen-boat .content .boat-pictures {
-  margin: 36px 59px 36px 59px;
-}
-.screen-boat .content .boat-pictures .boats-list {
-  height: 64px;
-  width: 64px;
-  display: inline-block;
-  margin: 0px 3px 3px 0px;
-}
 .screen-boat .content .grey-area .boat-info {
   padding: 36px 80px 31px 80px;
 }

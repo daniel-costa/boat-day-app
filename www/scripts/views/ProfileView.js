@@ -22,7 +22,7 @@ define([
 			'click .certifications': 'certifications',
 			'click .open-profile': 'profile',
 			'click .boatday-card': 'boatday',
-			// 'click .boat': 'boat'
+			'click .boat': 'boat'
 		},
 		
 		profiles: {},
