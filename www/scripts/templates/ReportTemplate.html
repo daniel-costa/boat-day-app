@@ -1,10 +1,30 @@
-<header class="bar bar-nav">
+<!-- <header class="bar bar-nav">
 	<a class="icon icon-close pull-left close-me"></a>
-	<h1 class="title">Report Content</h1>
+	<h1 class="title">Report User</h1>
 </header>
 <div class="content">
 	<div class="content-padded text-center">
 		<textarea name="message" rows="3" placeholder="Please describe your issue."></textarea>
 		<button class="btn btn-block btn-send"><span class="fa fa-paper-plane-o"></span> Report</button>
+	</div>
+</div> -->
+
+<header class="bar bar-nav">
+	<a class="icon icon-close pull-left close-me"></a>
+	<h1 class="title">Report User</h1>
+</header>
+<div class="content">
+	<div class="header grey-area text-center">
+		<p>I´m reporting</p>
+		<h1><%= self.model.get('profile').get('displayName') %></h1>
+		<div class="profile-picture" style="background-image:url(<%= self.model.get('profile').get('profilePicture').url() %>)"></div>
+		<!-- <div class="guestPic"><%= self.model.get('profile').get('profilePicture').url() %></div> -->
+	</div>
+	<div class="comment-box">
+		<label>REASON</label>
+		<textarea name="message" rows="3" placeholder="Your comment here"></textarea>
+	</div>
+	<div class="footer grey-area text-center">
+		<button class="btn btn-block btn-send">Submit report</button>
 	</div>
 </div>

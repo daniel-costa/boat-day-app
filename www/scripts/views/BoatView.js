@@ -1,3 +1,4 @@
+
 define([
 'views/BaseView', 
 'text!templates/BoatTemplate.html', 
@@ -26,11 +27,6 @@ define([
 			var queryPictures = self.model.relation('boatPictures').query();
 			queryPictures.ascending('order');
 			queryPictures.find().then( function(results) {
-				// //var _tpl = _.template(BoatPicturesTemplate);
-				// _.each(results, function(result) {
-				// 	self.$el.find('.content .boat-pictures').append(_.template(BoatPicturesTemplate)({ model: result }))
-				// });
-				console.log(results.length);
 				_.each(results, self.appendBoatPicture, self);
 
 			});

@@ -1870,6 +1870,7 @@ div.loading {
   width: 64px;
   display: inline-block;
   margin: 0px 3px 3px 0px;
+  background-size: cover;
 }
 .screen-boat .content .grey-area .boat-info {
   padding: 36px 80px 31px 80px;
@@ -1918,4 +1919,40 @@ div.loading {
   font-size: 10.5pt;
   line-height: 19pt;
   text-align: center;
+}
+.screen-profile-report .content .grey-area {
+  background: #f9fbfb;
+  border-bottom: 2px solid rgba(29, 29, 28, 0.05);
+}
+.screen-profile-report .content .header {
+  text-align: center;
+}
+.screen-profile-report .content .header p {
+  color: #546e7a;
+  font-size: 11pt;
+  font-weight: 300;
+  line-height: 15pt;
+}
+.screen-profile-report .content .header h1 {
+  color: #546e7a;
+  font-size: 17.07pt;
+  font-weight: 400;
+  line-height: 23pt;
+}
+.screen-profile-report .content .header .profile-picture {
+  width: 78px;
+  height: 78px;
+  display: inline-block;
+  background-size: cover;
+  border: 2px white solid;
+}
+.screen-profile-report .content .comment-box {
+  height: 206px;
+  width: 320px;
+}
+.screen-profile-report .content .comment-box label {
+  color: #b1bfcc;
+  font-size: 8.53pt;
+  font-weight: 400;
+  line-height: 8,53pt;
 }
