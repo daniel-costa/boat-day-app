@@ -43,8 +43,8 @@ define([
 			// var innerQueryByStatus = new Parse.Query(Parse.Object.extend('BoatDay'));
 			// innerQueryByStatus.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
 
-			var queryByFuturByStatus = Parse.User.current().get('profile').relation('requests').query();
-			queryByFuturByStatus.notContainedIn('status', ['approved', 'pending']);
+			// var queryByFuturByStatus = Parse.User.current().get('profile').relation('requests').query();
+			// queryByFuturByStatus.notContainedIn('status', ['approved', 'pending']);
 			// queryByStatus.matchesQuery("boatday", innerQueryByStatus);
 
 
@@ -65,12 +65,13 @@ define([
 
 
 			var innerQueryCancelled = new Parse.Query(Parse.Object.extend('BoatDay'));
-			innerQueryCancelled.notContainedIn('status', ['complete']);
+			innerQueryCancelled.equalTo('status', 'cancelled');
 
 			var queryCancelled = Parse.User.current().get('profile').relation('requests').query();
 			queryCancelled.matchesQuery("boatday", innerQueryCancelled);
 
-			var mainQuery = Parse.Query.or(queryYesterday, queryToday, queryByFuturByStatus, queryCancelled);
+			// var mainQuery = Parse.Query.or(queryYesterday, queryToday, queryByFuturByStatus, queryCancelled);
+			var mainQuery = Parse.Query.or(queryYesterday, queryToday, queryCancelled);
 			mainQuery.include('boatday');
 			mainQuery.include('boatday.boat');
 			mainQuery.include('boatday.captain');

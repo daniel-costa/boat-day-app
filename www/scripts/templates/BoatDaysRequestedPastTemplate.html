@@ -1,0 +1,31 @@
+<div class="boatday-requested-past-card">
+	<div class="header-part">
+		<div class="host-picture"style="background-image:url(<%= model.get('boatday').get('captain').get('profilePicture').url() %>)"></div>
+		<% if( typeof model.get('ratingGuest') === typeof undefined || !model.get('ratingGuest') ) { %>
+			<p class="not-reviewed">You didn't review <strong><%= model.get('boatday').get('captain').get('displayName') %></strong> yet.</p>
+		<% } else { %>
+			<p class="reviewed">You gave <strong><%= model.get('boatday').get('captain').get('displayName') %></strong></p>
+			<div class="rating">
+				<% for(var i = 0; i < Math.ceil(model.get('ratingGuest')); i++) { %><div class="rating-full"></div><% } %>
+				<% for(var i = 0; i < 5 - Math.ceil(model.get('ratingGuest')); i++) { %><div class="rating-empty"></div><% } %>
+			</div>
+		<% } %>
+	</div>
+	<div class="details">
+		<h1><%= model.get('boatday').get('name') %></h1>
+		<div class="items">
+			<div class="item">
+				<div class="bd-pin icon"></div>
+				<div class="label">Miami</div>
+			</div>
+			<div class="item">
+				<div class="bd-calendar-day icon"></div>
+				<div class="label">Sat, 15/5</div>
+			</div>
+			<div class="item">
+				<div class="bd-person icon"></div>
+				<div class="label">$26</div>
+			</div>
+		</div>
+	</div>
+</div>

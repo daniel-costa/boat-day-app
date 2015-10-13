@@ -13,7 +13,6 @@
 				<div class="rating-empty"></div>
 			<% } %>
 		</div>
-		<p class="date"><%= new Date(request.createdAt).toLocaleDateString() %></p>
+		<p class="date"><%= self.dateForProfileReview(request.createdAt) %></p>
 	</div>
-	<p class="boatday">Went to "<%= request.get('boatday').get('name') %>"</p> 
 </div> 

@@ -1,77 +1,131 @@
 .screen-boat .content .grey-area {
 	background: rgba(249, 251, 251, 1);
 	border-bottom: 2px solid rgba(29, 29, 28, 0.05);
-}	
-.screen-boat .content .boat-card {
-	height: 166px;
-	width: 174px;
+}
+
+.screen-boat .content .header-part {
+	height: 220px;
 	text-align: center;
 	background-size: cover;
+	margin: 0px;
+	padding: 90px 0px 60px 0px;
 }
-.screen-boat .content .boat-card h1 {
-	font-weight: 400;
-	font-size: 10pt;
-	line-height: 14pt;
-}
-.screen-boat .content .boat-card h2 {
-	font-weight: 400;
-	font-size: 8.5pt;
-	line-height: 12pt;
-}
-.screen-boat .content .boat-pictures {
-	margin: 36px 59px 36px 59px;
-}
-.screen-boat .content .boat-pictures .boats-list{
-	height: 64px;
-  	width: 64px;
-	display: inline-block;
-	margin: 0px 3px 3px 0px;
-	background-size: cover;
-}
-.screen-boat .content .grey-area .boat-info {
-	padding: 36px 80px 31px 80px;
-}
-.screen-boat .content .grey-area .boat-info #capacity h3, .screen-boat .content .boat-info #capacity p {
-	display: inline;
-	margin-bottom: 11px;
-}
-.screen-boat .content .grey-area .boat-info #length h3, .screen-boat .content .grey-area .boat-info #length p {
-	display: inline;
-	margin-bottom: 11px;	
-}
-.screen-boat .content .grey-area .boat-info #type h3, .screen-boat .content .grey-area .boat-info #type p {
-	display: inline;	
-}
-.screen-boat .content .grey-area .boat-info h3 {
-	color: rgba(177, 191, 204, 1);
-	font-size: 11.5pt;
-	font-weight: 400;
-	line-height: 13pt;
-	padding-right: 3px;
 
+.screen-boat .content .header-part:after {
+	content:"";
+	background: rgba(37, 42, 43, 0.85);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 9;
 }
-.screen-boat .content .grey-area .boat-info p {
-	padding-left: 3px;
+
+.screen-boat .content h1 {
+	color: rgba(255, 255, 255, 1);
+	font-weight: 400;
+	font-size: 9.81pt;
+	line-height: 14pt;
+	margin: 0px;
+	margin-bottom: 3px;
+	padding: 0px;
+	position: relative;
+	z-index: 10;
 }
-.screen-boat .content .boat-amenities h3 {
+
+.screen-boat .content h2 {
+	color: rgba(255, 255, 255, 0.46);
+	font-weight: 400;
+	font-size: 8.53pt;
+	line-height: 12pt;margin: 0px;
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	z-index: 10;
+}
+
+.screen-boat .content h3 {
 	color: rgba(84, 110, 122, 1);
 	font-size: 9pt;
 	font-weight: 400;
 	line-height: 14pt;
-	margin: 0px 105px 30px 105px;
+	margin: 0px;
 	padding: 4px 14px 6px 14px;
 	background: rgba(223, 239, 241, 1);
 	display: inline-block;
 	border-radius: 0px 0px 2pt 2pt;
 }
-.screen-boat .content .boat-amenities .features{
-	margin: 30px 0px 30px 0px;
-	
+
+.screen-boat .content .boat-pictures {
+	padding: 37px 0px;
+	border-bottom: 2px solid rgba(29, 29, 28, 0.05);
 }
+
+.screen-boat .content .boat-pictures .swiper-container {
+	width: 220px;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.screen-boat .content .boat-pictures .list .boat-picture {
+	width: 70px;
+	height: 70px;
+	background-size: cover;
+	border-radius: 2.13pt;
+}
+
+.screen-boat .content .boat-details {
+	padding: 36px 0px 31px 0px;
+	font-size: 0px;
+}
+
+.screen-boat .content .boat-details h4,
+.screen-boat .content .boat-details p {
+	color: rgba(177, 191, 204, 1);
+	font-size: 11.52pt;
+	font-weight: 400;
+	line-height: 12.8pt;
+	width: 49%;
+	margin: 0px;
+	margin-bottom: 11px;
+	padding: 0px;
+	text-align: right;
+	padding-right: 10px;
+	display: inline-block;
+}
+
+.screen-boat .content .boat-details p {
+	color: rgba(84, 110, 122, 1);
+	text-align: left;
+	padding-left: 10px;
+	padding-right: 0px;
+}
+
+.screen-boat .content .boat-details h4:last-of-type,
+.screen-boat .content .boat-details p:last-of-type {
+	margin-bottom: 0px;
+}
+
+.screen-boat .content .boat-amenities {
+	text-align:center;
+}
+
+.screen-boat .content .boat-amenities .features {
+	margin: 30px 0px 30px 0px;
+	text-align: center;
+	font-size: 0px;
+}
+
 .screen-boat .content .boat-amenities .features p {
 	font-weight: 400;
 	color: rgba(84, 110, 122, 1);
-	font-size: 10.5pt;
-	line-height: 19pt;
-	text-align: center;
+	font-size: 10.67pt;
+	line-height: 19.2pt;
+	text-align: left;
+	margin: 0px 20px;
+	width: 90px;
+	display: inline-block;
 }
+

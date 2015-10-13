@@ -1,22 +1,27 @@
 <header class="bar bar-nav">
 	<a class="icon icon-close pull-left close-me"></a>
-	<h1 class="title">BOAT</h1>
+	<h1 class="title">Boat</h1>
 </header>
 <div class="content">
-	<div class="boat-card">
+	<div class="header-part">
 		<h1><%= name %></h1>
 		<h2>Year <%= buildYear %></h2>
 	</div>
-	<div class="boat-pictures"></div>
-	<div class="grey-area">
-		<div class="boat-info ">
-			<div id="capacity"><h3>Capacity</h3> <p><%= capacity %></p></div>
-			<div id="length"><h3>Length</h3> <p><%= length %> ft.</p></div>
-			<div id="type"><h3>Type</h3> <p><%= type %></p></div>
+	
+	<div class="boat-pictures">
+		<div class="swiper-container">
+			<div class="swiper-wrapper list"></div>
 		</div>
 	</div>
-	<div class="boat-amenities grey-area">
-			<h3>BOAT AMENITIES</h3>
+
+	<div class="grey-area boat-details">
+		<h4>Capacity</h4><p><%= capacity %> people</p>
+		<h4>Length</h4><p><%= length %> feet</p>
+		<h4>Type</h4><p><%= type %></p>
+	</div>
+
+	<div class="grey-area boat-amenities">
+		<h3>BOAT AMENITIES</h3>
 		<div class="features">
 			<% if( self.model.get('features').airConditioning ) { %>
 				<p>Air Conditioning</p>

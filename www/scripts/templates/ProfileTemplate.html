@@ -1,6 +1,6 @@
 <header class="bar bar-nav">
 	<a class="icon icon-close pull-left close-me"></a>
-	<h1 class="title"><%= displayName %></h1>
+	<h1 class="title"><%= self.model.get('host') ? ' Host Profile' : 'Guest Profile' %></h1>
 	<a class="icon fa fa-flag-o pull-right report"></a>
 </header>
 <div class="content">
@@ -8,10 +8,10 @@
 		<div class="<%= self.model.get('host') ? 'host' : 'guest' %>-picture" style="background-image:url(<%= profilePicture.url %>)"></div>
 		<h1><%= displayName %></h1>
 		
-		<% if (self.model.get('host')) {%>
-			<h2>Host since <%= new Date(self.model.get('host').createdAt).toLocaleDateString() %></h2>
+		<% if( self.model.get('host') ) {%>
+			<h2>Host since <%= self.dateForProfileSince(self.model.get('host').createdAt) %></h2>
 		<% } else { %>
-			<h2>Guest since <%= new Date(createdAt).toLocaleDateString() %></h2>
+			<h2>Guest since <%= self.dateForProfileSince(createdAt) %></h2>
 		<% } %>
 
 		<p class="about">"<%= about.replace(/\n/g, "<br>") %>"</p>

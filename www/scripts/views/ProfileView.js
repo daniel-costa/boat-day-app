@@ -101,7 +101,7 @@ define([
 						if( request.get('reviewGuest') != "" ) {
 							displayed++;
 							self.profiles[request.get('profile').id] = request.get('profile');
-							self.$el.find('.reviews').append(_.template(ProfileReviewHostTemplate)({ request : request }));
+							self.$el.find('.reviews').append(_.template(ProfileReviewHostTemplate)({ self: self, request : request }));
 						}
 					});
 
@@ -145,21 +145,12 @@ define([
 
 				var captainRequestQuery = new Parse.Query(Parse.Object.extend('CaptainRequest'));
 				captainRequestQuery.equalTo('captainHost', this.model.get('host'));
-				// captainRequestQuery.find().then(function(x) {
-				// 	console.log(x)
-				// });
-
+				
 				var boatCaptainQuery = new Parse.Query(Parse.Object.extend('Boat'));
 				boatCaptainQuery.matchesQuery('captains', captainRequestQuery);
-				// boatCaptainQuery.find().then(function(x) {
-				// 	console.log(x)
-				// });
-
+				
 				var boatHostQuery = new Parse.Query(Parse.Object.extend('Boat'));
 				boatHostQuery.equalTo('host', this.model.get('host'));
-				// boatHostQuery.find().then(function(x) {
-				// 	console.log(x)
-				// });
 				
 				var boatQuery = new Parse.Query.or(boatHostQuery, boatCaptainQuery);
 				boatQuery.equalTo('status', 'approved');
@@ -177,28 +168,32 @@ define([
 						});
 					});
 				});
-			} else {
 
-				var query = new Parse.Query(Parse.Object.extend('SeatRequest'));
-				query.equalTo('profile', self.model.id);
-				query.notEqualTo('ratingHost', null);
-				query.include('boatday.captain');
-				query.find().then(function(requests) {
-
-					_.each(requests, function(request) {
-						self.profiles[request.get('boatday').get('captain').id] = request.get('boatday').get('captain');
-						self.$el.find('.reviews').append(_.template(ProfileReviewGuestTemplate)({ request : request }));
-					});
-
-					if( requests.length == 0 ) {
-						self.$el.find('.reviews').html('<p class="text-center no-data">No current ratings</p>');
-						return;
-					} 
-
-				}, function(error) {
-					console.log(error);
-				});
 			}
+
+			var query = new Parse.Query(Parse.Object.extend('SeatRequest'));
+			query.equalTo('profile', this.model);
+			query.notEqualTo('ratingHost', null);
+			query.include('boatday');
+			query.include('boatday.captain');
+			query.include('profile');
+			query.find().then(function(requests) {
+
+				console.log(requests);
+
+				_.each(requests, function(request) {
+					self.profiles[request.get('boatday').get('captain').id] = request.get('boatday').get('captain');
+					self.$el.find('.reviews').append(_.template(ProfileReviewGuestTemplate)({ self: self, request : request }));
+				});
+
+				if( requests.length == 0 ) {
+					self.$el.find('.reviews').html('<p class="text-center no-data">No current ratings</p>');
+					return;
+				} 
+
+			}, function(error) {
+				console.log(error);
+			});
 
 			return this;
 		}

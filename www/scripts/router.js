@@ -10,10 +10,12 @@ define([
 	'views/BoatDaysUpcomingView',
 	'views/AboutUsView',
 	'views/NotificationsView',
-	'views/BoatDayActiveView'
+	'views/BoatDayActiveView',
+	'views/BoatDaysRequestedView',
 ], function(
 	SignInView, ProfileInfoView, ProfilePictureView, ProfilePaymentsView, ProfilePaymentsAddView, BoatDayView,
-	BoatDaysView, BoatDaysPastView, BoatDaysUpcomingView, AboutUsView, NotificationsView, BoatDayActiveView) {
+	BoatDaysView, BoatDaysPastView, BoatDaysUpcomingView, AboutUsView, NotificationsView, BoatDayActiveView,
+	BoatDaysRequestedView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -23,13 +25,15 @@ define([
 			'boatdays': 'showBoatDays',
 			'boatdays-upcoming': 'showBoatDaysUpcoming',
 			'boatdays-past': 'showBoatDaysPast',
+			'boatdays-requested': 'showBoatDaysRequested',
 			'profile-info': 'showProfileInfo',
 			'profile-picture': 'showProfilePicture',
 			'profile-payments': 'showProfilePayments',
 			'profile-payments-add': 'showProfilePaymentsAdd',
 			'about-us': 'showAboutUs',
 			'notifications': 'showNotifications',
-			'*actions': 'showBoatDays'
+			'*actions': 'showProfilePayments'
+			// '*actions': 'showBoatDays'
 			// '*actions': 'showProfileInfo'
 		},
 		
@@ -112,6 +116,17 @@ define([
 			var self = this;
 			var cb = function() {
 				self.render(new BoatDaysUpcomingView());
+			};
+
+			self.handleSignedIn(cb);
+
+		},
+
+		showBoatDaysRequested: function() {
+
+			var self = this;
+			var cb = function() {
+				self.render(new BoatDaysRequestedView());
 			};
 
 			self.handleSignedIn(cb);
