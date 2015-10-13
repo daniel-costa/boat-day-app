@@ -1922,37 +1922,84 @@ div.loading {
 }
 .screen-profile-report .content .grey-area {
   background: #f9fbfb;
-  border-bottom: 2px solid rgba(29, 29, 28, 0.05);
 }
-.screen-profile-report .content .header {
+.screen-profile-report .content .head {
   text-align: center;
+  border-bottom: 2px solid rgba(29, 29, 28, 0.05);
+  padding: 42px 75px 39px 74px;
 }
-.screen-profile-report .content .header p {
+.screen-profile-report .content .head p {
   color: #546e7a;
   font-size: 11pt;
   font-weight: 300;
   line-height: 15pt;
+  margin-bottom: 0px;
 }
-.screen-profile-report .content .header h1 {
+.screen-profile-report .content .head h1 {
   color: #546e7a;
   font-size: 17.07pt;
   font-weight: 400;
   line-height: 23pt;
+  margin-top: 0px;
+  margin-bottom: 14px;
 }
-.screen-profile-report .content .header .profile-picture {
+.screen-profile-report .content .head .profile-picture {
   width: 78px;
   height: 78px;
   display: inline-block;
   background-size: cover;
   border: 2px white solid;
 }
-.screen-profile-report .content .comment-box {
-  height: 206px;
-  width: 320px;
-}
 .screen-profile-report .content .comment-box label {
   color: #b1bfcc;
   font-size: 8.53pt;
   font-weight: 400;
   line-height: 8,53pt;
+}
+.screen-profile-report .content .reason {
+  padding: 23px 256px 9px 24px;
+}
+.screen-profile-report .content .reason label {
+  color: #b1bfcc;
+  font-size: 8.53pt;
+  font-weight: 400;
+  line-height: 8,53pt;
+  padding-top: 23px;
+  padding-left: 23px;
+}
+.screen-profile-report .content .comment-box textarea {
+  height: 206px;
+  width: 320px;
+  border: none;
+  border-color: Transparent;
+}
+::-webkit-input-placeholder {
+  color: #383d3e;
+  font-size: 12pt;
+  font-weight: 400;
+  line-height: 12pt;
+  padding-top: 0px;
+  padding-left: 35px;
+}
+.screen-profile-report .content .foot {
+  border-top: 0.85px solid rgba(29, 29, 28, 0.05);
+  padding: 25px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+}
+.screen-profile-report .content button {
+  height: 44.37px;
+  width: 270px;
+  background: #11abc1;
+  display: block;
+  margin: 0 auto;
+  border-radius: 1.7px;
+}
+.screen-profile-report .content button label {
+  color: #ffffff;
+  font-size: 11.5pt;
+  font-weight: 400;
+  line-height: 16pt;
 }
