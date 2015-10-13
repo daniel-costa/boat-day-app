@@ -23,11 +23,8 @@
     "requirejs": "2.1.20",
     "requirejs-text": "2.0.14",
     "parse": "1.5.0",
-    "ratchet": "2.0.2",
     "Snap.js": "2.0.0-rc1",
     "fastclick": "1.0.6",
-    "animate.css": "3.2.5",
-    "components-font-awesome": "4.4.0",
     "requirejs-plugins": "1.0.3",
     "jquery-mask-plugin": "1.13.4",
     "swiper": "3.1.5"

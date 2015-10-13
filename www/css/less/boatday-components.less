@@ -1,0 +1,186 @@
+
+.icon {
+	display: inline-block;
+	-webkit-font-smoothing: antialiased;
+}
+
+header .icon {
+	font-size: 20px;
+	line-height: 30px;
+	padding-top: 5px;
+	color: inherit;
+	-webkit-align-self: center;
+}
+
+header .icon:first-child {
+	margin-left: 10px;	
+}
+
+header .icon:last-child {
+	margin-right: 10px;	
+}
+
+.grey-area {
+	background: @grey-area-background;
+	border-bottom: @grey-area-border;
+}
+
+.white-area {
+	background: @white-area-background;
+	border-bottom: @white-area-border;
+}
+
+h6 {
+	color: rgba(84, 110, 122, 1);
+	font-size: 9pt;
+	font-weight: 400;
+	line-height: 14pt;
+	margin: 0px;
+	padding: 4px 14px 6px 14px;
+	background: rgba(223, 239, 241, 1);
+	display: inline-block;
+	border-radius: 0px 0px 2pt 2pt;
+}
+
+button {
+	display: block;
+	width: 100%;
+	text-align: center;
+	display: inline-block;
+	line-height: 16pt;
+	padding: 15px;
+	margin: 0px;
+	margin-bottom: 10px;
+	font-size: 11.52pt;
+	border-radius: 1.71pt;
+
+	background: @button-default-background;
+	border: @button-default-border;
+	color: @button-default-color;
+}
+
+footer button {
+	margin-bottom: 0px;
+}
+
+button:active {
+	background: @button-default-active-background;
+	border: @button-default-active-border;
+	color: @button-default-active-color;
+}
+
+button.btn-action {
+	background: @button-action-background;
+	border: @button-action-border;
+	color: @button-action-color;
+}
+
+button.btn-action:active {
+	background: @button-action-active-background;
+	border: @button-action-active-border;
+	color: @button-action-active-color;
+}
+
+button.btn-primary {
+	background: @button-primary-background;
+	border: @button-primary-border;
+	color: @button-primary-color;
+}
+
+button.btn-primary:active {
+	background: @button-primary-active-background;
+	border: @button-primary-active-border;
+	color: @button-primary-active-color;
+}
+
+.button-spacing {
+	margin: 10px 10px;
+}
+
+.base-picture {
+	display: inline-block;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+
+	width: 78px;
+	height: 78px;
+	border-radius: 5pt;
+
+	&.small {
+		width: 25px;
+		height: 25px;
+		border-radius: 2.13pt;
+	}
+
+	&.medium {
+		width: 52px;
+		height: 52px;
+		border-radius: 2.13pt;
+	}
+
+	&.big {
+		width: 90px;
+		height: 90px;
+		border-radius: 5pt;
+	}
+}
+
+.host-picture {
+	.base-picture();
+	background-image: url(../resources/placeholder-host.jpg);
+}
+
+.boat-picture {
+	.base-picture();
+	background-image: url(../resources/placeholder-boat.jpg);
+}
+
+.guest-picture {
+	.base-picture();
+	border-radius: 320px !important;
+	background-image: url(../resources/placeholder-guest.jpg);
+}
+
+.rating {
+	width: 56pt;
+	height: 12pt;
+	padding: 0px;
+	margin: 0px;
+	display: inline-block;
+	position:relative;
+}
+
+.rating:before,
+.rating .with-empty:before {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	font-size:11.33pt;
+	color: rgba(248, 182, 44, 1);
+}
+
+.rating .with-empty:before {
+	right: 0px;
+	left: auto;
+	color: rgba(177, 191, 204, 0.3);
+}
+
+.rating-5:before { content: "WWWWW"; }
+.rating-4:before { content: "WWWW"; }
+.rating-3:before { content: "WWW"; }
+.rating-2:before { content: "WW"; }
+.rating-1:before { content: "W"; }
+.rating-0:before { content: ""; }
+
+.rating-5 .with-empty:before { content: ""; }
+.rating-4 .with-empty:before { content: "X"; }
+.rating-3 .with-empty:before { content: "XX"; }
+.rating-2 .with-empty:before { content: "XXX"; }
+.rating-1 .with-empty:before { content: "XXXX"; }
+.rating-0 .with-empty:before { content: "XXXXX"; }
+
+
+
+

@@ -11,7 +11,6 @@ require.config({
 		underscore: 'vendor/underscore/underscore-min',
 		parse:		'vendor/parse/parse.min',
 		text: 		'vendor/requirejs-text/text',
-		ratchet:	'vendor/ratchet/dist/js/ratchet',
 		snapjs:	 	'vendor/Snap.js/dist/latest/snap',
 		facebook: 	'http://connect.facebook.net/en_US/all',
 		fastclick:  'vendor/fastclick/lib/fastclick',
@@ -22,9 +21,6 @@ require.config({
 	},
 
 	shim: {
-		"ratchet": { 
-			deps: ["jquery"]
-		},
 		"snapjs": { 
 			deps: ["jquery"]
 		},
@@ -81,7 +77,7 @@ function handleOpenURL(url) {
 
 }
 
-require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs'], function(FastClick, Parse, AppRouter, AppView) {
+require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs'], function(FastClick, Parse, AppRouter, AppView) {
 
 	FastClick.attach(document.body);
 
@@ -98,8 +94,8 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'ratchet', 'snapjs'], 
 
 			appStarted = true;
 
-			Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
-			// Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
+			// Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
+			Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
 
 			new AppView(function() {
 				new AppRouter();

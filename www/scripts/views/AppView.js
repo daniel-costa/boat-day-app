@@ -191,7 +191,9 @@ define([
 					touchToDrag: false,
 				});
 
-				$('#app').append( new DrawerView({ model: profile }).render().el );
+				// ToDo 
+				// - Revert
+				// $('#app').append( new DrawerView({ model: profile }).render().el );
 
 				// ToDo add this value in parse config.
 				setInterval(self.updateGeoPoint, self.__POSITION_REFRESH_DELAY__);
@@ -238,18 +240,6 @@ define([
 
 				self.checkVersion(function() {
 					if( Parse.User.current() && Parse.User.current().get("profile") ) {
-
-						/* Rollback: sometimes somepeople does not have an email on facebook and the app logout in a loop
-						if( typeof Parse.User.current().get('email') === typeof undefined ) {
-							console.log('Ooops... Email undefined');
-							Parse.User.logOut();
-							facebookConnectPlugin.logout();
-							cb();
-						} else {
-							self.loadProfile(event, cb);
-						}
-						*/
-
 						self.loadProfile(event, cb);
 					} else {
 						cb();

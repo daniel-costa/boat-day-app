@@ -24,46 +24,11 @@ define([
 			var queryPictures = self.model.relation('boatPictures').query();
 			queryPictures.ascending('order');
 			queryPictures.find().then( function(results) {
-<<<<<<< Updated upstream
-				_.each(results, self.appendBoatPicture, self);
-=======
 				
 				if( results.length > 0 ) {
 					self.$el.find('.header-part').css({ backgroundImage: 'url(' + results[0].get('file').url() + ')' });
 				}
 
-				_.each(results, function(result) {
-					self.pictures[result.id] = result;
-					self.$el.find('.boat-pictures .list').append(_.template(BoatPictureTemplate)({ model: result }))
-				});
-				_.each(results, function(result) {
-					self.pictures[result.id] = result;
-					self.$el.find('.boat-pictures .list').append(_.template(BoatPictureTemplate)({ model: result }))
-				});
-				_.each(results, function(result) {
-					self.pictures[result.id] = result;
-					self.$el.find('.boat-pictures .list').append(_.template(BoatPictureTemplate)({ model: result }))
-				});
-				_.each(results, function(result) {
-					self.pictures[result.id] = result;
-					self.$el.find('.boat-pictures .list').append(_.template(BoatPictureTemplate)({ model: result }))
-				});
-				_.each(results, function(result) {
-					self.pictures[result.id] = result;
-					self.$el.find('.boat-pictures .list').append(_.template(BoatPictureTemplate)({ model: result }))
-				});
-				_.each(results, function(result) {
-					self.pictures[result.id] = result;
-					self.$el.find('.boat-pictures .list').append(_.template(BoatPictureTemplate)({ model: result }))
-				});
-				_.each(results, function(result) {
-					self.pictures[result.id] = result;
-					self.$el.find('.boat-pictures .list').append(_.template(BoatPictureTemplate)({ model: result }))
-				});
-				_.each(results, function(result) {
-					self.pictures[result.id] = result;
-					self.$el.find('.boat-pictures .list').append(_.template(BoatPictureTemplate)({ model: result }))
-				});
 				_.each(results, function(result) {
 					self.pictures[result.id] = result;
 					self.$el.find('.boat-pictures .list').append(_.template(BoatPictureTemplate)({ model: result }))
@@ -74,7 +39,6 @@ define([
 					slidesPerColumn: 2,
 					spaceBetween: 5
 				});
->>>>>>> Stashed changes
 
 			});
 			

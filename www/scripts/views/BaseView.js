@@ -75,11 +75,11 @@ define([
 			return type == 'business' ? Parse.Config.current().get("PRICE_GUEST_CHARTER_PART") : Parse.Config.current().get("PRICE_GUEST_PRIVATE_PART");
 		},
 
-		modal: function(view) {
+		modal: function(view, from) {
 
 			var self = this;
 
-			view.className = view.className + ' modal';
+			view.className = view.className + ' modal ' + ( typeof from !== typeof undefined ? 'from-' + from : '') ;
 			view.drawer = false;
 			view.isModal = true;
 			view.$el.attr('class', view.className);
@@ -191,7 +191,9 @@ define([
 
 		handleStatusBarAndDrawer: function(sb, drawer) {
 
-			$(document).trigger( drawer ? 'enableDrawer' : 'disableDrawer');
+			// ToDo
+			// - Activate once drawer done
+			// $(document).trigger( drawer ? 'enableDrawer' : 'disableDrawer');
 			
 			if( sb ) {
 				StatusBar.show();

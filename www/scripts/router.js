@@ -1,4 +1,5 @@
 define([
+	'views/TestView',
 	'views/SignInView',
 	'views/ProfileInfoView',
 	'views/ProfilePictureView',
@@ -13,6 +14,7 @@ define([
 	'views/BoatDayActiveView',
 	'views/BoatDaysRequestedView',
 ], function(
+	TestView,
 	SignInView, ProfileInfoView, ProfilePictureView, ProfilePaymentsView, ProfilePaymentsAddView, BoatDayView,
 	BoatDaysView, BoatDaysPastView, BoatDaysUpcomingView, AboutUsView, NotificationsView, BoatDayActiveView,
 	BoatDaysRequestedView) {
@@ -32,7 +34,7 @@ define([
 			'profile-payments-add': 'showProfilePaymentsAdd',
 			'about-us': 'showAboutUs',
 			'notifications': 'showNotifications',
-			'*actions': 'showProfilePayments'
+			'*actions': 'showTest'
 			// '*actions': 'showBoatDays'
 			// '*actions': 'showProfileInfo'
 		},
@@ -47,11 +49,15 @@ define([
 
 		},
 
+		showTest: function() {
+			this.render(new TestView());
+		},
+
 		showNotifications: function() {
 
 			var self = this;
 			var cb = function(profile) {
-				self.render(new NotificationsView());	
+				self.render(new NotificationsView());
 			};
 
 			self.handleSignedIn(cb);
@@ -267,7 +273,7 @@ define([
 			
 			Parse.Analytics.track('render-view', { view: view.className });
 
-			$("#content").html( view.render().el );
+			$("#app").html( view.render().el );
 
 			// I don't know why, but puttin in a timeout,
 			// we can have the element rendered
@@ -280,7 +286,6 @@ define([
 
 			if($('#app').is(":hidden")) {
 				$('#app').fadeIn();
-				$('video#intro').remove();
 			}
 		}
 

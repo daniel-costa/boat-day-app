@@ -1,9 +1,10 @@
-<header class="bar bar-nav">
-	<a class="icon icon-close pull-left close-me"></a>
-	<h1 class="title"><%= self.model.get('host') ? ' Host Profile' : 'Guest Profile' %></h1>
-	<a class="icon fa fa-flag-o pull-right report"></a>
+<header>
+	<span class="icon bd-cross close-me"></span>
+	<h1><%= self.model.get('host') ? ' Host Profile' : 'Guest Profile' %></h1>
+	<span class="icon bd-exclamation report"></span>
 </header>
-<div class="content">
+
+<main>
 	<div class="header grey-area text-center">
 		<div class="<%= self.model.get('host') ? 'host' : 'guest' %>-picture" style="background-image:url(<%= profilePicture.url %>)"></div>
 		<h1><%= displayName %></h1>
@@ -40,11 +41,11 @@
 		<% } %>
 	</div>
 	
-	<div class="reviews"></div>
+	<div class="white-area reviews"></div>
 
 	<% if (self.model.get('host')) {%>
 		<div class="boatdays grey-area">
-			<h3><%= self.model.get('host').get('firstname').toUpperCase() %>'S UPCOMING BOATDAYS</h3>
+			<h6><%= self.model.get('host').get('firstname').toUpperCase() %>'S UPCOMING BOATDAYS</h6>
 			<div class="swiper-container">
 				<div class="swiper-wrapper list"></div>
 				<div class="swiper-pagination"></div>
@@ -53,10 +54,10 @@
 			</div>
 		</div>
 
-		<div class="boats">
-			<h3><%= self.model.get('host').get('firstname').toUpperCase() %>'S BOATS</h3>
+		<div class="boats white-area">
+			<h6><%= self.model.get('host').get('firstname').toUpperCase() %>'S BOATS</h6>
 			<div class="list"></div>
 		</div>
 	<% } %>
-</div>
+</main>
 

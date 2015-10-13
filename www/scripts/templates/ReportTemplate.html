@@ -8,11 +8,13 @@
 		<h1><%= self.model.get('profile').get('displayName') %></h1>
 		<div class="profile-picture" style="background-image:url(<%= self.model.get('profile').get('profilePicture').url() %>)"></div>
 	</div>
-	<div class="reason"><label>REASON</label></div>
+	<div class="reason">
+		<label>Reason</label>
+	</div>
 	<div class="comment-box">
 		<textarea name="message" placeholder="Your comment here"></textarea>
-	</div>
-	<div class="foot grey-area text-center">
-		<button class="btn btn-block btn-send"><label>Submit report</label></button>
-	</div>
+	</Div>
 </div>
+<footer class="grey-area text-center">
+	<button class="btn btn-block btn-send">Submit report</button>
+</footer>

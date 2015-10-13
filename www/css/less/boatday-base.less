@@ -1,0 +1,137 @@
+* {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-box-sizing: border-box;
+}
+
+html {
+	font-family: sans-serif;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	-webkit-touch-callout: none;
+	-webkit-text-size-adjust: none;
+	-webkit-user-select: none;
+	
+	font-family: Avenir, "Helvetica Neue", Helvetica, sans-serif;
+	
+	margin: 0px;
+	padding: 0px;
+
+	color: @text-default-color;
+}
+
+h1, h2, h3, h4, h5, h6, div, p {
+	margin: 0px;
+	padding: 0px;
+	font-weight: 400;
+}
+
+#app {
+	background: @app-background;
+}
+
+[class^="screen-"],
+[class*=" screen-"] {
+	height: 100vh;
+	display: -webkit-flex;
+	-webkit-flex-direction: column;
+	background: transparent;
+}
+
+header {
+	height: @header-height;
+	-webkit-order: 1;
+	padding-top: @status-bar-height;
+	background: @header-background;
+	border: @header-border;
+	padding-top: 25px;
+	color: @header-color;
+	width: 100vw;
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+	-webkit-flex-wrap: nowrap;
+}
+
+header h1 {
+	-webkit-align-self: center;
+	-webkit-flex: 1;
+	padding: 0px;
+	margin: 0px 10px;
+	vertical-align:center;
+	display: inline-block;
+	color: inherit;
+	font-family: Avenir;
+	font-size: 10.24pt;
+	font-weight: 400;
+	line-height: 10.24pt;
+	text-transform: uppercase;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: center;
+}
+
+main {
+	-webkit-flex: 1;
+	-webkit-order: 2;
+	background: @main-background;
+	border: @main-border;
+	-webkit-overflow-scrolling: touch;
+	overflow:auto;
+}
+
+main > * {
+  -webkit-transform: translateZ(0);
+}
+
+footer {
+	height: @footer-height;
+	-webkit-order: 3;
+	padding: 25px;
+	background: @footer-background;
+	border-top: @footer-border-top;
+}
+
+a {
+	color: @text-primary-color;
+	text-decoration: none;
+
+	&:active {
+		color: darken(@text-primary-color, 10%);
+	}
+}
+
+[class^="screen-"].modal,
+[class*=" screen-"].modal {
+	position: fixed;
+ 	top: 0;
+ 	z-index: 11;
+ 	width: 100%;
+ 	min-height: 100%;
+ 	overflow: hidden;
+ 	background-color: #fff;
+ 	opacity: 0;
+ 	-webkit-transition: -webkit-transform .25s, opacity 1ms .25s;
+	-webkit-transform: translate3d(0, 100%, 0);
+}
+
+[class^="screen-"].modal.from-right,
+[class*=" screen-"].modal.from-right {
+	-webkit-transform: translate3d(100%, 0, 0);	
+}
+
+[class^="screen-"].modal.active,
+[class*=" screen-"].modal.acive {
+	height: 100%;
+	opacity: 1;
+	-webkit-transition: -webkit-transform .25s;
+	-webkit-transform: translate3d(0, 0, 0);
+}

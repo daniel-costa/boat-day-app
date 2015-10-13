@@ -8,3 +8,5 @@
 *.log
 
 www/scripts/views/BoatDayBookView.js
+
+www/css/boatday.css
