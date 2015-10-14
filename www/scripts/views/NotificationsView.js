@@ -3,8 +3,8 @@ define([
 'views/ProfileView',
 'views/BoatDayView',
 'text!templates/NotificationsTemplate.html',
-'text!templates/NotificationTemplate.html',
-], function(BaseView, ProfileView, BoatDayView, NotificationsTemplate, NotificationTemplate){
+'text!templates/CardNotificationTemplate.html',
+], function(BaseView, ProfileView, BoatDayView, NotificationsTemplate, CardNotificationTemplate){
 	var NotificationsView = BaseView.extend({
 
 		className: 'screen-notifications',
@@ -89,7 +89,7 @@ define([
 						self.boatdays[notification.get("boatday").id] = notification.get("boatday");
 					}
 					
-					self.$el.find('.notification-list').append(_.template(NotificationTemplate)(data));
+					self.$el.find('.notification-list').append(_.template(CardNotificationTemplate)(data));
 
 					if(!notification.get("read")) {
 						unread++;

@@ -1,12 +1,12 @@
 define([
 'views/BaseView',
-'text!templates/ProfilePaymentsTemplate.html'
-], function(BaseView, ProfilePaymentsTemplate){
-	var ProfilePaymentsView = BaseView.extend({
+'text!templates/PaymentsTemplate.html'
+], function(BaseView, PaymentsTemplate){
+	var PaymentsView = BaseView.extend({
 
-		className: 'screen-profile-payments',
+		className: 'screen-payments',
 
-		template: _.template(ProfilePaymentsTemplate),
+		template: _.template(PaymentsTemplate),
 
 		render: function() {
 
@@ -40,5 +40,5 @@ define([
 		}
 
 	});
-	return ProfilePaymentsView;
+	return PaymentsView;
 });

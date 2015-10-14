@@ -1,13 +1,13 @@
 define([
 'views/BaseView',
-'text!templates/CancellationTemplate.html'
-], function(BaseView, CancellationTemplate){
-	var CancellationView = BaseView.extend({
+'text!templates/CancellationsTemplate.html'
+], function(BaseView, CancellationsTemplate){
+	var CancellationsView = BaseView.extend({
 
-		className: 'screen-boatday-cancellation',
+		className: 'screen-cancellations',
 
-		template: _.template(CancellationTemplate),
+		template: _.template(CancellationsTemplate),
 
 	});
-	return CancellationView;
+	return CancellationsView;
 });

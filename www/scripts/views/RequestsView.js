@@ -1,18 +1,18 @@
 define([
 'Swiper',
 'views/BaseView',
-'text!templates/BoatDaysRequestedTemplate.html',
-'text!templates/BoatDaysRequestedPastTemplate.html',
-'text!templates/BoatDaysRequestedUpcomingTemplate.html',
-'text!templates/BoatDaysRequestedPendingTemplate.html',
-'text!templates/BoatDaysRequestedCancelledTemplate.html',
-'text!templates/BoatDaysRequestedFavoriteTemplate.html',
-], function(Swiper, BaseView, BoatDaysRequestedTemplate, BoatDaysRequestedPastTemplate, BoatDaysRequestedUpcomingTemplate, BoatDaysRequestedPendingTemplate, BoatDaysRequestedCancelledTemplate, BoatDaysRequestedFavoriteTemplate){
-	var BoatDaysRequestedView = BaseView.extend({
+'text!templates/RequestsTemplate.html',
+'text!templates/CardBoatDayPastTemplate.html',
+'text!templates/CardBoatDayUpcomingTemplate.html',
+'text!templates/CardBoatDayPendingTemplate.html',
+'text!templates/CardBoatDayCancelledTemplate.html',
+'text!templates/CardBoatDayFavoriteTemplate.html',
+], function(Swiper, BaseView, RequestsTemplate, CardBoatDayPastTemplate, CardBoatDayUpcomingTemplate, CardBoatDayPendingTemplate, CardBoatDayCancelledTemplate, CardBoatDayFavoriteTemplate){
+	var RequestsView = BaseView.extend({
 
-		className: 'screen-boatdays-requested',
+		className: 'screen-requests',
 
-		template: _.template(BoatDaysRequestedTemplate),
+		template: _.template(RequestsTemplate),
 
 		events: {
 			'click .boatdays-upcoming': 'renderUpcomingBoatDays',
@@ -70,7 +70,7 @@ define([
 			query.equalTo('status', 'approved');
 			query.descending('date,departureTime');
 
-			self.execQuerySeatRequests(query, BoatDaysRequestedPastTemplate);
+			self.execQuerySeatRequests(query, CardBoatDayPastTemplate);
 		},
 
 		renderPendingBoatDays: function() {
@@ -147,5 +147,5 @@ define([
 		}
 
 	});
-	return BoatDaysRequestedView;
+	return RequestsView;
 });

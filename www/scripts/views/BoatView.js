@@ -3,8 +3,8 @@ define([
 'Swiper',
 'views/BaseView', 
 'text!templates/BoatTemplate.html', 
-'text!templates/BoatPictureTemplate.html'
-], function(Swiper, BaseView, BoatTemplate, BoatPictureTemplate){
+'text!templates/CardBoatTemplate.html'
+], function(Swiper, BaseView, BoatTemplate, CardBoatTemplate){
 	var BoatView = BaseView.extend({
 
 		className: 'screen-boat',
@@ -31,7 +31,7 @@ define([
 
 				_.each(results, function(result) {
 					self.pictures[result.id] = result;
-					self.$el.find('.boat-pictures .list').append(_.template(BoatPictureTemplate)({ model: result }))
+					self.$el.find('.boat-pictures .list').append(_.template(CardBoatTemplate)({ model: result }))
 				});
 
 				var swiper = new Swiper(self.$el.find('.swiper-container'), {

@@ -1,84 +1,82 @@
 define([
 	'views/TestView',
-	'views/SignInView',
-	'views/ProfileInfoView',
-	'views/ProfilePictureView',
-	'views/ProfilePaymentsView',
-	'views/ProfilePaymentsAddView',
+	'views/GuestView',
+	'views/MyProfileView',
+	'views/MyPictureView',
+	'views/PaymentsView',
+	'views/CreditCardView',
 	'views/BoatDayView',
 	'views/BoatDaysView',
 	'views/AboutUsView',
 	'views/NotificationsView',
 	'views/BoatDayActiveView',
-	'views/BoatDaysRequestedView',
+	'views/RequestsView',
 ], function(
-	TestView,
-	SignInView, ProfileInfoView, ProfilePictureView, ProfilePaymentsView, ProfilePaymentsAddView, BoatDayView,
-	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView,
-	BoatDaysRequestedView) {
+	TestView, GuestView, MyProfileView, MyPictureView, PaymentsView, CreditCardView, BoatDayView,
+	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView, RequestsView) {
 	
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
-			'sign-out': 'signOut',
-			'boatday/:id': 'showBoatDay',
-			'boatdays': 'showBoatDays',
-			'boatdays-requested': 'showBoatDaysRequested',
-			'profile-info': 'showProfileInfo',
-			'profile-picture': 'showProfilePicture',
-			'profile-payments': 'showProfilePayments',
-			'profile-payments-add': 'showProfilePaymentsAdd',
-			'about-us': 'showAboutUs',
-			'notifications': 'showNotifications',
-			// '*actions': 'showTest'
-			'*actions': 'showBoatDays'
-			// '*actions': 'showProfileInfo'
+			'sign-out'			: 'signOut',
+			'boatday/:id'		: 'boatday',
+			'boatdays'			: 'boatdays',
+			'requests'			: 'requests',
+			'my-profile'		: 'myProfile',
+			'my-picture'		: 'myPicture',
+			'payments'			: 'payments',
+			'credit-card'		: 'creditCard',
+			'about-us'			: 'aboutUs',
+			'notifications'		: 'notifications',
+			'*actions'			: 'boatdays'
 		},
 		
 		currentView: null,
+
+		canHandleDeepLinking: false,
 
 		signOut: function() {
 
 			Parse.User.logOut();
 			facebookConnectPlugin.logout();
-			this.showSignInView();
+			this.showGuestView();
 
 		},
 
-		showTest: function() {
+		test: function() {
+			
 			this.render(new TestView());
+
 		},
 
-		showNotifications: function() {
+		guest: function() {
+			
+			this.render(new GuestView());
+
+		},
+
+		notifications: function() {
 
 			var self = this;
-			var cb = function(profile) {
+			self.handleSignedIn(function(profile) {
 				self.render(new NotificationsView());
-			};
-
-			self.handleSignedIn(cb);
+			});
 
 		},
 
-		showAboutUs: function() {
+		aboutUs: function() {
 
 			var self = this;
-			var cb = function(profile) {
+			self.handleSignedIn(function(profile) {
 				self.render(new AboutUsView());
-			};
-
-			self.handleSignedIn(cb);
+			});
 
 		},
 
-		showSignInView: function() {
-			this.render(new SignInView());
-		},
-
-		showBoatDay: function(id) {
+		boatday: function(id) {
 			
 			var self = this;
-			var cb = function() {
+			self.handleSignedIn(function(profile) {
 				var query = new Parse.Query(Parse.Object.extend('BoatDay'));
 				query.include('boat');
 				query.include('captain');
@@ -86,74 +84,60 @@ define([
 				query.get(id).then(function(boatday) {
 					self.render(new BoatDayView({ model: boatday, fromUpcoming: false }));
 				});
-			};
-
-			self.handleSignedIn(cb);
+			});
 		},
 
-		showBoatDays: function() {
+		boatdays: function() {
 
 			var self = this;
-			var cb = function() {
+			self.handleSignedIn(function(profile) {
 				self.render(new BoatDaysView());
-			};
-
-			self.handleSignedIn(cb);
+			});
 
 		},
 
-		showBoatDaysRequested: function() {
+		requests: function() {
 
 			var self = this;
-			var cb = function() {
-				self.render(new BoatDaysRequestedView());
-			};
-
-			self.handleSignedIn(cb);
+			self.handleSignedIn(function(profile) {
+				self.render(new RequestsView());
+			});
 
 		},
 
-		showProfileInfo: function() {
+		myProfile: function() {
 
 			var self = this;
-			var cb = function() {
-				self.render(new ProfileInfoView({ model: Parse.User.current().get('profile') }));
-			};
-
-			self.handleSignedIn(cb);
+			self.handleSignedIn(function(profile) {
+				self.render(new MyProfileView({ model: Parse.User.current().get('profile') }));
+			});
 
 		},
 		
-		showProfilePicture: function() {
+		myPicture: function() {
 
 			var self = this;
-			var cb = function() {
-				self.render(new ProfilePictureView({ model: Parse.User.current().get('profile') }));
-			};
-
-			self.handleSignedIn(cb);
+			self.handleSignedIn(function(profile) {
+				self.render(new MyPicture({ model: Parse.User.current().get('profile') }));
+			});
 
 		},
 
-		showProfilePayments: function() {
+		payments: function() {
 
 			var self = this;
-			var cb = function() {
-				self.render(new ProfilePaymentsView());
-			};
-
-			self.handleSignedIn(cb);
+			self.handleSignedIn(function(profile) {
+				self.render(new PaymentsView());
+			});
 
 		},
 
-		showProfilePaymentsAdd: function() {
+		creditCard: function() {
 
 			var self = this;
-			var cb = function() {
-				self.render(new ProfilePaymentsAddView());
-			};
-
-			self.handleSignedIn(cb);
+			self.handleSignedIn(function() {
+				self.render(new CreditCardView());
+			});
 
 		},
 
@@ -163,18 +147,18 @@ define([
 
 			if( !Parse.User.current() ) {
 				
-				this.showSignInView();
+				this.guest();
 				return;
 
 			}
 
 			if( Parse.User.current().get('profile').get("status") == "creation" ) {
-				self.render(new ProfileInfoView({ model: Parse.User.current().get('profile'), setup: true }));
+				self.render(new MyProfileView({ model: Parse.User.current().get('profile'), setup: true }));
 				return ;
 			}
 
 			if( !Parse.User.current().get('profile').get("profilePicture") ) {
-				self.render(new ProfilePictureView({ model: Parse.User.current().get('profile'), setup: true }));
+				self.render(new MyPicture({ model: Parse.User.current().get('profile'), setup: true }));
 				return ;
 			}
 
@@ -225,7 +209,7 @@ define([
 				
 				switch( dl.action ) {
 					case 'boatday' : 
-						self.showBoatDay(dl.params.id);
+						self.boatday(dl.params.id);
 						break;
 					default :
 						cb();
@@ -235,8 +219,6 @@ define([
 				cb();
 			}
 		},
-
-		canHandleDeepLinking: false,
 
 		render: function(view) {
 

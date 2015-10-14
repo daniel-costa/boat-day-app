@@ -2,13 +2,13 @@ define([
 'stripe',
 'views/BaseView',
 'models/CreditCardModel',
-'text!templates/ProfilePaymentsAddTemplate.html'
-], function(Stripe, BaseView, CreditCardModel, ProfilePaymentsAddTemplate){
-	var ProfilePaymentsView = BaseView.extend({
+'text!templates/CreditCardTemplate.html'
+], function(Stripe, BaseView, CreditCardModel, CreditCardTemplate){
+	var CreditCardView = BaseView.extend({
 
-		className: 'screen-profile-payments-add',
+		className: 'screen-credit-card',
 
-		template: _.template(ProfilePaymentsAddTemplate),
+		template: _.template(CreditCardTemplate),
 
 		events: {
 			'keypress input': 'controlCSV',
@@ -157,5 +157,5 @@ define([
 		}
 
 	});
-	return ProfilePaymentsView;
+	return CreditCardView;
 });

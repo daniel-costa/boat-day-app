@@ -4,7 +4,7 @@ define([
 ], function(BaseView, ReportTemplate){
 	var ReportView = BaseView.extend({
 
-		className: 'screen-profile-report',
+		className: 'screen-report',
 
 		template: _.template(ReportTemplate),
 

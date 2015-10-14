@@ -1,14 +1,14 @@
 define([
 'models/ProfileModel',
 'views/BaseView',
-'text!templates/SignInTemplate.html', 
-'text!templates/SignInBoatDaysTemplate.html'
-], function(ProfileModel, BaseView, SignInTemplate, SignInBoatDaysTemplate){
+'text!templates/GuestTemplate.html', 
+'text!templates/CardBoatDayGuestTemplate.html'
+], function(ProfileModel, BaseView, GuestTemplate, CardBoatDayGuestTemplate){
 	var SignInView = BaseView.extend({
 
-		className: 'screen-sign-in',
+		className: 'screen-guest',
 
-		template: _.template(SignInTemplate),
+		template: _.template(GuestTemplate),
 
 		boatdays: {}, 
 
@@ -28,7 +28,7 @@ define([
 			query.ascending('date, departureTime');
 			query.include('boat');
 			query.find().then(function(boatdays) {
-				var tpl = _.template(SignInBoatDaysTemplate);
+				var tpl = _.template(CardBoatDayGuestTemplate);
 				self.boatdays = {};
 				self.$el.find('.content .boatdays').html('');
 

@@ -1,15 +1,15 @@
 define([
 'views/BaseView',
-'views/ProfilePaymentsAddView',
-'views/CancellationView',
+'views/CreditCardView',
+'views/CancellationsView',
 'views/TermsView',
 'views/WaterPolicyView',
 'models/SeatRequestModel',
 'text!templates/BookTemplate.html'
-], function(BaseView, ProfilePaymentsAddView, CancellationView, TermsView, WaterPolicyView, SeatRequestModel, BookTemplate){
-	var BoatDayBookView = BaseView.extend({
+], function(BaseView, CreditCardView, CancellationsView, TermsView, WaterPolicyView, SeatRequestModel, BookTemplate){
+	var BookView = BaseView.extend({
 
-		className: 'screen-boatday-book',
+		className: 'screen-book',
 
 		template: _.template(BookTemplate),
 
@@ -46,14 +46,14 @@ define([
 
 			Parse.Analytics.track('book-click-payments');
 
-			this.modal(new ProfilePaymentsAddView());
+			this.modal(new CreditCardView());
 		},
 
 		cancellation: function() {
 			
 			Parse.Analytics.track('book-click-cancellation');
 			
-			this.modal(new CancellationView({ model : this.model }));
+			this.modal(new CancellationsView({ model : this.model }));
 		},
 
 		terms: function() {
@@ -279,5 +279,5 @@ define([
 		}
 
 	});
-	return BoatDayBookView;
+	return BookView;
 });

@@ -3,7 +3,7 @@ define([
 'views/BoatDayView',
 'views/MapView',
 'text!templates/BoatDaysTemplate.html',
-'text!templates/BoatDaysCardTemplate.html',
+'text!templates/CardBoatDayTemplate.html',
 ], function(BaseView, BoatDayView, MapView, BoatDaysTemplate, BoatDayCardTemplate){
 	var BoatDaysView = BaseView.extend({
 
@@ -15,7 +15,7 @@ define([
 			'click .boatday-card': 'boatday',
 			'click .btn-map': 'map',
 			'click .location': 'showLocations',
-			'click .open-filters': 'filters'
+			'click .open-filters': 'filters',
 			'change [name="location"]': 'pickLocation',
 		},
 
@@ -33,6 +33,10 @@ define([
 
 		},
 
+		filters: function() {
+
+		},
+		
 		map: function() {
 
 			Parse.Analytics.track('boatdays-click-map');

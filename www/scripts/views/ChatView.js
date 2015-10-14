@@ -4,11 +4,11 @@ define([
 'views/BaseView',
 'views/ReportView',
 'text!templates/ChatTemplate.html',
-'text!templates/ChatCardTemplate.html',
-], function(ReportModel, ChatMessageModel, BaseView, ReportView, ChatTemplate, ChatCardTemplate){
+'text!templates/CardChatTemplate.html',
+], function(ReportModel, ChatMessageModel, BaseView, ReportView, ChatTemplate, CardChatTemplate){
 	var ChatView = BaseView.extend({
 
-		className: 'screen-boatday-chat',
+		className: 'screen-chat',
 
 		template: _.template(ChatTemplate),
 
@@ -110,7 +110,7 @@ define([
 
 		appendMessage: function(message) {
 
-			var tpl = _.template(ChatCardTemplate);
+			var tpl = _.template(CardChatTemplate);
 			this.$el.find('.content-padded').append(tpl({ message: message }));
 
 		},
@@ -118,7 +118,7 @@ define([
 
 		prependMessage: function(message) {
 
-			var tpl = _.template(ChatCardTemplate);
+			var tpl = _.template(CardChatTemplate);
 			this.$el.find('.content-padded').prepend(tpl({ message: message }));
 
 		},

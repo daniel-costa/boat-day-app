@@ -1,16 +1,16 @@
-<header class="bar bar-nav">
-	
+<header>
 	<% if( self.className.indexOf('modal') > -1 ) { %>
-		<a class="icon icon-close pull-left close-me"></a>
+		<a class="icon bd-chevron-left close-me"></a>
 	<% } else { %>
-		<a class="icon bd-sliders pull-left btn-drawer"></a>
+		<a class="icon bd-drawer btn-drawer"></a>
 	<% } %>
 	
-	<h1 class="title"><%= name %></h1>
-	<a class="icon fa fa-flag-o pull-right report"></a>
+	<h1><%= name %></h1>
+
+	<a class="icon bd-exclamation report"></a>
 </header>
 
-<div class="content">
+<main>
 	
 	<div class="badge-price"><sup>$</sup><%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %><sub>/person</sub></div>
 
@@ -24,12 +24,16 @@
 	</div>
 
 	<div class="captain open-profile-picture" data-id="<%= self.model.get('captain').id %>">
-		<div class="profile-picture" data-id="<%= self.model.get('captain').id %>" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)"></div>
+		
+		<div class="host-picture" data-id="<%= self.model.get('captain').id %>" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)"></div>
 		<p class="text">
 			Hosted by <strong><%= self.model.get('captain').get('displayName') %></strong><br/>
 			Boat <strong><%= self.model.get('boat').get('name') %></strong><br/>
 			<% if( self.model.get('captain').get('rating') ) { %>
-				<img class="rating" src="resources/rating-<%= Math.ceil(self.model.get('captain').get('rating')) %>.png" />
+
+				<div class="rating rating-<%= Math.ceil(self.model.get('captain').get('rating')) %> bd-icons">
+					<div class="with-empty bd-icons"></div>
+				</div>
 			<% } else { %>
 				(no ratings yet)
 			<% } %>
@@ -37,28 +41,6 @@
 		<p class="text-center">
 			<a>Open Host Profile</a>
 		</p>
-		<!--
-		<p class="certifications">
-			<% if( self.model.get('captain').get('host').get('certStatusBSC') == 'approved' ) { %>
-				<img src="resources/certs/BSC.png" />
-			<% } %>
-			<% if( self.model.get('captain').get('host').get('certStatusCCL') == 'approved' ) { %>
-				<img src="resources/certs/CCL.png" />
-			<% } %>
-			<% if( self.model.get('captain').get('host').get('certStatusFAC') == 'approved' ) { %>
-				<img src="resources/certs/FAC.png" />
-			<% } %>
-			<% if( self.model.get('captain').get('host').get('certStatusFL') == 'approved' ) { %>
-				<img src="resources/certs/FL.png" />
-			<% } %>
-			<% if( self.model.get('captain').get('host').get('certStatusMCL') == 'approved' ) { %>
-				<img src="resources/certs/MCL.png" />
-			<% } %>
-			<% if( self.model.get('captain').get('host').get('certStatusSL') == 'approved' ) { %>
-				<img src="resources/certs/SL.png" />
-			<% } %>
-		</p>
-		-->
 	</div>
 	
 	<h1><%= name %></h1>
@@ -98,197 +80,128 @@
 			<!-- Activities -->
 			<% if( category == 'leisure' ) { %>
 				<% if( self.model.get('features').leisure.cruising ) { %>
-					<p><img src="resources/check-green.png" /> Cruising</p>
+					<p>Cruising</p>
 				<% } %>
 				<% if( self.model.get('features').leisure.partying ) { %>	
-					<p><img src="resources/check-green.png" /> Partying</p>
+					<p>Partying</p>
 				<% } %>
 				<% if( self.model.get('features').leisure.sightseeing ) { %>
-					<p><img src="resources/check-green.png" /> Sightseeing</p>
+					<p>Sightseeing</p>
 				<% } %>
 				<% if( self.model.get('features').leisure.other ) { %>	
-					<p><img src="resources/check-green.png" /> Other</p>
+					<p>Other</p>
 				<% } %>
 			<% } %>
 			<% if( category == 'fishing' ) { %>
 				<% if( self.model.get('features').fishing.flats ) { %>
-					<p><img src="resources/check-green.png" /> Flats</p>
+					<p>Flats</p>
 				<% } %>
 				<% if( self.model.get('features').fishing.lake ) { %>	
-					<p><img src="resources/check-green.png" /> Lake</p>
+					<p>Lake</p>
 				<% } %>
 				<% if( self.model.get('features').fishing.offshore ) { %>	
-					<p><img src="resources/check-green.png" /> Offshore</p>
+					<p>Offshore</p>
 				<% } %>
 				<% if( self.model.get('features').fishing.recreational ) { %>
-					<p><img src="resources/check-green.png" /> Recreational</p>
+					<p>Recreational</p>
 				<% } %>
 				<% if( self.model.get('features').fishing.other ) { %>		
-					<p><img src="resources/check-green.png" /> Other</p>
+					<p>Other</p>
 				<% } %>
 				<% if( self.model.get('features').fishing.equipmentItems.bates ) { %>
-					<p><img src="resources/check-green.png" /> Bates</p>
+					<p>Bates</p>
 				<% } %>
 				<% if( self.model.get('features').fishing.equipmentItems.lines ) { %>
-					<p><img src="resources/check-green.png" /> Lines</p>
+					<p>Lines</p>
 				<% } %>
 				<% if( self.model.get('features').fishing.equipmentItems.hooks ) { %>
-					<p><img src="resources/check-green.png" /> Hooks</p>
+					<p>Hooks</p>
 				<% } %>
 				<% if( self.model.get('features').fishing.equipmentItems.lures ) { %>
-					<p><img src="resources/check-green.png" /> Lures</p>
+					<p>Lures</p>
 				<% } %>
 				<% if( self.model.get('features').fishing.equipmentItems.nets ) { %>
-					<p><img src="resources/check-green.png" /> Nets</p>
+					<p>Nets</p>
 				<% } %>
 				<% if( self.model.get('features').fishing.equipmentItems.rods ) { %>
-					<p><img src="resources/check-green.png" /> Rods</p>
+					<p>Rods</p>
 				<% } %>
 				<% if( self.model.get('features').fishing.equipmentItems.sinkers ) { %>
-					<p><img src="resources/check-green.png" /> Sinkers</p>
+					<p>Sinkers</p>
 				<% } %>
 			<% } %>
 			<% if( category == 'sports' ) { %>
 				<% if( self.model.get('features').sports.snorkeling ) { %>
-					<p><img src="resources/check-green.png" /> Snorkeling</p>
+					<p>Snorkeling</p>
 				<% } %>
 				<% if( self.model.get('features').sports.tubing ) { %>	
-					<p><img src="resources/check-green.png" /> Tubing</p>
+					<p>Tubing</p>
 				<% } %>
 				<% if( self.model.get('features').sports.wakeBoarding ) { %>
-					<p><img src="resources/check-green.png" /> Wake Boarding</p>
+					<p>Wake Boarding</p>
 				<% } %>
 				<% if( self.model.get('features').sports.waterSkiing ) { %>	
-					<p><img src="resources/check-green.png" /> Water Skiing</p>
+					<p>Water Skiing</p>
 				<% } %>
 				<% if( self.model.get('features').sports.equipmentItems.fins ) { %>
-					<p><img src="resources/check-green.png" /> Fins</p>
+					<p>Fins</p>
 				<% } %>
 				<% if( self.model.get('features').sports.equipmentItems.helmets ) { %>
-					<p><img src="resources/check-green.png" /> Helmets</p>
+					<p>Helmets</p>
 				<% } %>
 				<% if( self.model.get('features').sports.equipmentItems.masks ) { %>
-					<p><img src="resources/check-green.png" /> Masks</p>
+					<p>Masks</p>
 				<% } %>
 				<% if( self.model.get('features').sports.equipmentItems.snorkels ) { %>
-					<p><img src="resources/check-green.png" /> Snorkels</p>
+					<p>Snorkels</p>
 				<% } %>
 				<% if( self.model.get('features').sports.equipmentItems.towLine ) { %>
-					<p><img src="resources/check-green.png" /> Two Lines</p>
+					<p>Two Lines</p>
 				<% } %>
 				<% if( self.model.get('features').sports.equipmentItems.tubes ) { %>
-					<p><img src="resources/check-green.png" /> Tube</p>
+					<p>Tube</p>
 				<% } %>
 				<% if( self.model.get('features').sports.equipmentItems.wakeboard ) { %>
-					<p><img src="resources/check-green.png" /> Wakeboard</p>
+					<p>Wakeboard</p>
 				<% } %>
 				<% if( self.model.get('features').sports.equipmentItems.waterSkis ) { %>
-					<p><img src="resources/check-green.png" /> Water Skis</p>
+					<p>Water Skis</p>
 				<% } %>
 			<% } %>
 
 
-			<!-- Fimly Settings -->
+			<!-- Family Settings -->
 			<% if( self.model.get('features').global.children ) { %>	
-				<p><img src="resources/check-green.png" /> Children allowed</p>
+				<p>Children allowed</p>
 			<% } %>
 			<% if( self.model.get('features').global.smoking ) { %>
-				<p><img src="resources/check-green.png" /> Smoking Permitted</p>
+				<p>Smoking Permitted</p>
 			<% } %>
 			<% if( self.model.get('features').global.drinking ) { %>	
-				<p><img src="resources/check-green.png" /> Drinking Permitted</p>
+				<p>Drinking Permitted</p>
 			<% } %>
 			<% if( self.model.get('features').global.pets ) { %>
-				<p><img src="resources/check-green.png" /> Pets Permitted</p>
+				<p>Pets Permitted</p>
 			<% } %>
 
 			<!-- Extras -->
 			<% if( self.model.get('features').extras.food ) { %>	
-				<p><img src="resources/check-green.png" /> Food</p>
+				<p>Food</p>
 			<% } %>
 			<% if( self.model.get('features').extras.drink ) { %>
-				<p><img src="resources/check-green.png" /> Drink</p>
+				<p>Drink</p>
 			<% } %>
 			<% if( self.model.get('features').extras.music ) { %>
-				<p><img src="resources/check-green.png" /> Music</p>
+				<p>Music</p>
 			<% } %>
 			<% if( self.model.get('features').extras.towels ) { %>	
-				<p><img src="resources/check-green.png" /> Towels</p>
+				<p>Towels</p>
 			<% } %>
 			<% if( self.model.get('features').extras.sunscreen ) { %>
-				<p><img src="resources/check-green.png" /> Sunscreen</p>
+				<p>Sunscreen</p>
 			<% } %>
 			<% if( self.model.get('features').extras.inflatables ) { %>
-				<p><img src="resources/check-green.png" /> Inflatables</p>
-			<% } %>
-			<span class="clear"></span>
-		</div>
-
-		<label>Boat Amenities</label>
-		<div class="features">
-			<!-- Boat Features -->
-			<% if( self.model.get('boat').get('features').airConditioning ) { %>
-				<p><img src="resources/check-green.png" /> Air Conditioning</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').autopilot ) { %>
-				<p><img src="resources/check-green.png" /> Autopilot</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').cooler ) { %>
-				<p><img src="resources/check-green.png" /> Cooler</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').depthFinder ) { %>
-				<p><img src="resources/check-green.png" /> Depth Finder</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').fishFinder ) { %>
-				<p><img src="resources/check-green.png" /> Fish Finder</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').gps ) { %>
-				<p><img src="resources/check-green.png" /> GPS</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').grill ) { %>
-				<p><img src="resources/check-green.png" /> Grill</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').internet ) { %>
-				<p><img src="resources/check-green.png" /> Internet</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').liveBaitWell ) { %>
-				<p><img src="resources/check-green.png" /> Live Bait Well</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').microwave ) { %>
-				<p><img src="resources/check-green.png" /> Microwave</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').refrigeration ) { %>
-				<p><img src="resources/check-green.png" /> Refrigeration</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').rodHolder ) { %>
-				<p><img src="resources/check-green.png" /> Rod Holder</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').shower ) { %>
-				<p><img src="resources/check-green.png" /> Shower</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').sink ) { %>
-				<p><img src="resources/check-green.png" /> Sink</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').stereo ) { %>
-				<p><img src="resources/check-green.png" /> Stereo</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').stereoAuxInput ) { %>
-				<p><img src="resources/check-green.png" /> Stereo Aux Input</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').sonar ) { %>
-				<p><img src="resources/check-green.png" /> Sonar</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').swimLadder ) { %>
-				<p><img src="resources/check-green.png" /> Swim Ladder</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').tvDvd ) { %>
-				<p><img src="resources/check-green.png" /> TV/DVD</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').trollingMotor ) { %>
-				<p><img src="resources/check-green.png" /> Trolling Motor</p>
-			<% } %>
-			<% if( self.model.get('boat').get('features').wakeboardTower ) { %>
-				<p><img src="resources/check-green.png" /> Wakeboard Tower</p>
+				<p>Inflatables</p>
 			<% } %>
 			<span class="clear"></span>
 		</div>

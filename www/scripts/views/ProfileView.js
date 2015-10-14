@@ -6,11 +6,11 @@ define([
 'views/BoatView',
 'views/CertificationsView',
 'text!templates/ProfileTemplate.html',
-'text!templates/ProfileReviewHostTemplate.html', 
-'text!templates/ProfileReviewGuestTemplate.html', 
-'text!templates/ProfileBoatTemplate.html', 
-'text!templates/ProfileBoatDayTemplate.html'
-], function(Swiper, ReportModel, BaseView, ReportView, BoatView, CertificationsView, ProfileTemplate, ProfileReviewHostTemplate, ProfileReviewGuestTemplate, ProfileBoatTemplate, ProfileBoatDayTemplate){
+'text!templates/CardReviewHostTemplate.html', 
+'text!templates/CardReviewGuestTemplate.html', 
+'text!templates/CardBoatTemplate.html', 
+'text!templates/CardBoatDayProfileTemplate.html'
+], function(Swiper, ReportModel, BaseView, ReportView, BoatView, CertificationsView, ProfileTemplate, CardReviewHostTemplate, CardReviewGuestTemplate, CardBoatTemplate, CardBoatDayProfileTemplate){
 	var ProfileView = BaseView.extend({
 
 		className: 'screen-profile',
@@ -101,7 +101,7 @@ define([
 						if( request.get('reviewGuest') != "" ) {
 							displayed++;
 							self.profiles[request.get('profile').id] = request.get('profile');
-							self.$el.find('.reviews').append(_.template(ProfileReviewHostTemplate)({ self: self, request : request }));
+							self.$el.find('.reviews').append(_.template(CardReviewHostTemplate)({ self: self, request : request }));
 						}
 					});
 
@@ -122,7 +122,7 @@ define([
 					self.$el.find('.boatdays .list').html('');
 					_.each(boatdays, function(boatday) {
 						self.boatdays[boatday.id] = boatday;
-						self.$el.find('.boatdays .list').append(_.template(ProfileBoatDayTemplate)({ model:boatday }));
+						self.$el.find('.boatdays .list').append(_.template(CardBoatDayProfileTemplate)({ model:boatday }));
 
 						var queryPictures = boatday.get('boat').relation('boatPictures').query();
 						queryPictures.ascending('order');
@@ -157,7 +157,7 @@ define([
 				boatQuery.find().then(function(boats) {
 					_.each(boats, function(boat) {
 						self.boats[boat.id] = boat;
-						self.$el.find('.boats .list').append(_.template(ProfileBoatTemplate)({ model: boat }));
+						self.$el.find('.boats .list').append(_.template(CardBoatTemplate)({ model: boat }));
 
 						var boatPictures = boat.relation('boatPictures').query();
 						boatPictures.ascending('order');
@@ -183,7 +183,7 @@ define([
 
 				_.each(requests, function(request) {
 					self.profiles[request.get('boatday').get('captain').id] = request.get('boatday').get('captain');
-					self.$el.find('.reviews').append(_.template(ProfileReviewGuestTemplate)({ self: self, request : request }));
+					self.$el.find('.reviews').append(_.template(CardReviewGuestTemplate)({ self: self, request : request }));
 				});
 
 				if( requests.length == 0 ) {
