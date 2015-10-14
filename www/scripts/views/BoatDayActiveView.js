@@ -1,10 +1,10 @@
 define([
 'views/BaseView',
-'views/BoatDayChatView',
+'views/ChatView',
 'views/MapView',
-'views/BoatDayPayView',
+'views/PayView',
 'text!templates/BoatDayActiveTemplate.html'
-], function(BaseView, BoatDayChatView, MapView, BoatDayPayView, BoatDayActiveTemplate){
+], function(BaseView, ChatView, MapView, PayView, BoatDayActiveTemplate){
 	var BoatDayActiveView = BaseView.extend({
 
 		className: 'screen-boatday-active',
@@ -35,7 +35,7 @@ define([
 
 			setTimeout(function() {
 				self.$el.find('.btn-close').closest('.option').show();
-				self.modal(new BoatDayPayView({ model : self.model }) );
+				self.modal(new PayView({ model : self.model }) );
 			}, deltaMiliSec);
 
 		},
@@ -72,7 +72,7 @@ define([
 			Parse.Analytics.track('bd-active-click-chat');
 			
 			event.preventDefault();
-			this.modal(new BoatDayChatView({ 
+			this.modal(new ChatView({ 
 				model : this.model.get('boatday'),
 				seatRequest: this.model
 			}));

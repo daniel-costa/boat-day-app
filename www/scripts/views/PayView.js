@@ -1,12 +1,12 @@
 define([
 'views/BaseView',
-'text!templates/BoatDayPayTemplate.html',
-], function(BaseView, BoatDayPayTemplate){
-	var BoatDayPayView = BaseView.extend({
+'text!templates/PayTemplate.html',
+], function(BaseView, PayTemplate){
+	var PayView = BaseView.extend({
 
 		className: 'screen-boatday-pay',
 
-		template: _.template(BoatDayPayTemplate),
+		template: _.template(PayTemplate),
 
 		events: {
 			'click .btn-pay': 'pay',
@@ -174,5 +174,5 @@ define([
 		},
 		
 	});
-	return BoatDayPayView;
+	return PayView;
 });

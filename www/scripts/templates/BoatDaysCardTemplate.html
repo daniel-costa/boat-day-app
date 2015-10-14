@@ -1,0 +1,41 @@
+<div class="boatday-card" data-id="<%= model.id %>">
+	<div class="image">
+		<div class="banner left">
+			<div class="host-picture small" data-id="<%= model.get('captain').id %>" style="background-image:url(<%= model.get('captain').get('profilePicture').url() %>)"></div>
+			<% if( model.get('captain').get('rating') ) { %>
+				<div class="rating rating-<%= Math.ceil(model.get('captain').get('rating')) %> bd-icons">
+					<div class="with-empty bd-icons"></div>
+				</div>
+			<% } else { %>
+				<label>No rating</label>
+			<% } %>
+		</div>
+
+		<div class="banner right">
+			<p class="price">$<%= self.getGuestPrice(model.get('price'), self.getGuestRate(model.get('captain').get('host').get('type'))) %></p>
+		</div>
+	</div>
+
+	<div class="details">
+		<h1><%= model.get('name') %></h1>
+		<div class="items">
+			<div class="item">
+				<div class="icon bd-pin icon"></div>
+				<div class="label"><%= parseInt(model.get('location').milesTo(self.myPosition)) + ' miles away' %></div>
+			</div>
+			<div class="item">
+				<div class="icon bd-calendar"></div>
+				<div class="label"><%= self.dateToEnBoatDayCard(model.get('date')) %></div>
+			</div>
+			<div class="item">
+				<div class="icon bd-clock"></div>
+				<div class="label"><%= self.departureTimeToDisplayTime(model.get('departureTime')) %></div>
+			</div>
+			<div class="item">
+				<div class="bd-person icon"></div>
+				<div class="label"><%= model.get('availableSeats') %></div>
+			</div>
+		</div>
+	</div>
+
+</div>

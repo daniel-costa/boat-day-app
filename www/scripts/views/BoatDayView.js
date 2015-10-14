@@ -2,14 +2,14 @@ define([
 'models/ReportModel',
 'models/QuestionModel',
 'views/BaseView',
-'views/BoatDayBookView',
+'views/BookView',
 'views/ReportView',
-'views/BoatDayCancellationView',
+'views/CancellationView',
 'views/ProfileView',
 'views/CertificationsView',
 'views/MapView',
 'text!templates/BoatDayTemplate.html'
-], function(ReportModel, QuestionModel, BaseView, BoatDayBookView, ReportView, BoatDayCancellationView, ProfileView, CertificationsView, MapView, BoatDayTemplate){
+], function(ReportModel, QuestionModel, BaseView, BookView, ReportView, CancellationView, ProfileView, CertificationsView, MapView, BoatDayTemplate){
 	var BoatDayView = BaseView.extend({
 
 		className: 'screen-boatday',
@@ -115,7 +115,7 @@ define([
 			
 			Parse.Analytics.track('boatday-click-cancel');
 
-			this.modal(new BoatDayCancellationView({ model : this.model }));
+			this.modal(new CancellationView({ model : this.model }));
 
 		},
 
@@ -207,7 +207,7 @@ define([
 
 			Parse.Analytics.track('boatday-click-book');
 			
-			this.modal(new BoatDayBookView({ model : this.model }));
+			this.modal(new BookView({ model : this.model }));
 
 		},
 

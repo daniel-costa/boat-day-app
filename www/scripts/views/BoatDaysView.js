@@ -3,9 +3,8 @@ define([
 'views/BoatDayView',
 'views/MapView',
 'text!templates/BoatDaysTemplate.html',
-'text!templates/BoatDayCardTemplate.html',
-'text!templates/BoatDayTemplate.html'
-], function(BaseView, BoatDayView, MapView, BoatDaysTemplate, BoatDayCardTemplate, BoatDayTemplate){
+'text!templates/BoatDaysCardTemplate.html',
+], function(BaseView, BoatDayView, MapView, BoatDaysTemplate, BoatDayCardTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatdays',
@@ -15,9 +14,9 @@ define([
 		events: {
 			'click .boatday-card': 'showBoatDay',
 			'click .btn-map': 'map',
-			'click .control-item': 'pickCategory',
-			'click .location': 'showLocations',
-			'change [name="location"]': 'pickLocation',
+			// 'click .control-item': 'pickCategory',
+			// 'click .location': 'showLocations',
+			// 'change [name="location"]': 'pickLocation',
 		},
 
 		statusbar: true,
@@ -30,7 +29,7 @@ define([
 
 			Parse.Analytics.track('boatdays-click-boatday');
 
-			this.modal(new BoatDayView({ model : this.boatdays[$(event.currentTarget).attr('data-id')], fromUpcoming: false }));
+			this.modal(new BoatDayView({ model : this.boatdays[$(event.currentTarget).attr('data-id')], fromUpcoming: false }), 'right');
 
 		},
 
@@ -64,7 +63,7 @@ define([
 						var center = self.getCurrentPosition();	
 					}
 
-					self.modal(new MapView({ boatdays: _boatdays, center: center, zoomLevel: 10 }));
+					self.modal(new MapView({ boatdays: _boatdays, center: center, zoomLevel: 10 }), 'right');
 
 				}, function(error) {
 					console.log(error);
@@ -72,39 +71,11 @@ define([
 
 			});
 		},
-		
-		getCurrentPosition: function() {
-			if( Parse.User.current() && Parse.User.current().get('profile') && Parse.User.current().get('profile').get('position') ) {
-				return {
-					latitude: parseFloat(Parse.User.current().get('profile').get('position').latitude),
-					longitude: parseFloat(Parse.User.current().get('profile').get('position').longitude)
-				};
-			} else {
-				return {
-					latitude: parseFloat(25.774382),
-					longitude: parseFloat(-80.185515)
-				};
-			}
-		},
+
+		/*
 
 		showLocations: function() {
 			this._in('location').focus();
-		},
-
-		defineFilters: function() {
-			var self = this;
-			if( self.filtersDefined() ) {
-				return Parse.User.current().get('profile').get('filters');
-			} else {
-				return {
-					position: {
-						name: 'my-location',
-						latitude: null,
-						longitude: null
-					},
-					category: 'all'
-				};
-			}
 		},
 
 		pickLocation: function() {
@@ -155,34 +126,9 @@ define([
 			});
 
 		},
+		*/
 
-		moveHandler: function() {
-
-			var target = this.$el.find('.filter-categories .control-item.active');
-			var handler = this.$el.find('.filter-categories .control-item-handler');
-			
-			handler.animate({
-				left: target.offset().left,
-				width: target.outerWidth(),
-			});
-
-		},
-
-		initHandler: function() {
-
-			var target = this.$el.find('.filter-categories .control-item.active');
-			var handler = this.$el.find('.filter-categories .control-item-handler');
-
-			handler.css({
-				left: target.offset().left,
-				width: target.outerWidth(),
-			});
-
-		},
-
-		afterRenderInsertedToDom: function() {
-			this.initHandler();
-		},
+		afterRenderInsertedToDom: function() { },
 
 		render: function( init ) {
 
@@ -279,41 +225,29 @@ define([
 
 				query.find().then(function(boatdays) {
 
-					var tpl = _.template(BoatDayCardTemplate);
-
 					self.boatdays = {};
 
-					var myPosition = new Parse.GeoPoint({
+					self.myPosition = new Parse.GeoPoint({
 						latitude: self.getCurrentPosition().latitude,
 						longitude: self.getCurrentPosition().longitude
 					});
 
-					self.$el.find('.content .inner').html('');
+					self.$el.find('main .inner').html('');
 
 					_.each(boatdays, function(boatday) {
 						
 						self.boatdays[boatday.id] = boatday;
 
-						self.$el.find('.content .inner').append(tpl({
-							id: boatday.id,
-							price: self.getGuestPrice(boatday.get('price'), self.getGuestRate(boatday.get('captain').get('host').get('type'))),
-							title: boatday.get('name'),
-							dateDisplay: self.dateParseToDisplayDate(boatday.get('date')),
-							timeDisplay: self.departureTimeToDisplayTime(boatday.get('departureTime')),
-							duration: boatday.get('duration'),
-							availableSeats: boatday.get('availableSeats'),
-							bookedSeats: boatday.get('bookedSeats'),
-							position: parseInt(boatday.get('location').milesTo(myPosition)) + ' miles away from me',
-							captainName: boatday.get('captain') ? boatday.get('captain').get('displayName') : '',
-							captainProfilePicture: boatday.get('captain') ? boatday.get('captain').get('profilePicture').url() : 'resources/profile-picture-placeholder.png',
-							captainRating: boatday.get('captain').get('rating') ? boatday.get('captain').get('rating') : null
+						self.$el.find('main .inner').append(_.template(BoatDayCardTemplate)({
+							self: self,
+							model: boatday,
 						}));
 
 						var queryPictures = boatday.get('boat').relation('boatPictures').query();
 						queryPictures.ascending('order');
 						queryPictures.first().then(function(fileholder) {
 							if( fileholder ) {
-								self.$el.find('.boatday-card.card-'+boatday.id+' .picture').css({ backgroundImage: 'url('+fileholder.get('file').url()+')' });
+								self.$el.find('.boatday-card[data-id="'+boatday.id+'"] .image').css({ backgroundImage: 'url('+fileholder.get('file').url()+')' });
 							}
 						});
 
@@ -322,8 +256,6 @@ define([
 					if( boatdays.length == 0 ) {
 						self.$el.find('.category-empty').show();
 					}
-
-					self.$el.find('.loading').hide();
 
 				}, function(error) {
 					console.log(error);

@@ -155,10 +155,10 @@
 .bd-spyglass:before {
   content: "O";
 }
-.bd-bd-sliders:before {
+.bd-sliders:before {
   content: "P";
 }
-.bd-bd-twitter:before {
+.bdtwitter:before {
   content: "Q";
 }
 .bd-clock-thin:before {

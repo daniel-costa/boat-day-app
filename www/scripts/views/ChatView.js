@@ -3,14 +3,14 @@ define([
 'models/ChatMessageModel',
 'views/BaseView',
 'views/ReportView',
-'text!templates/BoatDayChatTemplate.html',
-'text!templates/BoatDayChatCardTemplate.html',
-], function(ReportModel, ChatMessageModel, BaseView, ReportView, BoatDayChatTemplate, BoatDayChatCardTemplate){
-	var BoatDayChatView = BaseView.extend({
+'text!templates/ChatTemplate.html',
+'text!templates/ChatCardTemplate.html',
+], function(ReportModel, ChatMessageModel, BaseView, ReportView, ChatTemplate, ChatCardTemplate){
+	var ChatView = BaseView.extend({
 
 		className: 'screen-boatday-chat',
 
-		template: _.template(BoatDayChatTemplate),
+		template: _.template(ChatTemplate),
 
 		events: {
 			'click .btn-send': 'send',
@@ -110,7 +110,7 @@ define([
 
 		appendMessage: function(message) {
 
-			var tpl = _.template(BoatDayChatCardTemplate);
+			var tpl = _.template(ChatCardTemplate);
 			this.$el.find('.content-padded').append(tpl({ message: message }));
 
 		},
@@ -118,7 +118,7 @@ define([
 
 		prependMessage: function(message) {
 
-			var tpl = _.template(BoatDayChatCardTemplate);
+			var tpl = _.template(ChatCardTemplate);
 			this.$el.find('.content-padded').prepend(tpl({ message: message }));
 
 		},
@@ -159,5 +159,5 @@ define([
 		}
 		
 	});
-	return BoatDayChatView;
+	return ChatView;
 });

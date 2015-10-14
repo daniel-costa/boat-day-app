@@ -1,23 +1,14 @@
-<header class="bar bar-nav">
-	<a class="icon bd-drawer pull-left btn-drawer"></a>
-	<h1 class="title"></h1>
-	<a class="icon bd-map pull-right btn-map"></a>
+<header>
+	<span class="icon bd-drawer pull-left btn-drawer"></span>
+	<h1>Boatdays</h1>
+	<span class="icon bd-location btn-map"></span>
 </header>
 
-<div class="bar bar-standard bar-header-secondary filter-categories">
-	<a class="control-item" value="all">All</a>
-	<a class="control-item" value="leisure">Leisure</a>
-	<a class="control-item" value="sailing">Sailing</a>
-	<a class="control-item" value="fishing">Fishing</a>
-	<a class="control-item" value="sports">Water Sports</a>
-	<span class="control-item-handler"></span>
-</div>
-
-<div class="content">
-	<div class="loading"></div>
+<main>
 	<div class="filters">
-		<div class="content-padded">
-			<p class="location">BoatDays around: <a class="change-location">My location</a></p>
+		<div class="left">
+			<span class="icon bd-pin"></span>
+			<label class="change-location">Miami, FL</label>
 			<div class="hidden-content">
 				<select name="location">
 					<option value="my-location" lat="" lng="">My location</option>
@@ -27,10 +18,15 @@
 				</select>
 			</div>
 		</div>
+		<div class="right">
+			<span class="icon bd-sliders"></span>
+			<label>Add Filters</label>
+		</div>
 	</div>
-	<div class="content-padded category-empty">
-		<img src="resources/logo-colors.png" class="logo-placeholder" />
-		<p class="text-center">Currently no BoatDays for this category.</p>
+
+	<div class="category-empty">
+		<p class="text-center">Currently no BoatDays for this filters. try less restrictive filters!</p>
 	</div>
+
 	<div class="inner"></div>
-</div>
+</main>

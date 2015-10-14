@@ -224,6 +224,10 @@ define([
 
 		},
 
+		dateToEnBoatDayCard: function(date) {
+			return this.dayToEnDay(new Date(date.iso ? date.iso : date).getDay()) + ' ' + new Date(date.iso ? date.iso : date).getDate() + '/' + new Date(date.iso ? date.iso : date).getMonth();			
+		},
+
 		dayToEnDay: function(n) {
 			switch(n) {
 				case 0 : return 'Sun'; break;
@@ -342,6 +346,38 @@ define([
 			}
 
 			return btn.hasClass('loading')
+		},
+
+		getCurrentPosition: function() {
+
+			if( Parse.User.current() && Parse.User.current().get('profile') && Parse.User.current().get('profile').get('position') ) {
+				return {
+					latitude: parseFloat(Parse.User.current().get('profile').get('position').latitude),
+					longitude: parseFloat(Parse.User.current().get('profile').get('position').longitude)
+				};
+			} else {
+				return {
+					latitude: parseFloat(25.774382),
+					longitude: parseFloat(-80.185515)
+				};
+			}
+			
+		},
+
+		defineFilters: function() {
+
+			if( this.filtersDefined() ) {
+				return Parse.User.current().get('profile').get('filters');
+			} else {
+				return {
+					position: {
+						name: 'my-location',
+						latitude: null,
+						longitude: null
+					},
+					category: 'all'
+				};
+			}
 		},
 
 		_input: function(name) {
