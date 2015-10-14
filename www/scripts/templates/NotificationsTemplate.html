@@ -1,17 +1,19 @@
-<header class="bar bar-nav">
-	<a class="icon bd-drawer pull-left btn-drawer"></a>
-	<h1 class="title">Notifications</h1>
+<header>
+	<span class="icon bd-arrow-left"></span>
+	<h1>Notifications</h1>
 </header>
 
-<div class="content">
+<main>
 
 	<div class="loading"></div>
 
-	<div class="header">
-		<h1>Hi <%= Parse.User.current().get('profile').get('firstName') %></h1>
+	<div class="header white-area">
+		<h1>Hi <%= Parse.User.current().get('profile').get('firstName') %>!</h1>
 		<p class="notifications-unread"></p>
 	</div>
 
-	<div class="notification-list"></div>
+	<div class="notification-list">
+		<p class="grey-area notification-empty"></p> 
+	</div>
 
-</div>
+</main>

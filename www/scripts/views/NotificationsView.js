@@ -58,8 +58,14 @@ define([
 
 				self.$el.find('.loading').remove();
 
+				// if( matches.length == 0) {
+				// 	self.$el.find('.notification-list').hide();
+				// }
+
 				if( matches.length == 0) {
-					self.$el.find('.notification-list').hide();
+					self.$el.find('.notification-list .notification-empty').text("No notifications yet. Search for BoatDays to enjoy the app fully");
+				} else { 
+					self.$el.find('.notification-list .notification-empty').hide();
 				}
 
 				var notificationsRead = [];

@@ -34,8 +34,9 @@ define([
 				this.$el.find('.btn-drawer').hide();
 			}
 
-			// this._input('phone').mask('(000) 000-0000');
-			
+			console.log("CHECKPOINT 1" +  Parse.User.current().get('profile').get('phone'));
+			console.log("CHECKPOINT 2" +  Parse.User.current().get('profile').get('birthday'));
+
 			return this;
 		},
 
