@@ -1,11 +1,10 @@
 <header class="bar bar-nav">
-	<a class="icon bd-drawer pull-left btn-drawer"></a>
-	<h1 class="title">Profile</h1>
+	<a class="icon bd-arrow-left pull-left"></a>
+	<h1 class="title">Profile setup</h1>
 </header>
 
-<div class="content">
-
-	<div class="content-padded">
+<main>
+	<div class="grey-area">
 
 		<% if( self.profileSetup ) { %>
 			<img src="resources/profile-step-2.png" class="step" />
@@ -22,7 +21,8 @@
 			<button class="btn btn-block take-picture">Take picture</button>
 			<button class="btn btn-block open-gallery">Choose existing</button>
 		</div>
-
+	</div>
+	<div class="white-area">
 		<!-- <label>About me</label> -->
 		<textarea rows="3" name="about" placeholder="About me"><%= about %></textarea>	
 
@@ -40,9 +40,8 @@
 
 		<label>Birthday (cannot be modify)</label>
 		<input type="text" value= "<%= new Date (birthday.iso).toLocaleDateString() %>" readonly >
-
-		<button class="btn btn-block btn-default save"><%= self.profileSetup ? 'Continue' : 'Save' %></button>
-		
 	</div>
-
-</div>
+</main>
+<footer>
+	<button class="btn btn-block btn-default save"><%= self.profileSetup ? 'Continue' : 'Save' %></button>
+</footer>

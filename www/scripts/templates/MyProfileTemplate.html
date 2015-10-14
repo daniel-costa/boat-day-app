@@ -1,4 +1,4 @@
-<header class="bar bar-nav">
+<header>
 	<a class="icon bd-drawer pull-left btn-drawer"></a>
 	<h1 class="title">Information</h1>
 </header>
@@ -13,7 +13,7 @@
 		var dt_value = dt_yyyy + '-' + dt_mm + '-' + dt_dd;
 	}
 %>
-<div class="content">
+<main>
 	<div class="content-padded">
 		
 		<% if( self.profileSetup ) { %>
@@ -36,4 +36,4 @@
 
 		<button class="btn btn-block btn-default save"><%= self.profileSetup ? 'Continue' : 'Update' %></button>
 	</div>
-</div>
+</main>

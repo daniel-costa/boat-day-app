@@ -1,4 +1,4 @@
-<header class="bar bar-nav">
+<header>
 	<% if( self.className.indexOf('modal') > -1 ) { %>
 		<a class="icon icon-close pull-left close-me"></a>
 	<% } else { %>
@@ -8,8 +8,7 @@
 	<h1 class="title">Payments</h1>
 </header>
 
-<div class="content">
-
+<main>
 	<div class="content-padded">
 
 		<% if( self.profileSetup ) { %>
@@ -17,10 +16,6 @@
 		<% } %>
 
 		<h1>Add Credit Card</h1>
-
-		<!-- <label>Card Holder</label>
-		<input name="holder" type="text" placeholder="Card Holder"> -->
-
 		<label>Card Number</label>
 		<input name="number" type="text" placeholder="Card Number" pattern="[0-9]*">
 
@@ -42,5 +37,4 @@
 			<% } %>
 		</div>
 	</div>
-	
-</div>
+</main>
