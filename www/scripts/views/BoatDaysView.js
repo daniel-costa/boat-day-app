@@ -12,11 +12,11 @@ define([
 		template: _.template(BoatDaysTemplate),
 
 		events: {
-			'click .boatday-card': 'showBoatDay',
+			'click .boatday-card': 'boatday',
 			'click .btn-map': 'map',
-			// 'click .control-item': 'pickCategory',
-			// 'click .location': 'showLocations',
-			// 'change [name="location"]': 'pickLocation',
+			'click .location': 'showLocations',
+			'click .open-filters': 'filters'
+			'change [name="location"]': 'pickLocation',
 		},
 
 		statusbar: true,
@@ -25,7 +25,7 @@ define([
 		
 		boatdays: {},
 
-		showBoatDay: function(event) {
+		boatday: function(event) {
 
 			Parse.Analytics.track('boatdays-click-boatday');
 
@@ -72,8 +72,6 @@ define([
 			});
 		},
 
-		/*
-
 		showLocations: function() {
 			this._in('location').focus();
 		},
@@ -103,6 +101,7 @@ define([
 
 		},
 
+		/*
 		pickCategory: function(event) {
 
 			var self = this;
@@ -128,8 +127,6 @@ define([
 		},
 		*/
 
-		afterRenderInsertedToDom: function() { },
-
 		render: function( init ) {
 
 			BaseView.prototype.render.call(this);
@@ -146,8 +143,6 @@ define([
 				self._in('location').val(Parse.User.current().get('profile').get('filters').position.name);
 				self.$el.find('.change-location').text(self._in('location').find(':selected').text());
 			}
-
-			this.$el.find('h1.title').text("BoatDays");
 
 			this.displayBoatDays();
 

@@ -1,15 +1,2 @@
 Bugs:
-- (done) days are not well displays (Mon instead of Sun)
-- (done) Credit card alignment
-- (done) Notifications: Name from BoatDay Team not appearing
-- (done) (done) DisplayName bug when click on rounded icon in boatdayview
-- (done) Return carriage on profile (review) to check
-- (done) replace launch screen
-
-- picture of boat in boatdayview must have a height depending on screen
-- cannot edit about us
-- Stripe SSL
-- Order boatdays by old order
-- Test the phone number and the normal flow for signup
-- Add personalize pin into the map
-- Add speech bubble on pins in the map view (like the price of the BoatDay)
+- Change icon for map in BoatDaysView
