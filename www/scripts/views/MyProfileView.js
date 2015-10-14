@@ -40,6 +40,9 @@ define([
 				this.$el.find('.btn-drawer').hide();
 			}
 
+			console.log("CHECKPOINT 1" +  Parse.User.current().get('profile').get('phone'));
+			console.log("CHECKPOINT 2" +  Parse.User.current().get('profile').get('birthday'));
+
 			return this;
 		},
 

@@ -31,7 +31,7 @@ define([
 			'about-us': 'showAboutUs',
 			'notifications': 'showNotifications',
 			// '*actions': 'showTest'
-			'*actions': 'showBoatDays'
+			'*actions': 'showNotifications'
 			// '*actions': 'showProfileInfo'
 		},
 		

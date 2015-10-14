@@ -1,8 +1,8 @@
-<header class="bar bar-nav">
-	<a class="icon icon-close pull-left close-me"></a>
-	<h1 class="title">Report User</h1>
+<header>
+	<span class="icon bd-arrow-left"></span>
+	<h1>Report User</h1>
 </header>
-<div class="content">
+<main>
 	<div class="head grey-area text-center">
 		<p>I´m reporting</p>
 		<h1><%= self.model.get('profile').get('displayName') %></h1>
@@ -13,8 +13,8 @@
 	</div>
 	<div class="comment-box">
 		<textarea name="message" placeholder="Your comment here"></textarea>
-	</Div>
-</div>
+	</div>
+</main>
 <footer class="grey-area text-center">
 	<button class="btn btn-block btn-send">Submit report</button>
 </footer>

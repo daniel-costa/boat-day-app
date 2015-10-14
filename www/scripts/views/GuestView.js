@@ -15,7 +15,6 @@ define([
 		events: {
 
 			"click button.facebook" : "signInFacebook"
-			
 		},
 
 		render: function() {
