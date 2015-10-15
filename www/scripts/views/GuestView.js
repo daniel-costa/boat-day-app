@@ -1,26 +1,28 @@
 define([
 'models/ProfileModel',
 'views/BaseView',
-'text!templates/GuestTemplate.html', 
-'text!templates/CardBoatDayGuestTemplate.html'
-], function(ProfileModel, BaseView, GuestTemplate, CardBoatDayGuestTemplate){
-	var SignInView = BaseView.extend({
+'text!templates/CardGuestTemplate.html'
+], function(ProfileModel, BaseView, SignInTemplate){
+	var CardGuestView = BaseView.extend({
 
-		className: 'screen-guest',
+		className: 'screen-sign-in',
 
-		template: _.template(GuestTemplate),
-
-		boatdays: {}, 
+		template: _.template(SignInTemplate),
 
 		events: {
-
-			"click button.facebook" : "signInFacebook"
+			"click .icon.back": "showSignIn",
+			"click button.create-account": "showSignUp",
+			
+			"click button.sign-in" : "signIn",
+			"click button.sign-up" : "signUp",
+			"click button.facebook" : "signInFacebook",
 		},
 
 		render: function() {
 
 			BaseView.prototype.render.call(this);
-			var self = this;
+
+			this.$el.find('.block-sign-in').show();
 
 			var query = new Parse.Query(Parse.Object.extend('BoatDay'));
 			query.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
@@ -52,8 +54,119 @@ define([
 					});
 				});
 			});
-
 			return this;
+		},
+
+		showSignIn: function() {
+
+			this.$el.find('.block-sign-up').hide();
+			this.$el.find('.block-sign-in').show();
+
+		},
+
+		showSignUp: function() {
+
+			this.$el.find('.block-sign-up').show();
+			this.$el.find('.block-sign-in').hide();
+			
+		},
+
+		signIn: function(event) {
+
+			Parse.Analytics.track('sign-in-sign-in');
+
+			event.preventDefault();
+
+			var self = this;
+
+			if( self.loading('.sign-in') ) {
+				return ;
+			}
+
+			if(this._in('email').val() == '') {
+				self.fieldError("email", "Oops, you missed one");
+				self.loading();
+				return;
+			}
+
+			if(this._in('password').val() == '') {
+				self.fieldError("password", "Oops, you missed one");
+				self.loading();
+				return;
+			}
+
+			Parse.User.logIn(this._in('email').val(), this._in('password').val()).then(function() {
+
+				self.loading();
+
+				$(document).trigger('loadProfile', function() {
+					Parse.history.navigate('boatdays', true);
+				});
+
+			}, function(error) {
+
+				self.loading();
+
+				switch(error.code) {
+					case 101: self._error("Invalid email/password"); break;
+					default: self._error("An error occured, please try later"); break;
+				}
+			});
+
+		},
+
+		signUp: function(event) {
+
+			Parse.Analytics.track('sign-in-sign-up');
+
+			event.preventDefault();
+
+			var self = this;
+
+			if( self.loading('.sign-up') ) {
+				return ;
+			}
+
+			if(this._in('signUpEmail').val() == "") {
+				self.fieldError('signUpEmail', "Oops, you missed one");
+				self.loading();
+				return; 
+			}
+
+			if(this._in('signUpPassword').val() == "") {
+				self.fieldError('signUpPassword', "Oops, you missed one");
+				self.loading();
+				return; 
+			}
+
+			new Parse.User().signUp({
+				email: this._in('signUpEmail').val(), 
+				username: this._in('signUpEmail').val(), 
+				password: this._in('signUpPassword').val(), 
+				type: "guest", 
+				// ToDo : Bug fix, user is not saved in profile
+				profile: new ProfileModel({ user: Parse.User.current() })
+			}).then(signUpSuccess = function() {
+
+				Parse.history.navigate('boatdays', true);
+
+			}, function( error ) {
+
+				self.loading();
+
+				switch(error.code) {
+					case 125: 
+						self._error("Please provide a valid email address.");
+						break;
+					case 202: 
+						self._error("This email is already taken");
+						break;
+					default:
+						self._error("An error occured, please try again.");
+						break;
+				}
+
+			});
 		},
 
 		signInFacebook: function() {
@@ -145,6 +258,10 @@ define([
 			}
 		},
 
+		createUserProfileEmail: function() {
+
+		},
+
 		updateUserProfileFacebook: function(user, cb) {
 			console.log("updateUserProfileFacebook");
 			console.log(user);
@@ -199,7 +316,79 @@ define([
 					});
 				}, handleErrors);
 			}, handleErrors);
-		}
+		},
+
+		// This function won't work. Graph API of facebook is not working with the plugin currently iOS 9 changes
+
+		// createUserProfileFacebook: function(user) {
+		// 	console.log("createUserProfileFacebook");
+		// 	console.log(user);
+
+		// 	var self = this;
+
+		// 	var handleErrors = function(error) {
+		// 		console.log("handleErrors");
+		// 		console.log(error);
+
+		// 		if(error.code == 209) {
+		// 			// It can happen that the user is logged in 
+		// 			// and once we delete him from parse without a proper 
+		// 			// logout it stays blocked on the first page without any action possible or button displayed
+		// 			// To prevent that we do a natural logout
+		// 			// It nust never happen but we never now
+		// 			Parse.history.navigate('sign-out', true);
+		// 		}
+
+		// 		self.loading();
+		// 		self._error("Oops... something wrong happen. Please, try later");
+
+		// 	};
+
+		// 	var userUpdated = function() {
+		// 		console.log("userUpdated");
+
+		// 		$(document).trigger('loadProfile', function() {
+		// 			Parse.history.navigate('boatdays', true);
+		// 		});
+
+		// 	};
+
+		// 	var facebookApiSuccess = function(me) {
+		// 		console.log('facebookApiSuccess');
+		// 		console.log(me);
+
+		// 		var updateUser = function( profile ) {
+		// 			console.log('updateUser');
+		// 			console.log(profile);
+					
+		// 			user.save({ 
+		// 				email: me.email,
+		// 				profile: profile,
+		// 				type: "guest"
+		// 			}).then(userUpdated, handleErrors);
+		// 		};
+
+		// 		if( me.birthday ) {
+		// 			var ds = me.birthday.split('/');	
+		// 		}
+
+		// 		var profile = new ProfileModel({
+		// 			firstName: me.first_name ? me.first_name : null,
+		// 			lastName: me.last_name ? me.last_name : null,
+		// 			gender: me.gender ? me.gender : null,
+		// 			birthday: me.birthday ? new Date(ds[2], ds[0]-1, ds[1]) : null,
+		// 			about: me.bio ? me.bio : null,
+		// 			user: Parse.User.current()
+		// 		});
+
+		// 		profile.save().then(updateUser, handleErrors);
+
+		// 	};
+
+		// 	facebookConnectPlugin.api('/me?fields=email,first_name,last_name,gender,birthday,picture,bio', null, facebookApiSuccess, handleErrors);
+
+		// }
+
 	});
-	return SignInView;
+	return CardGuestView;
 });
