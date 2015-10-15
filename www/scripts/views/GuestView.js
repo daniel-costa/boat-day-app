@@ -1,10 +1,11 @@
 define([
 'views/BaseView',
 'views/SignUpView',
+'views/SignInView',
 'text!templates/GuestTemplate.html', 
 'text!templates/CardBoatDayGuestTemplate.html'
-], function(BaseView, SignUpView, GuestTemplate, CardBoatDayGuestTemplate){
-	var SignInView = BaseView.extend({
+], function(BaseView, SignUpView, SignInView, GuestTemplate, CardBoatDayGuestTemplate){
+	var GuestView = BaseView.extend({
 
 		className: 'screen-guest',
 
@@ -57,18 +58,17 @@ define([
 		signUp: function(event) {
 			
 			event.preventDefault();
-
 			this.modal(new SignUpView(), 'left');
+			//this.modal(new SignUpView());
 
 		},
 
 		signIn: function(event) {
 			
 			event.preventDefault();
-
 			this.modal(new SignInView(), 'left');
-
+			//this.modal(new SignInView());
 		}
 	});
-	return SignInView;
+	return GuestView;
 });

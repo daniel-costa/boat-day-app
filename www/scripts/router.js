@@ -11,10 +11,11 @@ define([
 	'views/NotificationsView',
 	'views/BoatDayActiveView',
 	'views/RequestsView',
-	'views/SignUpView'
+	'views/SignUpView', 
+	'views/SignInView'
 ], function(
 	TestView, GuestView, MyProfileView, MyPictureView, PaymentsView, CreditCardView, BoatDayView,
-	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView, RequestsView, SignUpView) {
+	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView, RequestsView, SignUpView, SignInView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -30,6 +31,7 @@ define([
 			'about-us'			: 'aboutUs',
 			'notifications'		: 'notifications',
 			'sign-up'			: 'signUp', 
+			'sign-in'			: 'signIn', 
 			// '*actions'			: 'boatdays'
 			'*actions'			: 'boatdays'
 		},
@@ -49,6 +51,11 @@ define([
 		signUp: function() {
 
 			this.render(new SignUpView());
+		}, 
+
+		signIn: function() {
+
+			this.render(new SignInView());
 		}, 
 
 		test: function() {
@@ -126,7 +133,7 @@ define([
 
 			var self = this;
 			self.handleSignedIn(function(profile) {
-				self.render(new MyPicture({ model: Parse.User.current().get('profile') }));
+				self.render(new MyPictureView({ model: Parse.User.current().get('profile') }));
 			});
 
 		},
@@ -166,7 +173,7 @@ define([
 			}
 
 			if( !Parse.User.current().get('profile').get("profilePicture") ) {
-				self.render(new MyPicture({ model: Parse.User.current().get('profile'), setup: true }));
+				self.render(new MyPictureView({ model: Parse.User.current().get('profile'), setup: true }));
 				return ;
 			}
 
