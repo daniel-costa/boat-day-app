@@ -1,84 +1,17 @@
 define([
 'models/ProfileModel',
 'views/BaseView',
-'text!templates/SignUpTemplate.html'
-], function(ProfileModel, BaseView, SignUpTemplate){
-	var SignUpView = BaseView.extend({
+'text!templates/SignInTemplate.html'
+], function(ProfileModel, BaseView, SignInTemplate){
+	var SignInView = BaseView.extend({
 
-		className: 'screen-sign-up',
+		className: 'screen-sign-in',
 
-		template: _.template(SignUpTemplate),
+		template: _.template(SignInTemplate),
 
 		events: {
 			"click button.facebook" : "facebook", 
-			"click button.sign-up"  : "signUp"
-		},
-
-		signUp: function(event) {
-
-			Parse.Analytics.track('sign-in-sign-up');
-
-			event.preventDefault();
-
-			var self = this;
-
-			if( self.loading('.sign-up') ) {
-				return ;
-			}
-
-			if(this._in('signUpEmail').val() == "") {
-				self.fieldError('signUpEmail', "Oops, you missed one");
-				self.loading();
-				return; 
-			}
-
-			if(this._in('signUpPassword').val() == "") {
-				self.fieldError('signUpPassword', "Oops, you missed one");
-				self.loading();
-				return; 
-			}
-
-			new Parse.User().signUp({
-				email: this._in('signUpEmail').val(), 
-				username: this._in('signUpEmail').val(), 
-				password: this._in('signUpPassword').val(), 
-				type: "guest",
-			}).then(function(user) {
-
-				new ProfileModel({ user: Parse.User.current() }).save().then(function(profile) {
-					user.save({ 
-						profile: profile,
-						type: "guest"
-					}).then(function() {
-						$(document).trigger('loadProfile', function() {
-							Parse.history.navigate('boatdays', true);
-						});
-					}, function(error) {
-						console.log(error);
-					});
-				}, function(error) {
-					console.log(error);
-				});
-
-				
-
-			}, function( error ) {
-
-				self.loading();
-
-				switch(error.code) {
-					case 125: 
-						self._error("Please provide a valid email address.");
-						break;
-					case 202: 
-						self._error("This email is already taken");
-						break;
-					default:
-						self._error("An error occured, please try again.");
-						break;
-				}
-
-			});
+			"click button.sign-in"  : "signIn"
 		},
 
 		facebook: function() {
@@ -161,7 +94,6 @@ define([
 				console.log("transferError");
 				console.log(error);
 				console.log(err);
-
 				self.loading();
 				self._error("Oops... something wrong happen. Please, try later");
 				// Sometimes while a crash, the user stays log out and it 
@@ -178,6 +110,51 @@ define([
 			
 		},
 
+		signIn: function(event) {
+
+			Parse.Analytics.track('sign-in');
+
+			event.preventDefault();
+
+			var self = this;
+
+			if( self.loading('.sign-in') ) {
+				return ;
+			}
+
+			if(this._in('email').val() == '') {
+				self.fieldError("email", "Oops, you missed one");
+				self.loading();
+				return;
+			}
+
+			if(this._in('password').val() == '') {
+				self.fieldError("password", "Oops, you missed one");
+				self.loading();
+				return;
+			}
+
+			Parse.User.logIn(this._in('email').val(), this._in('password').val()).then(function() {
+
+				self.loading();
+
+				$(document).trigger('loadProfile', function() {
+					Parse.history.navigate('boatdays', true);
+				});
+
+			}, function(error) {
+
+				self.loading();
+
+				switch(error.code) {
+					case 101: self._error("Invalid email/password"); break;
+					default: self._error("An error occured, please try later"); break;
+				}
+
+			});
+
+		},
+
 	});
-	return SignUpView;
+	return SignInView;
 });

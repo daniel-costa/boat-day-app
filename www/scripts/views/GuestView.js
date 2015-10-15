@@ -10,11 +10,9 @@ define([
 
 		template: _.template(GuestTemplate),
 
-		boatdays: {}, 
-
 		events: {
-
-			"click button.create-account" : "signUp"
+			"click button.sign-up" : "signUp",
+			"click button.sign-in" : "signIn",
 		},
 
 		render: function() {
@@ -57,8 +55,19 @@ define([
 		},
 
 		signUp: function(event) {
+			
 			event.preventDefault();
-			this.modal(new SignUpView());
+
+			this.modal(new SignUpView(), 'left');
+
+		},
+
+		signIn: function(event) {
+			
+			event.preventDefault();
+
+			this.modal(new SignInView(), 'left');
+
 		}
 	});
 	return SignInView;
