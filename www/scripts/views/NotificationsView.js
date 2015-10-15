@@ -11,13 +11,13 @@ define([
 
 		template: _.template(NotificationsTemplate),
 
-		notifications: {},
-
 		events: {
-			'click .profile-picture': 'profile',
-			'click .open-boatday': 'boatday'
+			'click .host-picture': 'profile',
+			'click .guest-picture': 'profile',
+			'click .open-boatday': 'boatday',
 		},
 
+		notifications: {},
 		profiles: {},
 		boatdays: {},
 
@@ -58,14 +58,8 @@ define([
 
 				self.$el.find('.loading').remove();
 
-				// if( matches.length == 0) {
-				// 	self.$el.find('.notification-list').hide();
-				// }
-
 				if( matches.length == 0) {
-					self.$el.find('.notification-list .notification-empty').text("No notifications yet. Search for BoatDays to enjoy the app fully");
-				} else { 
-					self.$el.find('.notification-list .notification-empty').hide();
+					self.$el.find('.list').attr('no-data', 'No notifications.');
 				}
 
 				var notificationsRead = [];
@@ -74,28 +68,15 @@ define([
 
 					self.notifications[notification.id] = notification;
 
-					var data = {
-						self: self,
-						read:  notification.get("read"),
-						fromTeam: notification.get("fromTeam"),
-						action: notification.get("action"),
-						message: notification.get("message") ? notification.get("message").replace(/\n/g, "<br>") : '',
-						from: notification.get("from"),
-						boatday: notification.get('boatday'),
-						request: notification.get('request'),
-						notification: notification
-					};
-
 					if( notification.get("from") ) {
 						self.profiles[notification.get("from").id] = notification.get("from");
 					}
-					
 
 					if( notification.get("boatday") ) {
 						self.boatdays[notification.get("boatday").id] = notification.get("boatday");
 					}
 					
-					self.$el.find('.notification-list').append(_.template(CardNotificationTemplate)(data));
+					self.$el.find('.list').append(_.template(CardNotificationTemplate)({ self: self, model: notification }));
 
 					if(!notification.get("read")) {
 						unread++;
@@ -108,7 +89,7 @@ define([
 					$(document).trigger('updateNotificationsAmount');
 				})
 
-				self.$el.find('.notifications-unread').text("You have " + unread + " new notification" + (unread != 1 ? 's' : '') + ".");
+				self.$el.find('.unread').text("You have " + unread + " new notification" + (unread != 1 ? 's' : '') + ".");
 			});
 
 			return this;

@@ -1,5 +1,5 @@
 <header>
-	<span class="icon bd-arrow-left pull-left"></span>
+	<span class="icon bd-drawer btn-drawer"></span>
 	<h1>Notifications</h1>
 </header>
 
@@ -7,13 +7,11 @@
 
 	<div class="loading"></div>
 
-	<div class="header white-area">
+	<div class="header grey-area">
 		<h1>Hi <%= Parse.User.current().get('profile').get('firstName') %>!</h1>
-		<p class="notifications-unread"></p>
+		<p class="unread"></p>
 	</div>
 
-	<div class="notification-list">
-		<p class="grey-area notification-empty"></p> 
-	</div>
+	<div class="list"></div>
 
 </main>
