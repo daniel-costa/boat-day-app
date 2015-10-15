@@ -4,13 +4,12 @@ define([
 'views/BaseView',
 'views/ReportView',
 'views/BoatView',
-'views/CertificationsView',
 'text!templates/ProfileTemplate.html',
 'text!templates/CardReviewHostTemplate.html', 
 'text!templates/CardReviewGuestTemplate.html', 
 'text!templates/CardBoatTemplate.html', 
 'text!templates/CardBoatDayProfileTemplate.html'
-], function(Swiper, ReportModel, BaseView, ReportView, BoatView, CertificationsView, ProfileTemplate, CardReviewHostTemplate, CardReviewGuestTemplate, CardBoatTemplate, CardBoatDayProfileTemplate){
+], function(Swiper, ReportModel, BaseView, ReportView, BoatView, ProfileTemplate, CardReviewHostTemplate, CardReviewGuestTemplate, CardBoatTemplate, CardBoatDayProfileTemplate){
 	var ProfileView = BaseView.extend({
 
 		className: 'screen-profile',
@@ -19,7 +18,6 @@ define([
 
 		events: {
 			'click .report': 'report',
-			'click .certifications': 'certifications',
 			'click .open-profile': 'profile',
 			'click .boatday-card': 'boatday',
 			'click .boat': 'boat'
@@ -37,14 +35,6 @@ define([
 			Parse.Analytics.track('profile-click-report');
 
 			this.modal(new ReportView({ model : new ReportModel({ action: 'profile', profile: this.model }) }));
-		},
-
-		certifications: function(event) {
-			event.preventDefault();
-
-			Parse.Analytics.track('profile-click-certifications');
-
-			this.modal(new CertificationsView());
 		},
 
 		profile: function(event) {

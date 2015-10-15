@@ -6,10 +6,9 @@ define([
 'views/ReportView',
 'views/CancellationsView',
 'views/ProfileView',
-'views/CertificationsView',
 'views/MapView',
 'text!templates/BoatDayTemplate.html'
-], function(ReportModel, QuestionModel, BaseView, BookView, ReportView, CancellationsView, ProfileView, CertificationsView, MapView, BoatDayTemplate){
+], function(ReportModel, QuestionModel, BaseView, BookView, ReportView, CancellationsView, ProfileView, MapView, BoatDayTemplate){
 	var BoatDayView = BaseView.extend({
 
 		className: 'screen-boatday',
@@ -23,7 +22,6 @@ define([
 			'click .report': 'report', 
 			'click .open-profile-picture': 'profile',
 			'click .profile-picture': 'profile',
-			'click .certifications': 'certifications',
 			'click .map': 'map',
 			'click .btn-ask-question': 'askOverlay',
 			'click .btn-question': 'ask',
@@ -192,14 +190,6 @@ define([
 			Parse.Analytics.track('boatday-click-profile');
 			
 			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
-
-		},
-
-		certifications: function(event) {
-
-			Parse.Analytics.track('boatday-click-certifications');
-
-			this.modal(new CertificationsView());
 
 		},
 

@@ -1,28 +1,26 @@
 define([
-'models/ProfileModel',
 'views/BaseView',
-'text!templates/CardGuestTemplate.html'
-], function(ProfileModel, BaseView, SignInTemplate){
-	var CardGuestView = BaseView.extend({
+'views/SignUpView',
+'text!templates/GuestTemplate.html', 
+'text!templates/CardBoatDayGuestTemplate.html'
+], function(BaseView, SignUpView, GuestTemplate, CardBoatDayGuestTemplate){
+	var SignInView = BaseView.extend({
 
-		className: 'screen-sign-in',
+		className: 'screen-guest',
 
-		template: _.template(SignInTemplate),
+		template: _.template(GuestTemplate),
+
+		boatdays: {}, 
 
 		events: {
-			"click .icon.back": "showSignIn",
-			"click button.create-account": "showSignUp",
-			
-			"click button.sign-in" : "signIn",
-			"click button.sign-up" : "signUp",
-			"click button.facebook" : "signInFacebook",
+
+			"click button.create-account" : "signUp"
 		},
 
 		render: function() {
 
 			BaseView.prototype.render.call(this);
-
-			this.$el.find('.block-sign-in').show();
+			var self = this;
 
 			var query = new Parse.Query(Parse.Object.extend('BoatDay'));
 			query.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
@@ -54,341 +52,14 @@ define([
 					});
 				});
 			});
+
 			return this;
 		},
 
-		showSignIn: function() {
-
-			this.$el.find('.block-sign-up').hide();
-			this.$el.find('.block-sign-in').show();
-
-		},
-
-		showSignUp: function() {
-
-			this.$el.find('.block-sign-up').show();
-			this.$el.find('.block-sign-in').hide();
-			
-		},
-
-		signIn: function(event) {
-
-			Parse.Analytics.track('sign-in-sign-in');
-
-			event.preventDefault();
-
-			var self = this;
-
-			if( self.loading('.sign-in') ) {
-				return ;
-			}
-
-			if(this._in('email').val() == '') {
-				self.fieldError("email", "Oops, you missed one");
-				self.loading();
-				return;
-			}
-
-			if(this._in('password').val() == '') {
-				self.fieldError("password", "Oops, you missed one");
-				self.loading();
-				return;
-			}
-
-			Parse.User.logIn(this._in('email').val(), this._in('password').val()).then(function() {
-
-				self.loading();
-
-				$(document).trigger('loadProfile', function() {
-					Parse.history.navigate('boatdays', true);
-				});
-
-			}, function(error) {
-
-				self.loading();
-
-				switch(error.code) {
-					case 101: self._error("Invalid email/password"); break;
-					default: self._error("An error occured, please try later"); break;
-				}
-			});
-
-		},
-
 		signUp: function(event) {
-
-			Parse.Analytics.track('sign-in-sign-up');
-
 			event.preventDefault();
-
-			var self = this;
-
-			if( self.loading('.sign-up') ) {
-				return ;
-			}
-
-			if(this._in('signUpEmail').val() == "") {
-				self.fieldError('signUpEmail', "Oops, you missed one");
-				self.loading();
-				return; 
-			}
-
-			if(this._in('signUpPassword').val() == "") {
-				self.fieldError('signUpPassword', "Oops, you missed one");
-				self.loading();
-				return; 
-			}
-
-			new Parse.User().signUp({
-				email: this._in('signUpEmail').val(), 
-				username: this._in('signUpEmail').val(), 
-				password: this._in('signUpPassword').val(), 
-				type: "guest", 
-				// ToDo : Bug fix, user is not saved in profile
-				profile: new ProfileModel({ user: Parse.User.current() })
-			}).then(signUpSuccess = function() {
-
-				Parse.history.navigate('boatdays', true);
-
-			}, function( error ) {
-
-				self.loading();
-
-				switch(error.code) {
-					case 125: 
-						self._error("Please provide a valid email address.");
-						break;
-					case 202: 
-						self._error("This email is already taken");
-						break;
-					default:
-						self._error("An error occured, please try again.");
-						break;
-				}
-
-			});
-		},
-
-		signInFacebook: function() {
-
-			Parse.Analytics.track('sign-in-facebook');
-
-			var self = this;
-
-			if( self.loading('.facebook') ) {
-				return ;
-			}
-			
-			var fbLoginSuccess = function(userData) {
-
-				console.log("fbLoginSuccess");
-				console.log(userData);
-
-				if (!userData.authResponse){
-					transferError("Cannot find the authResponse");
-					return;
-				}
-
-				var authData = {
-					id: String(userData.authResponse.userID),
-					access_token: userData.authResponse.accessToken,
-					expiration_date: new Date(new Date().getTime() + userData.authResponse.expiresIn * 1000).toISOString()
-				};
-
-				fbLogged.resolve(authData);
-				fbLoginSuccess = null;
-			};
-
-			var transferFbUserToParse = function (authData) {
-				console.log("transferFbUserToParse");
-				console.log(authData);
-				return Parse.FacebookUtils.logIn(authData);
-			};
-
-			var transferSuccess = function(user) {
-				console.log("transferSuccess");
-				console.log(user);
-				self.handleSignIn("facebook", user);
-			};
-
-			var transferError = function(error, err) {
-				console.log("transferError");
-				console.log(error);
-				console.log(err);
-				self.loading();
-				self._error("Oops... something wrong happen. Please, try later");
-				// Sometimes while a crash, the user stays log out and it 
-				// may trigger this error
-				// The best workarround  is to sign him out properly.
-				Parse.history.navigate('sign-out', true);
-			};
-
-			var fbLogged = new Parse.Promise();
-
-			facebookConnectPlugin.login(["public_profile", "email", "user_about_me", "user_birthday", "user_friends"], fbLoginSuccess, transferError);
-
-			fbLogged.then(transferFbUserToParse, transferError).then(transferSuccess, transferError);
-			
-		},
-
-		handleSignIn: function(type, user) {
-			
-			var self = this;
-
-			if( user.get("profile") ) {
-				self.updateUserProfileFacebook(user, function() {
-					$(document).trigger('loadProfile', function() {
-						Parse.history.navigate('boatdays', true);
-					});
-				});
-			} else {
-				console.log('redirect to createProfile');
-				switch(type) {
-					case "facebook":
-						self.createUserProfileFacebook(user);
-						break;
-					case "twitter":
-						self.createUserProfileTwitter(user);
-						break;
-					case "email":
-						self.createUserProfileEmail(user);	
-						break;
-				}
-				
-			}
-		},
-
-		createUserProfileEmail: function() {
-
-		},
-
-		updateUserProfileFacebook: function(user, cb) {
-			console.log("updateUserProfileFacebook");
-			console.log(user);
-
-			var self = this;
-
-			// Bug on Facebook SDK
-			// For now, we skip it
-
-			// var handleErrors = function(error) {
-			// 	console.log("handleErrors");
-			// 	console.log(error);
-			// 	self.loading();
-			// 	self._error("Oops... something wrong happen. Please, try later");
-			// 	Parse.history.navigate('sign-out', true);
-			// };
-
-			// facebookConnectPlugin.api('/me?fields=email', ["public_profile", "email"], function(me) {
-			// 	user.save({ 
-			// 		email: me.email,
-			// 	}).then(cb, handleErrors);
-			// }, handleErrors);
-	
-			cb();
-		},
-
-		createUserProfileFacebook: function(user) {
-			console.log("createUserProfileFacebook");
-			console.log(user);
-
-			var self = this;
-
-			var handleErrors = function(error) {
-				console.log("handleErrors");
-				console.log(error);
-				if(error.code == 209) {
-					Parse.history.navigate('sign-out', true);
-				}
-				self.loading();
-				self._error("Oops... something wrong happen. Please, try later");
-			};
-
-			var profile = new ProfileModel({ user: Parse.User.current() });
-
-			profile.save().then(function( profile ) {
-				user.save({ 
-					profile: profile,
-					type: "guest"
-				}).then(function() {
-					$(document).trigger('loadProfile', function() {
-						Parse.history.navigate('boatdays', true);
-					});
-				}, handleErrors);
-			}, handleErrors);
-		},
-
-		// This function won't work. Graph API of facebook is not working with the plugin currently iOS 9 changes
-
-		// createUserProfileFacebook: function(user) {
-		// 	console.log("createUserProfileFacebook");
-		// 	console.log(user);
-
-		// 	var self = this;
-
-		// 	var handleErrors = function(error) {
-		// 		console.log("handleErrors");
-		// 		console.log(error);
-
-		// 		if(error.code == 209) {
-		// 			// It can happen that the user is logged in 
-		// 			// and once we delete him from parse without a proper 
-		// 			// logout it stays blocked on the first page without any action possible or button displayed
-		// 			// To prevent that we do a natural logout
-		// 			// It nust never happen but we never now
-		// 			Parse.history.navigate('sign-out', true);
-		// 		}
-
-		// 		self.loading();
-		// 		self._error("Oops... something wrong happen. Please, try later");
-
-		// 	};
-
-		// 	var userUpdated = function() {
-		// 		console.log("userUpdated");
-
-		// 		$(document).trigger('loadProfile', function() {
-		// 			Parse.history.navigate('boatdays', true);
-		// 		});
-
-		// 	};
-
-		// 	var facebookApiSuccess = function(me) {
-		// 		console.log('facebookApiSuccess');
-		// 		console.log(me);
-
-		// 		var updateUser = function( profile ) {
-		// 			console.log('updateUser');
-		// 			console.log(profile);
-					
-		// 			user.save({ 
-		// 				email: me.email,
-		// 				profile: profile,
-		// 				type: "guest"
-		// 			}).then(userUpdated, handleErrors);
-		// 		};
-
-		// 		if( me.birthday ) {
-		// 			var ds = me.birthday.split('/');	
-		// 		}
-
-		// 		var profile = new ProfileModel({
-		// 			firstName: me.first_name ? me.first_name : null,
-		// 			lastName: me.last_name ? me.last_name : null,
-		// 			gender: me.gender ? me.gender : null,
-		// 			birthday: me.birthday ? new Date(ds[2], ds[0]-1, ds[1]) : null,
-		// 			about: me.bio ? me.bio : null,
-		// 			user: Parse.User.current()
-		// 		});
-
-		// 		profile.save().then(updateUser, handleErrors);
-
-		// 	};
-
-		// 	facebookConnectPlugin.api('/me?fields=email,first_name,last_name,gender,birthday,picture,bio', null, facebookApiSuccess, handleErrors);
-
-		// }
-
+			this.modal(new SignUpView());
+		}
 	});
-	return CardGuestView;
+	return SignInView;
 });

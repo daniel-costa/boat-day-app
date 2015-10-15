@@ -8,6 +8,7 @@
 
 		<span class="sender"><%= fromTeam ? 'BoatDay Team' : from.get('displayName') %></span>
 		<span class="time"><%= self.dateParseToDisplayDate( notification.createdAt ) %></span>
+		<span class="yellow-dot"></span>
 	</div>
 	<div class="notification-message">
 		<% if( action == "request-approved" && request && boatday ) { %>

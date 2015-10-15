@@ -11,9 +11,10 @@ define([
 	'views/NotificationsView',
 	'views/BoatDayActiveView',
 	'views/RequestsView',
+	'views/SignUpView'
 ], function(
 	TestView, GuestView, MyProfileView, MyPictureView, PaymentsView, CreditCardView, BoatDayView,
-	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView, RequestsView) {
+	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView, RequestsView, SignUpView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -28,6 +29,8 @@ define([
 			'credit-card'		: 'creditCard',
 			'about-us'			: 'aboutUs',
 			'notifications'		: 'notifications',
+			'sign-up'			: 'signUp', 
+			// '*actions'			: 'boatdays'
 			'*actions'			: 'boatdays'
 		},
 		
@@ -39,9 +42,14 @@ define([
 
 			Parse.User.logOut();
 			facebookConnectPlugin.logout();
-			this.showGuestView();
+			// this.showGuestView();
 
 		},
+
+		signUp: function() {
+
+			this.render(new SignUpView());
+		}, 
 
 		test: function() {
 			
