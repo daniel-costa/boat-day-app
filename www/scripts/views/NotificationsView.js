@@ -54,6 +54,8 @@ define([
 			query.include('request');
 			query.find().then(function(matches){
 
+				matches = [];
+				
 				self.notifications = {};
 
 				self.$el.find('.loading').remove();

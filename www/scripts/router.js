@@ -20,7 +20,6 @@ define([
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
-			'sign-out'			: 'signOut',
 			'boatday/:id'		: 'boatday',
 			'boatdays'			: 'boatdays',
 			'requests'			: 'requests',
@@ -30,9 +29,10 @@ define([
 			'credit-card'		: 'creditCard',
 			'about-us'			: 'aboutUs',
 			'notifications'		: 'notifications',
-			'sign-up'			: 'signUp', 
 			'sign-in'			: 'signIn', 
-			'*actions'			: 'boatdays'
+			'sign-up'			: 'signUp',
+			'sign-out'			: 'signOut',
+			'*actions'			: 'payments'
 		},
 		
 		currentView: null,

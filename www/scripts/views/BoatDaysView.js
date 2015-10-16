@@ -197,7 +197,6 @@ define([
 
 			var self = this;
 
-			self.$el.find('.loading').show();
 			self.$el.find('.category-empty').hide();
 
 			self.getBoatdaysBaseQuery().then(function(query) {
@@ -231,13 +230,13 @@ define([
 						longitude: self.getCurrentPosition().longitude
 					});
 
-					self.$el.find('main .inner').html('');
+					self.$el.find('main .list').html('');
 
 					_.each(boatdays, function(boatday) {
 						
 						self.boatdays[boatday.id] = boatday;
 
-						self.$el.find('main .inner').append(_.template(BoatDayCardTemplate)({
+						self.$el.find('main .list').append(_.template(BoatDayCardTemplate)({
 							self: self,
 							model: boatday,
 						}));
@@ -253,7 +252,9 @@ define([
 					});
 
 					if( boatdays.length == 0 ) {
-						self.$el.find('.category-empty').show();
+						self.$el.find('.list').attr('no-data', 'Currently no BoatDays for this filters. Try less restrictive filters!');
+					} else {
+						self.$el.find('.list').removeAttr('no-data');
 					}
 
 				}, function(error) {

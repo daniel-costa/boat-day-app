@@ -82,10 +82,14 @@ header h1 {
 main {
 	-webkit-flex: 1;
 	-webkit-order: 2;
-	background: @main-background;
-	border: @main-border;
 	-webkit-overflow-scrolling: touch;
 	overflow:auto;
+
+	background: @main-background;
+	border: @main-border;
+
+	display: -webkit-flex;
+	-webkit-flex-direction: column;
 }
 
 main > * {

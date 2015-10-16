@@ -41,7 +41,6 @@ define([
 
 			var self = this;
 
-
 			self.$el.find('.boatdays-past').click();
 
 			return this;
@@ -77,7 +76,7 @@ define([
 
 			var self = this;
 
-			self.$el.find('.content').html('renderPendingBoatDays');
+			self.$el.find('.list').html('renderPendingBoatDays');
 
 		},
 
@@ -96,14 +95,14 @@ define([
 
 		renderUpcomingBoatDays: function() {
 			var self = this;
-			self.$el.find('.content').html('renderUpcomingBoatDays');
+			self.$el.find('.list').html('renderUpcomingBoatDays');
 		},
 
 		renderFavoriteBoatDays: function() {
 
 			var self = this;
 
-			self.$el.find('.content').html('renderFavoriteBoatDays');
+			self.$el.find('.list').html('renderFavoriteBoatDays');
 		},
 
 		execQuerySeatRequests: function(query, template, cbAfterCardRender) {
@@ -117,7 +116,7 @@ define([
 			query.include('promoCode');
 			query.find().then(function(requests) {
 
-				self.$el.find('.content').html("");
+				self.$el.find('.list').html("");
 
 				console.log(requests);
 
@@ -127,18 +126,22 @@ define([
 					self.boatdays[request.get('boatday').id] = request.get('boatday');
 					self.profiles[request.get('boatday').get('captain').id] = request.get('boatday').get('captain');
 
-					self.$el.find('.content').append(_.template(template)({ self: self, model: request }));
+					self.$el.find('.list').append(_.template(template)({ self: self, model: request }));
 
 					if( typeof cbAfterCardRender !== typeof undefined ) {
 						cbAfterCardRender(request);
 					}
+
 				});
 
 				// ToDo
 				// - Add more explicit empty state
 				if( requests.length == 0 ) {
-					self.$el.find('.content').html('No BoatDays to display');
+					self.$el.find('.list').attr('no-data', 'Currently no BoatDays in this category');
+				} else {
+					self.$el.find('.list').removeAttr('no-data');
 				}
+				
 
 			}, function(error) {
 				console.log(error);

@@ -1,0 +1,12 @@
+<div class="card-credit-card">
+	<%
+		switch( model.get('brand') ) {
+			case "American Express" : var _cardName = "american-express"; break;
+			case "Visa" : var _cardName = "visa"; break;
+			case "MasterCard" : var _cardName = "mastercard"; break;
+			default: var _cardName = "default"; break;
+		}
+	%>
+	<img src="resources/cards/'<%= _cardName %>'.png" />
+	<p><% +card.get('last4') %></p>
+<div>
