@@ -18,7 +18,6 @@ define([
 				url: Parse.Config.current().get('WP_URL'),
         		crossDomain: true,
 				success: function(data) {
-					self.$el.find('.loading').remove();
 					self.$el.find('.content-padded').html(data);
 				}
 			});

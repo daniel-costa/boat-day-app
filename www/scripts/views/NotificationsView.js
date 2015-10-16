@@ -58,8 +58,6 @@ define([
 				
 				self.notifications = {};
 
-				self.$el.find('.loading').remove();
-
 				if( matches.length == 0) {
 					self.$el.find('.list').attr('no-data', 'No notifications.');
 				}
