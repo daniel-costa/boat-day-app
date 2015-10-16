@@ -32,7 +32,6 @@ define([
 			'notifications'		: 'notifications',
 			'sign-up'			: 'signUp', 
 			'sign-in'			: 'signIn', 
-			// '*actions'			: 'boatdays'
 			'*actions'			: 'boatdays'
 		},
 		
