@@ -2,7 +2,7 @@ define([
 'views/BaseView',
 'views/CreditCardView',
 'text!templates/PaymentsTemplate.html',
-'text!templates/CardCreditCardTemplate.html',
+'text!templates/CardCreditCardTemplate.html'
 ], function(BaseView, CreditCardView, PaymentsTemplate, CardCreditCardTemplate){
 	var PaymentsView = BaseView.extend({
 
