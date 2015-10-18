@@ -30,6 +30,11 @@ header .icon:last-child {
 	border-bottom: @white-area-border;
 }
 
+main .list {
+	-webkit-flex: 1;
+	overflow: auto;
+}
+
 h6 {
 	color: rgba(84, 110, 122, 1);
 	font-size: 9pt;
@@ -95,6 +100,43 @@ button.btn-primary:active {
 
 .button-spacing {
 	margin: 10px 10px;
+}
+
+input, textarea {
+	color: rgba(56, 61, 62, 1);
+	font-size: 11.95pt;
+	line-height: 11.95pt;
+	display: block;
+	background: white;
+	width: 100%;
+	-webkit-appearance: none;
+	border-radius: 0px;
+	border: none;
+	margin: 0px;
+	padding: 9px 26px 20px 26px;
+	position: relative;
+	font-family: inherit;
+}
+
+::-webkit-input-placeholder {
+}
+
+label.field {
+	color: rgba(84, 110, 122, 0.35);
+	font-size: 8.53pt;
+	line-height: 8.53pt;
+	text-transform: uppercase;
+	display: block;
+	border-top: 1px solid rgba(84, 110, 122, 0.05);
+	padding: 19px 24px 11px 24px;
+}
+
+label.field-flag-error {
+	border-color: rgba(255, 96, 61, 1);
+}
+
+.field-flag-error {
+	color: rgba(255, 96, 61, 1) !important;
 }
 
 .base-picture {

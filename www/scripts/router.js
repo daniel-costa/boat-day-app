@@ -12,10 +12,16 @@ define([
 	'views/BoatDayActiveView',
 	'views/RequestsView',
 	'views/SignUpView', 
-	'views/SignInView'
+	'views/SignInView',
+	
+	'views/WaterPolicyView',
+	'views/TermsView',
+
 ], function(
 	TestView, GuestView, MyProfileView, MyPictureView, PaymentsView, CreditCardView, BoatDayView,
-	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView, RequestsView, SignUpView, SignInView) {
+	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView, RequestsView, SignUpView, SignInView,
+
+	WaterPolicyView, TermsView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -32,30 +38,45 @@ define([
 			'sign-in'			: 'signIn', 
 			'sign-up'			: 'signUp',
 			'sign-out'			: 'signOut',
-			'*actions'			: 'payments'
+			'water-policy'		: 'waterPolicy',
+			'terms'				: 'terms',
+			'*actions'			: 'requests',
 		},
 		
 		currentView: null,
 
 		canHandleDeepLinking: false,
 
-		signOut: function() {
+		waterPolicy: function() {
 
-			Parse.User.logOut();
-			facebookConnectPlugin.logout();
-			// this.showGuestView();
+			this.render(new WaterPolicyView());
+			
+		}, 
 
-		},
+		terms: function() {
+
+			this.render(new TermsView());
+			
+		}, 
 
 		signUp: function() {
 
 			this.render(new SignUpView());
+
 		}, 
 
 		signIn: function() {
 
 			this.render(new SignInView());
 		}, 
+
+		signOut: function() {
+
+			Parse.User.logOut();
+			facebookConnectPlugin.logout();
+			this.guestx();
+
+		},
 
 		test: function() {
 			

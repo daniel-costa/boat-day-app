@@ -31,3 +31,12 @@
 ## Change rights
 * `sudo chown -R Daniel .`
 * `sudo chmod -R 777 .`
+
+## Allow HTTP Requests
+* Add to 'AppDelegate' : 
+'@implementation NSURLRequest(DataController)
++ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host
+{
+    return YES; 
+}
+@end'

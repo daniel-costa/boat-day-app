@@ -210,9 +210,14 @@ define([
 
 		fieldError: function(field, message) {
 
+			// add to label
+			this.$el.find('[for="'+field+'"]').addClass('field-flag-error');
+
 			if(this._input(field).length > 0) {
+				// add to field
 				this._input(field).addClass('field-flag-error');
 			} else {
+				// add to fake element
 				this.$el.find('.'+field).addClass('field-flag-error');
 			}
 
@@ -225,6 +230,7 @@ define([
 		},
 
 		dateToEnBoatDayCard: function(date) {
+			console.log(date);
 			return this.dayToEnDay(new Date(date.iso ? date.iso : date).getDay()) + ' ' + new Date(date.iso ? date.iso : date).getDate() + '/' + new Date(date.iso ? date.iso : date).getMonth();			
 		},
 

@@ -4,43 +4,33 @@
 </header>
 
 <main>
-	<div class="content-padded text-center">
-		<p class="version">Version 2.4.18</p>
-		<p class="date">October 7th, 2015</p>
-		<img src="resources/logo-colors.png" class="logo" />
-
-		<div class="feedback">
-			<input type="email" name="email" placeholder="E-mail" value="<%= typeof Parse.User.current().get('email') != typeof undefined ? '' : Parse.User.current().get('email') %>" />
-			<textarea name="feedback" rows="3" placeholder="It is our mission to create the best boating app for you. Tell us what's on your mind."></textarea>
-			<button class="btn btn-block btn-send">
-				<span class="fa fa-paper-plane-o"></span>
-				Send feedback
-			</button>
-		</div>
+	<div class="grey-area text-center">
+		<img src="resources/logo-grey.png" class="logo" />
+		<a class="terms">Terms and Conditions</a>
+		<p class="version">Version 3.0.1</p>
 		<div class="social">
-			<p>You can find us on</p>
-			<a class="open-browser" href="https://www.facebook.com/261894800656872">
-				<img src="resources/ico-social-fb.png" />
-				Facebook
-			</a>
-			<a class="open-browser" href="https://twitter.com/boatdayapp">
-				<img src="resources/ico-social-twitter.png" />
-				Twitter
-			</a>
-			<a class="open-browser" href="https://instagram.com/boatdayapp/">
-				<img src="resources/ico-social-instagram.png" />
-				Instagram
-			</a>
-			<span class="clear"></span>
+			<h1>Find us here</h1>
+			<div class="links">
+				<a class="open-browser icon bd-facebook" href="https://www.facebook.com/261894800656872"></a>
+				<a class="open-browser icon bd-twitter" href="https://twitter.com/boatdayapp"></a>
+				<a class="open-browser icon bd-instagram" href="https://instagram.com/boatdayapp/"></a>
+				<a class="open-browser icon bd-web" href="http://www.boatdayapp.com"></a>
+			</div>
 		</div>
+	</div>
+	<div class="white-area feedback">
 
-		<div class="website">
-			<p class="text-center">or visit our website</p>
-			<a class="btn btn-primary btn-block open-browser" href="http://www.boatdayapp.com">www.boatdayapp.com</a>
-		</div>
+		<label for="email" class="field">Email</label>
+		<input type="email" name="email" id="email" placeholder="E-mail" value="<%= typeof Parse.User.current().get('email') != typeof undefined ? '' : Parse.User.current().get('email') %>" />
+	
+		<label for="phone" class="field">Phone number</label>
+		<input type="number" name="phone" id="phone" placeholder="Phone" value="<%= typeof Parse.User.current().get('phone') != typeof undefined ? '' : Parse.User.current().get('phone') %>" pattern="[0-9]*" />
+	
+		<label for="feedback" class="field">Please give us your feedback</label>
+		<textarea name="feedback" id="feedback" rows="3" placeholder="It is our mission to create the best boating app for you. Tell us what's on your mind."></textarea>
 
-		<p>
-			<a class="terms-modal">Terms and Conditions</a>
-		</p>
 	</div>
 </main>
+<footer>
+	<button class="btn-primary btn-send">Send Feedback</button>
+</footer>

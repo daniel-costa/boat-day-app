@@ -92,9 +92,6 @@
 .bd-marker:before {
   content: "r";
 }
-.bd-location:before {
-  content: "s";
-}
 .bd-list:before {
   content: "t";
 }
@@ -158,7 +155,7 @@
 .bd-sliders:before {
   content: "P";
 }
-.bdtwitter:before {
+.bd-twitter:before {
   content: "Q";
 }
 .bd-clock-thin:before {
@@ -187,4 +184,13 @@
 }
 .bd-star-empty:before {
   content: "X";
+}
+.bd-location:before {
+  content: "Y";
+}
+.bd-instagram:before {
+  content: "s";
+}
+.bd-web:before {
+  content: "Z";
 }

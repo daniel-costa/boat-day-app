@@ -26,22 +26,22 @@ define([
 				return ;
 			}
 
-			if(this._in('signUpEmail').val() == "") {
-				self.fieldError('signUpEmail', "Oops, you missed one");
+			if(this._in('email').val() == "") {
+				self.fieldError('email', "Oops, you missed one");
 				self.loading();
 				return; 
 			}
 
-			if(this._in('signUpPassword').val() == "") {
-				self.fieldError('signUpPassword', "Oops, you missed one");
+			if(this._in('password').val() == "") {
+				self.fieldError('password', "Oops, you missed one");
 				self.loading();
 				return; 
 			}
 
 			new Parse.User().signUp({
-				email: this._in('signUpEmail').val(), 
-				username: this._in('signUpEmail').val(), 
-				password: this._in('signUpPassword').val(), 
+				email: this._in('email').val(), 
+				username: this._in('email').val(), 
+				password: this._in('password').val(), 
 				type: "guest",
 			}).then(function(user) {
 

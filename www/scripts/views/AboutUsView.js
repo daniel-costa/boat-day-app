@@ -11,14 +11,15 @@ define([
 
 		events: {
 			'click .btn-send': 'sendFeedback', 
-			'click .terms-modal': 'OpenTermsModal'
+			'click .terms': 'terms'
 		},
 
-		OpenTermsModal: function() {
+		terms: function() {
 			
 			Parse.Analytics.track('about-us-click-terms');
 
 			this.modal(new TermsView());
+
 		},
 
 		sendFeedback: function(event) {
@@ -44,11 +45,19 @@ define([
 				err = true;
 			}
 
+			if( this._in('phone').val() == '' ) {
+				this.fieldError('phone', 'This field cannot be empty');
+				err = true;
+			}
+
 			if( err ) {
 				self.loading();
 				return;
 			}
 
+			// ToDo
+			// Udate user with email and phone
+			
 			var FeedbackModel = Parse.Object.extend('HelpCenter');
 
 			new FeedbackModel().save({
@@ -57,6 +66,7 @@ define([
 				user: Parse.User.current(),
 				status: 'unread',
 				email: this._in('email').val(),
+				phone: this._in('phone').val(),
 				file1: null,
 				file2: null,
 				file3: null
@@ -64,8 +74,8 @@ define([
 				self.loading();
 				self._in('feedback').val('');
 				self._in('email').val('');
+				self._in('phone').val('');
 				self._info('Thank you for contacting the BoatDay team, we will get back to you soon.');
-				self.loading();
 			}, function(error) {
 				Parse.Analytics.track('about-us-send-feedback-fail');
 				self.loading();

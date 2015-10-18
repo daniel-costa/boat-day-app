@@ -7,6 +7,20 @@
 			default: var _cardName = "default"; break;
 		}
 	%>
-	<img src="resources/cards/'<%= _cardName %>'.png" />
-	<p><% +card.get('last4') %></p>
-<div>
+	<img src="resources/cards/<%= _cardName %>.png" />
+	<div>
+		<span class="dot"></span>
+		<span class="dot"></span>
+		<span class="dot"></span>
+		<span class="dot space"></span>
+		<span class="dot"></span>
+		<span class="dot"></span>
+		<span class="dot"></span>
+		<span class="dot space"></span>
+		<span class="dot"></span>
+		<span class="dot"></span>
+		<span class="dot"></span>
+		<span class="dot space"></span>
+		<p class="number"><%= model.get('last4') %></p>
+	</div>
+</div>

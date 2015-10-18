@@ -4,7 +4,7 @@ define([
 ], function(BaseView, WaterPolicyTemplate){
 	var WaterPolicyView = BaseView.extend({
 
-		className: 'screen-water-sports',
+		className: 'screen-water-policy',
 
 		template: _.template(WaterPolicyTemplate),
 
@@ -18,8 +18,7 @@ define([
 				url: Parse.Config.current().get('WP_URL'),
         		crossDomain: true,
 				success: function(data) {
-					self.$el.find('.loading').remove();
-					self.$el.find('.content-padded').html(data);
+					self.$el.find('.list').html(data);
 				}
 			});
 

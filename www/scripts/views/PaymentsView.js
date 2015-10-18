@@ -1,8 +1,8 @@
 define([
 'views/BaseView',
 'views/CreditCardView',
-'text!templates/PaymentsTemplate.html'
-'text!templates/CardCreditCardTemplate.html'
+'text!templates/PaymentsTemplate.html',
+'text!templates/CardCreditCardTemplate.html',
 ], function(BaseView, CreditCardView, PaymentsTemplate, CardCreditCardTemplate){
 	var PaymentsView = BaseView.extend({
 
@@ -11,7 +11,7 @@ define([
 		template: _.template(PaymentsTemplate),
 
 		events: {
-			'click .add-card' : 'addCreditCard'
+			'click .add-card' : 'card'
 		}, 
 
 		render: function() {
@@ -37,9 +37,10 @@ define([
 			return this;
 		}, 
 
-		addCreditCard: function(event) {
+		card: function(event) {
 
 			event.preventDefault();
+			
 			this.modal(new CreditCardView());
 
 		}

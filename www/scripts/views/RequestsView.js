@@ -1,13 +1,14 @@
 define([
 'Swiper',
 'views/BaseView',
+'views/ProfileView',
 'text!templates/RequestsTemplate.html',
 'text!templates/CardBoatDayPastTemplate.html',
 'text!templates/CardBoatDayUpcomingTemplate.html',
 'text!templates/CardBoatDayPendingTemplate.html',
 'text!templates/CardBoatDayCancelledTemplate.html',
 'text!templates/CardBoatDayFavoriteTemplate.html',
-], function(Swiper, BaseView, RequestsTemplate, CardBoatDayPastTemplate, CardBoatDayUpcomingTemplate, CardBoatDayPendingTemplate, CardBoatDayCancelledTemplate, CardBoatDayFavoriteTemplate){
+], function(Swiper, BaseView, ProfileView, RequestsTemplate, CardBoatDayPastTemplate, CardBoatDayUpcomingTemplate, CardBoatDayPendingTemplate, CardBoatDayCancelledTemplate, CardBoatDayFavoriteTemplate){
 	var RequestsView = BaseView.extend({
 
 		className: 'screen-requests',
@@ -20,19 +21,19 @@ define([
 			'click .boatdays-past': 'renderPastBoatDays',
 			'click .boatdays-cancelled': 'renderCancelledBoatDays',
 			'click .boatdays-favorite': 'renderFavoriteBoatDays',
-			'click .content': 'debug',
+			'click .host-picture': 'profile',
 		},
 
 		requests: {},
 		profiles: {},
 		boatdays: {},
 
-		debug: function() {
-			alert('renew');
-			new Swiper(this.$el.find('.categories .swiper-container'), {
-				slidesPerView: 'auto',
-				spaceBetween: 10
-			});
+		profile: function() {
+			
+			Parse.Analytics.track('boatday-click-profile');	
+			
+			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
+		
 		},
 
 		render: function() {
@@ -40,6 +41,11 @@ define([
 			BaseView.prototype.render.call(this);
 
 			var self = this;
+
+			new Swiper(this.$el.find('.categories .swiper-container'), {
+				slidesPerView: 'auto',
+				spaceBetween: 10
+			});
 
 			self.$el.find('.boatdays-past').click();
 
