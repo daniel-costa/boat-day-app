@@ -1,21 +1,13 @@
 <header>
-	<% if( self.className.indexOf('modal') > -1 ) { %>
-		<a class="icon bd-chevron-left close-me"></a>
-	<% } else { %>
-		<a class="icon bd-drawer btn-drawer"></a>
-	<% } %>
-	
-	<h1><%= name %></h1>
-
-	<a class="icon bd-exclamation report"></a>
+	<span class="icon bd-drawer btn-drawer"></span>
+	<h1>boatday</h1>
 </header>
 
 <main>
-	
-	<div class="badge-price"><sup>$</sup><%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %><sub>/person</sub></div>
+	<div class="badge-price"><sup>$</sup><%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %><sub>/person</sub>
+	</div>
 
 	<div class="slider" id="mySlider">
-		<!-- <div class="total-pictures"></div> -->
 		<div class="slide-group">
 			<div class="slide">
 				<div class="img" style="background-image:url(resources/placeholder-boat.png)"></div>
@@ -27,228 +19,75 @@
 		
 		<div class="host-picture" data-id="<%= self.model.get('captain').id %>" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)"></div>
 		<p class="text">
-			Hosted by <strong><%= self.model.get('captain').get('displayName') %></strong><br/>
-			Boat <strong><%= self.model.get('boat').get('name') %></strong><br/>
+			Host <strong><%= self.model.get('captain').get('displayName') %></strong><br/>
 			<% if( self.model.get('captain').get('rating') ) { %>
-
 				<div class="rating rating-<%= Math.ceil(self.model.get('captain').get('rating')) %> bd-icons">
 					<div class="with-empty bd-icons"></div>
 				</div>
 			<% } else { %>
 				(no ratings yet)
 			<% } %>
-		</p>
-		<p class="text-center">
-			<a>Open Host Profile</a>
+			(<%= self.model.get('captain').get('ratingAmount') %>)
 		</p>
 	</div>
-	
-	<h1><%= name %></h1>
-	
-	<table>
-		<tr>
-			<td><span class="fa fa-fw fa-calendar-o"></span> <strong><%= self.dateParseToDisplayDate(date) %></strong></td>
-			<td><span class="fa fa-fw fa-clock-o"></span> <strong><%= self.departureTimeToDisplayTime(departureTime) %></strong></td>
-		</tr>
-		<tr>
-			<td><span class="fa fa-fw fa-users"></span> <strong><%= availableSeats - bookedSeats + '/' + availableSeats %> seats left</strong></td>
-			<td><span class="fa fa-fw fa-hourglass"></span> <strong><%= duration %> hour<%= duration == 1 ? '' : 's' %></strong></td>
-		</tr>
-	</table>
 
-	<div class="content-padded">
-		<label>Confirmed Guests</label>
-		<div class="confirmed-guests">
-			<div class="inner"></div>
-			<span class="clear"></span>
-		</div>
+	<div class="boat open-boat" data-id="<%= self.model.get('boat').id %>">
+		<p class="text">
+			Boat<strong><%= self.model.get('boat').get('name') %></strong>
+		</p>
+	</div>
 
-		<label>About this BoatDay</label>
-		<p class="description"><%= description.replace(/\n/g, "<br>") %></p>
-		
+	<div class="boatDay-details grey-area">
+		<h1><%= name %></h1>
+		<label>Date</label>
+		<p><%= self.dateParseToDisplayDate(date) %></p>
+		<label>Time</label>
+		<p><%= self.departureTimeToDisplayTime(departureTime) %></p>
+		<label>Duration</label>	
+		<p><%= duration %> hour<%= duration == 1 ? '' : 's' %></p>
+		<label>Location</label>
+		<p><%= locationText %></p>
+		<label>Available seats</label>
+		<p><%= availableSeats %></p>
+	</div>
+	
+	<div class="description grey-area">
+		<p><%= description %></p>
+	</div>
+
+	<div class="boatday-map">
 		<div class="map" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=<%= self.model.get('location').latitude %>,<%= self.model.get('location').longitude %>&amp;zoom=13&amp;size=400x260)">
 			<img src="resources/pin-outline.png" />
 		</div>
-
-		<p class="position">
-			<strong><span class="fa fa-map-marker"></span></strong> <%= self.seatRequest && self.seatRequest.get('status') == 'approved' ? locationText : 'Exact address will be visible to confirmed guests.' %>
-		</p>
-
-		<label>BoatDay Features</label>
-		<div class="features">
-
-			<!-- Activities -->
-			<% if( category == 'leisure' ) { %>
-				<% if( self.model.get('features').leisure.cruising ) { %>
-					<p>Cruising</p>
-				<% } %>
-				<% if( self.model.get('features').leisure.partying ) { %>	
-					<p>Partying</p>
-				<% } %>
-				<% if( self.model.get('features').leisure.sightseeing ) { %>
-					<p>Sightseeing</p>
-				<% } %>
-				<% if( self.model.get('features').leisure.other ) { %>	
-					<p>Other</p>
-				<% } %>
-			<% } %>
-			<% if( category == 'fishing' ) { %>
-				<% if( self.model.get('features').fishing.flats ) { %>
-					<p>Flats</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.lake ) { %>	
-					<p>Lake</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.offshore ) { %>	
-					<p>Offshore</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.recreational ) { %>
-					<p>Recreational</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.other ) { %>		
-					<p>Other</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.bates ) { %>
-					<p>Bates</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.lines ) { %>
-					<p>Lines</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.hooks ) { %>
-					<p>Hooks</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.lures ) { %>
-					<p>Lures</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.nets ) { %>
-					<p>Nets</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.rods ) { %>
-					<p>Rods</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.sinkers ) { %>
-					<p>Sinkers</p>
-				<% } %>
-			<% } %>
-			<% if( category == 'sports' ) { %>
-				<% if( self.model.get('features').sports.snorkeling ) { %>
-					<p>Snorkeling</p>
-				<% } %>
-				<% if( self.model.get('features').sports.tubing ) { %>	
-					<p>Tubing</p>
-				<% } %>
-				<% if( self.model.get('features').sports.wakeBoarding ) { %>
-					<p>Wake Boarding</p>
-				<% } %>
-				<% if( self.model.get('features').sports.waterSkiing ) { %>	
-					<p>Water Skiing</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.fins ) { %>
-					<p>Fins</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.helmets ) { %>
-					<p>Helmets</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.masks ) { %>
-					<p>Masks</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.snorkels ) { %>
-					<p>Snorkels</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.towLine ) { %>
-					<p>Two Lines</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.tubes ) { %>
-					<p>Tube</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.wakeboard ) { %>
-					<p>Wakeboard</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.waterSkis ) { %>
-					<p>Water Skis</p>
-				<% } %>
-			<% } %>
-
-
-			<!-- Family Settings -->
-			<% if( self.model.get('features').global.children ) { %>	
-				<p>Children allowed</p>
-			<% } %>
-			<% if( self.model.get('features').global.smoking ) { %>
-				<p>Smoking Permitted</p>
-			<% } %>
-			<% if( self.model.get('features').global.drinking ) { %>	
-				<p>Drinking Permitted</p>
-			<% } %>
-			<% if( self.model.get('features').global.pets ) { %>
-				<p>Pets Permitted</p>
-			<% } %>
-
-			<!-- Extras -->
-			<% if( self.model.get('features').extras.food ) { %>	
-				<p>Food</p>
-			<% } %>
-			<% if( self.model.get('features').extras.drink ) { %>
-				<p>Drink</p>
-			<% } %>
-			<% if( self.model.get('features').extras.music ) { %>
-				<p>Music</p>
-			<% } %>
-			<% if( self.model.get('features').extras.towels ) { %>	
-				<p>Towels</p>
-			<% } %>
-			<% if( self.model.get('features').extras.sunscreen ) { %>
-				<p>Sunscreen</p>
-			<% } %>
-			<% if( self.model.get('features').extras.inflatables ) { %>
-				<p>Inflatables</p>
-			<% } %>
-			<span class="clear"></span>
+		<div class="grey-area">
+			<p>Start and end of trip</p>
+			<div class="position">
+				<div><span class="icon location"></span>Miami, Florida</div>
+				<strong><span class="icon location"></span></strong> <%= self.seatRequest && self.seatRequest.get('status') == 'approved' ? locationText : 'Exact address will be visible to confirmed guests.' %>
+			</div>
 		</div>
 	</div>
-
-	<div class="questions-list">
-		<label>Asked questions</label>
+	<div class="share">
+		<div class="boat-picture">
+			<label>Friends email address</label>
+			<input type="text" name="share-boatday"></input>
+			<button class="send-to-friends">Send</button>
+			<button class="share-to-friends">Share</button>
+		</div>
+	</div>
+	<div class="questions-list white-area">
+		<label>Questions</label>
 		<div class="questions"></div>
 		<div class="text-center">
-			<p class="content-padded">
-				<em>Looking for more information about this BoatDay?</em>
-			</p>
 			<button class="btn btn-default btn-ask-question">Ask the Host a question</button>
 		</div>
 	</div>
-
-
-	<div class="book">
-		<div class="content-padded">
-			<% if( self.fromUpcoming && self.seatRequest ) { %>
-				<p class="seats"><%= self.seatRequest.get('seats') %> seat<%= self.seatRequest.get('seats') == 1 ? '' : 's' %> <%= self.seatRequest.get('status') == 'approved' ? 'booked' : 'requested' %></p>
-			<% } %>
-
-			<p class="price"><sup>$</sup><%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %><sub>/person</sub></p>
-			<% if( self.fromUpcoming ) { %>
-				<button class="btn btn-block btn-action btn-cancel">Cancel BoatDay</button>
-				<a class="btn-cancel-modal">Cancellation policy</a>
-			<% } else { %>
-				<button class="btn btn-block btn-action btn-book">Request to Book</button>
-			<% } %>
-		</div>
+	<div class="footer">
+		<p class="price"><sup>$</sup><%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %><sub>/person</sub></p>
+		<p>Book now before the seats fill up!</p>
+		<button class="btn btn-block btn-cancellation-policy">View cancellation policy</button>
+		<button class="btn btn-block btn-action btn-book">Book Seats</button>
+		<p><a class="cancellation-policy">Cancellation policy</a>and<a class="waterPolicy">Watersports Policy</a></a></p>
+		
 	</div>
 </main>
-
-<!-- <div class="overlay">
-	<div class="box">
-		<div class="inner">
-			<h1>Have a question for the Host? Just ask!</h1>
-			<textarea rows="2" name="question" placeholder="Ask your question to the host."></textarea>
-			
-			<label>Who can see your question?</label>
-			<select name="public">
-				<option value="true" selected>Everybody</option>
-				<option value="false">Only me</option>
-			</select>
-			
-			<button class="btn btn-default btn-block btn-question">Submit Question</button>
-		</div>
-	</div>
-</div> -->

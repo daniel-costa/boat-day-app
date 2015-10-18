@@ -4,7 +4,7 @@ define([
 'views/MapView',
 'text!templates/BoatDaysTemplate.html',
 'text!templates/CardBoatDayTemplate.html',
-], function(BaseView, BoatDayView, MapView, BoatDaysTemplate, BoatDayCardTemplate){
+], function(BaseView, BoatDayView, MapView, BoatDaysTemplate, CardBoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatdays',
@@ -30,7 +30,7 @@ define([
 			Parse.Analytics.track('boatdays-click-boatday');
 
 			this.modal(new BoatDayView({ model : this.boatdays[$(event.currentTarget).attr('data-id')], fromUpcoming: false }), 'right');
-
+			
 		},
 
 		filters: function() {
@@ -236,7 +236,7 @@ define([
 						
 						self.boatdays[boatday.id] = boatday;
 
-						self.$el.find('main .list').append(_.template(BoatDayCardTemplate)({
+						self.$el.find('main .list').append(_.template(CardBoatDayTemplate)({
 							self: self,
 							model: boatday,
 						}));
