@@ -83,9 +83,6 @@ define([
 
 			var self = this;
 
-			self.$el.find('.loading').hide();
-
-
 			query.find().then(function(messages) {
 
 				_.each(messages, function(message) {

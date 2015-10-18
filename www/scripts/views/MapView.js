@@ -106,9 +106,7 @@ define([
 			if( self.getuber === false && self.getdirection === false) {
 				this.$el.find('.btn-more').hide();
 			}
-
-			self.$el.find('.loading').remove();
-
+			
 			return this;
 		}
 	});
