@@ -1,7 +1,8 @@
 define([
 'views/BaseView',
+'views/CreditCardView',
 'text!templates/MyPictureTemplate.html'
-], function(BaseView, MyPictureTemplate){
+], function(BaseView, CreditCardView, MyPictureTemplate){
 	var MyPictureView = BaseView.extend({
 
 		className: 'screen-my-picture',
@@ -11,7 +12,8 @@ define([
 		events: {
 			'click .take-picture': 'takePicture',
 			'click .open-gallery': 'openGallery',
-			'click .save': 'save',
+			'click .save'		 : 'save',
+			'click .credit-card' : 'showCreditCards'
 		},
 
 		profileSetup: false,
@@ -42,6 +44,11 @@ define([
 
 			return this;
 		},
+
+		showCreditCards: function() {
+
+			this.modal(new CreditCardView());
+		}, 
 
 		save: function() {
 
@@ -100,7 +107,11 @@ define([
 			var data = { 
 				status: 'complete',
 				profilePicture : self.tempPicture,
-				about: self._input('about').val()
+				about: self._input('about').val(), 
+				firstName: self._input('name').val(), 
+				lastName: self._input('lastName').val(), 
+				phone: self._input('phone').val(), 
+				birthday: self._input('birthDate').val() ? new Date(this._input('birthDate').val()) : null
 			};
 
 			this.model.save(data).then(profileUpdateSuccess, profileUpdateError);
@@ -123,14 +134,15 @@ define([
 
 				self.tempPicture = new Parse.File("picture.jpeg", { base64: imageData }, "image/jpeg");
 				self.tempPicture.save().then(profileUpdate, pictureSaveError);
+				console.log("picture saved");
 				
 			};
 
 			var profileUpdate = function(picture) {
-
+				console.log("profile updated");
 				self.loading();
 				self.tempPicture = picture;
-				self.$el.find('.profile-picture').css({ backgroundImage: 'url(' + picture.url() + ')' });
+				self.$el.find('.guest-picture').css({ backgroundImage: 'url(' + picture.url() + ')' });
 
 			};
 
