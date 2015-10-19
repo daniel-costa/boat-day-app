@@ -13,6 +13,7 @@ define([
 	'views/RequestsView',
 	'views/SignUpView', 
 	'views/SignInView',
+	'views/GuestView',
 	'views/WaterPolicyView',
 	'views/TermsView',
 	'views/CancellationsView', 
@@ -23,7 +24,7 @@ define([
 ], function(
 	TestView, GuestView, MyProfileView, MyPictureView, PaymentsView, CreditCardView, BoatDayView,
 	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView, RequestsView, SignUpView, SignInView,
-	WaterPolicyView, TermsView, CancellationsView, QuestionView, PromoCodeView, PriceInformationView) {
+	GuestView, WaterPolicyView, TermsView, CancellationsView, QuestionView, PromoCodeView, PriceInformationView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -42,11 +43,13 @@ define([
 			'sign-out'			: 'signOut',
 			'water-policy'		: 'waterPolicy',
 			'terms'				: 'terms',
+
 			'cancellations'		: 'cancellations',
 			'question'			: 'question',
 			'promo-code'		: 'promoCode',
 			'price-info'		: 'priceInformation', 
-			'*actions'			: 'boatdays'
+			'guest'				: 'guest',
+			'*actions'			: 'guest',
 		},
 		
 		currentView: null,
@@ -71,7 +74,7 @@ define([
 		cancellations: function() {
 
 			this.render(new CancellationsView());
-		}, 
+		},
 
 		waterPolicy: function() {
 

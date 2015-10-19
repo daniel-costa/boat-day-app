@@ -1,11 +1,9 @@
-<div  class="boatday-card card-<%=id%>" data-id="<%= id %>">
-	<div class="boat-image">
-		<div class="picture"></div>
-	</div>
-	<div class="boatday-name"><%= name %></div>
-	<div class="boatday-details">
-		<p><%= date.iso %></p>
-		<p><%= availableSeats %></p>
-		<p><%= location %></p>
+<div class="swiper-slide">
+	<div  class="boatday-card" data-id="<%= model.id %>">
+		<div class="boatday-image picture">
+		</div>
+		<div class="details">
+			<p><%= model.get('name') %></p>
+		</div>
 	</div>
 </div>
