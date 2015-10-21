@@ -9,12 +9,13 @@ define([
 		template: _.template(ReportTemplate),
 
 		events: {
-			'click .btn-send': 'report'
+			'click .report': 'report'
 		},
 
 		report: function(event) {
 
 			event.preventDefault();
+
 			var self = this;
 
 			if( self.loading('.report') ) {
@@ -35,6 +36,7 @@ define([
 				Parse.Analytics.track('profile-report-fail');
 				self.loading();
 				console.log(error);
+				self._error('Oops... Something went wrong. Try later or if it persists close totally the app and open it again.');
 			});
 		}
 

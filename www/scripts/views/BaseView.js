@@ -113,6 +113,42 @@ define([
 
 		},
 
+		overlay: function(view) {
+
+			var self = this;
+
+			view.className = view.className + ' overlay';
+			view.isOverlay = true;
+			view.$el.attr('class', view.className);
+
+
+			var $el = view.render().$el;
+			$el.insertAfter(this.$el);
+
+			$el.on('click', '.close-me', function(event, data) {
+
+				if( typeof data == typeof undefined ) {
+					var data = {};
+				}
+				
+				if( data.render ) {
+					self.render();
+				}
+
+				$el.removeClass('active');
+
+				setTimeout(function() { 
+					view.teardown();
+				}, 1000);
+
+			});
+			
+			setTimeout(function() { 
+				$el.addClass('active');
+			}, 100);
+
+		},
+
 		censorEmailFronString: function(str) {
 
 			var pattern = /[^@\s]*@[^@\s]*\.[^@\s]*/g;

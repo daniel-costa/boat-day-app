@@ -59,21 +59,25 @@ define([
 		priceInformation: function() {
 
 			this.render(new PriceInformationView());
+
 		}, 
 
 		promoCode: function() {
 
 			this.render(new PromoCodeView());
+
 		},
 
 		question: function(){
 
 			this.render(new QuestionView());
+
 		}, 
 
 		cancellations: function() {
 
 			this.render(new CancellationsView());
+
 		},
 
 		waterPolicy: function() {

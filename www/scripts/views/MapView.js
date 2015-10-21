@@ -89,7 +89,7 @@ define([
 					draggable: false,
 					animation: google.maps.Animation.DROP,
 					position: new google.maps.LatLng(boatday.obj.get('location').latitude, boatday.obj.get('location').longitude),
-					icon: !boatday.precise  ? 'resources/pin-circle.png' : 'resources/pin-outline.png'
+					icon: !boatday.precise  ? 'resources/pin-circle.png' : 'resources/pin-' + boatday.obj.get('category') + '.png'
 				});
 
 				if( boatday.openOnClick ) {

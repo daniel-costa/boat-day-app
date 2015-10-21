@@ -1,0 +1,101 @@
+
+[class^="screen-"].overlay,
+[class*=" screen-"].overlay {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(37, 42, 43, 0.9);
+
+ 	-webkit-transition: -webkit-transform .25s, opacity 1ms .25s;
+	-webkit-transform: translate3d(0, 100%, 0);
+}
+
+[class^="screen-"].overlay .drop,
+[class*=" screen-"].overlay .drop {
+	z-index: 11;
+	overflow: hidden;
+ 	opacity: 1;
+	
+	position: fixed;
+	left: 2vw;
+ 	bottom: 2vw;
+
+ 	width: 96vw;
+ 	height: 80vh;
+	
+	border: none;
+	border-radius: 3pt;
+ 	background-color: rgba(249, 251, 251, 1);
+
+ 	display: -webkit-flex;
+	 -webkit-flex-direction: column;
+}
+
+[class^="screen-"].overlay header, 
+[class*=" screen-"].overlay header {
+	height: auto;
+	padding: 0px;
+	background: transparent;
+	border: none;
+	width: 100%;
+	display: block;
+}
+
+[class^="screen-"].overlay main, 
+[class*=" screen-"].overlay main {
+	overflow: auto;
+	background: white;
+}
+
+[class^="screen-"].overlay footer, 
+[class*=" screen-"].overlay footer {
+	height: auto;
+	padding: 11pt;
+}
+
+
+[class^="screen-"].overlay header h1, 
+[class*=" screen-"].overlay header h1 {
+	color: rgba(84, 110, 122, 1);
+	font-size: 17.07pt;
+	line-height: 23.04pt;
+	text-align: center;
+	padding: 35px 0px;
+	text-transform: none;
+	display: block;
+}
+
+[class^="screen-"].overlay footer button, 
+[class*=" screen-"].overlay footer button {
+	margin-bottom: 11pt;
+}
+
+[class^="screen-"].overlay footer .close-me, 
+[class*=" screen-"].overlay footer .close-me {
+	width: 50pt;
+	height: 50pt;
+	border-radius: 50pt;
+	margin: 0px auto;
+	display: block;
+	background: rgba(17, 171, 193, 1);
+	color: white;
+	text-align: center;
+	
+	display: -webkit-box;
+	display: -webkit-flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-webkit-align-self: center;
+}
+
+[class^="screen-"].overlay.active,
+[class*=" screen-"].overlay.active {
+	height: 100%;
+	opacity: 1;
+	-webkit-transition: -webkit-transform .25s;
+	-webkit-transform: translate3d(0, 0, 0);
+}

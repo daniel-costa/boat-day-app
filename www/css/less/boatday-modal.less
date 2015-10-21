@@ -1,0 +1,26 @@
+[class^="screen-"].modal,
+[class*=" screen-"].modal {
+	position: fixed;
+ 	top: 0;
+ 	z-index: 11;
+ 	width: 100%;
+ 	min-height: 100%;
+ 	overflow: hidden;
+ 	background-color: #fff;
+ 	opacity: 0;
+ 	-webkit-transition: -webkit-transform .25s, opacity 1ms .25s;
+	-webkit-transform: translate3d(0, 100%, 0);
+}
+
+[class^="screen-"].modal.from-right,
+[class*=" screen-"].modal.from-right {
+	-webkit-transform: translate3d(100%, 0, 0);	
+}
+
+[class^="screen-"].modal.active,
+[class*=" screen-"].modal.active {
+	height: 100%;
+	opacity: 1;
+	-webkit-transition: -webkit-transform .25s;
+	-webkit-transform: translate3d(0, 0, 0);
+}

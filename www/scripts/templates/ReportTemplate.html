@@ -6,15 +6,13 @@
 	<div class="header grey-area text-center">
 		<p>I´m reporting</p>
 		<h1><%= self.model.get('profile').get('displayName') %></h1>
-		<div class="profile-picture" style="background-image:url(<%= self.model.get('profile').get('profilePicture').url() %>)"></div>
+		<div class="guest-picture big" style="background-image:url(<%= self.model.get('profile').get('profilePicture').url() %>)"></div>
 	</div>
-	<div class="reason">
-		<label>Reason</label>
-	</div>
-	<div class="comment-box">
-		<textarea name="message" placeholder="Your comment here"></textarea>
+	<div>
+		<label for="message" class="field">Reason</label>
+		<textarea name="message" id="message" placeholder="Your comment here"></textarea>
 	</div>
 </main>
-<footer class="grey-area text-center">
-	<button class="btn btn-block btn-send">Submit report</button>
+<footer>
+	<button class="btn-primary report">Submit report</button>
 </footer>

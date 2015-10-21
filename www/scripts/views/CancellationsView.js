@@ -8,6 +8,15 @@ define([
 
 		template: _.template(CancellationsTemplate),
 
+		render: function() {
+
+			BaseView.prototype.render.call(this);
+
+			this.$el.find('.' + this.model.get('cancellationPolicy')).addClass('active');
+
+			return this;
+
+		}
 	});
 	return CancellationsView;
 });

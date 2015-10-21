@@ -117,7 +117,7 @@ define([
 				}).then(function(card) {
 					Parse.User.current().get('profile').relation('cards').add(card);
 					Parse.User.current().get('profile').save().then(function() {
-						if( self.isModal ) {
+						if( self.isModal || self.isOverlay ) {
 							self.close({ render: true });
 						} else {
 							Parse.history.navigate("profile-payments", true);

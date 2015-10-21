@@ -41,7 +41,7 @@ define([
 
 			event.preventDefault();
 			
-			this.modal(new CreditCardView());
+			this.overlay(new CreditCardView());
 
 		}
 

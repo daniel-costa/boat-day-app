@@ -1,10 +1,12 @@
 define([
+	'models/ReportModel',
 'views/BaseView',
 'views/BoatDayView',
+'views/ReportView',
 'views/MapView',
 'text!templates/BoatDaysTemplate.html',
 'text!templates/CardBoatDayTemplate.html',
-], function(BaseView, BoatDayView, MapView, BoatDaysTemplate, CardBoatDayTemplate){
+], function(ReportModel, BaseView, BoatDayView, ReportView, MapView, BoatDaysTemplate, CardBoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatdays',
@@ -34,6 +36,9 @@ define([
 		},
 
 		filters: function() {
+
+			// console.log(this.boatdays[Object.keys(this.boatdays)[0]]);
+			this.modal(new ReportView({ model : new ReportModel({ action: 'profile', profile: Parse.User.current().get('profile') }) }));
 
 		},
 		
@@ -77,7 +82,9 @@ define([
 		},
 
 		showLocations: function() {
+			
 			this._in('location').focus();
+
 		},
 
 		pickLocation: function() {
