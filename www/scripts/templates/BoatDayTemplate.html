@@ -4,54 +4,54 @@
 </header>
 
 <main>
-	<div class="badge-price"><sup>$</sup><%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %><sub>/person</sub>
-	</div>
-
 	<div class="slider" id="mySlider">
 		<div class="slide-group">
 			<div class="slide">
-				<div class="img" style="background-image:url(resources/placeholder-boat.png)"></div>
+				<div class="img" style="background-image:url(resources/placeholder-boat.png)">	
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="captain open-profile-picture" data-id="<%= self.model.get('captain').id %>">
-		
-		<div class="host-picture" data-id="<%= self.model.get('captain').id %>" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)"></div>
-		<p class="text">
-			Host <strong><%= self.model.get('captain').get('displayName') %></strong><br/>
-			<% if( self.model.get('captain').get('rating') ) { %>
-				<div class="rating rating-<%= Math.ceil(self.model.get('captain').get('rating')) %> bd-icons">
-					<div class="with-empty bd-icons"></div>
-				</div>
-			<% } else { %>
-				(no ratings yet)
-			<% } %>
-			(<%= self.model.get('captain').get('ratingAmount') %>)
-		</p>
+		<div class="host-picture small" data-id="<%= self.model.get('captain').id %>" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)">
+		</div>
+		<div class="text">
+			<h2>Host</h2><h1><%= self.model.get('captain').get('displayName') %></h1>
+		</div>
+		<% if( self.model.get('captain').get('rating') ) { %>
+			<div class="rating rating-<%= Math.ceil(self.model.get('captain').get('rating')) %> bd-icons">
+				<div class="with-empty bd-icons"></div>
+			</div>
+		<% } else { %>
+			(no ratings yet)
+		<% } %>
+		<div class="rating-amount">(<%= self.model.get('captain').get('ratingAmount') %>)</div>
+		<a class="icon-right bd-chevron-right "></a>
 	</div>
 
 	<div class="boat open-boat" data-id="<%= self.model.get('boat').id %>">
-		<p class="text">
-			Boat<strong><%= self.model.get('boat').get('name') %></strong>
-		</p>
+		<div class="boat-picture small" style="background-image:url(../resources/placeholder-boat.png)">	
+		</div>
+		<div class="text">
+			<h2>Boat</h2><h1><%= self.model.get('boat').get('name') %></h1>
+		</div>
+		<a class="icon-right bd-chevron-right "></a>
 	</div>
 
-	<div class="boatDay-details grey-area">
+	 <div class="boatday-details grey-area">
 		<h1><%= name %></h1>
-		<label>Date</label>
-		<p><%= self.dateParseToDisplayDate(date) %></p>
-		<label>Time</label>
-		<p><%= self.departureTimeToDisplayTime(departureTime) %></p>
-		<label>Duration</label>	
-		<p><%= duration %> hour<%= duration == 1 ? '' : 's' %></p>
-		<label>Location</label>
-		<p><%= locationText %></p>
-		<label>Available seats</label>
-		<p><%= availableSeats %></p>
+		<div class="details">
+			<p>Date</p><h2><%= self.dateParseToDisplayDate(date) %></h2><br>
+			<p>Time</p><h2><%= self.departureTimeToDisplayTime(departureTime) %></h2><br>
+			<p>Duration</p><h2><%= duration %> hour<%= duration == 1 ? '' : 's' %></h2><br>
+			<p>Location</p><h2><%= locationText %></h2><br>
+			<p>Available seats</p><h2><%= availableSeats %></h2>
+		</div>
 	</div>
 	
 	<div class="description grey-area">
+		<h6>DESCRIPTION</h6>
 		<p><%= description %></p>
 	</div>
 
@@ -81,7 +81,7 @@
 		<div class="text-center">
 			<button class="btn btn-default btn-ask-question">Ask the Host a question</button>
 		</div>
-	</div>
+	</div> 
 	<div class="footer">
 		<p class="price"><sup>$</sup><%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %><sub>/person</sub></p>
 		<p>Book now before the seats fill up!</p>

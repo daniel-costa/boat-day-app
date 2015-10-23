@@ -6,9 +6,10 @@ define([
 'views/ReportView',
 'views/CancellationsView',
 'views/ProfileView',
+'views/BoatView', 
 'views/MapView',
 'text!templates/BoatDayTemplate.html'
-], function(ReportModel, QuestionModel, BaseView, BookView, ReportView, CancellationsView, ProfileView, MapView, BoatDayTemplate){
+], function(ReportModel, QuestionModel, BaseView, BookView, ReportView, CancellationsView, ProfileView, BoatView, MapView, BoatDayTemplate){
 	var BoatDayView = BaseView.extend({
 
 		className: 'screen-boatday',
@@ -21,6 +22,7 @@ define([
 			'click .btn-cancel-modal': 'cancelModal', 
 			'click .report': 'report', 
 			'click .open-profile-picture': 'profile',
+			'click .open-boat': 'boat',
 			'click .profile-picture': 'profile',
 			'click .map': 'map',
 			'click .btn-ask-question': 'askOverlay',
@@ -33,6 +35,7 @@ define([
 		seatRequest: null,
 		profiles: {},
 		questions: {},
+		boats: {}, 
 
 		initialize: function(data) {
 
@@ -193,6 +196,12 @@ define([
 
 		},
 
+		boat: function(event) {
+
+			event.preventDefault();
+			this.modal(new BoatView({ model: this.boats[$(event.currentTarget).attr('data-id')] }));
+		}, 
+
 		book: function() {
 
 			Parse.Analytics.track('boatday-click-book');
@@ -207,6 +216,8 @@ define([
 
 			var self = this;
 
+			self.boats[self.model.get('boat').id] = self.model.get('boat');
+
 			var queryPictures = this.model.get('boat').relation('boatPictures').query();
 			queryPictures.ascending('order');
 			queryPictures.find().then(function(files) {
@@ -214,7 +225,6 @@ define([
 				if(files.length == 0) {
 					return;
 				}
-
 
 				self.$el.find('.total-pictures').text('1 / ' + files.length);
 				self.$el.find('.slide-group').html('');

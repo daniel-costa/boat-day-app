@@ -49,7 +49,7 @@ define([
 			'promo-code'		: 'promoCode',
 			'price-info'		: 'priceInformation', 
 			'guest'				: 'guest',
-			'*actions'			: 'myPicture',
+			'*actions'			: 'boatdays'
 		},
 		
 		currentView: null,
@@ -251,7 +251,7 @@ define([
 			query.include('boatday.captain');
 			query.include('boatday.captain.host');
 			query.find().then(function(requests) {
-
+				console.log("CHECKPOINT 1");
 				if( requests.length == 0 ) {
 					self.handleDeepLinking(cb)
 					return;

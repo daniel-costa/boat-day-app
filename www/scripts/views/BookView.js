@@ -1,12 +1,10 @@
 define([
 'views/BaseView',
-'views/CreditCardView',
-'views/CancellationsView',
-'views/TermsView',
-'views/WaterPolicyView',
+'views/PromoCodeView',
+'views/PriceInformationView', 
 'models/SeatRequestModel',
 'text!templates/BookTemplate.html'
-], function(BaseView, CreditCardView, CancellationsView, TermsView, WaterPolicyView, SeatRequestModel, BookTemplate){
+], function(BaseView, PromoCodeView, PriceInformationView, SeatRequestModel, BookTemplate){
 	var BookView = BaseView.extend({
 
 		className: 'screen-book',
@@ -15,102 +13,72 @@ define([
 
 		events: {
 			'change [name="seats"]': 'updatePrice',
-			'click .btn-book': 'book',
-			'click .btn-payments': 'payments',
-			'click .btn-terms': 'terms',
-			'click .btn-cancellation': 'cancellation',
-			'click .btn-water': 'water',
-			'click .btn-promo': 'getPromo',
-			'click .add-promo': 'showPromo',
+			'click .book-seat': 'book',
+			// 'click .btn-promo': 'getPromo',
+			'click .price-info': 'showPriceInfo',
+			'click .add-promo-code': 'showPromo'
 		},
 
 		cards: {},
 
 		promo: null,
 
-		showPromo: function() {
+		showPromo: function(event) {
 
-			Parse.Analytics.track('book-show-promo');
+			//Parse.Analytics.track('book-show-promo');
 
-			var self = this;
-			self.showOverlay({
-				target: self.$el.find('.overlay'),
-				closeBtn: true,
-				cbClose: function(overlay) {
-					overlay.find('input').val('');
-				}
-			});
+			event.preventDefault();
+			
+			this.overlay(new PromoCodeView());
 		},
 
-		payments: function() {
+		showPriceInfo: function(event) {
 
-			Parse.Analytics.track('book-click-payments');
+			event.preventDefault();
+			this.overlay(new PriceInformationView());
+		}, 
 
-			this.modal(new CreditCardView());
-		},
+		// getPromo: function() {
 
-		cancellation: function() {
-			
-			Parse.Analytics.track('book-click-cancellation');
-			
-			this.modal(new CancellationsView({ model : this.model }));
-		},
+		// 	var self = this;
+		// 	var code = self._in('promo').val();
 
-		terms: function() {
-			
-			Parse.Analytics.track('book-click-terms');
-			
-			this.modal(new TermsView());
-		},
+		// 	var query = new Parse.Query(Parse.Object.extend("Coupon"));
+		// 	query.equalTo('code', code.toUpperCase());
+		// 	query.equalTo('status', 'approved');
+		// 	query.greaterThan('expiration', new Date());
+		// 	query.first().then(function(promo) {
 
-		water: function() {
-			
-			Parse.Analytics.track('book-click-water-policy');
-			
-			this.modal(new WaterPolicyView());
-		},
+		// 		if( typeof promo !== typeof undefined ) {
 
-		getPromo: function() {
+		// 			var queryRequests = new Parse.Query(Parse.Object.extend('SeatRequest'));
+		// 			queryRequests.equalTo('profile', Parse.User.current().get('profile'));
+		// 			queryRequests.equalTo('promoCode', promo);
+		// 			queryRequests.count().then(function(promoUsed) {
 
-			var self = this;
-			var code = self._in('promo').val();
+		// 				if( promoUsed == 0) {
+		// 					self.promo = {
+		// 						obj: promo,
+		// 						perSeat: promo.get('perSeat'),
+		// 						name: promo.get('name'),
+		// 						discount: promo.get('discount')
+		// 					};
 
-			var query = new Parse.Query(Parse.Object.extend("Coupon"));
-			query.equalTo('code', code.toUpperCase());
-			query.equalTo('status', 'approved');
-			query.greaterThan('expiration', new Date());
-			query.first().then(function(promo) {
+		// 					self.updatePrice();
+		// 					self.hideOverlay(self.$el.find('.overlay'));
+		// 					self.$el.find('.add-promo').hide();
+		// 				} else {
+		// 					self._error("Oops... you have already redeemed this coupon code.");
+		// 				}
 
-				if( typeof promo !== typeof undefined ) {
+		// 			});
+		// 		} else {
+		// 			self._error("Oops... This promo code isn't valid.");
+		// 		}
 
-					var queryRequests = new Parse.Query(Parse.Object.extend('SeatRequest'));
-					queryRequests.equalTo('profile', Parse.User.current().get('profile'));
-					queryRequests.equalTo('promoCode', promo);
-					queryRequests.count().then(function(promoUsed) {
+		// 	});
 
-						if( promoUsed == 0) {
-							self.promo = {
-								obj: promo,
-								perSeat: promo.get('perSeat'),
-								name: promo.get('name'),
-								discount: promo.get('discount')
-							};
-
-							self.updatePrice();
-							self.hideOverlay(self.$el.find('.overlay'));
-							self.$el.find('.add-promo').hide();
-						} else {
-							self._error("Oops... you have already redeemed this coupon code.");
-						}
-
-					});
-				} else {
-					self._error("Oops... This promo code isn't valid.");
-				}
-
-			});
-
-		},
+		// },
 
 		updatePrice: function() {
 
@@ -201,7 +169,19 @@ define([
 
 				_.each(cards, function(card) {
 					self.cards[card.id] = card;
-					var text = card.get('brand') + ' ...' + card.get('last4');
+
+					// switch( card.get('brand') ) {
+					// 	case "American Express" : self.$el.find('.header .field-card').css({ backgroundImage: 'url(../resources/cards/american-express.png) no-repeat left' }); break;
+					// 	case "Visa" : self.$el.find('.header .field-card').css({ backgroundImage: 'url(../resources/cards/visa.png) no-repeat left' }); break; 
+					// 	case "MasterCard" : self.$el.find('.header .field-card').css({ backgroundImage: 'url(../resources/cards/mastercard.png) no-repeat left' }); break; 
+					// 	default: var _cardName = self.$el.find('.header .field-card').css({ backgroundImage: 'url(../resources/cards/default.png) no-repeat left' }); break;
+					// }
+			
+					// console.log("American Express: " + self.$el.find('.header .field-card').css({ backgroundImage: 'url(../resources/cards/american-express.png) no-repeat left' }));
+					// console.log("Visa: " + self.$el.find('.header .field-card').css({ backgroundImage: 'url(../resources/cards/visa.png) no-repeat left' }));
+					// console.log("MasterCard: " + self.$el.find('.header .field-card').css({ backgroundImage: 'url(../resources/cards/mastercard.png) no-repeat left' }));
+					
+					var text = '••••' +' '+'••••'+' '+'••••'+' '+card.get('last4');
 					var option = $('<option>').attr('value', card.id).text(text);
 					self._in('card').append(option);
 				});
