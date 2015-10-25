@@ -297,7 +297,7 @@ define([
 			
 			Parse.Analytics.track('render-view', { view: view.className });
 
-			$("#app").html( view.render().el );
+			$("#content").html( view.render().el );
 
 			// I don't know why, but puttin in a timeout,
 			// we can have the element rendered

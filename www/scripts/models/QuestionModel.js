@@ -22,8 +22,8 @@ define([
 				type: 'model-validation'
 			};
 
-			if( attributes.message == '' ) {
-				_return.fields.message = "Indicate message";
+			if( attributes.question == '' ) {
+				_return.fields.question = "Indicate message";
 			}
 
 			if( _.size(_return.fields) > 0 ) {

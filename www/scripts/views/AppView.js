@@ -191,9 +191,7 @@ define([
 					touchToDrag: false,
 				});
 
-				// ToDo 
-				// - Revert
-				// $('#app').append( new DrawerView({ model: profile }).render().el );
+				$('#app').append( new DrawerView({ model: profile }).render().el );
 
 				// ToDo add this value in parse config.
 				setInterval(self.updateGeoPoint, self.__POSITION_REFRESH_DELAY__);

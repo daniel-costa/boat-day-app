@@ -1,93 +1,106 @@
 <header>
-	<span class="icon bd-drawer btn-drawer"></span>
+	<span class="icon bd-chevron-left close-me"></span>
 	<h1>boatday</h1>
 </header>
 
 <main>
-	<div class="slider" id="mySlider">
-		<div class="slide-group">
-			<div class="slide">
-				<div class="img" style="background-image:url(resources/placeholder-boat.png)">	
+	<div>
+		<div class="swiper-container boatday-images">
+			<div class="banner right">
+				<label>$<%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %> per seat</label>
+			</div>
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<div class="boatday-image" style="background-image:url(resources/placeholder-boat.png)"></div>
 				</div>
 			</div>
+			<div class="swiper-pagination"></div>
 		</div>
-	</div>
 
-	<div class="captain open-profile-picture" data-id="<%= self.model.get('captain').id %>">
-		<div class="host-picture small" data-id="<%= self.model.get('captain').id %>" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)">
+		<div class="shortcuts">
+			<a class="open-captain" data-id="<%= self.model.get('captain').id %>">
+				<div class="host-picture small" style="background-image:url(<%= self.model.get('captain').get('profilePicture').url() %>)"></div>
+				<span class="name">Host <strong><%= self.model.get('captain').get('displayName') %></strong></span>
+				<% if( self.model.get('captain').get('rating') ) { %>
+					<div class="rating rating-<%= Math.ceil(self.model.get('captain').get('rating')) %> bd-icons">
+						<div class="with-empty bd-icons"></div>
+					</div>
+					<span class="amount-rating">(<%= self.model.get('captain').get('ratingAmount') %>)</span>
+				<% } %>
+			</a>
+			<a class="open-boat">
+				<div class="boat-picture small"></div>
+				<span class="name">Boat <strong><%= self.model.get('boat').get('name') %></strong></span>
+			</a>
 		</div>
-		<div class="text">
-			<h2>Host</h2><h1><%= self.model.get('captain').get('displayName') %></h1>
-		</div>
-		<% if( self.model.get('captain').get('rating') ) { %>
-			<div class="rating rating-<%= Math.ceil(self.model.get('captain').get('rating')) %> bd-icons">
-				<div class="with-empty bd-icons"></div>
-			</div>
-		<% } else { %>
-			(no ratings yet)
-		<% } %>
-		<div class="rating-amount">(<%= self.model.get('captain').get('ratingAmount') %>)</div>
-		<a class="icon-right bd-chevron-right "></a>
-	</div>
 
-	<div class="boat open-boat" data-id="<%= self.model.get('boat').id %>">
-		<div class="boat-picture small" style="background-image:url(../resources/placeholder-boat.png)">	
+		<div class="grey-area details">
+			<h1><%= name %></h1>
+			<h4>Date</h4><p><%= self.dateParseToDisplayDate(date) %></p>
+			<h4>Time</h4><p><%= self.departureTimeToDisplayTime(departureTime) %></p>
+			<h4>Duration</h4><p><%= duration %> hour<%= duration == 1 ? '' : 's' %></p>
+			<!-- <h4>Location</h4><p><%= locationText %></p> -->
+			<h4>Available seats</h4><p><%= availableSeats %></p>
 		</div>
-		<div class="text">
-			<h2>Boat</h2><h1><%= self.model.get('boat').get('name') %></h1>
-		</div>
-		<a class="icon-right bd-chevron-right "></a>
-	</div>
-
-	 <div class="boatday-details grey-area">
-		<h1><%= name %></h1>
-		<div class="details">
-			<p>Date</p><h2><%= self.dateParseToDisplayDate(date) %></h2><br>
-			<p>Time</p><h2><%= self.departureTimeToDisplayTime(departureTime) %></h2><br>
-			<p>Duration</p><h2><%= duration %> hour<%= duration == 1 ? '' : 's' %></h2><br>
-			<p>Location</p><h2><%= locationText %></h2><br>
-			<p>Available seats</p><h2><%= availableSeats %></h2>
-		</div>
-	</div>
-	
-	<div class="description grey-area">
-		<h6>DESCRIPTION</h6>
-		<p><%= description %></p>
-	</div>
-
-	<div class="boatday-map">
-		<div class="map" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=<%= self.model.get('location').latitude %>,<%= self.model.get('location').longitude %>&amp;zoom=13&amp;size=400x260)">
-			<img src="resources/pin-outline.png" />
-		</div>
-		<div class="grey-area">
-			<p>Start and end of trip</p>
-			<div class="position">
-				<div><span class="icon location"></span>Miami, Florida</div>
-				<strong><span class="icon location"></span></strong> <%= self.seatRequest && self.seatRequest.get('status') == 'approved' ? locationText : 'Exact address will be visible to confirmed guests.' %>
-			</div>
-		</div>
-	</div>
-	<div class="share">
-		<div class="boat-picture">
-			<label>Friends email address</label>
-			<input type="text" name="share-boatday"></input>
-			<button class="send-to-friends">Send</button>
-			<button class="share-to-friends">Share</button>
-		</div>
-	</div>
-	<div class="questions-list white-area">
-		<label>Questions</label>
-		<div class="questions"></div>
-		<div class="text-center">
-			<button class="btn btn-default btn-ask-question">Ask the Host a question</button>
-		</div>
-	</div> 
-	<div class="footer">
-		<p class="price"><sup>$</sup><%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %><sub>/person</sub></p>
-		<p>Book now before the seats fill up!</p>
-		<button class="btn btn-block btn-cancellation-policy">View cancellation policy</button>
-		<button class="btn btn-block btn-action btn-book">Book Seats</button>
-		<p><a class="cancellation-policy">Cancellation policy</a>and<a class="waterPolicy">Watersports Policy</a></a></p>
 		
+		<div class="description grey-area">
+			<h6>DESCRIPTION</h6>
+			<p><%= description %></p>
+		</div>
+
+		<div class="white-area location">
+			<% if( self.seatRequest && self.seatRequest.get('status') == 'approved' ) { %>
+				<div class="map" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=<%= self.model.get('location').latitude %>,<%= self.model.get('location').longitude %>&amp;zoom=13&amp;size=400x260)">
+					<img src="resources/pin-outline.png" />
+				</div>
+				<h1>Start and end of trip</h1>
+				<p class="name">
+					<span class="icon bd-pin"></span>
+					<%= locationText %>
+				</p>
+			<% } else { %>
+				<div class="map" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=<%= self.model.get('location').latitude %>,<%= self.model.get('location').longitude %>&amp;zoom=13&amp;size=400x260)">
+					<img src="resources/pin-circle.png" />
+				</div>
+				<h1>Start and end of trip</h1>
+				<p class="name">
+					<span class="icon bd-pin"></span>
+					<!-- do innacurate position -->
+					Miami, Florida
+				</p>
+				<p class="detail">
+					Exact address will be visible to confirmed guests.
+				</p>
+			<% } %>
+		</div>
+
+		<div class="sharing">
+			<label>Let your friends know about this BoatDay!</label>
+			<button class="share">Share</button>
+		</div>
+
+		<div class="questions white-area">
+			<h6>QUESTIONS</h6>
+			<div class="questions-list"></div>
+			<button class="ask">Ask the Host a new question</button>
+		</div>
+
+		<div class="booking grey-area">
+			<p class="price">
+				$<%= self.getGuestPrice(price, self.getGuestRate(self.model.get('captain').get('host').get('type'))) %>
+				<sub>/person</sub>
+			</p>
+			
+			<p class="hint">
+				Book now before the seats fill up!
+			</p>
+			
+			<button class="cancellations">View cancellation policy</button>
+			<button class="btn-action book">Book Seats</button>
+
+			<p class="policies">
+				<a class="terms">Terms &amp; Conditions</a> and <a class="water">Watersports Policy</a>
+			</p>
+		</div>
 	</div>
 </main>

@@ -1,15 +1,17 @@
 define([
-'models/ReportModel',
+'Swiper',
 'models/QuestionModel',
 'views/BaseView',
-'views/BookView',
-'views/ReportView',
+'views/BoatView',
+'views/TermsView',
 'views/CancellationsView',
+'views/WaterPolicyView',
 'views/ProfileView',
-'views/BoatView', 
+'views/BookView',
 'views/MapView',
+'views/QuestionView',
 'text!templates/BoatDayTemplate.html'
-], function(ReportModel, QuestionModel, BaseView, BookView, ReportView, CancellationsView, ProfileView, BoatView, MapView, BoatDayTemplate){
+], function(Swiper, QuestionModel, BaseView, BoatView, TermsView, CancellationsView, WaterPolicyView, ProfileView, BookView, MapView, QuestionView, BoatDayTemplate){
 	var BoatDayView = BaseView.extend({
 
 		className: 'screen-boatday',
@@ -17,25 +19,27 @@ define([
 		template: _.template(BoatDayTemplate),
 
 		events: {
-			'click .btn-book': 'book',
-			'click .btn-cancel': 'cancel',
-			'click .btn-cancel-modal': 'cancelModal', 
-			'click .report': 'report', 
-			'click .open-profile-picture': 'profile',
+			'click .cancel': 'cancel',
+			'click .cancel-modal': 'cancelModal', 
+
+			'click .open-captain': 'profile',
+			'click .open-guest': 'profile',
 			'click .open-boat': 'boat',
-			'click .profile-picture': 'profile',
+			'click .cancellations': 'cancellations',
+			'click .water': 'water',
+			'click .terms': 'terms',
+			'click .share': 'share',
+			'click .ask': 'ask',
 			'click .map': 'map',
-			'click .btn-ask-question': 'askOverlay',
-			'click .btn-question': 'ask',
-			'click .question-toggle': 'toggleQuestion',
-			'blur [name="question"]': 'censorField'
+			
+
+			'click .book': 'book',
 		},
 
 		fromUpcoming: false,
 		seatRequest: null,
 		profiles: {},
 		questions: {},
-		boats: {}, 
 
 		initialize: function(data) {
 
@@ -49,74 +53,55 @@ define([
 
 		},
 
-		toggleQuestion: function(event) {
-			var e = $(event.currentTarget);
-			var parent = e.closest('.question');
+		profile: function(event) {
 
-			if( e.hasClass('open') ) {
-				e.removeClass('open')
-				e.find('img').attr('src', 'resources/ico-plus.png');
-				parent.find('.inner.a').hide();
-			} else {
-				e.addClass('open')
-				e.find('img').attr('src', 'resources/ico-minus.png');
-				parent.find('.inner.a').show();
-			}
+			Parse.Analytics.track('boatday-click-profile');
+			
+			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }), 'right');
+
 		},
+		
+		boat: function(event) {
 
-		ask: function() {
+			Parse.Analytics.track('boatday-click-boat');
 
-			Parse.Analytics.track('boatday-send-question');
-
-			var overlay = this.$el.find('.overlay');
-			var self = this;
-
-			new QuestionModel().save({
-				from: Parse.User.current().get('profile'),
-				question: this._in('question').val(),
-				boatday: this.model,
-				public: this._in('public').val() == 'true'
-			}).then(function() {
-				self._info('Thank you! The question is sent to the Host. Once he answered, you will receive a notification');
-				self.hideOverlay(overlay);
-				self.render();
-			}, function(error) {
-				Parse.Analytics.track('boatday-send-question-fail');
-				console.log(error);
-			})
-		},
-
-		askOverlay: function() {
-
-			Parse.Analytics.track('boatday-click-ask');
-
-			var self = this;
-			self.showOverlay({
-				target: self.$el.find('.overlay'),
-				closeBtn: true,
-				cbClose: function(overlay) {
-					overlay.find('textarea').val('');
-				}
-			});
-		},
-
-		report: function() {
-
-			Parse.Analytics.track('boatday-click-report');
-
-			var m = new ReportModel({
-				action: 'boatday',
-				boatday: this.model
-			});
-			this.modal(new ReportView({ model : m }));
+			this.modal(new BoatView({ model : this.model.get('boat') }), 'right');
 
 		},
 
-		cancelModal: function() {
+		cancellations: function() {
 			
 			Parse.Analytics.track('boatday-click-cancel');
 
-			this.modal(new CancellationsView({ model : this.model }));
+			this.overlay(new CancellationsView({ model : this.model }));
+
+		},
+
+		water: function() {
+			
+			Parse.Analytics.track('boatday-click-cancel');
+
+			this.overlay(new WaterPolicyView({ model : this.model }));
+
+		},
+		
+		terms: function() {
+			
+			Parse.Analytics.track('boatday-click-cancel');
+
+			this.overlay(new TermsView({ model : this.model }));
+
+		},
+
+		share: function() {
+
+		},
+		
+		ask: function() {
+
+			Parse.Analytics.track('boatday-click-ask');
+
+			this.overlay(new QuestionView({ model: new QuestionModel(), parentView: this }));
 
 		},
 
@@ -125,6 +110,10 @@ define([
 			Parse.Analytics.track('boatday-click-map');
 
 			this.modal(new MapView({ model : this.model, precise: false }));
+
+		},
+
+		cancelModal: function() {
 
 		},
 
@@ -188,20 +177,6 @@ define([
 
 		},
 
-		profile: function(event) {
-
-			Parse.Analytics.track('boatday-click-profile');
-			
-			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
-
-		},
-
-		boat: function(event) {
-
-			event.preventDefault();
-			this.modal(new BoatView({ model: this.boats[$(event.currentTarget).attr('data-id')] }));
-		}, 
-
 		book: function() {
 
 			Parse.Analytics.track('boatday-click-book');
@@ -216,23 +191,27 @@ define([
 
 			var self = this;
 
-			self.boats[self.model.get('boat').id] = self.model.get('boat');
+			var queryBoatPictures = this.model.get('boat').relation('boatPictures').query();
+			queryBoatPictures.ascending('order');
+			queryBoatPictures.find().then(function(files) {
 
-			var queryPictures = this.model.get('boat').relation('boatPictures').query();
-			queryPictures.ascending('order');
-			queryPictures.find().then(function(files) {
-
-				if(files.length == 0) {
+				if( files.length == 0 )
 					return;
-				}
 
-				self.$el.find('.total-pictures').text('1 / ' + files.length);
-				self.$el.find('.slide-group').html('');
+				self.$el.find('.boatday-images .swiper-wrapper').html('');
 
 				_.each(files, function(fh) {
-					self.$el.find('.slide-group').append('<div class="slide"><div class="img" style="background-image:url('+fh.get('file').url()+')"></div></div>');
+					self.$el.find('.boatday-images .swiper-wrapper').append('<div class="swiper-slide"><div class="boatday-image" style="background-image:url('+fh.get('file').url()+')"></div></div>');
 				});
 
+				var swiperBoatDays = new Swiper(self.$el.find('.boatday-images'), {
+					pagination: self.$el.find('.swiper-pagination'),
+					paginationClickable: true,
+				});
+			});
+
+			queryBoatPictures.first().then(function(fh) {
+				self.$el.find('.boat-picture, .sharing').css({ backgroundImage: 'url(' + fh.get('file').url() + ')' });
 			});
 			
 			self.profiles[self.model.get('captain').id] = self.model.get('captain');
@@ -254,29 +233,28 @@ define([
 				
 			});
 
+			var queryQuestionsPrivate = self.model.relation('questions').query();
+			queryQuestionsPrivate.equalTo('status', 'approved');
+			queryQuestionsPrivate.equalTo('from', Parse.User.current().get('profile'));
+
 			var queryQuestionsPublic = self.model.relation('questions').query();
 			queryQuestionsPublic.equalTo('status', 'approved');
 			queryQuestionsPublic.notEqualTo('answer', null);
 			queryQuestionsPublic.equalTo('public', true);
-
-			var queryQuestionsPrivate = self.model.relation('questions').query();
-			queryQuestionsPrivate.equalTo('status', 'approved');
-			queryQuestionsPrivate.equalTo('public', false);
-			queryQuestionsPrivate.equalTo('from', Parse.User.current().get('profile'));
 
 			var queryQuestions = new Parse.Query.or(queryQuestionsPublic, queryQuestionsPrivate);
 			queryQuestions.include('profile');
 			queryQuestions.find().then(function(questions) {
 
 				if(questions.length == 0) {
-					self.$el.find('.questions').addClass('empty').html('<p class="text-center">No questions asked yet</p>');
+					self.$el.find('.questions-list').addClass('empty').html('<p class="text-center">No questions asked yet</p>');
 					return;
 				}
 
 				_.each(questions, function(question) {
-					self.questions[question.id] = question;
 					var answer = typeof question.get('answer') !== typeof undefined && question.get('answer') !== null? question.get('answer').replace(/\n/g, "<br>") : 'No answer yet.';
-					self.$el.find('.questions').append('<div class="question"><div class="inner q question-toggle"><table><tr><td><p>'+question.get('question').replace(/\n/g, "<br>")+'</p></td><td><img src="resources/ico-plus.png" /></td></tr></table></div><div class="inner a" style="display:none"><p>'+answer+'</p></div></div>');
+					var question = question.get('question').replace(/\n/g, "<br>");
+					self.$el.find('.questions-list').append('<div class="question"><p class="question">'+question+'</p><p class="answer"><span>HOST</span>'+answer+'</p></div>');					
 				});
 				
 			}, function(error) {console.log(error)});
