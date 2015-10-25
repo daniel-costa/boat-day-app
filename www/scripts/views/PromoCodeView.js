@@ -23,6 +23,7 @@ define([
 
 			self.cleanForm();
 
+			alert("Daniel will do it!!");
 			
 		}
 

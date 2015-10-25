@@ -2,12 +2,11 @@ define([
 'models/ReportModel',
 'views/BaseView',
 'views/BoatDayView',
-'views/ReportView',
 'views/MapView',
 'views/AddFilterView',
 'text!templates/BoatDaysTemplate.html',
 'text!templates/CardBoatDayTemplate.html',
-], function(ReportModel, BaseView, BoatDayView, ReportView, MapView, AddFilterView, BoatDaysTemplate, CardBoatDayTemplate){
+], function(ReportModel, BaseView, BoatDayView, MapView, AddFilterView, BoatDaysTemplate, CardBoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatdays',

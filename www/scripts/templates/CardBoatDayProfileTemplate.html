@@ -3,6 +3,17 @@
 		<div class="boatday-image"></div>
 		<div class="details">
 			<p><%= model.get('name') %></p>
+			<div class="boatday-items">
+				<div class="boatday-item location">
+					<div class="label">Miami</div>
+				</div>
+				<div class="boatday-item date">
+					<div class="label"><%= self.dateToEnBoatDayCard(model.get('date')) %></div>
+				</div>
+				<div class="boatday-item time">
+					<div class="label"><%= self.departureTimeToDisplayTime(model.get('departureTime')) %></div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
