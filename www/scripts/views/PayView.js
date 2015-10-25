@@ -4,12 +4,16 @@ define([
 ], function(BaseView, PayTemplate){
 	var PayView = BaseView.extend({
 
-		className: 'screen-boatday-pay',
+		className: 'screen-pay',
 
 		template: _.template(PayTemplate),
 
 		events: {
-			'click .btn-pay': 'pay',
+			'click .pay': 'pay',
+			'blur [name="review"]': 'censorField',
+
+
+
 			'click .stars .rating': 'rate',
 			
 			'click .btn-tip': 'tip',
@@ -20,7 +24,6 @@ define([
 			'click .btn-adjust': 'showAdjust',
 			'click .btn-details': 'showDetails',
 
-			'blur [name="review"]': 'censorField',
 		},
 
 		rating: null,
@@ -29,6 +32,23 @@ define([
 
 		mediaPlus: null,
 		mediaMinus: null,
+
+		render: function() {
+			
+			BaseView.prototype.render.call(this);
+
+			var self = this;
+
+			this.model.get('boatday').relation('boatPictures').query().first().then(function(fh) {
+
+				console.log(fh);
+				self.find('.boatday-picture').css({ backgroundImage: 'url(' + fh.get('file').url() +')' });
+
+			});
+
+			return this;
+
+		},
 
 		tip: function(event) {
 
@@ -60,21 +80,6 @@ define([
 				this.$el.find('.adjust-price').show();
 				this.$el.find('.btn-adjust .icon').removeClass('icon-down-nav');
 				this.$el.find('.btn-adjust .icon').addClass('icon-up-nav');
-			}
-		},
-
-		showDetails: function() {
-
-			Parse.Analytics.track('pay-click-details');
-
-			if( this.$el.find('.details').is(':visible') ) {
-				this.$el.find('.details').hide();
-				this.$el.find('.btn-details .icon').removeClass('icon-up-nav');
-				this.$el.find('.btn-details .icon').addClass('icon-down-nav');
-			} else {
-				this.$el.find('.details').show();
-				this.$el.find('.btn-details .icon').removeClass('icon-down-nav');
-				this.$el.find('.btn-details .icon').addClass('icon-up-nav');
 			}
 		},
 

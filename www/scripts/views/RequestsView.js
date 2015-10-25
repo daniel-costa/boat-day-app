@@ -2,13 +2,14 @@ define([
 'Swiper',
 'views/BaseView',
 'views/ProfileView',
+'views/PayView',
 'text!templates/RequestsTemplate.html',
 'text!templates/CardBoatDayPastTemplate.html',
 'text!templates/CardBoatDayUpcomingTemplate.html',
 'text!templates/CardBoatDayPendingTemplate.html',
 'text!templates/CardBoatDayCancelledTemplate.html',
 'text!templates/CardBoatDayFavoriteTemplate.html',
-], function(Swiper, BaseView, ProfileView, RequestsTemplate, CardBoatDayPastTemplate, CardBoatDayUpcomingTemplate, CardBoatDayPendingTemplate, CardBoatDayCancelledTemplate, CardBoatDayFavoriteTemplate){
+], function(Swiper, BaseView, ProfileView, PayView, RequestsTemplate, CardBoatDayPastTemplate, CardBoatDayUpcomingTemplate, CardBoatDayPendingTemplate, CardBoatDayCancelledTemplate, CardBoatDayFavoriteTemplate){
 	var RequestsView = BaseView.extend({
 
 		className: 'screen-requests',
@@ -20,8 +21,8 @@ define([
 			'click .boatdays-pending': 'renderPendingBoatDays',
 			'click .boatdays-past': 'renderPastBoatDays',
 			'click .boatdays-cancelled': 'renderCancelledBoatDays',
-			'click .boatdays-favorite': 'renderFavoriteBoatDays',
 			'click .host-picture': 'profile',
+			'click .boatday-card-past': 'pay',
 		},
 
 		requests: {},
@@ -44,7 +45,7 @@ define([
 
 			new Swiper(this.$el.find('.categories .swiper-container'), {
 				slidesPerView: 'auto',
-				spaceBetween: 10
+   				slidesPerColumn: 1,
 			});
 
 			self.$el.find('.boatdays-past').click();
@@ -104,13 +105,6 @@ define([
 			self.$el.find('.list').html('renderUpcomingBoatDays');
 		},
 
-		renderFavoriteBoatDays: function() {
-
-			var self = this;
-
-			self.$el.find('.list').html('renderFavoriteBoatDays');
-		},
-
 		execQuerySeatRequests: function(query, template, cbAfterCardRender) {
 
 			var self = this;
@@ -152,6 +146,17 @@ define([
 			}, function(error) {
 				console.log(error);
 			});
+
+		},
+
+		pay: function(event) {
+
+			console.log(this.requests);
+			console.log($(event.currentTarget));
+			console.log($(event.currentTarget).attr('data-id'));
+			console.log(this.requests[$(event.currentTarget).attr('data-id')]);
+
+			this.modal(new PayView({ model: this.requests[$(event.currentTarget).attr('data-id')] }));
 
 		}
 

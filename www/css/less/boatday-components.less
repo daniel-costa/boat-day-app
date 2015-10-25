@@ -185,6 +185,71 @@ label.field-flag-error {
 	background-image: url(../resources/placeholder-guest.png);
 }
 
+.boatday-picture {
+	width: 40vw;
+	height: 40vw;
+	background: red;
+	border-radius: 40vw;
+	margin:auto;
+	position: relative;
+	background: center center no-repeat;
+	background-size: cover;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.boatday-picture:after {
+	content: "";
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	background: rgba(37, 42, 43, 0.85);
+	position: absolute;
+	z-index: 2;
+}
+
+.boatday-picture .with-price {
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+	position: relative;
+}
+
+.boatday-picture .with-price:before {
+	content: "TOTAL";
+	position: absolute;
+	top: 50%;
+	left: -10px;
+	height: 40px;
+	line-height: 40px;
+	margin-top:-15px;
+	width: 50%;
+	text-align: right;
+	color: white;
+	z-index: 4;
+	font-size: 9pt;
+	line-height: 13.63pt;
+	color: rgba(255, 255, 255, 0.5);
+	text-decoration: underline;
+}
+.boatday-picture .with-price:after {
+	content: "$" attr(data-price);
+	position: absolute;
+	top: 50%;
+	right: 0px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: -10px;
+	width: 50%;
+	text-align: left;
+	z-index: 4;
+	color: white;
+	font-size: 20pt;
+	line-height: 26pt;
+	color: rgba(255, 255, 255, 1);
+}
+
 .rating {
 	width: 56pt;
 	height: 12pt;

@@ -1,4 +1,4 @@
-<div class="boatday-card-past">
+<div class="boatday-card-past" data-id="<%= model.id %>">
 	<div class="header-part">
 		<div class="host-picture big" data-id="<%= model.get('boatday').get('captain') %>" style="background-image:url(<%= model.get('boatday').get('captain').get('profilePicture').url() %>)"></div>
 		<% if( typeof model.get('ratingGuest') === typeof undefined || !model.get('ratingGuest') ) { %>
@@ -17,12 +17,13 @@
 			</div>
 			<div class="item">
 				<div class="bd-calendar-day icon"></div>
-				<div class="label"><%= self.dateToEnBoatDayCard(model.get('date')) %></div>
+				<div class="label"><%= self.dateToEnBoatDayCard(model.get('boatday').get('date')) %></div>
 			</div>
-			<div class="item">
-				<div class="bd-person icon"></div>
-				<div class="label"><%= model.get('contribution') %></div>
-			</div>
+			<% if(model.get('contribution')) { %>
+				<div class="item">
+					<div class="label">$<%= model.get('contribution') %></div>
+				</div>
+			<% } %>
 		</div>
 	</div>
 </div>

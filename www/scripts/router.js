@@ -49,7 +49,7 @@ define([
 			'promo-code'		: 'promoCode',
 			'price-info'		: 'priceInformation', 
 			'guest'				: 'guest',
-			'*actions'			: 'boatdays'
+			'*actions'			: 'requests'
 		},
 		
 		currentView: null,

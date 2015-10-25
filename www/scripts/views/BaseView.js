@@ -266,8 +266,8 @@ define([
 		},
 
 		dateToEnBoatDayCard: function(date) {
-			console.log(date);
-			return this.dayToEnDay(new Date(date.iso ? date.iso : date).getDay()) + ' ' + new Date(date.iso ? date.iso : date).getDate() + '/' + new Date(date.iso ? date.iso : date).getMonth();			
+			var date = new Date(date.iso ? date.iso : date);
+			return this.dayToEnDay(date.getDay()) + ' ' + date.getDate() + '/' + date.getMonth();			
 		},
 
 		dayToEnDay: function(n) {
