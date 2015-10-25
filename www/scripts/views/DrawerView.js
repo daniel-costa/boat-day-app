@@ -13,7 +13,7 @@ define([
 		},
 
 		profile: function() {
-			Parse.history.navigate('profile-picture', true);
+			Parse.history.navigate('my-picture', true);
 		},
 
 		render: function() {

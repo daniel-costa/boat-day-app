@@ -1,12 +1,12 @@
 define([
-	'models/ReportModel',
+'models/ReportModel',
 'views/BaseView',
 'views/BoatDayView',
-'views/ReportView',
 'views/MapView',
+'views/AddFilterView',
 'text!templates/BoatDaysTemplate.html',
 'text!templates/CardBoatDayTemplate.html',
-], function(ReportModel, BaseView, BoatDayView, ReportView, MapView, BoatDaysTemplate, CardBoatDayTemplate){
+], function(ReportModel, BaseView, BoatDayView, MapView, AddFilterView, BoatDaysTemplate, CardBoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatdays',
@@ -38,7 +38,7 @@ define([
 		filters: function() {
 
 			// console.log(this.boatdays[Object.keys(this.boatdays)[0]]);
-			this.modal(new ReportView({ model : new ReportModel({ action: 'profile', profile: Parse.User.current().get('profile') }) }));
+			this.overlay(new AddFilterView());
 
 		},
 		

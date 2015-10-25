@@ -112,7 +112,10 @@ define([
 					self.$el.find('.boatdays .list').html('');
 					_.each(boatdays, function(boatday) {
 						self.boatdays[boatday.id] = boatday;
-						self.$el.find('.boatdays .list').append(_.template(CardBoatDayProfileTemplate)({ model:boatday }));
+						self.$el.find('.boatdays .list').append(_.template(CardBoatDayProfileTemplate)({ 
+							self: self,
+							model:boatday 
+						}));
 
 						var queryPictures = boatday.get('boat').relation('boatPictures').query();
 						queryPictures.ascending('order');

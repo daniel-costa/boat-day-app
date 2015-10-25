@@ -1,34 +1,34 @@
 <main>
-	<div class="content-padded">
-		<img class="logo" src="resources/logo-white.png" />
+	
+	<div class="header grey-area">
+		<img class="logo" src="resources/bd-team.jpg" />
 		<p class="welcome">We hope you’re enjoying yourself on "<%= self.model.get('boatday').get('name') %>"</p>
 	</div>
 
 	<div class="actions">
-		<div class="option">
-			<a class="btn-map"><span class="fa fa-fw fa-location-arrow"></span></a><br/>
-			<span class="label">Map</span>
+		<div class="option" id="chat">
+			<a class="icon bd-speech-bubble "></a>
+			<span class="label">Open Chat</span>
 		</div>
-		<div class="option">
-			<a class="btn-call"><span class="fa fa-fw fa-phone"></span></a><br/>
-			<span class="label">Contact</span>
+		<div class="option" id="call-host">
+			<a class="icon bd-speech-bubble "></a>
+			<span class="label">Call Host</span>
 		</div>
-		<div class="option">
-			<a class="btn-chat"><span class="fa fa-fw fa-comment"></span></a><br/>
-			<span class="label">Chat</span>
+		<div class="option" id="map">
+			<a class="icon bd-navigate "></a>
+			<span class="label">BoatDay Map</span>
 		</div>
-		<div class="option" style="display:none">
-			<a class="btn-close"><span class="fa fa-fw fa-times"></span></a><br/>
-			<span class="label">Close</span>
+		<div class="option" id="take-picture">
+			<a class="icon bd-camera-plus "></a>
+			<span class="label">Take pictures</span>
 		</div>
-	</div>
+		<div class="option" id="call-emergency">
+			<a class="icon  bd-camera-plus "></a>
+			<span class="label">Emergency services</span>
+		</div>
 
-	<div class="clip-to-bottom">
-		<div class="content-padded">
-			<button class="btn btn-block btn-primary btn-emergency">
-				<span class="fa fa-phone"></span>
-				Emergency Services
-			</button>
-		</div>
 	</div>
 </main>
+<footer>
+	<p>What is this screen?</p>
+</footer>
