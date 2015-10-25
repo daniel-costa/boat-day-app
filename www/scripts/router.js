@@ -19,12 +19,13 @@ define([
 	'views/CancellationsView', 
 	'views/QuestionView', 
 	'views/PromoCodeView', 
-	'views/PriceInformationView'
+	'views/PriceInformationView', 
+	'views/AddFilterView'
 
 ], function(
 	TestView, GuestView, MyProfileView, MyPictureView, PaymentsView, CreditCardView, BoatDayView,
 	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView, RequestsView, SignUpView, SignInView,
-	GuestView, WaterPolicyView, TermsView, CancellationsView, QuestionView, PromoCodeView, PriceInformationView) {
+	GuestView, WaterPolicyView, TermsView, CancellationsView, QuestionView, PromoCodeView, PriceInformationView, AddFilterView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -49,12 +50,18 @@ define([
 			'promo-code'		: 'promoCode',
 			'price-info'		: 'priceInformation', 
 			'guest'				: 'guest',
+			'add-filter'		: 'addFilter', 
 			'*actions'			: 'boatdays'
 		},
 		
 		currentView: null,
 
 		canHandleDeepLinking: false,
+
+		addFilter: function(){
+
+			thgis.render(new AddFilterView());
+		}, 
 
 		priceInformation: function() {
 
