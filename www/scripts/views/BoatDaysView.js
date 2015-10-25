@@ -3,10 +3,10 @@ define([
 'views/BaseView',
 'views/BoatDayView',
 'views/MapView',
-'views/AddFilterView',
+'views/FilterView',
 'text!templates/BoatDaysTemplate.html',
 'text!templates/CardBoatDayTemplate.html',
-], function(ReportModel, BaseView, BoatDayView, MapView, AddFilterView, BoatDaysTemplate, CardBoatDayTemplate){
+], function(ReportModel, BaseView, BoatDayView, MapView, FilterView, BoatDaysTemplate, CardBoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatdays',
@@ -38,7 +38,7 @@ define([
 		filters: function() {
 
 			// console.log(this.boatdays[Object.keys(this.boatdays)[0]]);
-			this.overlay(new AddFilterView());
+			this.overlay(new FilterView());
 
 		},
 		

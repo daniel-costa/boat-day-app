@@ -1,10 +1,10 @@
 define([
 'views/BaseView',
 'views/PromoCodeView',
-'views/PriceInformationView', 
+'views/PriceInfoView', 
 'models/SeatRequestModel',
 'text!templates/BookTemplate.html'
-], function(BaseView, PromoCodeView, PriceInformationView, SeatRequestModel, BookTemplate){
+], function(BaseView, PromoCodeView, PriceInfoView, SeatRequestModel, BookTemplate){
 	var BookView = BaseView.extend({
 
 		className: 'screen-book',
@@ -35,7 +35,7 @@ define([
 		showPriceInfo: function(event) {
 
 			event.preventDefault();
-			this.overlay(new PriceInformationView());
+			this.overlay(new PriceInfoView());
 		}, 
 
 		// getPromo: function() {
