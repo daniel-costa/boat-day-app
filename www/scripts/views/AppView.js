@@ -138,7 +138,7 @@ define([
 							$(document).trigger('globalInfo', 'You have '+delta+' new notification'+ (delta == 1 ? '' : 's.' ) );
 							self.notificationSound.play();
 						}
-						$(self.notificationsHolder).text(self.notifications).show();
+						$(self.notificationsHolder).text("("+self.notifications+")").show();
 					}
 				}
 				
