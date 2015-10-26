@@ -85,7 +85,8 @@ define([
 			view.$el.attr('class', view.className);
 
 			var $el = view.render().$el;
-			$el.insertAfter(this.$el);
+			// $el.insertAfter(this.$el);
+			$('#content').append($el);
 
 			$el.on('click', '.close-me', function(event, data) {
 

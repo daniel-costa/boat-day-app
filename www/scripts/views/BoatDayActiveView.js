@@ -53,7 +53,7 @@ define([
 			
 			Parse.Analytics.track('bd-active-click-map');
 			
-			this.modal(new MapView({ model : this.model.get('boatday'), precise: true, getdirection: true }));
+			this.modal(new MapView({ model : this.model.get('boatday'), precise: true, getdirection: true }), 'right');
 
 		},
 
@@ -76,10 +76,7 @@ define([
 			Parse.Analytics.track('bd-active-click-chat');
 			
 			event.preventDefault();
-			this.modal(new ChatView({ 
-				model : this.model.get('boatday'),
-				seatRequest: this.model
-			}));
+			this.modal(new ChatView({ model : this.model.get('boatday'), seatRequest: this.model }), 'right');
 			
 		},
 
