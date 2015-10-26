@@ -1,8 +1,8 @@
-<header class="bar bar-nav">
-	<span class="icon bd-arrow-left close-me"></span>
-	<h1 class="title">Profile setup</h1>
-	<span class="icon bd-exclamation report"></span>
+<header>
+	<span class="icon bd-cross close-me"></span>
+	<h1>Profile setup</h1>
 </header>
+
 <%
 	if( birthday ) {
 		var dt = new Date(birthday.iso);
@@ -14,6 +14,7 @@
 		var dt_value = dt_yyyy + '-' + dt_mm + '-' + dt_dd;
 	}
 %>
+
 <main>
 	<div class="header grey-area">
 
@@ -21,7 +22,7 @@
 			<img src="resources/profile-step-2.png" class="step" />
 		<% } %>
 
-		<div class="guest-picture take-picture profilePicture" style="background-image: url(<%= typeof profilePicture !== 'undefined' && profilePicture ? profilePicture.url : 'resources/placeholder-guest.png' %>)"></div>
+		<div class="guest-picture big profilePicture" style="background-image: url(<%= typeof profilePicture !== 'undefined' && profilePicture ? profilePicture.url : 'resources/placeholder-guest.png' %>)"></div>
 		
 		<h1><%= displayName %></h1>
 		<h2>Guest since <%= self.dateForProfileSince(createdAt) %></h2>
@@ -37,7 +38,7 @@
 	</div>
 	<div class="body">
 		<label for="about" class="field" id="aboutMe">About me</label> 
-		<textarea rows="3" name="about" id="about" placeholder="About me"><%= about %></textarea>	
+		<textarea rows="3" name="about" id="about" class="aboutMe" placeholder="About me"><%= about %></textarea>	
 
 		<label for="firstname" class="field">First name (cannot be modify)</label>
 		<input type="text" name="name" id="name" value="<%= firstName %>">

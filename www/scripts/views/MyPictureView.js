@@ -43,11 +43,11 @@ define([
 			}
 
 			return this;
-		},
-
+		}, 
+		
 		showCreditCards: function() {
 
-			this.modal(new CreditCardView());
+			this.overlay(new CreditCardView());
 		}, 
 
 		save: function() {

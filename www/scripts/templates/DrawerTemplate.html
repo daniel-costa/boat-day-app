@@ -4,6 +4,7 @@
 		<div class="inner">
 			<div class="guest-picture big" style="background-image: url(<%= typeof profilePicture !== 'undefined' && profilePicture ? profilePicture.url : 'resources/placeholder-guest.png' %>)"></div>
 			<div class="name"><%= displayName %></div>
+			<div class="info">Tap to open profile</div>
 		</div>
 	</div>
 
@@ -14,7 +15,7 @@
 	</div>
 
 	<div class="about-us">
-		<a href="#/about-us">About us</a>
+		<a class="modal about">About us</a>
 	</div>
 </div>
 
