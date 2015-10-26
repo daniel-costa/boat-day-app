@@ -10,7 +10,7 @@ define([
 		template: _.template(AboutUsTemplate),
 
 		events: {
-			'click .btn-send': 'sendFeedback', 
+			'click .send': 'sendFeedback', 
 			'click .terms': 'terms'
 		},
 
@@ -29,7 +29,7 @@ define([
 			var self = this;
 			var err = false;
 
-			if( self.loading('.btn-send') ) {
+			if( self.loading('.send') ) {
 				return ;
 			}
 
@@ -54,9 +54,6 @@ define([
 				self.loading();
 				return;
 			}
-
-			// ToDo
-			// Udate user with email and phone
 			
 			var FeedbackModel = Parse.Object.extend('HelpCenter');
 
@@ -66,7 +63,7 @@ define([
 				user: Parse.User.current(),
 				status: 'unread',
 				email: this._in('email').val(),
-				phone: null,
+				phone: this._in('phone').val(),
 				file1: null,
 				file2: null,
 				file3: null

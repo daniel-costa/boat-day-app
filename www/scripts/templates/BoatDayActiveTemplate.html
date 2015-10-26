@@ -1,34 +1,33 @@
 <main>
-	
 	<div class="header grey-area">
-		<img class="logo" src="resources/bd-team.jpg" />
-		<p class="welcome">We hope you’re enjoying yourself on "<%= self.model.get('boatday').get('name') %>"</p>
+		<img class="logo" src="resources/logo-active.png" />
+		<p>We hope you’re enjoying yourself on "<%= self.model.get('boatday').get('name') %>"</p>
 	</div>
-
-	<div class="actions">
-		<div class="option" id="chat">
-			<a class="icon bd-speech-bubble "></a>
+	<div class="links">
+		<a class="item chat">
+			<span class="icon bd-speech-bubble"></span>
 			<span class="label">Open Chat</span>
-		</div>
-		<div class="option" id="call-host">
-			<a class="icon bd-speech-bubble "></a>
+		</a>
+		<a class="item call">
+			<span class="icon bd-smartphone"></span>
 			<span class="label">Call Host</span>
-		</div>
-		<div class="option" id="map">
-			<a class="icon bd-navigate "></a>
+		</a>
+		<a class="item map">
+			<span class="icon bd-navigate"></span>
 			<span class="label">BoatDay Map</span>
-		</div>
-		<div class="option" id="take-picture">
-			<a class="icon bd-camera-plus "></a>
+		</a>
+		<!--
+		<a class="item take-picture">
+			<span class="icon bd-camera-plus"></span>
 			<span class="label">Take pictures</span>
-		</div>
-		<div class="option" id="call-emergency">
-			<a class="icon  bd-camera-plus "></a>
+		</a>
+		-->
+		<a class="item emergency">
+			<span class="icon bd-camera-plus"></span>
 			<span class="label">Emergency services</span>
-		</div>
-
+		</a>
 	</div>
 </main>
 <footer>
-	<p>What is this screen?</p>
+	<a class="info">What is this screen?</a>
 </footer>

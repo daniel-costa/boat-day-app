@@ -1,0 +1,61 @@
+<div class="notification white-area">
+	<div class="header">
+		<% if( !model.get("fromTeam") && model.get("from") ) { %>
+			<span class="host-picture small" style="background-image:url(<%= model.get("from").get('profilePicture') ? model.get("from").get('profilePicture').url() : 'resources/placeholder-host.png' %>)" data-id="<%= model.get("from").id %>"></span>
+		<% } else { %>
+			<span class="guest-picture small" style="background-image:url(resources/bd-team.jpg)"></span>
+		<% }  %>
+		<div class="sender"><%= model.get("fromTeam") ? 'BoatDay Team' : model.get("from").get('displayName') %></div>
+		<div class="time"><%= self.dateParseToDisplayDate( model.createdAt ) %></div>
+		<% if( !model.get("read") ) { %>
+			<div class="bullet"></div>
+		<% } %>
+	</div>
+	<div class="body">
+		<p>
+			<% if( model.get("action") == "request-approved" && model.get('request') && model.get('boatday') ) { %>
+				I have approved your request for <%= model.get('request').get('seats') %> seat<%= model.get('request').get('seats') == 1 ? '' : 's' %> on <strong><%= model.get('boatday').get('name') %></strong>.
+				You can now find it in your <a href="#/boatdays-upcoming">Upcoming BoatDays</A>. Welcome aboard!
+			<% } %>
+
+			<% if( model.get("action") == "request-denied" && model.get('boatday') ) { %>
+				Unfortunately, I can't approve your seat request for <strong><%= model.get('boatday').get('name') %></strong>.
+				You can now find in your <a href="#/boatdays-past">Past BoatDays</a>.
+			<% } %>
+
+			<% if( model.get("action") == "request-cancelled-host" && boatday && model.get('request') ) { %>
+				Bad news, I had to cancel your reserved seat<%= model.get('request').get('seats') == 1 ? '' : 's' %> for the BoatDay <strong><%= model.get('boatday').get('name') %></strong>.
+				You can now find this BoatDay in your <a href="#/boatdays-past">Past BoatDays</a>.
+			<% } %>
+
+			<% if( model.get("action") == "boatday-cancelled" && model.get('boatday') ) { %>
+				Bad news, I had to cancel the BoatDay <strong><%= model.get('boatday').get('name') %></strong>.
+				Check out your <a href="#/boatdays-past">Past BoatDays</a> to know the reason.
+			<% } %>
+
+			<% if( model.get("action") == "auto-payment" && model.get('request') && model.get('boatday') ) { %>
+				A <sup>$</sup><%= model.get('request').get('contribution') %> contribution for your BoatDay <strong><%= model.get('boatday').get('name') %></strong> has been charged.
+				Come back soon for another great BoatDay experience!
+			<% } %>
+
+			<% if( model.get("action") == "boatday-message" && model.get('boatday') ) { %>
+				I just wrote a message on the chat wall for <strong><%= model.get('boatday').get('name') %></strong>.
+			<% } %>
+
+			<% if( model.get("action") == "boatday-rating" && model.get('boatday')) { %>
+				I just left you a rating for our BoatDay <strong><%= model.get('boatday').get('name') %></strong>.
+				You can now find this BoatDay in your <a href="#/boatdays-past">Past BoatDays</a>.
+			<% } %>
+
+			<% if( model.get("action") == "boatday-answer" && model.get('boatday')) { %>
+				The host answered to your question for the BoatDay <strong><%= model.get('boatday').get('name') %></strong>.
+				(<a class="open-boatday" data-id="<%= model.get('boatday').id %>">Open BoatDay</a>)
+			<% } %>
+
+			<% if( model.get("action") == "bd-message" ) { %>
+				<%= model.get("message") ? model.get("message").replace(/\n/g, "<br>") : '' %>
+			<% } %>
+		</p>
+		<span class="clear"></span>
+	</div>
+</div>

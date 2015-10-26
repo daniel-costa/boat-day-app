@@ -2,3 +2,33 @@ Bugs:
 - Change icon for map in BoatDaysView
 - Format City Name in past boatdays
 - Optimize version numbers
+- Add Chevron right on drawer (:after class of links)
+- Add pictures of boatdays instead of boat
+- Placeholder when app is lunching
+- Chceck placeholder-host missing ?
+- BoatDayView uncomment location in details and format to have only "Miami"
+- Add position under map
+- Implement share feature
+- Handle _info and _error
+- good size of the drawer
+- handle error in the field in question
+- handle the double click on button for new question
+- change question append to card
+- Upcoming boatdays to be done
+- Location in past BoatDays is wrong
+- Location in upcoming BoatDays is wrong
+- Avoid opening the pay window when the request is paid in past bd
+- Implement accept pending request button
+- Implement cancel pending request button
+- money icon in past boatdays
+- chat icon in upcoming events
+- implement unread messages in upcomings chat button
+- implement share in upcomings chat button
+- Take in account date for boatdays pending
+- seats left in upcoming, handle if 0 seats left
+- test when possible to double click on buttons
+- open profile from chat
+- icon emergency for active screen
+- icon call for active screen
+- add "What is this screen" overlay in active boatday
+- change uber icon in map view

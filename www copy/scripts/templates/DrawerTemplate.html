@@ -1,0 +1,23 @@
+<div class="snap-drawer snap-drawer-left">
+
+	<div class="top grey-area">
+		<div class="inner">
+			<div class="guest-picture big" style="background-image: url(<%= typeof profilePicture !== 'undefined' && profilePicture ? profilePicture.url : 'resources/placeholder-guest.png' %>)"></div>
+			<div class="name"><%= displayName %></div>
+		</div>
+	</div>
+
+	<div class="links">
+		<a href="#/boatdays">Browse BoatDays</a>
+		<a href="#/requests">My BoatDays</a>
+		<a href="#/notifications">Notifications <span class="total-notifications" style="display:none">(0)</span></a>
+	</div>
+
+	<div class="about-us">
+		<a href="#/about-us">About us</a>
+	</div>
+</div>
+
+<div class="snap-drawer snap-drawer-right"> 
+
+</div>

@@ -1,7 +1,5 @@
-<% console.log(model); %>
-<% console.log(model.get('featured')); %>
 <div class="boatday-card <%= model.get('featured') == -1 ? 'featured' : '' %>" data-id="<%= model.id %>">
-	<div class="image">
+	<div class="image" style="background-image: url(resources/placeholder-boatday.png)">
 		<div class="banner left">
 			<div class="host-picture small" data-id="<%= model.get('captain').id %>" style="background-image:url(<%= model.get('captain').get('profilePicture').url() %>)"></div>
 			<% if( model.get('captain').get('rating') ) { %>
@@ -17,7 +15,6 @@
 			<label>$<%= self.getGuestPrice(model.get('price'), self.getGuestRate(model.get('captain').get('host').get('type'))) %></label>
 		</div>
 	</div>
-
 	<div class="details">
 		<h1><%= model.get('name') %></h1>
 		<div class="items">
@@ -39,5 +36,4 @@
 			</div>
 		</div>
 	</div>
-
 </div>

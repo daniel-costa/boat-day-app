@@ -1,0 +1,125 @@
+
+.screen-chat footer {
+	padding: 12px;
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+}
+
+.screen-chat footer input {
+	width: auto;
+	-webkit-flex:1;
+	padding: 0px 10px;
+	border-radius: 3pt;
+}
+
+.screen-chat footer input::-webkit-input-placeholder {
+	padding-top: 4px;
+}
+
+.screen-chat footer button {
+	border: none;
+	background: transparent;
+	color: rgba(17, 171, 193, 1);
+	font-size: 11.52pt;
+	text-transform: uppercase;
+	padding-right:  0px;
+}
+
+.screen-chat .message {
+	margin-top: 10pt;
+	margin-bottom: 5pt;
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+}
+
+.screen-chat .host-picture,
+.screen-chat .guest-picture {
+	width: 25pt !important;
+	height: 25pt !important;
+	margin-left: 15pt;
+	margin-top: 5pt;
+}
+
+.screen-chat .message .speech-bubble {
+	margin-left: 12pt;
+	margin-right: 12pt;
+	border-radius: 5pt;
+	border: 1px solid rgba(216, 216, 216, 1);
+	background: rgba(249, 251, 251, 1);
+	position: relative;
+	z-index: 1;
+	min-height: 32pt;
+}
+
+.screen-chat .message .speech-bubble:before {
+	content: "";
+	position: absolute;
+	top: 13pt;
+	left: -5pt;
+	width: 10pt;
+	height: 10pt;
+	-webkit-transform: rotate(45deg);
+	border: 1px solid rgba(216, 216, 216, 1);
+	background: rgba(249, 251, 251, 1);
+	z-index: 2;
+}
+
+.screen-chat .message .speech-bubble:after {
+	content: "";
+	position: absolute;
+	top: 11pt;
+	left: 0pt;
+	width: 10pt;
+	height: 16pt;
+	background: rgba(249, 251, 251, 1);
+	z-index: 3;
+}
+
+.screen-chat .message .speech-bubble h1 {
+	font-size: 10.67pt;
+	line-height: 15pt;
+	font-weight: 600;
+	margin: 2pt 8pt 0pt 8pt;
+	color: rgba(17, 171, 193, 1);
+	position: relative;
+	z-index: 4;
+}
+
+.screen-chat .message .speech-bubble p {
+	margin: 1pt 6pt 6pt 6pt;
+	position: relative;
+	z-index: 4;
+	color: rgba(84, 110, 122, 1);
+	font-size: 10.67pt;
+	line-height: 14.51pt;
+	font-weight: light
+}
+
+.screen-chat .message.me {
+	-webkit-justify-content: flex-end;
+}
+
+.screen-chat .message.me .speech-bubble {
+	background: rgba(177, 191, 204, 1);
+	min-height: 0px;
+}
+
+.screen-chat .message.me .speech-bubble p {
+	margin: 4pt 6pt 6pt 9pt;
+	color: white;
+}
+
+.screen-chat .message.me .speech-bubble:before {
+	top: 6pt;
+	left: auto;
+	right: -5pt;
+	border: 1px solid rgba(216, 216, 216, 1);
+	background: rgba(177, 191, 204, 1);
+}
+
+.screen-chat .message.me .speech-bubble:after {
+	top: 4pt;
+	left: auto;
+	right: 0pt;
+	background: rgba(177, 191, 204, 1);
+}

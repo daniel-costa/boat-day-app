@@ -13,56 +13,37 @@ define([
 		_boatdays: [],
 
 		events: {
-			'click .btn-more': 'more',
+			'click .uber': 'uber',
+			'click .directions': 'directions',
 		},
 
-		more: function() {
-			
-			Parse.Analytics.track('map-click-more');
-
-			var self = this;
-
-			navigator.notification.confirm(
-				"", 
-				function(buttonIndex) {
-					var boatday = self._boatdays[0].obj;
-					switch(buttonIndex) {
-						case 1: 
-							
-							// Parse.Analytics.track('map-get-gmaps');
-							
-							var url = 'comgooglemaps://?directionsmode=driving&daddr='+boatday.get('location').latitude + ',' + boatday.get('location').longitude;
-							window.open(url, '_system');
-							break;
-						case 2: 
-							
-							Parse.Analytics.track('map-get-uber');
-							
-							var url = 'uber://';
-							url += '?client_id='+Parse.Config.current().get('UBER_CLIENT_ID');
-							url += '&action=setPickup';
-							url += '&pickup=my_location';
-							url += '&dropoff[latitude]='+boatday.get('location').latitude;
-							url += '&dropoff[longitude]='+boatday.get('location').longitude;
-							// url += '&dropoff[nickname]='+encodeURI(boatday.get('name'));
-							url += '&dropoff[formatted_address]='+encodeURI(boatday.get('locationText'));
-							window.open(url, '_system');
-							break;
-					}
-				}, 
-				"More options",
-				["Get Directions", "Get Uber", "Cancel"]
-			);
-		},
 
 		initialize: function(data) {
 
 			this.zoomLevel     = data.zoomLevel    ? data.zoomLevel    : 13
 			this.getdirection  = data.getdirection ? data.getdirection : false;
-			this.getuber       = data.getuber      ? data.getuber      : false;
 			this._boatdays     = data.boatdays     ? data.boatdays     : [{ obj: this.model, precise: data.precise, openOnClick: false }];
 			this.center        = data.center       ? data.center       : { latitude: this.model.get('location').latitude, longitude: this.model.get('location').longitude };
 			
+		},
+
+		directions: function() {
+			var boatday = this.model;
+			var url = 'comgooglemaps://?directionsmode=driving&daddr=' + boatday.get('location').latitude + ',' + boatday.get('location').longitude;
+			window.open(url, '_system');
+		},
+
+		uber: function() {
+			var boatday = this.model;
+			var url = 'uber://';
+			url += '?client_id='+Parse.Config.current().get('UBER_CLIENT_ID');
+			url += '&action=setPickup';
+			url += '&pickup=my_location';
+			url += '&dropoff[latitude]='+boatday.get('location').latitude;
+			url += '&dropoff[longitude]='+boatday.get('location').longitude;
+			// url += '&dropoff[nickname]='+encodeURI(boatday.get('name'));
+			url += '&dropoff[formatted_address]='+encodeURI(boatday.get('locationText'));
+			window.open(url, '_system');
 		},
 
 		render: function() {
@@ -103,10 +84,6 @@ define([
 				}
 			});
 
-			if( self.getuber === false && self.getdirection === false) {
-				this.$el.find('.btn-more').hide();
-			}
-			
 			return this;
 		}
 	});
