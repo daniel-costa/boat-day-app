@@ -330,10 +330,10 @@ define([
 
 			var h = parseInt(time);
 			var mm = (time-h) * 60;
-			var dd = 'AM';
+			var dd = 'am';
 
 			if( h >= 12 ) {
-				dd = 'PM';
+				dd = 'pm';
 				h -= 12;
 			}
 

@@ -31,7 +31,8 @@ define([
 				from: Parse.User.current().get('profile'),
 				question: self._in('question').val(),
 				boatday: self.parentView.model,
-				public: self._in('public').val() == 'true'
+				public: false
+				// public: self._in('public').val() == 'true'
 			}).then(function() {
 				self._info('Thank you! The question is sent to the Host. Once he answered, you will receive a notification');
 				self.parentView.render();

@@ -66,7 +66,7 @@ define([
 				user: Parse.User.current(),
 				status: 'unread',
 				email: this._in('email').val(),
-				phone: this._in('phone').val(),
+				phone: null,
 				file1: null,
 				file2: null,
 				file3: null
@@ -75,7 +75,7 @@ define([
 				self._in('feedback').val('');
 				self._in('email').val('');
 				self._in('phone').val('');
-				self._info('Thank you for contacting the BoatDay team, we will get back to you soon.');
+				self._info('Thank you for your feedback! It helps us make the best app possible.');
 			}, function(error) {
 				Parse.Analytics.track('about-us-send-feedback-fail');
 				self.loading();
