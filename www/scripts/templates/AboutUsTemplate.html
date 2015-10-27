@@ -23,7 +23,6 @@
 
 			<label for="email" class="field">Email</label>
 			<input type="email" name="email" id="email" placeholder="E-mail" value="<%= typeof Parse.User.current().get('email') != typeof undefined ? '' : Parse.User.current().get('email') %>" />
-
 		
 			<label for="feedback" class="field">Please give us your feedback</label>
 			<textarea name="feedback" id="feedback" rows="3" placeholder="It is our mission to create the best boating app for you. Tell us what's on your mind."></textarea>
