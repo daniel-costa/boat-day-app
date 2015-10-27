@@ -130,7 +130,6 @@ define([
 					self.$el.find('.boatday-card-upcoming[data-id="'+request.id+'"] .image').css({ backgroundImage: 'url(' + fh.get('file').url() +')' })
 				});
 			});
-
 		},
 
 		execQuerySeatRequests: function(query, template, cbAfterCardRender) {
@@ -145,8 +144,6 @@ define([
 			query.find().then(function(requests) {
 
 				self.$el.find('.list').html("");
-
-				console.log(requests);
 
 				_.each(requests, function(request) {
 
@@ -179,13 +176,22 @@ define([
 
 		pay: function(event) {
 
-			console.log(this.requests);
-			console.log($(event.currentTarget));
-			console.log($(event.currentTarget).attr('data-id'));
-			console.log(this.requests[$(event.currentTarget).attr('data-id')]);
+			//console.log(this.requests);
+			//console.log($(event.currentTarget));
+			//console.log($(event.currentTarget).attr('data-id'));
+			// console.log(this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest'));
+			// if( !this.requests[$(event.currentTarget).attr('data-id')].get('contribution') || !this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest')) {
+			// 	this.modal(new PayView({ model: this.requests[$(event.currentTarget).attr('data-id')] }));
+			// } else {
 
-			this.modal(new PayView({ model: this.requests[$(event.currentTarget).attr('data-id')] }));
+			// 	self._info('You have already paid and contibuted for the boatday');
+			// }
 
+			if( typeof this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest') === typeof undefined || !!this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest') ) {
+				alert("Paid and contributed");
+			} else {
+				this.modal(new PayView({ model: this.requests[$(event.currentTarget).attr('data-id')] }));
+			}
 		}
 
 	});

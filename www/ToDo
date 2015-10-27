@@ -11,7 +11,6 @@ ToDo:
 Bug:
 - Open map or focus in field extremelly slow
 - After question submitted scroll to questions
-- Bibash - Avoid opening the pay window when the request is paid in past bd
 - Swiper in requests not working correctly
 
 Postpone:
@@ -60,3 +59,4 @@ Test :
 - Done - Pricing overlay not done
 - Done - Terms & Water policy overlay empty
 - Done - Book seats sizing fucked up in iphone 5 (fields not visible)
+- Done - Avoid opening the pay window when the request is paid in past bd

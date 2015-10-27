@@ -259,7 +259,7 @@ define([
 					});
 
 					if( boatdays.length == 0 ) {
-						self.$el.find('.list').attr('no-data', 'Currently no BoatDays for this filters. Try less restrictive filters!');
+						self.$el.find('.list').attr('no-data', 'No matches for this search. Try less filters for more BoatDays!');
 					} else {
 						self.$el.find('.list').removeAttr('no-data');
 					}

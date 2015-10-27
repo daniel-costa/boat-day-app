@@ -51,9 +51,6 @@ define([
 				});
 			});
 
-
-
-
 			return this;
 		},
 
