@@ -1,21 +1,15 @@
 ToDo:
-- Placeholder when app is lunching
-
 - Add filters
 - Preview BoatDay info in map
 - Toggle in map view (totday, this weekend, next month)
 - Implement share feature
+- implement share in upcomings chat button
 - Handle _info and _error
 - Apply promo code
 - Pricing overlay not done
 - implement unread messages in upcomings chat button
-- implement share in upcomings chat button
-- Book seats rounded picture not good one and not cover
-- Add "What is this screen" overlay in active boatday
-- Take in account date for boatdays upcoming
-- seats left in upcoming, handle if 0 seats left
-- change uber icon in map view
-- Order questions  in BD recent first
+- Bibash - Book seats rounded picture not good one and not cover
+- Order questions in BD recent first
 
 Bug:
 - Open map or focus in field extremelly slow
@@ -48,6 +42,8 @@ Test :
 - Check with inspector for error finding
 
 
+- Done - change uber icon in map view
+- Done - Add "What is this screen" overlay in active boatday
 - Done - Add chevron on selects
 - Done - money icon in past boatdays
 - Done - Cancellation policy
@@ -61,3 +57,7 @@ Test :
 - Done - chat icon in upcoming events
 - Done - icon emergency for active screen
 - Done - icon call for active screen
+- Done - Placeholder when app is lunching
+- Done - Take in account date for boatdays upcoming
+- Done - seats left in upcoming, handle if 0 seats left
+
