@@ -39,7 +39,7 @@ define([
 				this.$el.find('.discount').hide();
 			}
 
-			this.$el.find( this.parentView.promo.perSeat ? '.promo' : '.promo-per-seat').hide();
+			this.$el.find( this.parentView.promo && this.parentView.promo.perSeat ? '.promo' : '.promo-per-seat').hide();
 
 			if( this.parentView.promo ) {
 				var promoClass = this.parentView.promo.perSeat ?  '.promo-per-seat' : '.promo';

@@ -53,6 +53,7 @@ define([
 			var self = this;
 			var center = new google.maps.LatLng(self.center.latitude, self.center.longitude);
 
+			/*
 			var map = new google.maps.Map(self.$el.find('.map').get(0), {
 				zoom: this.zoomLevel,
 				center: center
@@ -83,7 +84,8 @@ define([
 					});
 				}
 			});
-
+			*/
+			
 			return this;
 		}
 	});
