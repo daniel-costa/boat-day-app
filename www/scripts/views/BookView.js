@@ -144,7 +144,8 @@ define([
 			}
 
 			var total = seats * (contribution + fee + tsf - discountPerSeat - promoPerSeat) - promo - discount;
-			self.$el.find('.price-total').text('$'+total);
+
+			self.$el.find('.with-price').attr('data-price', total);
 		},
 
 		render: function() {
@@ -188,8 +189,12 @@ define([
 
 			});
 
-			return this;
+			this.model.get('boat').relation('boatPictures').query().first().then(function(fh) {
+				self.$el.find('.boatday-picture').css({ backgroundImage: 'url(' + fh.get('file').url() +')' });
+			});
 
+			self.updatePrice();
+			return this;
 		},
 
 		book: function() {
