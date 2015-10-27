@@ -131,7 +131,6 @@ define([
 					
 					// ToDo Find alternative for new plugin.
 					// window.plugins.pushNotification.setApplicationIconBadgeNumber(function (result) {  }, function (error) {  }, self.notifications);
-					alert(1);
 
 					if( self.notifications == 0)  {
 						$(self.notificationsHolder).text(self.notifications).hide();
@@ -141,7 +140,9 @@ define([
 							$(document).trigger('globalInfo', 'You have '+delta+' new notification'+ (delta == 1 ? '' : 's.' ) );
 							// self.notificationSound.play();
 						}
-						$(self.notificationsHolder).text(self.notifications).show();
+						$(self.notificationsHolder).text(self.notifications).closest('.total-notifications').show();
+						console.log(self.notificationsHolder);
+						console.log(self.notifications);
 					}
 				}
 				

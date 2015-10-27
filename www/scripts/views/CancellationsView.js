@@ -15,20 +15,20 @@ define([
 			this.$el.find('.' + this.model.get('cancellationPolicy')).addClass('active');
 
 			if(this.model.get('cancellationPolicy') == 'flexible') {
-				this.$el.find('.flexiable').show();
+				this.$el.find('.flexible').show();
 				this.$el.find('.moderate').hide();
 				this.$el.find('.strict').hide();
 			}
 
 			if(this.model.get('cancellationPolicy') == 'moderate') {
-				this.$el.find('.moderate').show();
-				this.$el.find('.flexiable').hide();
+				this.$el.find('.moderte').show();
+				this.$el.find('.flexible').hide();
 				this.$el.find('.strict').hide();
 			}
 
 			if(this.model.get('cancellationPolicy') == 'strict') {
 				this.$el.find('.strict').show();
-				this.$el.find('.flexiable').hide();
+				this.$el.find('.flexible').hide();
 				this.$el.find('.moderate').hide();
 			}
 

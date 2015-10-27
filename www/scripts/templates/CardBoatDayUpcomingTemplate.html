@@ -1,14 +1,17 @@
 <div class="boatday-card-upcoming" data-id="<%= model.id %>">
-	<div class="image" style="background-image: url(resources/placeholder-boatday.png)">
-		<label><strong><%= model.get('boatday').get('availableSeats') - model.get('boatday').get('bookedSeats') %> Seats left..</strong> Tell your friends</label>
-		<button class="share">Share</button>
+	<% var seats = model.get('boatday').get('availableSeats') - model.get('boatday').get('bookedSeats'); %>
+	<div class="image <%= seats == 0 ? 'full' : '' %>" style="background-image: url(resources/placeholder-boatday.png)">
+		<% if( seats > 0 ) { %> >
+			<label><strong><%= seats %> Seats left..</strong> Tell your friends</label>
+			<button class="share">Share</button>
+		<% } %>
 	</div>
 	<div class="details">
 		<h1><%= model.get('boatday').get('name') %></h1>
 		<div class="items">
 			<div class="item">
 				<div class="icon bd-pin icon"></div>
-				<div class="label"><%= self.getCityFromLocation(mode.get('boatday').get('locationText')) %></div>
+				<div class="label"><%= self.getCityFromLocation(model.get('boatday').get('locationText')) %></div>
 			</div>
 			<div class="item">
 				<div class="icon bd-calendar"></div>

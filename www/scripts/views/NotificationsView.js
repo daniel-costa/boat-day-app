@@ -52,9 +52,7 @@ define([
 			query.include('boatday.captain');
 			query.include('boatday.captain.host');
 			query.include('request');
-			query.find().then(function(matches){
-
-				matches = [];
+			query.find().then(function(matches) {
 				
 				self.notifications = {};
 

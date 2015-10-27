@@ -172,8 +172,6 @@ define([
 			query.include('profile');
 			query.find().then(function(requests) {
 
-				console.log(requests);
-
 				_.each(requests, function(request) {
 					self.profiles[request.get('boatday').get('captain').id] = request.get('boatday').get('captain');
 					self.$el.find('.reviews').append(_.template(CardReviewGuestTemplate)({ self: self, request : request }));

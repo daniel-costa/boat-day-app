@@ -73,7 +73,17 @@
 	position: relative;
 }
 
-.boatday-card-upcoming .image:after {
+.boatday-card-upcoming .image.full {
+	padding: 60px 47px;
+	position: relative;
+	z-index: 1;
+	background-size: cover;
+	background-position: center;
+	position: relative;
+	height: 20vh;
+}
+
+.boatday-card-upcoming .image:not(.full):after {
 	content: "";
 	background:  rgba(37, 42, 43, 0.85);
 	position: absolute;

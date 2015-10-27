@@ -5,7 +5,7 @@
 			<p><%= model.get('name') %></p>
 			<div class="boatday-items">
 				<div class="boatday-item location">
-					<div class="label">Miami</div>
+					<div class="label"><%= self.getCityFromLocation(model.get('locationText')) %></div>
 				</div>
 				<div class="boatday-item date">
 					<div class="label"><%= self.dateToEnBoatDayCard(model.get('date')) %></div>

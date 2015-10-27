@@ -1,15 +1,12 @@
 ToDo:
+- Placeholder when app is lunching
+
 - Add filters
-- Preview in map
+- Preview BoatDay info in map
 - Toggle in map view (totday, this weekend, next month)
 - Implement share feature
-- Add chevron on selects
-- Add Chevron right on drawer (:after class of links)
-- Placeholder when app is lunching
 - Handle _info and _error
-- handle error in the field in question
 - Apply promo code
-- money icon in past boatdays
 - Pricing overlay not done
 - implement unread messages in upcomings chat button
 - implement share in upcomings chat button
@@ -18,6 +15,7 @@ ToDo:
 - Take in account date for boatdays upcoming
 - seats left in upcoming, handle if 0 seats left
 - change uber icon in map view
+- Order questions  in BD recent first
 
 Bug:
 - Open map or focus in field extremelly slow
@@ -27,6 +25,7 @@ Bug:
 - Book seats sizing fucked up in iphone 5 (fields not visible)
 - Avoid opening the pay window when the request is paid in past bd
 - Swiper in requests not working correctly
+- handle error in the field in question
 
 Postpone:
 - Overlays, must take only space needed
@@ -41,6 +40,7 @@ Postpone:
 - put swiper for pictures of boat everywhere
 - Create a CardQuestion for the questions
 - Add full view of pictures for boatday and boat
+- Add card icon for select
 
 Test : 
 - test when possible to double click on buttons
@@ -48,7 +48,10 @@ Test :
 - Check with inspector for error finding
 
 
-
+- Done - Add chevron on selects
+- Done - money icon in past boatdays
+- Done - Cancellation policy
+- Done - Add Chevron right on drawer (:after class of links)
 - Done - BoatDayView uncomment location in details and format to have only "Miami"
 - Done - Add position under map
 - Done - Format City Name in past boatdays

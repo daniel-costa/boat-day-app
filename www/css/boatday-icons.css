@@ -197,3 +197,15 @@
 .bd-chevron-top:before {
   content: "0";
 }
+.bd-money:before {
+  content: "1";
+}
+.bd-emergency:before {
+  content: "2";
+}
+.bd-phone:before {
+  content: "3";
+}
+.bd-uber:before {
+  content: "4";
+}

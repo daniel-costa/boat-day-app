@@ -31,8 +31,6 @@ define([
 			'click .share': 'share',
 			'click .ask': 'ask',
 			'click .map': 'map',
-			
-
 			'click .book': 'book',
 		},
 
