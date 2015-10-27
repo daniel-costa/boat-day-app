@@ -39,7 +39,7 @@
 			<h4>Date</h4><p><%= self.dateParseToDisplayDate(date) %></p>
 			<h4>Time</h4><p><%= self.departureTimeToDisplayTime(departureTime) %></p>
 			<h4>Duration</h4><p><%= duration %> hour<%= duration == 1 ? '' : 's' %></p>
-			<!-- <h4>Location</h4><p><%= locationText %></p> -->
+			<h4>Location</h4><p><%= self.getCityFromLocation(locationText) %></p>
 			<h4>Available seats</h4><p><%= availableSeats %></p>
 		</div>
 		
@@ -65,8 +65,7 @@
 				<h1>Start and end of trip</h1>
 				<p class="name">
 					<span class="icon bd-pin"></span>
-					<!-- do innacurate position -->
-					Miami, Florida
+					<%= self.getCityFromLocation(locationText) %>
 				</p>
 				<p class="detail">
 					Exact address will be visible to confirmed guests.

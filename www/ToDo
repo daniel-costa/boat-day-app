@@ -1,22 +1,33 @@
+ToDo:
+- Add filters
+- Preview in map
+- Toggle in map view (totday, this weekend, next month)
+- Sharing
+
+Bug:
+- Open map or focus in field extremelly slow
+- After question submitted scroll to questions
+- Terms & Water policy overlay empty
+- iPhone 5 choose seats is in 2 lines
+- Book seats sizing fucked up in iphone 5 (fields not visible)
+
+Postpone:
+- Overlays, must take only space needed
+
+
 Bugs:
-- Change icon for map in BoatDaysView
-- Format City Name in past boatdays
+- Add taking picture to active boatday screen
 - Optimize version numbers
 - Add Chevron right on drawer (:after class of links)
 - Add pictures of boatdays instead of boat
 - Placeholder when app is lunching
-- Chceck placeholder-host missing ?
-- BoatDayView uncomment location in details and format to have only "Miami"
-- Add position under map
 - Implement share feature
 - Handle _info and _error
 - good size of the drawer
 - handle error in the field in question
 - handle the double click on button for new question
 - change question append to card
-- Upcoming boatdays to be done
-- Location in past BoatDays is wrong
-- Location in upcoming BoatDays is wrong
+- Done - Upcoming boatdays to be done
 - Avoid opening the pay window when the request is paid in past bd
 - Implement accept pending request button
 - Implement cancel pending request button
@@ -32,3 +43,10 @@ Bugs:
 - icon call for active screen
 - add "What is this screen" overlay in active boatday
 - change uber icon in map view
+- put slider for pictures of boat everywhere
+
+- Done - BoatDayView uncomment location in details and format to have only "Miami"
+- Done - Add position under map
+- Done - Format City Name in past boatdays
+- Done - Location in past BoatDays is wrong
+- Done - Location in upcoming BoatDays is wrong

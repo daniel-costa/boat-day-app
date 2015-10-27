@@ -407,6 +407,24 @@ define([
 			
 		},
 
+		getCityFromLocation: function(location) {
+
+			var l = location.split(',');
+
+			if( l.length == 0 ) {
+				return '';
+			}
+
+			if( l.length == 1 ) {
+				return l[0].trim();
+			}
+
+			if( l.length > 1 ) {
+				return l[l.length - 2].trim();
+			}
+
+		},
+
 		defineFilters: function() {
 
 			if( this.filtersDefined() ) {
