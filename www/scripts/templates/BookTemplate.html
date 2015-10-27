@@ -6,27 +6,27 @@
 	<div>
 	 	<div class="header">
 	 		<div class="select-seats chevron">
-	 			<a class="icon-person bd-person "></a>
+	 			<a class="icon-person bd-person"></a>
 	 			<select name="seats">
-						<% for(var i = 1; i <= (availableSeats - bookedSeats); i++) { %>
+					<% for(var i = 1; i <= (availableSeats - bookedSeats); i++) { %>
 						<option value="<%= i %>"><%= i %> seat<%= i != 1 ? 's' : '' %></option>
-						<% } %>
+					<% } %>
 				</select>
 	 		</div>
-	 		<div class="field-card">
-				<select name="card" class="chevron"></select>
+	 		<div class="field-card chevron">
+				<select name="card"></select>
 			</div>
 	 	</div>
 
 	 	<div class="price-pay grey-area">
 	 		<div class="boatday-picture"><div class="with-price"></div></div>
-	 		<div class="btn-group">
-				<button class="btn btn-block add-promo-code">Add Promo Code</button>
-				<button class="btn btn-block price-info">Pricing Info</button>
-			</div>
 	 	</div>
 	 </div>
 </main>
 <footer>
-	<button class="btn btn-block btn-primary book-seat">Book Seat</button>
+	<div class="btn-group">
+		<button class="promo">Add Promo Code</button>
+		<button class="info">Pricing Info</button>
+	</div>
+	<button class="btn-primary book">Book Seat</button>
 </footer>

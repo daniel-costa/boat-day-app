@@ -1,25 +1,18 @@
 ToDo:
-- Add filters
+- Add filters - Design
+- Add filters - Dev
 - Preview BoatDay info in map
 - Toggle in map view (totday, this weekend, next month)
 - Implement share feature
 - implement share in upcomings chat button
 - Handle _info and _error
-- Apply promo code
-- Pricing overlay not done
 - implement unread messages in upcomings chat button
-- Bibash - Book seats rounded picture not good one and not cover
-- Order questions in BD recent first
 
 Bug:
 - Open map or focus in field extremelly slow
 - After question submitted scroll to questions
-- Terms & Water policy overlay empty
-- iPhone 5 choose seats is in 2 lines
-- Book seats sizing fucked up in iphone 5 (fields not visible)
-- Avoid opening the pay window when the request is paid in past bd
+- Bibash - Avoid opening the pay window when the request is paid in past bd
 - Swiper in requests not working correctly
-- handle error in the field in question
 
 Postpone:
 - Overlays, must take only space needed
@@ -41,7 +34,6 @@ Test :
 - handle the double click on button for new question
 - Check with inspector for error finding
 
-
 - Done - change uber icon in map view
 - Done - Add "What is this screen" overlay in active boatday
 - Done - Add chevron on selects
@@ -60,4 +52,11 @@ Test :
 - Done - Placeholder when app is lunching
 - Done - Take in account date for boatdays upcoming
 - Done - seats left in upcoming, handle if 0 seats left
-
+- Done - Book seats rounded picture not good one and not cover
+- Done - iPhone 5 choose seats is in 2 lines
+- Done - Apply promo code
+- Done - handle error in the field in question
+- Done - Bibash Order questions in BD recent first
+- Done - Pricing overlay not done
+- Done - Terms & Water policy overlay empty
+- Done - Book seats sizing fucked up in iphone 5 (fields not visible)

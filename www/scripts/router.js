@@ -52,7 +52,7 @@ define([
 			'guest'				: 'guest',
 			'filter'			: 'filter', 
 			'adjust-price'		: 'adjustPrice', 
-			'*actions'			: 'requests'
+			'*actions'			: 'boatdays'
 
 		},
 		
