@@ -2,7 +2,22 @@ ToDo:
 - Add filters
 - Preview in map
 - Toggle in map view (totday, this weekend, next month)
-- Sharing
+- Implement share feature
+- Add chevron on selects
+- Add Chevron right on drawer (:after class of links)
+- Placeholder when app is lunching
+- Handle _info and _error
+- handle error in the field in question
+- Apply promo code
+- money icon in past boatdays
+- Pricing overlay not done
+- implement unread messages in upcomings chat button
+- implement share in upcomings chat button
+- Book seats rounded picture not good one and not cover
+- Add "What is this screen" overlay in active boatday
+- Take in account date for boatdays upcoming
+- seats left in upcoming, handle if 0 seats left
+- change uber icon in map view
 
 Bug:
 - Open map or focus in field extremelly slow
@@ -10,43 +25,36 @@ Bug:
 - Terms & Water policy overlay empty
 - iPhone 5 choose seats is in 2 lines
 - Book seats sizing fucked up in iphone 5 (fields not visible)
+- Avoid opening the pay window when the request is paid in past bd
+- Swiper in requests not working correctly
 
 Postpone:
 - Overlays, must take only space needed
-
-
-Bugs:
 - Add taking picture to active boatday screen
 - Optimize version numbers
-- Add Chevron right on drawer (:after class of links)
 - Add pictures of boatdays instead of boat
-- Placeholder when app is lunching
-- Implement share feature
-- Handle _info and _error
 - good size of the drawer
-- handle error in the field in question
-- handle the double click on button for new question
-- change question append to card
-- Done - Upcoming boatdays to be done
-- Avoid opening the pay window when the request is paid in past bd
 - Implement accept pending request button
 - Implement cancel pending request button
-- money icon in past boatdays
-- chat icon in upcoming events
-- implement unread messages in upcomings chat button
-- implement share in upcomings chat button
 - Take in account date for boatdays pending
-- seats left in upcoming, handle if 0 seats left
-- test when possible to double click on buttons
 - open profile from chat
-- icon emergency for active screen
-- icon call for active screen
-- add "What is this screen" overlay in active boatday
-- change uber icon in map view
-- put slider for pictures of boat everywhere
+- put swiper for pictures of boat everywhere
+- Create a CardQuestion for the questions
+- Add full view of pictures for boatday and boat
+
+Test : 
+- test when possible to double click on buttons
+- handle the double click on button for new question
+- Check with inspector for error finding
+
+
 
 - Done - BoatDayView uncomment location in details and format to have only "Miami"
 - Done - Add position under map
 - Done - Format City Name in past boatdays
 - Done - Location in past BoatDays is wrong
 - Done - Location in upcoming BoatDays is wrong
+- Done - Upcoming boatdays to be done
+- Done - chat icon in upcoming events
+- Done - icon emergency for active screen
+- Done - icon call for active screen

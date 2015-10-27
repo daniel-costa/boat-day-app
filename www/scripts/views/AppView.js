@@ -131,6 +131,7 @@ define([
 					
 					// ToDo Find alternative for new plugin.
 					// window.plugins.pushNotification.setApplicationIconBadgeNumber(function (result) {  }, function (error) {  }, self.notifications);
+					alert(1);
 
 					if( self.notifications == 0)  {
 						$(self.notificationsHolder).text(self.notifications).hide();
@@ -138,9 +139,9 @@ define([
 						if($(self.notificationsHolder).text() < self.notifications) {
 							var delta = self.notifications - $(self.notificationsHolder).text();
 							$(document).trigger('globalInfo', 'You have '+delta+' new notification'+ (delta == 1 ? '' : 's.' ) );
-							self.notificationSound.play();
+							// self.notificationSound.play();
 						}
-						$(self.notificationsHolder).text("("+self.notifications+")").show();
+						$(self.notificationsHolder).text(self.notifications).show();
 					}
 				}
 				
@@ -234,7 +235,7 @@ define([
 
 			var self = this;
 			
-			self.notificationSound = new Media("resources/sfx/notification.wav");
+			// self.notificationSound = new Media("resources/sfx/notification.wav");
 
 			Parse.Config.get().then(function(config) {
 
