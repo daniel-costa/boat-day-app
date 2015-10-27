@@ -18,7 +18,7 @@ define([
 			
 			Parse.Analytics.track('about-us-click-terms');
 
-			this.modal(new TermsView());
+			this.overlay(new TermsView());
 
 		},
 

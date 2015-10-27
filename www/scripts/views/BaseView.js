@@ -268,7 +268,7 @@ define([
 
 		dateToEnBoatDayCard: function(date) {
 			var date = new Date(date.iso ? date.iso : date);
-			return this.dayToEnDay(date.getDay()) + ' ' + date.getDate() + '/' + date.getMonth();			
+			return this.dayToEnDay(date.getDay()) + ', ' + date.getDate() + '/' + date.getMonth();			
 		},
 
 		dayToEnDay: function(n) {
@@ -405,6 +405,24 @@ define([
 				};
 			}
 			
+		},
+
+		getCityFromLocation: function(location) {
+
+			var l = location.split(',');
+
+			if( l.length == 0 ) {
+				return '';
+			}
+
+			if( l.length == 1 ) {
+				return l[0].trim();
+			}
+
+			if( l.length > 1 ) {
+				return l[l.length - 2].trim();
+			}
+
 		},
 
 		defineFilters: function() {

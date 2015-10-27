@@ -3,8 +3,11 @@ define([
 'views/ChatView',
 'views/MapView',
 'views/PayView',
+// 'views/BoatDayActiveAboutView',
 'text!templates/BoatDayActiveTemplate.html'
-], function(BaseView, ChatView, MapView, PayView, BoatDayActiveTemplate){
+], function(BaseView, ChatView, MapView, PayView, 
+	// BoatDayActiveAboutView,
+	BoatDayActiveTemplate){
 	var BoatDayActiveView = BaseView.extend({
 
 		className: 'screen-boatday-active',
@@ -38,6 +41,8 @@ define([
 		},
 
 		info: function() {
+			
+			// this.overlay(new BoatDayActiveAboutView();
 
 		},
 

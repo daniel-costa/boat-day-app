@@ -248,7 +248,7 @@ define([
 				Parse.User.current().get('profile').relation('requests').add(request);
 				Parse.User.current().get('profile').save().then(function() {
 					self._info('Seat request submitted.');
-					Parse.history.navigate('boatdays-upcoming', true);
+					Parse.history.navigate('requests', true);
 				});
 
 			}, function(error) {
