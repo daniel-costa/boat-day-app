@@ -3,10 +3,9 @@ define([
 'views/ChatView',
 'views/MapView',
 'views/PayView',
-// 'views/BoatDayActiveAboutView',
+'views/BoatDayActiveAboutView',
 'text!templates/BoatDayActiveTemplate.html'
-], function(BaseView, ChatView, MapView, PayView, 
-	// BoatDayActiveAboutView,
+], function(BaseView, ChatView, MapView, PayView, BoatDayActiveAboutView,
 	BoatDayActiveTemplate){
 	var BoatDayActiveView = BaseView.extend({
 
@@ -42,7 +41,7 @@ define([
 
 		info: function() {
 			
-			// this.overlay(new BoatDayActiveAboutView();
+			this.overlay(new BoatDayActiveAboutView());
 
 		},
 

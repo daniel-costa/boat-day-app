@@ -131,7 +131,7 @@ define([
 					
 					// ToDo Find alternative for new plugin.
 					// window.plugins.pushNotification.setApplicationIconBadgeNumber(function (result) {  }, function (error) {  }, self.notifications);
-					alert(1);
+					//alert(1);
 
 					if( self.notifications == 0)  {
 						$(self.notificationsHolder).text(self.notifications).hide();
