@@ -456,7 +456,10 @@ define([
 						latitude: null,
 						longitude: null
 					},
-					category: 'all'
+					category: 'all',
+					price: null,
+					seats: null,
+					date: null,
 				};
 			}
 		},

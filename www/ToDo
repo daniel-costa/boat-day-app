@@ -1,20 +1,11 @@
 ToDo:
-- Add filters - Design
-- Add filters - Dev
 - Implement share feature
 - implement share in upcomings chat button
 - implement unread messages in upcomings chat button
-- After question submitted scroll to questions
-<<<<<<< HEAD
 - Take in account date for boatdays pending
-- Pricing info badly align
-- Sign in / up flow to check
-- Upcoming change if it's from upcomings
-- Map View bugged
+- BoatDay change if it's from upcomings
 - Open map or focus in field extremelly slow
-=======
-- Swiper in requests not working correctly
->>>>>>> origin/master
+- Sign in / up flow to check
 
 Postpone:
 - Overlays, must take only space needed
@@ -63,14 +54,15 @@ Test :
 - Done - Pricing overlay not done
 - Done - Terms & Water policy overlay empty
 - Done - Book seats sizing fucked up in iphone 5 (fields not visible)
-<<<<<<< HEAD
 - Done - X in overlay close-me not centered
 - Done - Handle _info and _error
 - Done - Close me button not centered
 - Done - Upcoming must open boatday
 - Done - Avoid opening the pay window when the request is paid in past bd
-- Swiper in requests not working correctly
-- Past trips must go back to past trips
-=======
-- Done - Avoid opening the pay window when the request is paid in past bd
->>>>>>> origin/master
+- Done - Swiper in requests not working correctly
+- Done - Past trips must go back to past trips
+- Done - Pricing info badly align
+- Done - After question submitted scroll to questions
+- Done - Map View bugged
+- Done - Add filters - Design
+- Done - Add filters - Dev

@@ -39,13 +39,13 @@ define([
 				this.$el.find('.discount').hide();
 			}
 
-			this.$el.find( this.parentView.promo && this.parentView.promo.perSeat ? '.promo' : '.promo-per-seat').hide();
-
 			if( this.parentView.promo ) {
+				this.$el.find( this.parentView.promo.perSeat ? '.promo' : '.promo-per-seat').hide();
 				var promoClass = this.parentView.promo.perSeat ?  '.promo-per-seat' : '.promo';
-				this.$el.find(promoClass).show();
 				this.$el.find(promoClass + ' label').text(this.parentView.promo.name);
 				this.$el.find(promoClass + ' .amount').text('-$' + this.parentView.promo.discount);
+			} else {
+				this.$el.find('.promo, .promo-per-seat').hide();
 			}
 
 			return this;

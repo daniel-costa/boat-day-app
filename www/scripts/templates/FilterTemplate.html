@@ -2,52 +2,59 @@
 	<header>
 		<h1>Add Filters</h1>
 	</header>
-
 	<main>
-		<div class="drop-down">
-			<select class="form-control" name="categories">
-				<option>All</option>
-				<option value="leisure">Leisure</option>
-				<option value="fishing">Fishing</option>
-				<option value="sailing">Sailing</option>
-				<option value="activity">Activity</option>
-			</select>
+		<div>
+			<div class="categories">
+				<a class="category <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').category == 'all' ? 'active': '' %>" data-value="all">All</a>
+				<a class="category <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').category == 'leisure' ? 'active': '' %>" data-value="leisure">Leisure</a>
+				<a class="category <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').category == 'fishing' ? 'active': '' %>" data-value="fishing">Fishing</a>
+				<a class="category <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').category == 'sailing' ? 'active': '' %>" data-value="sailing">Sailing</a>
+				<a class="category <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').category == 'sports' ? 'active': '' %>" data-value="sports">Water Sports</a>
+			</div>
+
+			<div class="chevron">
+				<label class="field" for="price">Price range</label>
+				<select name="price" class="price" id="price">
+					<option value=""    <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == null ? 'selected': '' %>></option>
+					<option value="0"   <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 0    ? 'selected': '' %>>0-50</option>
+					<option value="50"  <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 50   ? 'selected': '' %>>50-100</option>
+					<option value="100" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 100  ? 'selected': '' %>>100-150</option>
+					<option value="150" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 150  ? 'selected': '' %>>150-200</option>
+					<option value="200" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 200  ? 'selected': '' %>>200+</option>
+				</select>
+			</div>
+
+			<div class="chevron">
+				<label class="field" for="seats">Minimum Seats</label>
+				<select name="seats" class="seats"  id="seats">
+					<option value=""   <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == null ? 'selected': '' %>></option>
+					<option value="1"  <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 1    ? 'selected': '' %>>1</option>
+					<option value="2"  <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 2    ? 'selected': '' %>>2</option>
+					<option value="3"  <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 3    ? 'selected': '' %>>3</option>
+					<option value="4"  <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 4    ? 'selected': '' %>>4</option>
+					<option value="5"  <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 5    ? 'selected': '' %>>5</option>
+					<option value="6"  <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 6    ? 'selected': '' %>>6</option>
+					<option value="7"  <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 7    ? 'selected': '' %>>7</option>
+					<option value="8"  <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 8    ? 'selected': '' %>>8</option>
+					<option value="9"  <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 9    ? 'selected': '' %>>9</option>
+					<option value="10" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 10   ? 'selected': '' %>>10</option>
+					<option value="11" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 11   ? 'selected': '' %>>11</option>
+					<option value="12" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 12   ? 'selected': '' %>>12</option>
+					<option value="13" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 13   ? 'selected': '' %>>13</option>
+					<option value="14" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 14   ? 'selected': '' %>>14</option>
+					<option value="15" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').seats == 15   ? 'selected': '' %>>15+</option>
+				</select>
+			</div>
+
+			<div class="chevron">
+				<label class="field" for="date">Date</label>
+				<input type="date" class="date" name="date" id="date" value="<%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').date ? Parse.User.current().get('profile').get('filters').date : '' %>" />
+			</div>
 		</div>
-		<div class="price">
-			<select class="form-control" name="price">
-				<option value="">0-50</option>
-				<option value="">50-100</option>
-				<option value="">100-150</option>
-				<option value="">150-200</option>
-			</select>
-		</div>
-		<div class="availableSeats">
-			<select class="form-control" name="availableSeats">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-				<option value="13">13</option>
-				<option value="14">14</option>
-				<option value="15">15</option>
-			</select>
-		</div>
-		<div class="date">
-			<label>day</label>
-			<a href="#">Add a date</a>
-		</div>
-						
 	</main>
 
 	<footer>
+		<button class="btn-primary save">Save</button>
 		<span class="icon bd-cross close-me"></span>
 	</footer>
 </div>

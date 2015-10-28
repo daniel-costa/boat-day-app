@@ -37,8 +37,7 @@ define([
 
 		filters: function() {
 
-			// console.log(this.boatdays[Object.keys(this.boatdays)[0]]);
-			this.overlay(new FilterView());
+			this.overlay(new FilterView({ parentView: this }));
 
 		},
 		
@@ -111,32 +110,6 @@ define([
 			});
 
 		},
-
-		/*
-		pickCategory: function(event) {
-
-			var self = this;
-
-			var newFilters = self.defineFilters();
-
-			this.$el.find('.filter-categories .control-item.active').removeClass('active');
-			
-			$(event.currentTarget).addClass('active');
-
-			newFilters.category = $(event.currentTarget).attr('value');
-
-			Parse.Analytics.track('boatdays-pick-category', { category: newFilters.category } );
-			
-			this.moveHandler();
-
-			Parse.User.current().get('profile').save({
-				filters: newFilters
-			}).then(function() {
-				self.displayBoatDays();
-			});
-
-		},
-		*/
 
 		render: function( init ) {
 
@@ -224,6 +197,28 @@ define([
 					});
 
 					query.withinMiles("location", around, Parse.Config.current().get('FILTER_AROUND_RADIUS'));
+
+
+					console.log(_filters);
+
+					if( _filters.price ) {
+						if( typeof _filters.price === "number" ) {
+							query.greaterThanOrEqualTo("price", _filters.price);
+						} else {
+							query.greaterThanOrEqualTo("price", _filters.price[0]);
+							query.lessThanOrEqualTo("price", _filters.price[1]);
+						}
+					}
+
+					if( _filters.seats ) {
+						query.greaterThanOrEqualTo("availableSeats", _filters.seats);
+					}
+
+					if( _filters.date ) {
+						var d = new Date(_filters.date);
+						query.greaterThanOrEqualTo("date", new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0));
+						query.lessThanOrEqualTo("date", new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 99));
+					}
 				}
 
 				query.ascending('featured,date,departureTime,price,bookedSeats');

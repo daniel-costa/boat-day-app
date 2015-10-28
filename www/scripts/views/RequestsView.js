@@ -202,9 +202,8 @@ define([
 		},
 
 		pay: function(event) {
-			if( typeof this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest') === typeof undefined || !!this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest') ) {
-				
-			} else {
+			if( typeof this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest') !== typeof undefined 
+				&& !this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest') ) {
 				this.modal(new PayView({ model: this.requests[$(event.currentTarget).attr('data-id')] }));
 			}
 		}
