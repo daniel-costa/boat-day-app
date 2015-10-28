@@ -2,9 +2,8 @@ ToDo:
 - Implement share feature
 - implement share in upcomings chat button
 - Take in account date for boatdays pending
-- BoatDay change if it's from upcomings
 - Open map or focus in field extremelly slow
-- Sign in / up flow to check
+- BoatDay change if it's from upcomings
 
 Postpone:
 - Overlays, must take only space needed
@@ -65,4 +64,5 @@ Test :
 - Done - Map View bugged
 - Done - Add filters - Design
 - Done - Add filters - Dev
-- implement unread messages in upcomings chat button
+- Done - implement unread messages in upcomings chat button
+- Done - Sign in / up flow to check

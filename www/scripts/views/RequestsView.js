@@ -153,17 +153,16 @@ define([
 					self.$el.find('.boatday-card-upcoming[data-id="'+request.id+'"] .image').css({ backgroundImage: 'url(' + fh.get('file').url() +')' })
 				});
 
-				console.log(request.get('guestLastRead'));
 				var query = request.get('boatday').relation('chatMessages').query();
-				query.greaterThan('createdAt', request.get('guestLastRead'));
+				if( typeof request.get('guestLastRead') !== undefined && request.get('guestLastRead')) {
+					query.greaterThan('createdAt', request.get('guestLastRead'));	
+				}
 				query.count().then(function(total) {
-					console.log(total);
 					if( total == 0 ) {
 						self.$el.find('.boatday-card-upcoming[data-id="' + request.id + '"] .unread').hide();
 					} else {
 						self.$el.find('.boatday-card-upcoming[data-id="' + request.id + '"] .unread').text('(' + total + ')');
 					}
-					
 				}, function(error) {
 					console.log(error);
 				})
