@@ -123,7 +123,7 @@ define([
 
 			Parse.User.logOut();
 			facebookConnectPlugin.logout();
-			this.guestx();
+			this.guest();
 
 		},
 

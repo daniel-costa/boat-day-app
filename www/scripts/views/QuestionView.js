@@ -36,6 +36,7 @@ define([
 			}).then(function() {
 				self._info('Thank you! The question is sent to the Host. Once he answered, you will receive a notification');
 				self.parentView.render();
+				self.afterRenderInsertedToDom();
 				self.close();
 			}, function(error) {
 				if( error.type && error.type == 'model-validation' ) {
@@ -51,7 +52,15 @@ define([
 
 				console.log(error);	
 			});
-		}
+		}, 
+
+		afterRenderInsertedToDom: function(){
+
+			this.parentView.$el.find('main, .questions').animate({
+				scrollTop: 1485.5,
+				scrollLeft: 0
+			}, 1000);
+		} 
 	});
 	return QuestionView;
 });
