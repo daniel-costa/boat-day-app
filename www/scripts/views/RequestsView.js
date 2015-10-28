@@ -30,6 +30,18 @@ define([
 		profiles: {},
 		boatdays: {},
 
+		startingCard: 'upcoming',
+
+		initialize: function(data) {
+			if( data.queryString ) {
+				alert(1);
+				var x = this.splitURLParams(data.queryString);
+				console.log(x);
+				console.log(x['subView']);
+				this.startingCard = x['subView'];
+			}
+		},
+
 		profile: function(event) {
 			
 			event.preventDefault();
@@ -51,7 +63,7 @@ define([
    				slidesPerColumn: 1,
 			});
 
-			self.$el.find('.boatdays-upcoming').click();
+			self.$el.find('.boatdays-'+this.startingCard).click();
 
 			return this;
 
@@ -63,9 +75,18 @@ define([
 
 		},
 
-		renderPastBoatDays: function() {
+		changeActive: function(event) {
+
+			this.$el.find('.categories .active').removeClass('active');
+			$(event.currentTarget).addClass('active');
+
+		},
+
+		renderPastBoatDays: function(event) {
 
 			var self = this;
+
+			this.changeActive(event);
 
 			var innerQueryYesterday = new Parse.Query(Parse.Object.extend('BoatDay'));
 			innerQueryYesterday.lessThan("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
@@ -88,9 +109,11 @@ define([
 			self.execQuerySeatRequests(query, CardBoatDayPastTemplate);
 		},
 
-		renderPendingBoatDays: function() {
+		renderPendingBoatDays: function(event) {
 
 			var self = this;
+
+			this.changeActive(event);
 
 			var query = Parse.User.current().get('profile').relation('requests').query();
 			query.containedIn('status', ['pending-guest', 'pending']);
@@ -103,9 +126,11 @@ define([
 
 		},
 
-		renderCancelledBoatDays: function() {
+		renderCancelledBoatDays: function(event) {
 
 			var self = this;
+
+			this.changeActive(event);
 
 			var query = Parse.User.current().get('profile').relation('requests').query();
 			query.containedIn('status', ['cancelled-host', 'cancelled-guest']);
@@ -118,9 +143,11 @@ define([
 
 		},
 
-		renderUpcomingBoatDays: function() {
+		renderUpcomingBoatDays: function(event) {
 			
 			var self = this;
+
+			this.changeActive(event);
 
 			var query = Parse.User.current().get('profile').relation('requests').query();
 			query.equalTo('status', 'approved');
@@ -145,8 +172,6 @@ define([
 			query.find().then(function(requests) {
 
 				self.$el.find('.list').html("");
-
-				console.log(requests);
 
 				_.each(requests, function(request) {
 
@@ -178,11 +203,6 @@ define([
 		},
 
 		pay: function(event) {
-
-			console.log(this.requests);
-			console.log($(event.currentTarget));
-			console.log($(event.currentTarget).attr('data-id'));
-			console.log(this.requests[$(event.currentTarget).attr('data-id')]);
 
 			this.modal(new PayView({ model: this.requests[$(event.currentTarget).attr('data-id')] }));
 

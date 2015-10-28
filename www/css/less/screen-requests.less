@@ -5,35 +5,25 @@
 .screen-requests .categories {
 	background: rgba(255, 255, 255, 0);
 	border-bottom: none;
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+	-webkit-justify-content: space-between;
 }
 
-.screen-requests .categories .swiper-container {
-	width: 100%;
-	height: 100%;
-}
-
-.screen-requests .categories .swiper-wrapper {
-}
-
-.screen-requests .categories .swiper-slide {
-	width:auto;
-}
-
-.screen-requests .categories .swiper-slide a {
-	display: block;
-	vertical-align: center;
-	margin: 0px;
-	padding: 0px;
+.screen-requests .categories a {
 	color: rgba(84, 110, 122, 1);
 	font-size: 8.53pt;
 	line-height: 13.65pt;
 	font-weight: 500;
 	text-transform: uppercase;
+	display: block;
+	text-align: center;
+	vertical-align: center;
 	line-height: 71px;
 	padding: 0px 10px;
 }
 
-.screen-requests .categories .swiper-slide-active a {
+.screen-requests .categories a.active {
 	color: rgba(17, 171, 193, 1);
 	text-decoration: underline;
 }

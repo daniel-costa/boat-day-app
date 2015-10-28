@@ -1,33 +1,32 @@
 ToDo:
 - Add filters - Design
 - Add filters - Dev
-- Preview BoatDay info in map
-- Toggle in map view (totday, this weekend, next month)
 - Implement share feature
 - implement share in upcomings chat button
-- Handle _info and _error
 - implement unread messages in upcomings chat button
-
-Bug:
-- Open map or focus in field extremelly slow
 - After question submitted scroll to questions
-- Bibash - Avoid opening the pay window when the request is paid in past bd
-- Swiper in requests not working correctly
+- Take in account date for boatdays pending
+- Pricing info badly align
+- Sign in / up flow to check
+- Upcoming change if it's from upcomings
+- Map View bugged
+- Open map or focus in field extremelly slow
 
 Postpone:
 - Overlays, must take only space needed
-- Add taking picture to active boatday screen
+- Add taking picture to active boatday screentos
 - Optimize version numbers
 - Add pictures of boatdays instead of boat
 - good size of the drawer
 - Implement accept pending request button
 - Implement cancel pending request button
-- Take in account date for boatdays pending
 - open profile from chat
 - put swiper for pictures of boat everywhere
-- Create a CardQuestion for the questions
 - Add full view of pictures for boatday and boat
 - Add card icon for select
+- Toggle in map view (totday, this weekend, next weekend)
+- Create a CardQuestion for the questions
+- Preview BoatDay info in map
 
 Test : 
 - test when possible to double click on buttons
@@ -60,3 +59,10 @@ Test :
 - Done - Pricing overlay not done
 - Done - Terms & Water policy overlay empty
 - Done - Book seats sizing fucked up in iphone 5 (fields not visible)
+- Done - X in overlay close-me not centered
+- Done - Handle _info and _error
+- Done - Close me button not centered
+- Done - Upcoming must open boatday
+- Done - Avoid opening the pay window when the request is paid in past bd
+- Swiper in requests not working correctly
+- Past trips must go back to past trips

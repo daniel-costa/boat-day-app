@@ -30,29 +30,30 @@ define([
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
-			'boatday/:id'		: 'boatday',
-			'boatdays'			: 'boatdays',
-			'requests'			: 'requests',
-			'my-profile'		: 'myProfile',
-			'my-picture'		: 'myPicture',
-			'payments'			: 'payments',
-			'credit-card'		: 'creditCard',
-			'about-us'			: 'aboutUs',
-			'notifications'		: 'notifications',
-			'sign-in'			: 'signIn', 
-			'sign-up'			: 'signUp',
-			'sign-out'			: 'signOut',
-			'water-policy'		: 'waterPolicy',
-			'terms'				: 'terms',
+			'boatday/:id'			: 'boatday',
+			'boatdays'				: 'boatdays',
+			'requests?*queryString'	: 'requests',
+			'requests'				: 'requests',
+			'my-profile'			: 'myProfile',
+			'my-picture'			: 'myPicture',
+			'payments'				: 'payments',
+			'credit-card'			: 'creditCard',
+			'about-us'				: 'aboutUs',
+			'notifications'			: 'notifications',
+			'sign-in'				: 'signIn', 
+			'sign-up'				: 'signUp',
+			'sign-out'				: 'signOut',
+			'water-policy'			: 'waterPolicy',
+			'terms'					: 'terms',
 
-			'cancellations'		: 'cancellations',
-			'question'			: 'question',
-			'promo-code'		: 'promoCode',
-			'price-info'		: 'priceInfo', 
-			'guest'				: 'guest',
-			'filter'			: 'filter', 
-			'adjust-price'		: 'adjustPrice', 
-			'*actions'			: 'boatdays'
+			'cancellations'			: 'cancellations',
+			'question'				: 'question',
+			'promo-code'			: 'promoCode',
+			'price-info'			: 'priceInfo', 
+			'guest'					: 'guest',
+			'filter'				: 'filter', 
+			'adjust-price'			: 'adjustPrice', 
+			'*actions'				: 'boatdays'
 
 		},
 		
@@ -179,11 +180,11 @@ define([
 
 		},
 
-		requests: function() {
+		requests: function(queryString) {
 
 			var self = this;
 			self.handleSignedIn(function(profile) {
-				self.render(new RequestsView());
+				self.render(new RequestsView({ queryString: queryString }));
 			});
 
 		},

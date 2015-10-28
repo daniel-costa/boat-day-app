@@ -127,7 +127,9 @@ define([
 					rating : ( rating * ratingAmount  + parseInt(self.rating) ) / (ratingAmount + 1),
 					ratingAmount: ratingAmount + 1
 				}).then(function() {
-					Parse.history.loadUrl(Parse.history.fragment);
+					self.loading();
+					console.log('change');
+					Parse.history.navigate('requests?subView=past', true);
 				}, function(error) {
 					console.log(error);
 				});

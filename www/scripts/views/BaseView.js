@@ -45,6 +45,26 @@ define([
 			overlay.find('.overlay-close').click();
 		},
 
+		splitURLParams: function(string){
+
+			var array = {};
+			var pair;
+			var token = /([^&=]+)=?([^&]*)/g;
+
+			var re_space = function(s){
+				return decodeURIComponent(s.replace(/\+/g, " "));
+			};
+
+			while (pair = token.exec(string)) {
+				array[re_space(pair[1])] = re_space(pair[2]);
+			}
+
+			console.log(array);
+
+			return array;
+
+		},
+
 		showOverlay: function(data) {
 
 			var self = this;

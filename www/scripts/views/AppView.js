@@ -51,8 +51,6 @@ define([
 			
 			var self = this;
 			var hasHeader = $('header').length != 0;
-
-			alert(params.message);
 			
 			// Lets imagine one line is arround 50 characters
 			// a normal person will take 3 seconds to read and understand the information
@@ -73,17 +71,14 @@ define([
 				// to stay on screen. The messages are fadeOut by a CSS transition
 				// acting like that we insure that the message will not be
 				// brutally removed before the end of the transition
-				setTimeout(deleteMessage, self.msgStack[0].time + 200);
+				setTimeout(function() {
+					self.msgStack.splice(0, 1)[0].element.remove();
+					if(self.msgStack.length > 0) {
+						setTimeout(manageStack, self.__MESSAGE_DELAY_BETWEEN__);
+					}
+				}, self.msgStack[0].time + 200);
 			};
 
-			var deleteMessage = function() {
-				var e = self.msgStack.splice(0, 1);
-				e[0].element.remove();
-
-				if(self.msgStack.length > 0) {
-					setTimeout(manageStack, self.__MESSAGE_DELAY_BETWEEN__);
-				}
-			};
 
 			self.msgStack.push({ element: msg, time: timeSec*1000 });
 
