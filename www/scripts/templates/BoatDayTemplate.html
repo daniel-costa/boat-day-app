@@ -95,7 +95,12 @@
 			</p>
 			
 			<button class="cancellations">View cancellation policy</button>
-			<button class="btn-action book">Book Seats</button>
+
+			<% if( self.seatRequest && self.seatRequest.get('status') == 'approved' ) { %>
+				<button class="cancel">Cancel</button>
+			<% } else { %>
+				<button class="btn-action book">Book Seats</button>
+			<% } %>
 
 			<p class="policies">
 				<a class="terms">Terms &amp; Conditions</a> and <a class="water">Watersports Policy</a>

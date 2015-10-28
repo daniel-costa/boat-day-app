@@ -34,11 +34,7 @@ define([
 
 		initialize: function(data) {
 			if( data.queryString ) {
-				alert(1);
-				var x = this.splitURLParams(data.queryString);
-				console.log(x);
-				console.log(x['subView']);
-				this.startingCard = x['subView'];
+				this.startingCard = this.splitURLParams(data.queryString)['subView'];
 			}
 		},
 
@@ -156,6 +152,21 @@ define([
 				request.get('boatday').get('boat').relation('boatPictures').query().first().then(function(fh) {
 					self.$el.find('.boatday-card-upcoming[data-id="'+request.id+'"] .image').css({ backgroundImage: 'url(' + fh.get('file').url() +')' })
 				});
+
+				console.log(request.get('guestLastRead'));
+				var query = request.get('boatday').relation('chatMessages').query();
+				query.greaterThan('createdAt', request.get('guestLastRead'));
+				query.count().then(function(total) {
+					console.log(total);
+					if( total == 0 ) {
+						self.$el.find('.boatday-card-upcoming[data-id="' + request.id + '"] .unread').hide();
+					} else {
+						self.$el.find('.boatday-card-upcoming[data-id="' + request.id + '"] .unread').text('(' + total + ')');
+					}
+					
+				}, function(error) {
+					console.log(error);
+				})
 			});
 		},
 
