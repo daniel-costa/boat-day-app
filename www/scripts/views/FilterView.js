@@ -8,7 +8,6 @@ define([
 
 		template: _.template(FilterTemplate),
 
-
 	});
 	return FilterView;
 });

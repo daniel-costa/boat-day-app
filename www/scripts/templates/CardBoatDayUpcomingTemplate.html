@@ -1,7 +1,7 @@
 <div class="boatday-card-upcoming" data-id="<%= model.id %>">
 	<% var seats = model.get('boatday').get('availableSeats') - model.get('boatday').get('bookedSeats'); %>
 	<div class="image <%= seats == 0 ? 'full' : '' %>" style="background-image: url(resources/placeholder-boatday.png)">
-		<% if( seats > 0 ) { %> >
+		<% if( seats > 0 ) { %> 
 			<label><strong><%= seats %> Seats left..</strong> Tell your friends</label>
 			<button class="share">Share</button>
 		<% } %>

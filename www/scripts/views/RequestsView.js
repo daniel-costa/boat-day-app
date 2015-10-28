@@ -157,7 +157,6 @@ define([
 					self.$el.find('.boatday-card-upcoming[data-id="'+request.id+'"] .image').css({ backgroundImage: 'url(' + fh.get('file').url() +')' })
 				});
 			});
-
 		},
 
 		execQuerySeatRequests: function(query, template, cbAfterCardRender) {
@@ -203,9 +202,11 @@ define([
 		},
 
 		pay: function(event) {
-
-			this.modal(new PayView({ model: this.requests[$(event.currentTarget).attr('data-id')] }));
-
+			if( typeof this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest') === typeof undefined || !!this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest') ) {
+				
+			} else {
+				this.modal(new PayView({ model: this.requests[$(event.currentTarget).attr('data-id')] }));
+			}
 		}
 
 	});

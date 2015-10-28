@@ -233,12 +233,14 @@ define([
 
 			var queryQuestionsPrivate = self.model.relation('questions').query();
 			queryQuestionsPrivate.equalTo('status', 'approved');
+			queryQuestionsPrivate.descending('createdAt');
 			queryQuestionsPrivate.equalTo('from', Parse.User.current().get('profile'));
 
 			var queryQuestionsPublic = self.model.relation('questions').query();
 			queryQuestionsPublic.equalTo('status', 'approved');
 			queryQuestionsPublic.notEqualTo('answer', null);
 			queryQuestionsPublic.equalTo('public', true);
+			queryQuestionsPublic.descending('createdAt');
 
 			var queryQuestions = new Parse.Query.or(queryQuestionsPublic, queryQuestionsPrivate);
 			queryQuestions.include('profile');
