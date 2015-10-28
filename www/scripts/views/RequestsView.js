@@ -4,12 +4,13 @@ define([
 'views/ProfileView',
 'views/PayView',
 'views/ChatView',
+'views/BoatDayView',
 'text!templates/RequestsTemplate.html',
 'text!templates/CardBoatDayPastTemplate.html',
 'text!templates/CardBoatDayUpcomingTemplate.html',
 'text!templates/CardBoatDayPendingTemplate.html',
 'text!templates/CardBoatDayCancelledTemplate.html',
-], function(Swiper, BaseView, ProfileView, PayView, ChatView, RequestsTemplate, CardBoatDayPastTemplate, CardBoatDayUpcomingTemplate, CardBoatDayPendingTemplate, CardBoatDayCancelledTemplate){
+], function(Swiper, BaseView, ProfileView, PayView, ChatView, BoatDayView, RequestsTemplate, CardBoatDayPastTemplate, CardBoatDayUpcomingTemplate, CardBoatDayPendingTemplate, CardBoatDayCancelledTemplate){
 	var RequestsView = BaseView.extend({
 
 		className: 'screen-requests',
@@ -24,6 +25,8 @@ define([
 			// 'click .host-picture': 'profile',
 			'click .boatday-card-past': 'pay',
 			'click .boatday-card-upcoming .chat': 'chat',
+			'boatday-card-upcoming .image' : 'boatday', 
+			'boatday-card-upcoming .details' : 'boatday'
 		},
 
 		requests: {},
@@ -64,6 +67,12 @@ define([
 			return this;
 
 		},
+
+		boatday: function(event) {
+			event.preventDefault();
+			Parse.Analytics.track('boatdays-click-boatday');
+			this.modal(new BoatDayView({ model : this.requests[$(event.currentTarget).attr('data-id')].get('boatday'), fromUpcoming: true }), 'right');
+		}, 
 
 		chat: function(event) {
 
