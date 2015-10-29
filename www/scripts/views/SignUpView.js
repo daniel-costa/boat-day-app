@@ -44,24 +44,23 @@ define([
 				password: this._in('password').val(), 
 				type: "guest",
 			}).then(function(user) {
-
 				new ProfileModel({ user: Parse.User.current() }).save().then(function(profile) {
 					user.save({ 
 						profile: profile,
 						type: "guest"
 					}).then(function() {
 						$(document).trigger('loadProfile', function() {
+							self.loading();
 							Parse.history.navigate('boatdays', true);
 						});
 					}, function(error) {
+						self.loading();
 						console.log(error);
 					});
 				}, function(error) {
+					self.loading();
 					console.log(error);
 				});
-
-				
-
 			}, function( error ) {
 
 				self.loading();
@@ -149,6 +148,7 @@ define([
 							type: "guest"
 						}).then(function() {
 							$(document).trigger('loadProfile', function() {
+								self.loading();
 								Parse.history.navigate('boatdays', true);
 							});
 						}, handleErrors);

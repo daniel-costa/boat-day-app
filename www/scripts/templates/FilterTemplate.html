@@ -17,9 +17,9 @@
 				<select name="price" class="price" id="price">
 					<option value=""    <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == null ? 'selected': '' %>></option>
 					<option value="0"   <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 0    ? 'selected': '' %>>0-50</option>
-					<option value="50"  <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 50   ? 'selected': '' %>>50-100</option>
-					<option value="100" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 100  ? 'selected': '' %>>100-150</option>
-					<option value="150" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 150  ? 'selected': '' %>>150-200</option>
+					<option value="50"  <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 50   ? 'selected': '' %>>0-100</option>
+					<option value="100" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 100  ? 'selected': '' %>>0-150</option>
+					<option value="150" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 150  ? 'selected': '' %>>0-200</option>
 					<option value="200" <%= self.filtersDefined() && Parse.User.current().get('profile').get('filters').price == 200  ? 'selected': '' %>>200+</option>
 				</select>
 			</div>

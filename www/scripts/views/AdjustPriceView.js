@@ -25,7 +25,7 @@ define([
 
 			var self = this;
 
-			this.model.get('boatday').get('boat').relation('boatPictures').query().first().then(function(fh) {
+			this.model.get('boatday').relation('boatdayPictures').query().first().then(function(fh) {
 				console.log(fh);
 				self.$el.find('.boatday-picture').css({ backgroundImage: 'url(' + fh.get('file').url() +')' });
 			}, function(error) {

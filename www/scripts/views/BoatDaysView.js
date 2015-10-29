@@ -199,8 +199,6 @@ define([
 					query.withinMiles("location", around, Parse.Config.current().get('FILTER_AROUND_RADIUS'));
 
 
-					console.log(_filters);
-
 					if( _filters.price ) {
 						if( typeof _filters.price === "number" ) {
 							query.greaterThanOrEqualTo("price", _filters.price);
@@ -243,7 +241,7 @@ define([
 							model: boatday,
 						}));
 
-						var queryPictures = boatday.get('boat').relation('boatPictures').query();
+						var queryPictures = boatday.relation('boatdayPictures').query();
 						queryPictures.ascending('order');
 						queryPictures.first().then(function(fileholder) {
 							if( fileholder ) {

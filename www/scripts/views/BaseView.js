@@ -25,6 +25,7 @@ define([
 		statusbar: true,
 		drawer: true,
 		isModal: false,
+		renderParent: false,
 
 		afterRenderInsertedToDom: function() { },
 		
@@ -118,6 +119,10 @@ define([
 				
 				if( data.render ) {
 					self.render();
+				}
+
+				if( view.renderParent ) {
+					view.parentView.render();
 				}
 
 				$el.removeClass('active');
@@ -390,13 +395,13 @@ define([
 				if( btn.hasClass('loading') ) {
 					return true;
 				} else {
-					btn.addClass('loading');
+					btn.addClass('loading').attr('disabled', true);
 					return false;
 				}
 
 			} else {
 
-				this.$el.find('.loading').removeClass('loading');
+				this.$el.find('.loading').removeClass('loading').removeAttr('disabled');
 
 			}
 			

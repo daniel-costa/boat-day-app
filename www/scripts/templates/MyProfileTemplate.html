@@ -1,6 +1,6 @@
 <header>
 	<span class="icon bd-arrow-left close-me"></span>
-	<h1 class="title">Information</h1>
+	<h1>Information</h1>
 </header>
 <%
 	if( birthday ) {
@@ -14,26 +14,25 @@
 	}
 %>
 <main>
-	<div class="content-padded">
-		
-		<% if( self.profileSetup ) { %>
-			<img src="resources/profile-step-1.png" class="step" />
-		<% } %>
+	<div>
+		<div class="grey-area header">
+			<h1>Personal Information</h1>
+		</div>
+		<div class="white-area">
+			<label for="firstName" class="field">First Name</label>
+			<input type="text" name="firstName" id="firstName" class"firstName" placeholder="First Name" value="<%= typeof firstName !== 'undefined' && firstName ? firstName : '' %>">
 
-		<h1>Personal Information</h1>
+			<label for="lastName" class="field">Last Name</label> 
+			<input type="text" name="lastName" id="lastName" class"lastName" placeholder="Last Name" value="<%= typeof lastName !== 'undefined' && lastName ? lastName : '' %>">
 
-		<label>First Name</label>
-		<input type="text" name="firstName" placeholder="First Name" value="<%= typeof firstName !== 'undefined' && firstName ? firstName : '' %>" <%= self.profileSetup ? '' : 'readonly' %>>
+			<label for="birthday" class="field">Birthday</label>
+			<input type="date" name="birthday" id="birthday" class"birthday" placeholder="Birthday" value="<%=  dt_value ? dt_value : '' %>">
 
-		<label>Last Name</label> 
-		<input type="text" name="lastName" placeholder="Last Name" value="<%= typeof lastName !== 'undefined' && lastName ? lastName : '' %>" <%= self.profileSetup ? '' : 'readonly' %>>
-
-		<label>Birthday</label>
-		<input type="date" name="birthday" placeholder="Birthday" value="<%=  dt_value ? dt_value : '' %>">
-
-		<label>Phone number</label>
-		<input type="number" name="phone" placeholder="Phone Number" value="<%= typeof phone !== 'undefined' && phone ? phone : '' %>"  pattern="[0-9]*">
-
-		<button class="btn btn-block btn-default save"><%= self.profileSetup ? 'Continue' : 'Update' %></button>
+			<label for="phone" class="field">Phone number</label>
+			<input type="number" name="phone" id="phone" class"phone" placeholder="Phone Number" value="<%= typeof phone !== 'undefined' && phone ? phone : '' %>"  pattern="[0-9]*">
+		</div>
 	</div>
 </main>
+<footer>
+	<button class="btn-primary save">Continue</button>
+</footer>

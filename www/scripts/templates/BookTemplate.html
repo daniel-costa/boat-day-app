@@ -1,20 +1,20 @@
 <header>
 	<span class="icon bd-arrow-left close-me"></span>
-	<h1 class="title">Choose seats</h1>
+	<h1>Choose seats</h1>
 </header>
 <main>
 	<div>
-	 	<div class="header">
-	 		<div class="select-seats chevron">
-	 			<a class="icon-person bd-person"></a>
-	 			<select name="seats">
+	 	<div class="items">
+	 		<div class="item">
+	 			<span class="icon bd-person"></span>
+	 			<select name="seats" class="chevron">
 					<% for(var i = 1; i <= (availableSeats - bookedSeats); i++) { %>
 						<option value="<%= i %>"><%= i %> seat<%= i != 1 ? 's' : '' %></option>
 					<% } %>
 				</select>
 	 		</div>
-	 		<div class="field-card chevron">
-				<select name="card"></select>
+	 		<div class="item field-card">
+				<select name="card" class="chevron"></select>
 			</div>
 	 	</div>
 

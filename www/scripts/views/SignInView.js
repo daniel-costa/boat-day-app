@@ -82,6 +82,7 @@ define([
 							type: "guest"
 						}).then(function() {
 							$(document).trigger('loadProfile', function() {
+								self.loading();
 								Parse.history.navigate('boatdays', true);
 							});
 						}, handleErrors);

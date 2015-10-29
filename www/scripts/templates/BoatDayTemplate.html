@@ -11,7 +11,7 @@
 			</div>
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">
-					<div class="boatday-image" style="background-image:url(resources/placeholder-boat.png)"></div>
+					<div class="boatday-image" style="background-image:url(resources/placeholder-boatday.png)"></div>
 				</div>
 			</div>
 			<div class="swiper-pagination"></div>
@@ -49,9 +49,9 @@
 		</div>
 
 		<div class="white-area location">
-			<% if( self.seatRequest && self.seatRequest.get('status') == 'approved' ) { %>
+			<% if( self.fromUpcoming ) { %>
 				<div class="map" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=<%= self.model.get('location').latitude %>,<%= self.model.get('location').longitude %>&amp;zoom=13&amp;size=400x260)">
-					<img src="resources/pin-outline.png" />
+					<img src="resources/pin-<%= category %>.png" />
 				</div>
 				<h1>Start and end of trip</h1>
 				<p class="name">
@@ -75,7 +75,7 @@
 
 		<div class="sharing">
 			<label>Let your friends know about this BoatDay!</label>
-			<button class="share">Share</button>
+			<button class="share">Share on Facebook</button>
 		</div>
 
 		<div class="questions white-area">
@@ -96,7 +96,7 @@
 			
 			<button class="cancellations">View cancellation policy</button>
 
-			<% if( self.seatRequest && self.seatRequest.get('status') == 'approved' ) { %>
+			<% if( self.seatRequest ) { %>
 				<button class="cancel">Cancel</button>
 			<% } else { %>
 				<button class="btn-action book">Book Seats</button>

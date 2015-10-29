@@ -30,14 +30,18 @@ define([
 
 			var self = this;
 
+			if( self.loading('.save') ) {
+				return ;
+			}
+
 			var newFilters = self.defineFilters();
 			newFilters.category = this.$el.find('.category.active').attr('data-value');
 
 			switch( parseInt(this._in('price').val()) ) {
 				case 0  : newFilters.price  = [0, 50]; break;
-				case 50 : newFilters.price  = [50, 100]; break;
-				case 100: newFilters.price  = [100, 150]; break;
-				case 150: newFilters.price  = [150, 200]; break;
+				case 50 : newFilters.price  = [0, 100]; break;
+				case 100: newFilters.price  = [0, 150]; break;
+				case 150: newFilters.price  = [0, 200]; break;
 				case 200: newFilters.price  = 200; break;
 				default : newFilters.price  = null; break;
 			}
@@ -57,8 +61,12 @@ define([
 			Parse.User.current().get('profile').save({
 				filters: newFilters
 			}).then(function() {
+				self.loading();
 				self.parentView.render();
 				self.close();
+			}, function(error) {
+				self.loading();
+				console.log(error);
 			});
 		},
 

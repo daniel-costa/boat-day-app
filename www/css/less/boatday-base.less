@@ -19,7 +19,8 @@ body {
 	-webkit-touch-callout: none;
 	-webkit-text-size-adjust: none;
 	-webkit-user-select: none;
-	
+	-webkit-font-smoothing: antialiased;
+
 	font-family: Avenir, "Helvetica Neue", Helvetica, sans-serif;
 	background: url(../resources/splash.jpg) center center no-repeat;
 	background-size: cover;
@@ -60,6 +61,7 @@ header {
 	display: -webkit-flex;
 	-webkit-flex-direction: row;
 	-webkit-flex-wrap: nowrap;
+	overflow: hidden;
 }
 
 header h1 {
@@ -95,7 +97,7 @@ main {
 }
 
 main > * {
-  -webkit-transform: translateZ(0);
+	-webkit-transform: translateZ(0);
 }
 
 footer {

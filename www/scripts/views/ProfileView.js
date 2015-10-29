@@ -7,9 +7,9 @@ define([
 'text!templates/ProfileTemplate.html',
 'text!templates/CardReviewHostTemplate.html', 
 'text!templates/CardReviewGuestTemplate.html', 
-'text!templates/CardBoatTemplate.html', 
+'text!templates/CardBoatProfileTemplate.html', 
 'text!templates/CardBoatDayProfileTemplate.html'
-], function(Swiper, ReportModel, BaseView, ReportView, BoatView, ProfileTemplate, CardReviewHostTemplate, CardReviewGuestTemplate, CardBoatTemplate, CardBoatDayProfileTemplate){
+], function(Swiper, ReportModel, BaseView, ReportView, BoatView, ProfileTemplate, CardReviewHostTemplate, CardReviewGuestTemplate, CardBoatProfileTemplate, CardBoatDayProfileTemplate){
 	var ProfileView = BaseView.extend({
 
 		className: 'screen-profile',
@@ -87,6 +87,7 @@ define([
 				query.include('boatday');
 				query.find().then(function(requests) {
 					var displayed = 0;
+
 					_.each(requests, function(request) {
 						if( request.get('reviewGuest') != "" ) {
 							displayed++;
@@ -109,15 +110,15 @@ define([
 				boatDayquery.include('captain');
 				boatDayquery.include('captain.host');
 				boatDayquery.find().then(function(boatdays) {
-					self.$el.find('.boatdays .list').html('');
+					self.$el.find('.boatdays .listing').html('');
 					_.each(boatdays, function(boatday) {
 						self.boatdays[boatday.id] = boatday;
-						self.$el.find('.boatdays .list').append(_.template(CardBoatDayProfileTemplate)({ 
+						self.$el.find('.boatdays .listing').append(_.template(CardBoatDayProfileTemplate)({ 
 							self: self,
 							model:boatday 
 						}));
 
-						var queryPictures = boatday.get('boat').relation('boatPictures').query();
+						var queryPictures = boatday.relation('boatdayPictures').query();
 						queryPictures.ascending('order');
 						queryPictures.first().then(function(fileholder) {
 							if( fileholder ) {
@@ -150,13 +151,13 @@ define([
 				boatQuery.find().then(function(boats) {
 					_.each(boats, function(boat) {
 						self.boats[boat.id] = boat;
-						self.$el.find('.boats .list').append(_.template(CardBoatTemplate)({ model: boat }));
+						self.$el.find('.boats .listing').append(_.template(CardBoatProfileTemplate)({ model: boat }));
 
 						var boatPictures = boat.relation('boatPictures').query();
 						boatPictures.ascending('order');
 						boatPictures.first().then(function(fileholder) {
-							if( fileholder ) {
-								self.$el.find('.boats .list .boat[data-id="'+boat.id+'"] .boat-image').css({ backgroundImage: 'url('+fileholder.get("file").url()+')' });
+							if( typeof fileholder !== typeof undefined) {
+								self.$el.find('.boats .listing [data-id="'+boat.id+'"] .boat-picture').css({ backgroundImage: 'url('+fileholder.get("file").url()+')' });
 							}
 						});
 					});

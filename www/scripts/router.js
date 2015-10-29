@@ -1,5 +1,4 @@
 define([
-	'views/TestView',
 	'views/GuestView',
 	'views/MyProfileView',
 	'views/MyPictureView',
@@ -23,7 +22,7 @@ define([
 	'views/AdjustPriceView',
 	'views/FilterView',
 ], function(
-	TestView, GuestView, MyProfileView, MyPictureView, PaymentsView, CreditCardView, BoatDayView,
+	GuestView, MyProfileView, MyPictureView, PaymentsView, CreditCardView, BoatDayView,
 	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView, RequestsView, SignUpView, SignInView,
 	GuestView, WaterPolicyView, TermsView, CancellationsView, QuestionView, PromoCodeView, PriceInfoView, AdjustPriceView, FilterView) {
 	
@@ -124,12 +123,6 @@ define([
 			Parse.User.logOut();
 			facebookConnectPlugin.logout();
 			this.guest();
-
-		},
-
-		test: function() {
-			
-			this.render(new TestView());
 
 		},
 

@@ -35,7 +35,7 @@ define([
 
 					self.$el.find('.list').append(_.template(CardBoatDayGuestTemplate)({ model: boatday }));
 
-					var queryBoatPicture = boatday.get('boat').relation('boatPictures').query();
+					var queryBoatPicture = boatday.relation('boatdayPictures').query();
 					queryBoatPicture.ascending('order');
 					queryBoatPicture.first().then(function (fileholder) {
 						if( fileholder ) {

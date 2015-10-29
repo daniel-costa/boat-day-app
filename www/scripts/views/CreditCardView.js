@@ -1,10 +1,9 @@
 define([
 'stripe',
 'views/BaseView',
-'views/PaymentsView', 
 'models/CreditCardModel',
 'text!templates/CreditCardTemplate.html'
-], function(Stripe, BaseView, PaymentsView, CreditCardModel, CreditCardTemplate){
+], function(Stripe, BaseView, CreditCardModel, CreditCardTemplate){
 	var CreditCardView = BaseView.extend({
 
 		className: 'screen-credit-card',
@@ -20,9 +19,6 @@ define([
 
 		initialize: function() {
 
-			// this.profileSetup = data ? data.setup : false;
-			// this.drawer = !this.profileSetup;
-			
 		},
 
 		render: function() {
@@ -121,8 +117,7 @@ define([
 						if( self.isModal || self.isOverlay ) {
 							self.close({ render: true });
 						} else {
-							//Parse.history.navigate("payments", true);
-							this.overlay(new PaymentsView({ model : this.model }));
+							Parse.history.navigate("payments", true);
 						}
 					});
 				}, function(error) {

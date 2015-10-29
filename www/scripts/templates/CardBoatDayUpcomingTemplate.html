@@ -3,7 +3,7 @@
 	<div class="image <%= seats == 0 ? 'full' : '' %>" style="background-image: url(resources/placeholder-boatday.png)" data-id="<%= model.id %>">
 		<% if( seats > 0 ) { %> 
 			<label><strong><%= seats %> Seats left..</strong> Tell your friends</label>
-			<button class="share">Share</button>
+			<button class="share">Share on Facebook</button>
 		<% } %>
 	</div>
 	<div class="details" data-id="<%= model.id %>">
@@ -14,7 +14,7 @@
 				<div class="label"><%= self.getCityFromLocation(model.get('boatday').get('locationText')) %></div>
 			</div>
 			<div class="item">
-				<div class="icon bd-calendar"></div>
+				<div class="icon bd-calendar-day"></div>
 				<div class="label"><%= self.dateToEnBoatDayCard(model.get('boatday').get('date')) %></div>
 			</div>
 			<div class="item">

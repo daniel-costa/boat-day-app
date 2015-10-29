@@ -1,8 +1,9 @@
 define([
 'views/BaseView',
 'views/CreditCardView',
+'views/PaymentsView',
 'text!templates/MyPictureTemplate.html'
-], function(BaseView, CreditCardView, MyPictureTemplate){
+], function(BaseView, CreditCardView, PaymentsView, MyPictureTemplate){
 	var MyPictureView = BaseView.extend({
 
 		className: 'screen-my-picture',
@@ -29,25 +30,15 @@ define([
 				this.tempPicture = this.model.get('profilePicture');
 			}
 		},
-
-		render: function() {
-
-			BaseView.prototype.render.call(this);
-			
-			// ToDo (check other files for it)
-			// - we may not need this code. 
-			// - In one of the last releases, we put this control in the render function of the BaseView
-			// - Need to try & test before deleting it
-			if( !this.drawer ) {
-				this.$el.find('.btn-drawer').hide();
-			}
-
-			return this;
-		}, 
 		
 		showCreditCards: function() {
 
-			this.overlay(new CreditCardView());
+			if( this.profileSetup ) {
+				this.overlay(new CreditCardView());
+			} else {
+				this.overlay(new PaymentsView());
+			}
+
 		}, 
 
 		save: function() {
@@ -59,13 +50,6 @@ define([
 			}
 
 			self.cleanForm();
-
-			/*
-			if( !this.profileSetup && !this.tempPicture ) {
-				Parse.history.navigate("profile-home", true);
-				return;
-			}
-			*/
 
 			var profileUpdateSuccess = function() {
 				
@@ -124,18 +108,14 @@ define([
 
 			var self = this;
 
-			if( self.isLoading('button.open-gallery') ) {
+			if( self.loading('.open-gallery') ) {
 				return;
 			}
 
-			self.loading('button.open-gallery');
-
 			var pictureSaveSuccess = function(imageData) {
-
 				self.tempPicture = new Parse.File("picture.jpeg", { base64: imageData }, "image/jpeg");
 				self.tempPicture.save().then(profileUpdate, pictureSaveError);
 				console.log("picture saved");
-				
 			};
 
 			var profileUpdate = function(picture) {
@@ -143,7 +123,6 @@ define([
 				self.loading();
 				self.tempPicture = picture;
 				self.$el.find('.guest-picture').css({ backgroundImage: 'url(' + picture.url() + ')' });
-
 			};
 
 			var pictureSaveError = function(error) {
@@ -170,24 +149,18 @@ define([
 			}
 
 			var pictureSaveSuccess = function(imageData) {
-
 				self.tempPicture = new Parse.File("picture.jpeg", { base64: imageData }, "image/jpeg");
 				self.tempPicture.save().then(profileUpdate, pictureSaveError);
-				
 			};
 
 			var profileUpdate = function(picture) {
-
 				self.loading();
 				self.tempPicture = picture;
 				self.$el.find('.profile-picture').css({ backgroundImage: 'url(' + picture.url() + ')' });
-
 			};
 
 			var pictureSaveError = function(error) {
-
 				self.loading();
-
 				if( error != "no image selected" ) {
 					self._error('Oops... Something went wrong. Try later or if it persists close totally the app and open it again.');
 				}

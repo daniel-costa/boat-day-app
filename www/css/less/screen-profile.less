@@ -55,32 +55,42 @@
 }
 */
 
-.screen-profile .boats .list .boat {
+.screen-profile .boats .listing {
+	margin: 20px 0px;
+}
+
+.screen-profile .boats .listing .boat {
 	margin: 12px 37px 0px 37px;
-	text-align: left;
 	border: 1pt solid rgba(228, 233, 235, 1);
 	border-bottom-width: 2pt;
 	border-radius: 2pt;
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+	height: 50px;
+	-webkit-align-items: center;
 }
 
-.screen-profile .boats .list .boat:first-child {
+.screen-profile .boats .listing .boat:first-child {
 	margin-top: 31px;
 }
 
-.screen-profile .boats .list .boat:last-child {
+.screen-profile .boats .listing .boat:last-child {
 	margin-bottom: 39px;
 }
 
-.screen-profile .boats .list .boat p {
+.screen-profile .boats .listing .boat p {
 	color: #546e7a;
 	font-size: 12pt;
 	line-height: 13pt;
-	display: inline-block;
-	vertical-align:middle;
+	text-align: left;
 }
 
-.screen-profile .boats .list .boat .boat-image {
-	margin: 12px;
+.screen-profile .boats .listing .boat .boat-picture {
+	margin: 0px 12px;
+}
+
+.screen-profile .boats .listing .boat .boat-picture {
+	margin: 0px 12px;
 }
 
 .screen-profile .reviews {

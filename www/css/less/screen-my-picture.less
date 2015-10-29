@@ -1,21 +1,12 @@
-.screen-my-picture .header {
-	padding: 47px 35px 190px 35px;
-	border-bottom: 1px solid rgba(29, 29, 28, 0.05);
-	text-align: center;
-}
 
-.screen-my-picture .header .profile-picture {
-	width: 78px;
-	height: 78px;
-	background-size: cover;
-	border: 2px white solid;
-	display: inline-block;
+.screen-my-picture .header {
+	text-align: center;
+	padding-top: 20px;
 }
 
 .screen-my-picture .header h1 {
 	color: rgba(84, 110, 122, 1);
 	font-size: 17.07pt;
-	font-weight: 400;
 	line-height: 23pt;
 	margin-top: 21px;
 }
@@ -23,88 +14,48 @@
 .screen-my-picture .header h2 {
 	color: rgba(84, 110, 122, 0.45);
 	font-size: 8.53pt;
-	font-weight: 400;
 	line-height: 12pt;
 	margin-bottom: 32px;
 }
 
 .screen-my-picture .header .btn-group {
-	display: inline-block;
-	margin-bottom: 25px;
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+	margin: 0px 20px;
 }
 
 .screen-my-picture .header .btn-group .take-picture,
 .screen-my-picture .header .btn-group .open-gallery {
-	height: 46.08px;
-	width: 120px;
-	border-radius: 1.71px;
-	border-color: rgba(228, 233, 235, 0.85);
-	font-size: 11.52px;
-	font-weight: 400;
-	line-height: 12.8pt;
-	color: rgba(84, 110, 122, 1);
+	-webkit-flex: 1;
 }
 
 .screen-my-picture .header .btn-group .take-picture {
 	margin-right: 11px;
 }
 
-.screen-my-picture .credit-card {
-	padding: 26px 20px 29px 115px;
-	text-align: center;
-	border: none;
-	display: inline-block;
-	border-bottom: 2px;
-}
-
 .screen-my-picture .credit-card h1 {
-	color: rgba(84, 110, 122, 1);
-	font-size: 11.95pt;
-	font-weight: 400;
-	line-height: 16pt;
-	margin-right: 88px;
-	float: left;
-}
-
-.screen-my-picture .credit-card .icon {
-	height: 7px;
-	width: 7px;
-}
-
-.screen-my-picture .body label[for=about]{
-	color: rgba(84, 110, 122, 0.35);
 	text-align: center;
-	font-size: 10.67pt;
-	line-height: 14.51pt;
-	font-weight: 200;
-	font-style: italic;
-	text-transform: lowercase;
-}	
-
-.screen-my-picture .body label[for=about]:first-letter {
-    text-transform: uppercase;
+	color: #546e7a;
+	font-size: 11.95pt;
+	line-height: 66pt;
 }
 
-.screen-my-picture .body label[for=firstname], 
-.screen-my-picture .body label[for=lastname], 
-.screen-my-picture .body label[for=email], 
-.screen-my-picture .body label[for=phone], 
-.screen-my-picture .body label[for=birthDate] {
-	color: rgba(84, 110, 122, 0.35);
-	font-weight: 400;
-	font-size: 8.53pt;
-	line-height: 8.53pt;
+.screen-my-picture .credit-card h1:after {
+	content: "N";
+	position: absolute;
+	right: 20px;
+	color: #546e7a;
+	font-size: 16px;
+	font-family: "boatday-icons" !important;
+	font-style: normal !important;
+	font-weight: normal !important;
+	font-variant: normal !important;
+	text-transform: none !important;
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
-.screen-my-picture footer .save {
-	color: rgba(255, 255, 255, 1);
-	font-size: 11.52pt;
-	font-weight: 300;
-	line-height: 16pt;
-	border-radius: 1.71px;
+.screen-my-picture .body label[for=about] {
+	text-transform: none;
 }
-
-
-
-
-

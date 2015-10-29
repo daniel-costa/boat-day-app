@@ -17,7 +17,7 @@ define([
 
 		render: function() {
 			BaseView.prototype.render.call(this);
-			$(document).trigger('updateNotificationsAmount', this.$el.find('.total-notifications .amount'));
+			$(document).trigger('updateNotificationsAmount', this.$el.find('.total-notifications'));
 			return this;
 		}, 
 

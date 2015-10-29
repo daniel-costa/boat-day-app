@@ -21,6 +21,11 @@ define([
 
 		initialize: function(data) {
 			this.seatRequest = data.seatRequest;
+
+			if( typeof data.parentView !== typeof undefined ) {
+				this.parentView = data.parentView;
+				this.renderParent = data.renderParent;
+			}
 		},
 
 		watchEnter: function(event) {
@@ -60,7 +65,7 @@ define([
 
 		afterRenderInsertedToDom: function() {
 			
-			this.$el.find('.list').scrollTop(this.$el.find('.list').prop('scrollHeight'));
+			this.$el.find('.messages').scrollTop(this.$el.find('.messages').prop('scrollHeight'));
 			
 		},
 
@@ -92,14 +97,14 @@ define([
 
 		appendMessage: function(message) {
 
-			this.$el.find('.list').append(_.template(CardChatTemplate)({ model: message }));
+			this.$el.find('.messages').append(_.template(CardChatTemplate)({ model: message }));
 
 		},
 
 
 		prependMessage: function(message) {
 
-			this.$el.find('.list').prepend(_.template(CardChatTemplate)({ model: message }));
+			this.$el.find('.messages').prepend(_.template(CardChatTemplate)({ model: message }));
 
 		},
 
@@ -130,9 +135,7 @@ define([
 				self.appendMessage(message);
 				self.afterRenderInsertedToDom();
 			}, function(error) {
-				
 				Parse.Analytics.track('chat-save-fail');
-
 				self.loading();
 				console.log(error);
 			});

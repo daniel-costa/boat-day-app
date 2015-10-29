@@ -26,19 +26,26 @@ define([
 			Parse.Analytics.track('boatday-send-question');
 
 			var self = this;
+			
+			if( self.loading('.ask') ) {
+				return ;
+			}
+
+			self.cleanForm();
 
 			self.model.save({
 				from: Parse.User.current().get('profile'),
 				question: self._in('question').val(),
 				boatday: self.parentView.model,
 				public: false
-				// public: self._in('public').val() == 'true'
 			}).then(function() {
+				self.loading();
 				self._info('Thank you! The question is sent to the Host. Once he answered, you will receive a notification');
 				self.parentView.render();
 				self.afterRenderInsertedToDom();
 				self.close();
 			}, function(error) {
+				self.loading();
 				if( error.type && error.type == 'model-validation' ) {
 					_.map(error.fields, function(message, field) { 
 						self.fieldError(field, message);
@@ -49,13 +56,10 @@ define([
 					Parse.Analytics.track('boatday-send-question-fail');
 					self._info('Ooops... Something went wrong, try later!');
 				}
-
-				console.log(error);	
 			});
 		}, 
 
 		afterRenderInsertedToDom: function(){
-
 			this.parentView.$el.find('main, .questions').animate({
 				scrollTop: 1485.5,
 				scrollLeft: 0

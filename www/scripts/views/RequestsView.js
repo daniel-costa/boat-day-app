@@ -25,8 +25,11 @@ define([
 			// 'click .host-picture': 'profile',
 			'click .boatday-card-past': 'pay',
 			'click .boatday-card-upcoming .chat': 'chat',
-			'boatday-card-upcoming .image' : 'boatday', 
-			'boatday-card-upcoming .details' : 'boatday'
+			'click .boatday-card-upcoming .image' : 'boatday', 
+			'click .boatday-card-upcoming .details' : 'boatday',
+			'click .boatday-card-upcoming .share' : 'share',
+			'click .boatday-card-pending .image' : 'boatdayFromPending',
+			'click .boatday-card-pending .details' : 'boatdayFromPending',
 		},
 
 		requests: {},
@@ -34,6 +37,26 @@ define([
 		boatdays: {},
 
 		startingCard: 'upcoming',
+
+		share: function(event) {
+			
+			var self = this;
+
+			var boatday = self.requests[$(event.currentTarget).closest('.boatday-card-upcoming').attr('data-id')].get('boatday');
+			var seats = boatday.get('availableSeats') - boatday.get('bookedSeats');
+
+			var opts = {
+				method: "share",
+				href: "https://www.boatdayapp.com/dl/boatday/"+boatday.id,
+			};
+
+			facebookConnectPlugin.showDialog(opts, function() {
+				console.log('success');
+			}, function(error) {
+				console.log(error);
+			});
+
+		},
 
 		initialize: function(data) {
 			if( data.queryString ) {
@@ -71,12 +94,18 @@ define([
 		boatday: function(event) {
 			event.preventDefault();
 			Parse.Analytics.track('boatdays-click-boatday');
-			this.modal(new BoatDayView({ model : this.requests[$(event.currentTarget).attr('data-id')].get('boatday'), fromUpcoming: true }), 'right');
+			this.modal(new BoatDayView({ seatRequest: this.requests[$(event.currentTarget).attr('data-id')], model : this.requests[$(event.currentTarget).attr('data-id')].get('boatday'), fromUpcoming: true }), 'right');
+		}, 
+
+		boatdayFromPending: function(event) {
+			event.preventDefault();
+			Parse.Analytics.track('boatdays-click-boatday');
+			this.modal(new BoatDayView({ seatRequest: this.requests[$(event.currentTarget).attr('data-id')], model : this.requests[$(event.currentTarget).attr('data-id')].get('boatday'), fromUpcoming: false }), 'right');
 		}, 
 
 		chat: function(event) {
 
-			this.modal(new ChatView({ model: this.requests[$(event.currentTarget).attr('data-id')].get('boatday'), seatRequest: this.requests[$(event.currentTarget).attr('data-id')] }));
+			this.modal(new ChatView({ model: this.requests[$(event.currentTarget).attr('data-id')].get('boatday'), seatRequest: this.requests[$(event.currentTarget).attr('data-id')], parentView: this, renderParent: true }));
 
 		},
 
@@ -93,11 +122,15 @@ define([
 
 			this.changeActive(event);
 
+
+
 			var innerQueryYesterday = new Parse.Query(Parse.Object.extend('BoatDay'));
 			innerQueryYesterday.lessThan("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
 
 			var queryYesterday = Parse.User.current().get('profile').relation('requests').query();
 			queryYesterday.matchesQuery("boatday", innerQueryYesterday);
+
+
 
 			var innerQueryToday = new Parse.Query(Parse.Object.extend('BoatDay'));
 			innerQueryToday.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
@@ -106,6 +139,8 @@ define([
 
 			var queryPastToday = Parse.User.current().get('profile').relation('requests').query();
 			queryPastToday.matchesQuery("boatday", innerQueryToday);
+
+
 
 			var query = new Parse.Query.or(queryYesterday, queryPastToday);
 			query.equalTo('status', 'approved');
@@ -124,8 +159,10 @@ define([
 			query.containedIn('status', ['pending-guest', 'pending']);
 
 			self.execQuerySeatRequests(query, CardBoatDayPendingTemplate, function(request) {
-				request.get('boatday').get('boat').relation('boatPictures').query().first().then(function(fh) {
-					self.$el.find('.boatday-card-pending[data-id="'+request.id+'"] .image').css({ backgroundImage: 'url(' + fh.get('file').url() +')' })
+				request.get('boatday').relation('boatdayPictures').query().first().then(function(fh) {
+					if( typeof fh !== typeof undefined ) {
+						self.$el.find('.boatday-card-pending[data-id="'+request.id+'"] .image').css({ backgroundImage: 'url(' + fh.get('file').url() +')' })
+					}
 				});
 			});
 
@@ -141,8 +178,10 @@ define([
 			query.containedIn('status', ['cancelled-host', 'cancelled-guest']);
 
 			self.execQuerySeatRequests(query, CardBoatDayCancelledTemplate, function(request) {
-				request.get('boatday').get('boat').relation('boatPictures').query().first().then(function(fh) {
-					self.$el.find('.boatday-card-cancelled[data-id="'+request.id+'"] .image').css({ backgroundImage: 'url(' + fh.get('file').url() +')' })
+				request.get('boatday').relation('boatdayPictures').query().first().then(function(fh) {
+					if( typeof fh !== typeof undefined ) {
+						self.$el.find('.boatday-card-cancelled[data-id="'+request.id+'"] .image').css({ backgroundImage: 'url(' + fh.get('file').url() +')' })
+					}
 				});
 			});
 
@@ -154,15 +193,39 @@ define([
 
 			this.changeActive(event);
 
-			var query = Parse.User.current().get('profile').relation('requests').query();
+
+			
+			var innerQueryToday = new Parse.Query(Parse.Object.extend('BoatDay'));
+			innerQueryToday.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
+			innerQueryToday.lessThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59, 599));
+			innerQueryToday.greaterThan('arrivalTime', new Date().getHours() + ( new Date().getMinutes() > 30 ? 0.5 : 0 ));
+
+			var queryFutureToday = Parse.User.current().get('profile').relation('requests').query();
+			queryFutureToday.matchesQuery("boatday", innerQueryToday);
+
+
+
+			var innerQueryTomorrow = new Parse.Query(Parse.Object.extend('BoatDay'));
+			innerQueryTomorrow.greaterThan("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59, 599));
+
+			var queryTomorrow = Parse.User.current().get('profile').relation('requests').query();
+			queryTomorrow.matchesQuery("boatday", innerQueryTomorrow);
+
+
+
+			var query = new Parse.Query.or(queryFutureToday, queryTomorrow);
 			query.equalTo('status', 'approved');
 
 			self.execQuerySeatRequests(query, CardBoatDayUpcomingTemplate, function(request) {
-				request.get('boatday').get('boat').relation('boatPictures').query().first().then(function(fh) {
-					self.$el.find('.boatday-card-upcoming[data-id="'+request.id+'"] .image').css({ backgroundImage: 'url(' + fh.get('file').url() +')' })
+				request.get('boatday').relation('boatdayPictures').query().first().then(function(fh) {
+					if( typeof fh !== typeof undefined ) {
+						self.$el.find('.boatday-card-upcoming[data-id="'+request.id+'"] .image').css({ backgroundImage: 'url(' + fh.get('file').url() +')' })
+						self.$el.find('.boatday-card-upcoming[data-id="'+request.id+'"] .share').attr('data-image', fh.get('file').url() )
+					}
 				});
 
 				var query = request.get('boatday').relation('chatMessages').query();
+				query.notEqualTo('profile', Parse.User.current().get('profile'));
 				if( typeof request.get('guestLastRead') !== undefined && request.get('guestLastRead')) {
 					query.greaterThan('createdAt', request.get('guestLastRead'));	
 				}
@@ -221,8 +284,8 @@ define([
 		},
 
 		pay: function(event) {
-			if( typeof this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest') !== typeof undefined 
-				&& !this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest') ) {
+			if( typeof this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest') === typeof undefined 
+				|| !this.requests[$(event.currentTarget).attr('data-id')].get('ratingGuest') ) {
 				this.modal(new PayView({ model: this.requests[$(event.currentTarget).attr('data-id')] }));
 			}
 		}

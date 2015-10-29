@@ -1,120 +1,62 @@
-
-.screen-book .header  {
-	background: white;
-}
-
 .screen-book main {
 	background: rgba(249, 251, 251, 1);
 }
 
-.screen-book .header .select-seats {
-	height: 60px;
-	border: none;
-	display: inline-block;
-	padding-left: 22px;
-	padding-top: 25px;
-	overflow: hidden;
-	display:-webkit-flex;
+.screen-book main > div {
+	display: -webkit-flex;
+	-webkit-flex-direction: column;
+	-webkit-flex: 1;
+	height: 100%;
 }
 
-.screen-book .header .select-seats .icon-person {
-	width: 16px;
-	float: left;
-	margin-right: 8px; 
-	color: rgba(29, 29, 28, 0.5);
+.screen-book .items {
+	display: -webkit-flex;
+	-webkit-flex-direction: column;
+	background: white;
 }
 
-.screen-book .header .select-seats select[name="seats"] {
-	background: transparent;
-	color: rgba(56, 61, 62, 1);
-	-webkit-appearance: none;
-	font-size: 11.95px;
-	font-weight: 400;
-	line-height: 11.95pt;
-	border: 0;
-	border-radius: 0;
-	float: left;
-	width: 272px;
-	margin-right: 18px;
-	padding-left: 0px;
-	padding-top: 2px;
-}
-
-.screen-book .header .field-card {
-	height: 60px;
-	display: inline-block;
-	width: 100%;
-	border-top: 1px solid  rgba(29, 29, 28, 0.05);
+.screen-book .item {
 	border-bottom: 1px solid rgba(29, 29, 28, 0.05);
-}
-
-.screen-book .header .field-card select[name="card"] {
-	background: transparent;
 	color: rgba(56, 61, 62, 1);
-	font-size: 11.95px;
-	font-weight: 400;
-	line-height: 11.95pt;
-	height: 60px;
-	border: 0;
-	border-radius: 0;
-	padding-left: 22px;
-	padding-top: 25px;
-}
-
-.screen-book .price-pay {
-	padding: 16px 25px 20px 25px;
-	text-align: center;
-	border-bottom: none;
-}
-
-.screen-book .price-pay .circle {
-	display: inline-block;
-	background-size: cover;
-	background-position: center center;
-	background-repeat: no-repeat;
-	width: 130.99px;
-	height: 130.99px;
-	border-radius: 5pt;
-	border-radius: 320px !important;
-	margin-bottom: 35px;
-	background-image: url(../resources/bg-guest.png);
-}
-
-.screen-book .price-pay .circle h3 {
-	color: rgba(255, 255, 255, 0.5);
-	font-size: 8.83px;
-	font-weight: 500;
-	line-height: 13.65pt;
-	float: left;
-	margin: 59px 8px 58px 25px;
-	text-decoration: underline;
-	text-transform: uppercase;
-}	
-
-.screen-book .price-pay .circle .price-total {
-	color: rgba(255, 255, 255, 1);
-	font-size: 21.33px;
-	font-weight: 300;
-	line-height: 12.8pt;
-	float: right;
-	margin-top: 60px;
-	margin-right: 25px;
-}
-
-.screen-book .btn-group {
-	padding: 26px 0px;
 	display: -webkit-flex;
 	-webkit-flex-direction: row;
 }
 
-.screen-book .btn-group button {
-	margin: 0px;
-	height: 46.08pt;
-	border: 0.85px solid rgba(228, 233, 235, 1);
-	font-weight: 400;
-	font-size: 10.67px;
-	line-height: 15pt;
-	color: rgba(84, 110, 122, 1);
+.screen-book .item .icon {
+	margin-left: 26px;
+	line-height: 60px;
+	color: rgba(29, 29, 28, 0.5);
+}
+
+.screen-book .item p {
+	margin: 26px;
+	font-size: 11pt;
+	text-align: center;
+}
+
+.screen-book .item select {
+	font-size: 11.95px;
+	-webkit-flex: 1;
+	line-height: 60px;
+	padding: 0px;
+	padding-left: 26px;
+}
+
+.screen-book .price-pay {
+	border-bottom: none;
+	-webkit-flex: 1;
+	display: -webkit-box;
+	display: -webkit-flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+}
+
+.screen-book .btn-group {
+	padding-bottom: 26px;
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
 }
 
 .screen-book .btn-group button:first-child {
@@ -122,17 +64,6 @@
 }
 
 .screen-book footer {
-	border: none
+	border: none;
+	padding-top: 0px;
 }
-
-.screen-book .book-seat {
-	border-radius: 1.71pt;
-	font-weight: 400;
-	font-size: 11.52px;
-	line-height: 16pt;
-	color: rgba(255, 255, 255, 1);
-}
-
-
-
-

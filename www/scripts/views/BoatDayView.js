@@ -20,8 +20,6 @@ define([
 
 		events: {
 			'click .cancel': 'cancel',
-			'click .cancel-modal': 'cancelModal', 
-
 			'click .open-captain': 'profile',
 			'click .open-guest': 'profile',
 			'click .open-boat': 'boat',
@@ -38,6 +36,27 @@ define([
 		seatRequest: null,
 		profiles: {},
 		questions: {},
+
+
+		share: function(event) {
+			
+			var self = this;
+
+			var boatday = this.model;
+			var seats = boatday.get('availableSeats') - boatday.get('bookedSeats');
+
+			var opts = {
+				method: "share",
+				href: "https://www.boatdayapp.com/dl/boatday/"+boatday.id,
+			};
+
+			facebookConnectPlugin.showDialog(opts, function() {
+				console.log('success');
+			}, function(error) {
+				console.log(error);
+			});
+
+		},
 
 		initialize: function(data) {
 
@@ -90,10 +109,6 @@ define([
 			this.overlay(new TermsView({ model : this.model }));
 
 		},
-
-		share: function() {
-
-		},
 		
 		ask: function() {
 
@@ -107,11 +122,7 @@ define([
 			
 			Parse.Analytics.track('boatday-click-map');
 
-			this.modal(new MapView({ model : this.model, precise: false }));
-
-		},
-
-		cancelModal: function() {
+			this.modal(new MapView({ model : this.model, precise: this.fromUpcoming }));
 
 		},
 
@@ -119,7 +130,7 @@ define([
 			
 			var self = this;
 
-			if( self.loading('.btn-cancel') ) {
+			if( self.loading('.cancel') ) {
 				return ;
 			}
 
@@ -127,8 +138,6 @@ define([
 
 				switch(buttonIndex) {
 					case 2: 
-
-						self.loading('.btn-cancel');
 
 						var base = self.seatRequest.get('status');
 
@@ -142,7 +151,7 @@ define([
 								self.model.increment('bookedSeats', -1 * self.seatRequest.get('seats'));
 								self.model.save();
 							}
-					
+							
 							var Notification = Parse.Object.extend('Notification');
 							new Notification().save({
 								action: 'bd-message',
@@ -152,16 +161,16 @@ define([
 								sendEmail: false,
 								request: self.seatRequest,
 							}).then(function() {
-								self._info('BoatDay Cancelled. You can find this event in the Past BoatDays section');
-								Parse.history.navigate('boatdays-past', true);
+								self.loading();
+								self._info('BoatDay Cancelled. You can find this event in "My BoatDays", Cancelled section');
+								Parse.history.navigate('requests?subView=past', true);
 							});
-							
 						});
-						
+						break;
+					default:
+						self.loading();
 						break;
 				}
-
-				self.loading();
 				
 				return ;
 			};
@@ -189,9 +198,9 @@ define([
 
 			var self = this;
 
-			var queryBoatPictures = this.model.get('boat').relation('boatPictures').query();
-			queryBoatPictures.ascending('order');
-			queryBoatPictures.find().then(function(files) {
+			var queryBoatDayPictures = this.model.relation('boatdayPictures').query();
+			queryBoatDayPictures.ascending('order');
+			queryBoatDayPictures.find().then(function(files) {
 
 				if( files.length == 0 )
 					return;
@@ -199,7 +208,9 @@ define([
 				self.$el.find('.boatday-images .swiper-wrapper').html('');
 
 				_.each(files, function(fh) {
-					self.$el.find('.boatday-images .swiper-wrapper').append('<div class="swiper-slide"><div class="boatday-image" style="background-image:url('+fh.get('file').url()+')"></div></div>');
+					if( typeof fh !== typeof undefined ) {
+						self.$el.find('.boatday-images .swiper-wrapper').append('<div class="swiper-slide"><div class="boatday-image" style="background-image:url('+fh.get('file').url()+')"></div></div>');
+					}
 				});
 
 				var swiperBoatDays = new Swiper(self.$el.find('.boatday-images'), {
@@ -208,8 +219,12 @@ define([
 				});
 			});
 
+			var queryBoatPictures = this.model.get('boat').relation('boatPictures').query();
+			queryBoatPictures.ascending('order');
 			queryBoatPictures.first().then(function(fh) {
-				self.$el.find('.boat-picture, .sharing').css({ backgroundImage: 'url(' + fh.get('file').url() + ')' });
+				if( typeof fh !== typeof undefined ) {
+					self.$el.find('.boat-picture, .sharing').css({ backgroundImage: 'url(' + fh.get('file').url() + ')' });
+				}
 			});
 			
 			self.profiles[self.model.get('captain').id] = self.model.get('captain');

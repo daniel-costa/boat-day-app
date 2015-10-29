@@ -41,7 +41,7 @@ define([
 
 			var self = this;
 
-			this.model.get('boatday').get('boat').relation('boatPictures').query().first().then(function(fh) {
+			this.model.get('boatday').relation('boatdayPictures').query().first().then(function(fh) {
 				self.$el.find('.boatday-picture').css({ backgroundImage: 'url(' + fh.get('file').url() +')' });
 			});
 
@@ -91,7 +91,7 @@ define([
 			var self = this;
 			var review = this._in('review').val();
 
-			if( self.loading('.btn-pay') ) {
+			if( self.loading('.pay') ) {
 				return ;
 			}
 
@@ -131,23 +131,21 @@ define([
 					console.log('change');
 					Parse.history.navigate('requests?subView=past', true);
 				}, function(error) {
+					self.loading();
 					console.log(error);
 				});
 			}, function(error) {
 				self.loading();
 				console.log(error)
 			});
-
 		},
 
 		rate: function(event) {
-			
 			var e = $(event.currentTarget);
 			this.rating = e.attr('data-rating');
 			this.$el.find('.rating').removeClass('active');
 			e.addClass('active');
-			e.prevAll().addClass('active');
-			
+			e.prevAll().addClass('active');	
 		},
 		
 	});

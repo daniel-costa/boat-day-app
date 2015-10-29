@@ -3,7 +3,7 @@
 		<div class="guest-picture" data-id="<%= request.get('profile').id %>" style="background-image:url(<%= request.get('profile').get('profilePicture').url() %>)"></div>
 		<h4><%= request.get('profile').get('displayName').slice(0, -3) %></h4>
 		
-		<div class="rating rating-<%= Math.ceil(request.get('ratingGuest') %> bd-icons">
+		<div class="rating rating-<%= Math.ceil(request.get('ratingGuest')) %> bd-icons">
 			<div class="with-empty bd-icons"></div>
 		</div>
 		<p class="date"><%= self.dateForProfileReview(request.createdAt) %></p>

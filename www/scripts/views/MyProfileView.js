@@ -5,7 +5,7 @@ define([
 ], function(BaseView, MyProfileTemplate){
 	var MyProfileView = BaseView.extend({
 
-		className: 'screen-profile-info',
+		className: 'screen-my-profile',
 
 		template: _.template(MyProfileTemplate),
 
@@ -13,64 +13,27 @@ define([
 			'click .save': 'save'
 		},
 
-		profileSetup: false,
-		
-		initialize: function(data) {
-
-			this.profileSetup = data ? data.setup : false;
-			this.drawer = !this.profileSetup;
-
-		},
-		
-		render: function() {
-
-			BaseView.prototype.render.call(this);
-			
-			// ToDo (check other files for it)
-			// - we may not need this code. 
-			// - In one of the last releases, we put this control in the render function of the BaseView
-			// - Need to try & test before deleting it
-			if( !this.drawer ) {
-				this.$el.find('.btn-drawer').hide();
-			}
-
-			console.log("CHECKPOINT 1" +  Parse.User.current().get('profile').get('phone'));
-			console.log("CHECKPOINT 2" +  Parse.User.current().get('profile').get('birthday'));
-
-			return this;
-		},
 
 		save: function() {
 
 			var self = this;
 
 			if( self.loading('.save') ) {
-				console.log('abort');
 				return ;
 			}
 
 			self.cleanForm();
 
-			var data = {
-				phone: this._input('phone').val(),
-				birthday: this._input('birthday').val() ? new Date(this._input('birthday').val()) : null
-			};
-
-			if( this.profileSetup ) {
-				_.extend(data, {
-					status: "complete-info",
-					displayName: this._input('firstName').val() + ' ' + this._input('lastName').val().slice(0,1) + '.',
-					firstName: this._input('firstName').val(),
-					lastName: this._input('lastName').val(),
-				});
-			}
-
-			this.model.save(data).then(function() {
-				if( this.profileSetup ) {
-					Parse.history.navigate("profile-picture", true);
-				} else {
-					Parse.history.navigate("boatdays", true);
-				}
+			this.model.save({
+				phone: this._in('phone').val(),
+				birthday: this._in('birthday').val() ? new Date(this._in('birthday').val()) : null,
+				status: "complete-info",
+				displayName: this._in('firstName').val() + ' ' + this._in('lastName').val().slice(0,1) + '.',
+				firstName: this._in('firstName').val(),
+				lastName: this._in('lastName').val(),
+			}).then(function() {
+				self.loading();
+				Parse.history.navigate("my-picture", true);
 			}, function(error) {
 
 				Parse.Analytics.track('profile-save-fail');

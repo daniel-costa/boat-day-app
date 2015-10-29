@@ -57,9 +57,9 @@ define([
 			// we divide the total amount of chars and round to the top
 			var timeSec = Math.ceil(params.message.length / 75) * 5;
 
-			var msg = $('<div class="message"><span class="icon icon-info"></span> </div>')
+			var msg = $('<div class="notification-global"></div>')
 				.append(params.message)
-				.addClass('message-' + params.type)
+				.addClass('notification-' + params.type)
 				.css({
 					'-webkit-animation-duration': timeSec+'s',
 					paddingTop: StatusBar.isVisible ? 20 : 10
@@ -121,26 +121,19 @@ define([
 			var self = this;
 
 			var cb = function() {
-
 				if ( self.notificationsHolder ) {
-					
-					// ToDo Find alternative for new plugin.
-					// window.plugins.pushNotification.setApplicationIconBadgeNumber(function (result) {  }, function (error) {  }, self.notifications);
-
 					if( self.notifications == 0)  {
-						$(self.notificationsHolder).text(self.notifications).hide();
+						$(self.notificationsHolder).hide().find('.amount').text(self.notifications);
 					} else {
-						if($(self.notificationsHolder).text() < self.notifications) {
-							var delta = self.notifications - $(self.notificationsHolder).text();
+						if($(self.notificationsHolder).find('.amount').text() < self.notifications) {
+							var delta = self.notifications - $(self.notificationsHolder).find('.amount').text();
 							$(document).trigger('globalInfo', 'You have '+delta+' new notification'+ (delta == 1 ? '' : 's.' ) );
-							// self.notificationSound.play();
 						}
-						$(self.notificationsHolder).text(self.notifications).closest('.total-notifications').show();
 						console.log(self.notificationsHolder);
 						console.log(self.notifications);
+						$(self.notificationsHolder).show().find('.amount').text(self.notifications);
 					}
 				}
-				
 			};
 
 			this.checkNotifications(cb);
@@ -210,9 +203,15 @@ define([
 				var _cv = Parse.Config.current().get('CURRENT_VERSION').split('.');
 				var _v = version.split('.');
 
-				if( parseInt(_cv[0]) > parseInt(_v[0]) || parseInt(_cv[1]) > parseInt(_v[1]) || parseInt(_cv[2]) > parseInt(_v[2]) ) {
+				var versionS = parseInt(_v[0]) <  parseInt(_cv[0]);
+				var versionE = parseInt(_v[0]) == parseInt(_cv[0]);
+				var majorS   = parseInt(_v[1]) < parseInt(_cv[1]);
+				var majorE   = parseInt(_v[1]) == parseInt(_cv[1]);
+				var minorS   = parseInt(_v[2]) < parseInt(_cv[2]);
+
+				if( versionS || (versionE && majorS) || (versionE && majorE && minorS) ) {
 					navigator.notification.alert(
-						'It looks like you’re using an older version of BoatDay.  Download the newest version of the app to get the latest bells and whistles!',
+						'It looks like you’re using an older version of BoatDay. Download the newest version of the app to get the latest bells and whistles!',
 						function() {
 							window.open('itms-apps://itunes.apple.com/us/app/boatday/id953574487', '_system');
 						},

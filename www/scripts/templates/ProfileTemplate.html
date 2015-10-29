@@ -1,6 +1,6 @@
 <header>
 	<span class="icon bd-arrow-left close-me"></span>
-	<h1><%= self.model.get('host') ? ' Host Profile' : 'Guest Profile' %></h1>
+	<h1><%= self.model.get('host') ? 'Host Profile' : 'Guest Profile' %></h1>
 	<span class="icon bd-exclamation report"></span>
 </header>
 
@@ -48,7 +48,7 @@
 			<div class="boatdays grey-area">
 				<h6><%= self.model.get('host').get('firstname').toUpperCase() %>'S UPCOMING BOATDAYS</h6>
 				<div class="swiper-container">
-					<div class="swiper-wrapper list"></div>
+					<div class="swiper-wrapper listing"></div>
 					<div class="swiper-pagination"></div>
 					<div class="swiper-button-prev bd-chevron-left"></div>
 					<div class="swiper-button-next bd-chevron-right"></div>
@@ -57,7 +57,7 @@
 
 			<div class="boats white-area">
 				<h6><%= self.model.get('host').get('firstname').toUpperCase() %>'S BOATS</h6>
-				<div class="list"></div>
+				<div class="listing"></div>
 			</div>
 		<% } %>
 	</div>

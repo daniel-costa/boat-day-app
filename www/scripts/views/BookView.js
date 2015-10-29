@@ -2,9 +2,10 @@ define([
 'views/BaseView',
 'views/PromoCodeView',
 'views/PriceInfoView', 
+'views/CreditCardView', 
 'models/SeatRequestModel',
 'text!templates/BookTemplate.html'
-], function(BaseView, PromoCodeView, PriceInfoView, SeatRequestModel, BookTemplate){
+], function(BaseView, PromoCodeView, PriceInfoView, CreditCardView, SeatRequestModel, BookTemplate){
 	var BookView = BaseView.extend({
 
 		className: 'screen-book',
@@ -15,13 +16,20 @@ define([
 			'change [name="seats"]': 'updatePrice',
 			'click .book': 'book',
 			'click .info': 'info',
-			'click .promo': '_promo'
+			'click .promo': '_promo',
+			'click .payments': 'payments',
 		},
 
 		cards: {},
 
 		promo: null,
 
+		payments: function() {
+
+			this.overlay(new CreditCardView({ parentView: this }));
+
+		},
+		
 		_promo: function(event) {
 
 			event.preventDefault();
@@ -46,13 +54,15 @@ define([
 				tsf             : Parse.Config.current().get("TRUST_AND_SAFETY_FEE"),
 				discountPerSeat : Parse.Config.current().get("PRICE_SEAT_DISCOUNT_USD"),
 				discount        : Parse.Config.current().get("PRICE_DISCOUNT_USD"),
-				promo           : this.promo &&  this.promo.perSeat ? this.promo.discount : 0,
-				promoPerSeat    : this.promo && !this.promo.perSeat ? this.promo.discount : 0,
+				promo           : this.promo && !this.promo.perSeat ? this.promo.discount : 0,
+				promoPerSeat    : this.promo && this.promo.perSeat ? this.promo.discount : 0,
 			};
 			
 			data.fee = this.getGuestFee(data.contribution, this.getGuestRate(this.model.get('captain').get('host').get('type'))),
 			data.total = Math.max(0, data.seats * (data.contribution + data.fee + data.tsf - data.discountPerSeat - data.promoPerSeat) - data.promo - data.discount);
-		
+
+			console.log(data);
+
 			return data;
 		},
 
@@ -75,8 +85,8 @@ define([
 				self.cards = {};
 
 				if( cards.length == 0 ) {
-					self.$el.find('.field-card').html('<p class="align-center">You don\'t have a credit card attach to your account.</p><a class="btn-default btn-payments">Add Credit Card</a>')
-					self.$el.find('.submit-request').hide();
+					self.$el.find('.field-card').html('<p class="align-center">You don\'t have a credit card attach to your account. <a class="payments">Add Credit Card</a></p>')
+					self.$el.find('.book').hide();
 					return;
 				}
 
@@ -89,7 +99,7 @@ define([
 
 			});
 
-			this.model.get('boat').relation('boatPictures').query().first().then(function(fh) {
+			this.model.relation('boatdayPictures').query().first().then(function(fh) {
 				self.$el.find('.boatday-picture').css({ backgroundImage: 'url(' + fh.get('file').url() + ')' });
 			});
 
@@ -106,8 +116,6 @@ define([
 			navigator.notification.confirm(
 				"You’re about to request " + self._in('seats').val() + " seat" + (self._in('seats').val() == 1 ? '' : 's') + " for " + self.$el.find('.price-total').text() + "! Ready for #BetterBoating?",
 				function(buttonIndex) {
-
-					// Parse.Analytics.track('book-confirmation', { });
 
 					if( buttonIndex == 2 ) {
 						self.bookSave();
@@ -152,12 +160,19 @@ define([
 				
 				Parse.User.current().get('profile').relation('requests').add(request);
 				Parse.User.current().get('profile').save().then(function() {
+					self.loading();
 					self._info('Seat request submitted.');
-					Parse.history.navigate('requests', true);
+
+					if( self.model.get('bookingPolicy') == 'manually' ) {
+						Parse.history.navigate('requests?subView=pending', true);
+					} else {
+						Parse.history.navigate('requests?subView=upcoming', true);
+					}
 				});
 
 			}, function(error) {
 				console.log(error);
+				self.loading();
 				Parse.Analytics.track('book-save-fail');
 			});
 

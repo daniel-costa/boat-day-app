@@ -10,6 +10,16 @@ header .icon {
 	padding-top: 5px;
 	color: inherit;
 	-webkit-align-self: center;
+	position:relative
+}
+
+header .icon:after {
+	content:"";
+	top: -10px;
+	left: -10px;
+	right: -10px;
+	bottom: -10px;
+	position: absolute;
 }
 
 header .icon:first-child {
@@ -64,11 +74,15 @@ button {
 	color: @button-default-color;
 }
 
+button[disabled] {
+	opacity: 0.5;	
+}
+
 footer button {
 	margin-bottom: 0px;
 }
 
-button:active {
+button:active:not([disabled]) {
 	background: @button-default-active-background;
 	border: @button-default-active-border;
 	color: @button-default-active-color;
@@ -80,7 +94,7 @@ button.btn-action {
 	color: @button-action-color;
 }
 
-button.btn-action:active {
+button.btn-action:active:not([disabled]) {
 	background: @button-action-active-background;
 	border: @button-action-active-border;
 	color: @button-action-active-color;
@@ -92,7 +106,7 @@ button.btn-primary {
 	color: @button-primary-color;
 }
 
-button.btn-primary:active {
+button.btn-primary:active:not([disabled]) {
 	background: @button-primary-active-background;
 	border: @button-primary-active-border;
 	color: @button-primary-active-color;

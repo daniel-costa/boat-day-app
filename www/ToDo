@@ -1,25 +1,23 @@
 ToDo:
-- Implement share feature
-- implement share in upcomings chat button
-- Take in account date for boatdays pending
-- Open map or focus in field extremelly slow
-- BoatDay change if it's from upcomings
+- open profile from chat
+- link from profile host to boat
+- add good style to the boat section in profile
+- Enlarge pictures in boat profile
+- Column for boat amentities
 
 Postpone:
-- Overlays, must take only space needed
-- Add taking picture to active boatday screentos
-- Optimize version numbers
-- Add pictures of boatdays instead of boat
-- good size of the drawer
+- Add credit card icon for select
+- Preview BoatDay info in map
+- Toggle in map view (totday, this weekend, next weekend)
+- Swiper in all boatday pictures in the app
 - Implement accept pending request button
 - Implement cancel pending request button
-- open profile from chat
+- Overlays, must take only space needed
+- Add taking picture to active boatday screentos
+- good size of the drawer
 - put swiper for pictures of boat everywhere
 - Add full view of pictures for boatday and boat
-- Add card icon for select
-- Toggle in map view (totday, this weekend, next weekend)
-- Create a CardQuestion for the questions
-- Preview BoatDay info in map
+- Notifications when something happen in boatdays
 
 Test : 
 - test when possible to double click on buttons
@@ -66,3 +64,16 @@ Test :
 - Done - Add filters - Dev
 - Done - implement unread messages in upcomings chat button
 - Done - Sign in / up flow to check
+- Done - Take in account date for boatdays pending
+- Done - BoatDay change if it's from upcomings
+- Done - Chat alignment 
+- Done - Implement share feature
+- Done - Implement share in upcomings chat button
+- Done - Add pictures of boatdays instead of boat
+- Done - Open map or focus in field extremelly slow
+- Done - Optimize version numbers
+
+Post production:
+- Host live
+- Hide trips
+- Kimon's pictures for bds

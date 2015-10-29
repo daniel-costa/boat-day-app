@@ -21,6 +21,11 @@ define([
 		save: function() {
 
 			var self = this;
+
+			if( self.loading('.save') ) {
+				return ;
+			}
+
 			var code = self._in('promo').val().toUpperCase();
 
 			var query = new Parse.Query(Parse.Object.extend("Coupon"));
@@ -46,8 +51,10 @@ define([
 						} else {
 							self._error("Oops... you have already redeemed this coupon code.");
 						}
+						self.loading();
 					});
 				} else {
+					self.loading();
 					self._error("Oops... This promo code isn't valid.");
 				}
 			});
