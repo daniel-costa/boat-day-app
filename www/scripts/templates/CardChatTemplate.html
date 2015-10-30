@@ -1,7 +1,7 @@
 <% var me = model.get('profile').id == Parse.User.current().get('profile').id; %>
 <div class="message <%= me ? 'me' : '' %>">
 	<% if(!me) { %> 
-		<div class="<%= model.get('profile').get('host') ? 'host' : 'guest' %>-picture" style="background-image: url(<%= model.get('profile').get('profilePicture').url() %>)"></div>
+		<div class="<%= model.get('profile').get('host') ? 'host' : 'guest' %>-picture" style="background-image: url(<%= model.get('profile').get('profilePicture').url() %>)" data-id="<%= model.get('profile').id %>"></div>
 	<% } %>
 	<div class="speech-bubble">
 		<% if(!me) { %> 

@@ -3,9 +3,10 @@ define([
 'models/ChatMessageModel',
 'views/BaseView',
 'views/ReportView',
+'views/ProfileView', 
 'text!templates/ChatTemplate.html',
 'text!templates/CardChatTemplate.html',
-], function(ReportModel, ChatMessageModel, BaseView, ReportView, ChatTemplate, CardChatTemplate){
+], function(ReportModel, ChatMessageModel, BaseView, ReportView, ProfileView, ChatTemplate, CardChatTemplate){
 	var ChatView = BaseView.extend({
 
 		className: 'screen-chat',
@@ -15,9 +16,13 @@ define([
 		events: {
 			'click .send': 'send',
 			'keypress input': 'watchEnter',
+			'click .host-picture' : 'profile', 
+			'click .guest-picture' : 'profile'
 		},
 
 		lastMessage: null,
+
+		profiles: {}, 
 
 		initialize: function(data) {
 			this.seatRequest = data.seatRequest;
@@ -76,6 +81,9 @@ define([
 			query.find().then(function(messages) {
 
 				_.each(messages, function(message) {
+
+					self.profiles[message.get('profile').id] = message.get('profile');
+				
 					if(append) {
 						self.appendMessage(message);
 					} else {
@@ -107,6 +115,15 @@ define([
 			this.$el.find('.messages').prepend(_.template(CardChatTemplate)({ model: message }));
 
 		},
+
+		profile: function(event) {
+
+			event.preventDefault();
+
+			Parse.Analytics.track('boatday-click-profile');
+
+			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
+		}, 
 
 		send: function(event) {
 

@@ -349,6 +349,7 @@ define([
 
 		dateForProfileSince: function(date) {
 			var d = new Date(date.iso ? date.iso : date);
+			console.log(this.monthToEn(d.getMonth()) + ', ' + d.getFullYear());
 			return this.monthToEn(d.getMonth()) + ', ' + d.getFullYear();
 		},
 
