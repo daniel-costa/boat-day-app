@@ -13,7 +13,10 @@ define([
 
 		pictures: {},
 
-		events: {},
+		events: {
+
+			'click .boat-picture'	: 'boatPicture'
+		},
 
 		render: function() {
 
@@ -43,8 +46,14 @@ define([
 			});
 			
 			return this;
-		}
+		}, 
 
+		boatPicture: function(event) {
+			event.preventDefault();
+			var self = this;
+			var target = self.pictures[$(event.currentTarget).attr('data-id')];
+			self.$el.find('.header-part').addClass('preview').css({ backgroundImage: 'url(' + target.get('file').url() + ')' });
+		}
 	});
 	return BoatView;
 });

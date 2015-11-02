@@ -16,13 +16,9 @@ define([
 		events: {
 			'click .send': 'send',
 			'keypress input': 'watchEnter',
-<<<<<<< HEAD
+
 			'click .host-picture': 'profile',
 			'click .gues-picture': 'profile',
-=======
-			'click .host-picture' : 'profile', 
-			'click .guest-picture' : 'profile'
->>>>>>> origin/master
 		},
 
 		lastMessage: null,
@@ -105,11 +101,7 @@ define([
 				_.each(messages, function(message) {
 
 					self.profiles[message.get('profile').id] = message.get('profile');
-<<<<<<< HEAD
 
-=======
-				
->>>>>>> origin/master
 					if(append) {
 						self.appendMessage(message);
 					} else {
