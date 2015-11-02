@@ -177,8 +177,6 @@ define([
 
 			var self = this;
 
-			self.$el.find('.category-empty').hide();
-
 			self.getBoatdaysBaseQuery().then(function(query) {
 
 				if( self.filtersDefined() ) {

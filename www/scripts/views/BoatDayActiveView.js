@@ -79,8 +79,7 @@ define([
 			
 			Parse.Analytics.track('bd-active-click-chat');
 			
-			event.preventDefault();
-			this.modal(new ChatView({ model : this.model.get('boatday'), seatRequest: this.model }), 'right');
+			this.modal(new ChatView({ model : this.model.get('boatday'), seatRequest: this.model, fromActive: true }), 'right');
 			
 		},
 

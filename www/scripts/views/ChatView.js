@@ -15,12 +15,31 @@ define([
 		events: {
 			'click .send': 'send',
 			'keypress input': 'watchEnter',
+			'click .host-picture': 'profile',
+			'click .gues-picture': 'profile',
 		},
 
 		lastMessage: null,
+		fromActive: false,
+		profiles: {},
+
+		profile: function(event) {
+
+			Parse.Analytics.track('profile-click-profile');
+
+			if( this.fromActive )
+				return;
+			
+			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
+
+		},
 
 		initialize: function(data) {
 			this.seatRequest = data.seatRequest;
+
+			if( typeof data.fromActive !== typeof undefined ) {
+				this.fromActive = data.fromActive;
+			}
 
 			if( typeof data.parentView !== typeof undefined ) {
 				this.parentView = data.parentView;
@@ -76,6 +95,9 @@ define([
 			query.find().then(function(messages) {
 
 				_.each(messages, function(message) {
+
+					self.profiles[message.get('profile').id] = message.get('profile');
+
 					if(append) {
 						self.appendMessage(message);
 					} else {
@@ -86,6 +108,8 @@ define([
 						self.lastMessage = message;
 					}
 				});
+
+				console.log(self.profiles);
 
 				self.afterRenderInsertedToDom();
 

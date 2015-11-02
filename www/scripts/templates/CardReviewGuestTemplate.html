@@ -2,16 +2,8 @@
 	<div class="heading">
 		<div class="host-picture" data-id="<%= request.get('boatday').get('captain').id %>" style="background-image:url(<%= request.get('boatday').get('captain').get('profilePicture').url() %>)"></div>
 		<h4><%= request.get('boatday').get('captain').get('displayName').slice(0, -3) %></h4>
-		<div class="rating">
-			<% 
-				var rating = Math.ceil(request.get('ratingHost'));
-				for(var i = 0; i < rating; i++) {
-			%>
-				<div class="rating-full"></div>
-			<% } %>
-			<% for(var i = 0; i < 5 - rating; i++) { %>
-				<div class="rating-empty"></div>
-			<% } %>
+		<div class="rating rating-<%= Math.ceil(request.get('ratingGuest')) %> bd-icons">
+			<div class="with-empty bd-icons"></div>
 		</div>
 		<p class="date"><%= self.dateForProfileReview(request.createdAt) %></p>
 	</div>

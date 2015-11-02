@@ -20,7 +20,9 @@ define([
 			'click .report': 'report',
 			'click .open-profile': 'profile',
 			'click .boatday-card': 'boatday',
-			'click .boat': 'boat'
+			'click .boat': 'boat',
+			'click .guest-picture': 'profile',
+			'click .host-picture': 'profile',
 		},
 		
 		profiles: {},
@@ -29,8 +31,7 @@ define([
 
 		boatdays: {}, 
 
-		report: function() {
-			event.preventDefault();
+		report: function(event) {
 			
 			Parse.Analytics.track('profile-click-report');
 
@@ -38,15 +39,17 @@ define([
 		},
 
 		profile: function(event) {
-			event.preventDefault();
 			
 			Parse.Analytics.track('profile-click-profile');
+
+			console.log($(event.currentTarget))
+			console.log($(event.currentTarget).attr('data-id'))
+			console.log(this.profiles[$(event.currentTarget).attr('data-id')])
 
 			this.modal(new ProfileView({ model: this.profiles[$(event.currentTarget).attr('data-id')] }));
 		},
 
 		boat: function(event) {
-			event.preventDefault();
 
 			Parse.Analytics.track('profile-click-boat');
 
@@ -54,7 +57,6 @@ define([
 		},
 
 		boatday: function(event) {
-			event.preventDefault();
 
 			Parse.Analytics.track('profile-click-boatday');
 
@@ -81,25 +83,23 @@ define([
 				var query = new Parse.Query(Parse.Object.extend('SeatRequest'));
 				query.matchesQuery('boatday', innerQuery);
 				query.equalTo('status', 'approved');
-				query.notEqualTo('reviewGuest', '');
-				query.notEqualTo('reviewGuest', null);
+				query.notContainedIn('reviewGuest', ["", null]);
 				query.include('profile');
 				query.include('boatday');
 				query.find().then(function(requests) {
-					var displayed = 0;
-
+					
 					_.each(requests, function(request) {
-						if( request.get('reviewGuest') != "" ) {
-							displayed++;
-							self.profiles[request.get('profile').id] = request.get('profile');
-							self.$el.find('.reviews').append(_.template(CardReviewHostTemplate)({ self: self, request : request }));
-						}
+						self.profiles[request.get('profile').id] = request.get('profile');
+						self.$el.find('.reviews').append(_.template(CardReviewHostTemplate)({ self: self, request : request }));
 					});
 
-					if( displayed == 0 ) {
+					if( requests.length == 0 ) {
 						self.$el.find('.reviews').html('<p class="text-center no-data">No current ratings</p>');
 						return;
 					} 
+					
+				}, function(error) {
+					console.log(error);
 				});
 
 				var boatDayquery = new Parse.Query(Parse.Object.extend('BoatDay'));
@@ -134,6 +134,8 @@ define([
 						pagination: self.$el.find('.swiper-pagination'),
 						paginationClickable: true,
 					});
+				}, function(error) {
+					console.log(error);
 				});
 
 
@@ -163,29 +165,31 @@ define([
 					});
 				});
 
-			}
+			} else {
 
-			var query = new Parse.Query(Parse.Object.extend('SeatRequest'));
-			query.equalTo('profile', this.model);
-			query.notEqualTo('ratingHost', null);
-			query.include('boatday');
-			query.include('boatday.captain');
-			query.include('profile');
-			query.find().then(function(requests) {
+				var query = new Parse.Query(Parse.Object.extend('SeatRequest'));
+				query.equalTo('profile', this.model);
+				query.notEqualTo('ratingHost', null);
+				query.include('boatday');
+				query.include('boatday.captain');
+				query.include('profile');
+				query.find().then(function(requests) {
 
-				_.each(requests, function(request) {
-					self.profiles[request.get('boatday').get('captain').id] = request.get('boatday').get('captain');
-					self.$el.find('.reviews').append(_.template(CardReviewGuestTemplate)({ self: self, request : request }));
+					_.each(requests, function(request) {
+						self.profiles[request.get('boatday').get('captain').id] = request.get('boatday').get('captain');
+						self.$el.find('.reviews').append(_.template(CardReviewGuestTemplate)({ self: self, request : request }));
+					});
+
+					if( requests.length == 0 ) {
+						self.$el.find('.reviews').html('<p class="text-center no-data">No current ratings</p>');
+						return;
+					} 
+
+				}, function(error) {
+					console.log(error);
 				});
 
-				if( requests.length == 0 ) {
-					self.$el.find('.reviews').html('<p class="text-center no-data">No current ratings</p>');
-					return;
-				} 
-
-			}, function(error) {
-				console.log(error);
-			});
+			}
 
 			return this;
 		}

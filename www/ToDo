@@ -1,14 +1,11 @@
 ToDo:
-- open profile from chat
-- link from profile host to boat
-- add good style to the boat section in profile
-- Enlarge pictures in boat profile
-- Column for boat amentities
-
-Postpone:
+- Hover on facebook share button
+- Website deeplinking
+- Open profile from chat
+- Bibash - Enlarge pictures in boat profile
 - Add credit card icon for select
 - Preview BoatDay info in map
-- Toggle in map view (totday, this weekend, next weekend)
+- Toggle in map view (today, this weekend, next weekend)
 - Swiper in all boatday pictures in the app
 - Implement accept pending request button
 - Implement cancel pending request button
@@ -18,6 +15,11 @@ Postpone:
 - put swiper for pictures of boat everywhere
 - Add full view of pictures for boatday and boat
 - Notifications when something happen in boatdays
+
+Post production:
+- Host live
+- Hide trips
+- Kimon's pictures for bds
 
 Test : 
 - test when possible to double click on buttons
@@ -72,8 +74,10 @@ Test :
 - Done - Add pictures of boatdays instead of boat
 - Done - Open map or focus in field extremelly slow
 - Done - Optimize version numbers
-
-Post production:
-- Host live
-- Hide trips
-- Kimon's pictures for bds
+- Done - link from profile host to boat
+- Done - Add good style to the boat section in profile
+- Done - Column for boat amentities
+- Done - Boat Amentinies not in 2 columns in boat profile
+- Done - Host profile upcoming boatdays placeholder not centerd
+- Done - Rating verticall alignement in reviews
+- Done - Open profile from review
