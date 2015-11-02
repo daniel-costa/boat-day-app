@@ -20,7 +20,7 @@ define([
 	'views/PromoCodeView', 
 	'views/PriceInfoView', 
 	'views/AdjustPriceView',
-	'views/FilterView',
+	'views/FilterView'
 ], function(
 	GuestView, MyProfileView, MyPictureView, PaymentsView, CreditCardView, BoatDayView,
 	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView, RequestsView, SignUpView, SignInView,
@@ -59,7 +59,7 @@ define([
 		currentView: null,
 
 		canHandleDeepLinking: false,
-
+		
 		adjustPrice: function() {
 
 			this.render(new AdjustPriceView());
