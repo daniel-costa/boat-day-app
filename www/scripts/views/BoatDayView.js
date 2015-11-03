@@ -10,8 +10,9 @@ define([
 'views/BookView',
 'views/MapView',
 'views/QuestionView',
-'text!templates/BoatDayTemplate.html'
-], function(Swiper, QuestionModel, BaseView, BoatView, TermsView, CancellationsView, WaterPolicyView, ProfileView, BookView, MapView, QuestionView, BoatDayTemplate){
+'text!templates/BoatDayTemplate.html', 
+'text!templates/CardBoatDayGuestsTemplate.html'
+], function(Swiper, QuestionModel, BaseView, BoatView, TermsView, CancellationsView, WaterPolicyView, ProfileView, BookView, MapView, QuestionView, BoatDayTemplate, CardBoatDayGuestsTemplate){
 	var BoatDayView = BaseView.extend({
 
 		className: 'screen-boatday',
@@ -22,6 +23,7 @@ define([
 			'click .cancel': 'cancel',
 			'click .open-captain': 'profile',
 			'click .open-guest': 'profile',
+			'click .boatday-guests': 'profile',
 			'click .open-boat': 'boat',
 			'click .cancellations': 'cancellations',
 			'click .water': 'water',
@@ -274,10 +276,26 @@ define([
 				
 			}, function(error) {console.log(error)});
 
+			var guestsQuery = self.model.relation('seatRequests').query();
+			guestsQuery.equalTo('status', 'approved');
+			guestsQuery.include('profile');
+			guestsQuery.find().then(function(guests) {
+				
+				_.each(guests, function(guest) {
+					self.profiles[guest.get('profile').id] = guest.get('profile');
+					console.log(self.profiles[guest.get('profile').id]);
+					self.$el.find('main .guests .list').append(_.template(CardBoatDayGuestsTemplate)({ model: guest }));
+				});
+
+				if( guests.length == 0 ) {
+					self.$el.find('main .guests .list').html('<p class="text-center no-data">No guests yet for this boatDay.</p>');
+					return;
+				} 
+
+			}, function(error) {console.log(error)});
+
 			return this;
-
 		}
-
 	});
 	return BoatDayView;
 });

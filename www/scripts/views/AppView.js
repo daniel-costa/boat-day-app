@@ -27,13 +27,19 @@ define([
 			'menuHover': 'menuHover',
 			'loadProfile': 'loadProfile',
 			'updateNotificationsAmount': 'updateNotificationsAmount',
-			'updateGeoPoint': 'updateGeoPoint'
+			'updateGeoPoint': 'updateGeoPoint', 
+			'click .close-notification': 'closeNotification'
 		},
 
 		msgStack: [],
 
 		snap: null,
 		notificationSound: null,
+
+		closeNotification: function(event) {
+			event.preventDefault();
+			this.$el.find('.notification-global').hide();
+		}, 
 
 		displayError: function(event, message) {
 
@@ -57,7 +63,7 @@ define([
 			// we divide the total amount of chars and round to the top
 			var timeSec = Math.ceil(params.message.length / 75) * 5;
 
-			var msg = $('<div class="notification-global"></div>')
+			var msg = $('<div class="notification-global"><span class="icon bd-cross close-notification pull-right"></span></div>')
 				.append(params.message)
 				.addClass('notification-' + params.type)
 				.css({
