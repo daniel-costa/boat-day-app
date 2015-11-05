@@ -283,7 +283,6 @@ define([
 				
 				_.each(guests, function(guest) {
 					self.profiles[guest.get('profile').id] = guest.get('profile');
-					console.log(self.profiles[guest.get('profile').id]);
 					self.$el.find('main .guests .list').append(_.template(CardBoatDayGuestsTemplate)({ model: guest }));
 				});
 

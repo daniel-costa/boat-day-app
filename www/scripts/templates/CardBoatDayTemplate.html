@@ -15,6 +15,10 @@
 			<label>$<%= self.getGuestPrice(model.get('price'), self.getGuestRate(model.get('captain').get('host').get('type'))) %></label>
 		</div>
 	</div>
+	<div class="upcoming-trips">
+		<p>Next upcoming trip</p>
+		<div class="icon bd-chevron-right next"></div>
+	</div>
 	<div class="details">
 		<h1><%= model.get('name') %></h1>
 		<div class="items">

@@ -18,6 +18,7 @@ require.config({
 		async:		'vendor/requirejs-plugins/src/async',
 		masks: 		'vendor/jquery-mask-plugin/dist/jquery.mask.min',
 		Swiper: 	'vendor/swiper/dist/js/swiper.jquery.umd.min',
+		slider: 	'vendor/seiyria-bootstrap-slider/dist/bootstrap-slider.min',
 	},
 
 	shim: {
@@ -37,6 +38,10 @@ require.config({
 		"Swiper": {
 			deps: ["jquery"]
 		},
+		"slider": {
+			deps: ["jquery"],
+			exports: 'slider'
+		}
 	},
 	googlemaps: {
 		params: {
@@ -77,7 +82,7 @@ function handleOpenURL(url) {
 
 }
 
-require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs'], function(FastClick, Parse, AppRouter, AppView) {
+require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], function(FastClick, Parse, AppRouter, AppView) {
 
 	FastClick.attach(document.body);
 

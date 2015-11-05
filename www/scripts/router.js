@@ -20,11 +20,15 @@ define([
 	'views/PromoCodeView', 
 	'views/PriceInfoView', 
 	'views/AdjustPriceView',
-	'views/FilterView'
+	'views/FilterView', 
+	'views/ScheduleView', 
+	'views/TripsView', 
+	'views/TripView',
 ], function(
 	GuestView, MyProfileView, MyPictureView, PaymentsView, CreditCardView, BoatDayView,
 	BoatDaysView, AboutUsView, NotificationsView, BoatDayActiveView, RequestsView, SignUpView, SignInView,
-	GuestView, WaterPolicyView, TermsView, CancellationsView, QuestionView, PromoCodeView, PriceInfoView, AdjustPriceView, FilterView) {
+	GuestView, WaterPolicyView, TermsView, CancellationsView, QuestionView, PromoCodeView, PriceInfoView, 
+	AdjustPriceView, FilterView, ScheduleView, TripsView, TripView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -52,6 +56,9 @@ define([
 			'guest'					: 'guest',
 			'filter'				: 'filter', 
 			'adjust-price'			: 'adjustPrice', 
+			'schedule'				: 'schedule',
+			'trips'					: 'trips', 
+			'trip'					: 'trip', 
 			'*actions'				: 'boatdays'
 
 		},
@@ -59,6 +66,21 @@ define([
 		currentView: null,
 
 		canHandleDeepLinking: false,
+
+		trip: function() {
+
+			this.render(new TripView());
+		}, 
+
+		trips: function() {
+
+			this.render(new TripsView());
+		}, 
+
+		schedule: function() {
+			
+			this.render(new ScheduleView());
+		}, 
 		
 		adjustPrice: function() {
 

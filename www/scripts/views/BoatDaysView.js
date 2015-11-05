@@ -4,9 +4,10 @@ define([
 'views/BoatDayView',
 'views/MapView',
 'views/FilterView',
+'views/ScheduleView', 
 'text!templates/BoatDaysTemplate.html',
 'text!templates/CardBoatDayTemplate.html',
-], function(ReportModel, BaseView, BoatDayView, MapView, FilterView, BoatDaysTemplate, CardBoatDayTemplate){
+], function(ReportModel, BaseView, BoatDayView, MapView, FilterView, ScheduleView, BoatDaysTemplate, CardBoatDayTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: 'screen-boatdays',
@@ -19,6 +20,7 @@ define([
 			'click .location': 'showLocations',
 			'click .open-filters': 'filters',
 			'change [name="location"]': 'pickLocation',
+			'click .upcoming-trips' : 'upcomingTrips'
 		},
 
 		statusbar: true,
@@ -26,6 +28,12 @@ define([
 		drawer: true,
 		
 		boatdays: {},
+
+		upcomingTrips: function(event) {
+
+			event.preventDefault();
+			this.overlay(new ScheduleView({ parentView: this }));
+		}, 
 
 		boatday: function(event) {
 
