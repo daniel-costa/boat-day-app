@@ -22,14 +22,18 @@ define([
 			'click .boatdays-pending': 'renderPendingBoatDays',
 			'click .boatdays-past': 'renderPastBoatDays',
 			'click .boatdays-cancelled': 'renderCancelledBoatDays',
-			// 'click .host-picture': 'profile',
+			
 			'click .boatday-card-past': 'pay',
+			
 			'click .boatday-card-upcoming .chat': 'chat',
-			'click .boatday-card-upcoming .image' : 'boatday', 
-			'click .boatday-card-upcoming .details' : 'boatday',
-			'click .boatday-card-upcoming .share' : 'share',
-			'click .boatday-card-pending .image' : 'boatdayFromPending',
-			'click .boatday-card-pending .details' : 'boatdayFromPending',
+			'click .boatday-card-upcoming .image': 'boatday', 
+			'click .boatday-card-upcoming .details': 'boatday',
+			'click .boatday-card-upcoming .share': 'share',
+			
+			'click .boatday-card-pending .image': 'boatdayFromPending',
+			'click .boatday-card-pending .details': 'boatdayFromPending',
+			'click .boatday-card-pending .approve': 'approve',
+			'click .boatday-card-pending .deny': 'deny',
 		},
 
 		requests: {},
@@ -37,6 +41,39 @@ define([
 		boatdays: {},
 
 		startingCard: 'upcoming',
+
+		approve: function(event) {
+
+			var self = this;
+
+			Parse.Cloud.run('requestRescheduleGuestAnswer', {
+				action: 'approve',
+				request: $(event.currentTarget).closest('.boatday-card-pending').attr('data-id'),
+			}).then(function(response) {
+				self._info(response);
+				console.log(self.$el.find('.boatdays-upcoming'));
+				self.$el.find('.boatdays-upcoming').click();
+			}, function(error) {
+				console.log(error);
+			});
+
+		},
+
+		deny: function(event) {
+
+			var self = this;
+
+			Parse.Cloud.run('requestRescheduleGuestAnswer', {
+				action: 'deny',
+				request: $(event.currentTarget).closest('.boatday-card-pending').attr('data-id'),
+			}).then(function(response) {
+				self._info(response);
+				self.$el.find('.boatdays-pending').click();
+			}, function(error) {
+				console.log(error);
+			});
+
+		},
 
 		share: function(event) {
 			
@@ -226,9 +263,11 @@ define([
 
 				var query = request.get('boatday').relation('chatMessages').query();
 				query.notEqualTo('profile', Parse.User.current().get('profile'));
+
 				if( typeof request.get('guestLastRead') !== undefined && request.get('guestLastRead')) {
 					query.greaterThan('createdAt', request.get('guestLastRead'));	
 				}
+				
 				query.count().then(function(total) {
 					if( total == 0 ) {
 						self.$el.find('.boatday-card-upcoming[data-id="' + request.id + '"] .unread').hide();

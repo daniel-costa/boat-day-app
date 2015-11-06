@@ -1,20 +1,20 @@
 ToDo:
-- Hover on facebook share button
 - Website deeplinking
-- Open profile from chat
-- Bibash - Enlarge pictures in boat profile
 - Add credit card icon for select
 - Preview BoatDay info in map
-- Toggle in map view (today, this weekend, next weekend)
+- Add close icon for notification
+- Kimon - Check copy after we accept or deny a pending request
+
+
+
+Postspone: 
 - Swiper in all boatday pictures in the app
-- Implement accept pending request button
-- Implement cancel pending request button
+- Toggle in map view (today, this weekend, next weekend)
 - Overlays, must take only space needed
-- Add taking picture to active boatday screentos
-- good size of the drawer
-- put swiper for pictures of boat everywhere
+- Add taking picture to active boatday screen
 - Add full view of pictures for boatday and boat
 - Notifications when something happen in boatdays
+- good size of the drawer
 
 Post production:
 - Host live
@@ -81,3 +81,10 @@ Test :
 - Done - Host profile upcoming boatdays placeholder not centerd
 - Done - Rating verticall alignement in reviews
 - Done - Open profile from review
+- Done - Open profile from chat
+- Done - Hover on facebook share button
+- Done - Implement accept pending request button
+- Done - Implement cancel pending request button
+- Done - Bibash - Enlarge pictures in boat profile
+- Done - Bibash - Features on the BoatDay to be displayed
+- Done - Bibash - People in a boatday

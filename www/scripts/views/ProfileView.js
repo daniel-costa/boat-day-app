@@ -85,6 +85,7 @@ define([
 				query.equalTo('status', 'approved');
 				query.notContainedIn('reviewGuest', ["", null]);
 				query.include('profile');
+				query.include('profile.host');
 				query.include('boatday');
 				query.find().then(function(requests) {
 					
@@ -172,6 +173,7 @@ define([
 				query.notEqualTo('ratingHost', null);
 				query.include('boatday');
 				query.include('boatday.captain');
+				query.include('boatday.captain.host');
 				query.include('profile');
 				query.find().then(function(requests) {
 

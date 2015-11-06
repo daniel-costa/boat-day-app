@@ -16,9 +16,8 @@ define([
 		events: {
 			'click .send': 'send',
 			'keypress input': 'watchEnter',
-
 			'click .host-picture': 'profile',
-			'click .gues-picture': 'profile',
+			'click .guest-picture': 'profile',
 		},
 
 		lastMessage: null,
@@ -69,6 +68,7 @@ define([
 
 			var query = this.model.relation('chatMessages').query();
 			query.include('profile');
+			query.include('profile.host');
 			query.descending('createdAt');
 			self.execQuery(query, false);
 
@@ -112,8 +112,6 @@ define([
 						self.lastMessage = message;
 					}
 				});
-
-				console.log(self.profiles);
 
 				self.afterRenderInsertedToDom();
 
