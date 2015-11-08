@@ -1,11 +1,8 @@
 ToDo:
-- Website deeplinking
 - Add credit card icon for select
 - Preview BoatDay info in map
-- Add close icon for notification
 - Kimon - Check copy after we accept or deny a pending request
-
-
+- When open a notification regarding a question scroll to area
 
 Postspone: 
 - Swiper in all boatday pictures in the app
@@ -88,3 +85,6 @@ Test :
 - Done - Bibash - Enlarge pictures in boat profile
 - Done - Bibash - Features on the BoatDay to be displayed
 - Done - Bibash - People in a boatday
+- Done - Change info when send request
+- Done - Add close icon for notification
+- Done - Website deeplinking

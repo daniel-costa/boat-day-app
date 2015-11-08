@@ -16,6 +16,7 @@ define([
 			'change [name="seats"]': 'updatePrice',
 			'click .book': 'book',
 			'click .info': 'info',
+			'click .price-pay': 'info',
 			'click .promo': '_promo',
 			'click .payments': 'payments',
 		},
@@ -60,8 +61,6 @@ define([
 			
 			data.fee = this.getGuestFee(data.contribution, this.getGuestRate(this.model.get('captain').get('host').get('type'))),
 			data.total = Math.max(0, data.seats * (data.contribution + data.fee + data.tsf - data.discountPerSeat - data.promoPerSeat) - data.promo - data.discount);
-
-			console.log(data);
 
 			return data;
 		},
@@ -114,7 +113,7 @@ define([
 				self.$el.find('.preview-departureTime').text(slideEvt.value);
 			};
 
-			this._in('departureTime').slider(slidersConfig).on("slide", departureTimeSlideEvent);
+			// this._in('departureTime').slider(slidersConfig).on("slide", departureTimeSlideEvent);
 
 			self.updatePrice();
 
@@ -127,7 +126,7 @@ define([
 
 			var self = this;
 			navigator.notification.confirm(
-				"You’re about to request " + self._in('seats').val() + " seat" + (self._in('seats').val() == 1 ? '' : 's') + " for " + self.$el.find('.price-total').text() + "! Ready for #BetterBoating?",
+				"You’re about to request " + self.calculatePrice().seats + " seat" + ( self.calculatePrice().seats == 1 ? '' : 's') + " for $" + self.calculatePrice().total + ", ready for #betterboating?",
 				function(buttonIndex) {
 
 					if( buttonIndex == 2 ) {
@@ -136,7 +135,7 @@ define([
 					
 				},
 				"Book Now!",
-				["Cancel", "Continue"]
+				["Cancel", "Confirm"]
 			);
 		},
 
@@ -174,7 +173,7 @@ define([
 				Parse.User.current().get('profile').relation('requests').add(request);
 				Parse.User.current().get('profile').save().then(function() {
 					self.loading();
-					self._info('Seat request submitted.');
+					self._info('Seat Request Submitted');
 
 					if( self.model.get('bookingPolicy') == 'manually' ) {
 						Parse.history.navigate('requests?subView=pending', true);

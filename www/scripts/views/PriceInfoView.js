@@ -20,14 +20,14 @@ define([
 		render: function() {
 			BaseView.prototype.render.call(this);
 
-			this.$el.find('.seats').text(this.pricing.seats + " X");
-			this.$el.find('.contribution .amount').text('$' + this.pricing.contribution);
-			this.$el.find('.fee .amount').text('$' + this.pricing.fee);
-			this.$el.find('.tsf .amount').text('$' + this.pricing.tsf);
+			this.$el.find('.seats').text("for " + this.pricing.seats + " seat" + (this.pricing.seats == 1 ? '' : 's') );
+			this.$el.find('.contribution .amount').text('$' + this.pricing.contribution * this.pricing.seats);
+			this.$el.find('.fee .amount').text('$' + this.pricing.fee * this.pricing.seats);
+			this.$el.find('.tsf .amount').text('$' + this.pricing.tsf * this.pricing.seats);
 
 			if( this.pricing.discountPerSeat != 0 ) {
 				this.$el.find('.discount-per-seat label').text(Parse.Config.current().get("PRICE_SEAT_DISCOUNT_LABEL"));
-				this.$el.find('.discount-per-seat .amount').text('-$' + this.pricing.discountPerSeat);
+				this.$el.find('.discount-per-seat .amount').text('-$' + this.pricing.discountPerSeat * this.pricing.seats);
 			} else {
 				this.$el.find('.discount-per-seat').hide();
 			}
@@ -42,8 +42,9 @@ define([
 			if( this.parentView.promo ) {
 				this.$el.find( this.parentView.promo.perSeat ? '.promo' : '.promo-per-seat').hide();
 				var promoClass = this.parentView.promo.perSeat ?  '.promo-per-seat' : '.promo';
+				var multiplier = this.parentView.promo.perSeat ?  this.pricing.seats : 1;
 				this.$el.find(promoClass + ' label').text(this.parentView.promo.name);
-				this.$el.find(promoClass + ' .amount').text('-$' + this.parentView.promo.discount);
+				this.$el.find(promoClass + ' .amount').text('-$' + this.parentView.promo.discount * multiplier);
 			} else {
 				this.$el.find('.promo, .promo-per-seat').hide();
 			}

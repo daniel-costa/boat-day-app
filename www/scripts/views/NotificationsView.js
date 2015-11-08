@@ -2,9 +2,10 @@ define([
 'views/BaseView',
 'views/ProfileView',
 'views/BoatDayView',
+'views/ChatView',
 'text!templates/NotificationsTemplate.html',
 'text!templates/CardNotificationTemplate.html',
-], function(BaseView, ProfileView, BoatDayView, NotificationsTemplate, CardNotificationTemplate){
+], function(BaseView, ProfileView, BoatDayView, ChatView, NotificationsTemplate, CardNotificationTemplate){
 	var NotificationsView = BaseView.extend({
 
 		className: 'screen-notifications',
@@ -15,6 +16,7 @@ define([
 			'click .host-picture': 'profile',
 			'click .guest-picture': 'profile',
 			'click .open-boatday': 'boatday',
+			'click .open-chat': 'chat',
 		},
 
 		notifications: {},
@@ -32,6 +34,13 @@ define([
 			if( $(event.currentTarget).attr('data-id') ) {
 				Parse.Analytics.track('notifications-click-boatday');
 				this.modal(new BoatDayView({ model : this.boatdays[$(event.currentTarget).attr('data-id')], fromUpcoming: false }));
+			}	
+		},
+
+		chat: function(event) {
+			if( $(event.currentTarget).attr('data-id') ) {
+				Parse.Analytics.track('notifications-click-chat');
+				this.modal(new ChatView({ model : this.boatdays[$(event.currentTarget).attr('data-id')] }));
 			}	
 		},
 

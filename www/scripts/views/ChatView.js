@@ -70,6 +70,7 @@ define([
 			query.include('profile');
 			query.include('profile.host');
 			query.descending('createdAt');
+			query.limit(500);
 			self.execQuery(query, false);
 
 			setInterval(function() {
@@ -78,6 +79,7 @@ define([
 					query.include('profile');
 					query.ascending('createdAt');
 					query.greaterThan('createdAt', self.lastMessage.createdAt);
+					query.limit(500);
 					self.execQuery(query, true);
 				}
 			}, 10000);
@@ -88,6 +90,12 @@ define([
 
 		afterRenderInsertedToDom: function() {
 			
+			if( this.$el.find('.messages .message').length == 0 ) {
+				this.$el.find('main').attr('no-data', 'Welcome aboard! Get to know your Host and other confirmed Guests, and discuss any last minute details.');
+			} else {
+				this.$el.find('main').removeAttr('no-data');
+			}
+
 			this.$el.find('.messages').scrollTop(this.$el.find('.messages').prop('scrollHeight'));
 			
 		},

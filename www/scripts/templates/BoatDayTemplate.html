@@ -1,6 +1,7 @@
 <header>
 	<span class="icon bd-arrow-left close-me"></span>
-	<h1>boatday</h1>
+	<h1>BoatDay</h1>
+	<span class="icon"></span>
 </header>
 
 <main>
@@ -48,137 +49,139 @@
 			<p><%= description %></p>
 		</div>
 
-		<div class="grey-area boatday-features">
-			<h6>FEATURES</h6>
-			<div class="features">
-				<% if( self.model.get('features').leisure.cruising ) { %>
-					<p>Cruising</p>
-				<% } %>
-				<% if( self.model.get('features').leisure.partying ) { %>
-					<p>Partying</p>
-				<% } %>
-				<% if( self.model.get('features').leisure.sightseeing ) { %>
-					<p>Sightseeing</p>
-				<% } %>
-				<% if( self.model.get('features').leisure.other ) { %>
-					<p>Other</p>
-				<% } %>
+		<% if( self.model.get('features').leisure.cruising || self.model.get('features').leisure.partying || self.model.get('features').leisure.sightseeing || self.model.get('features').leisure.other || self.model.get('features').fishing.flats || self.model.get('features').fishing.lake || self.model.get('features').fishing.offshore || self.model.get('features').fishing.recreational || self.model.get('features').fishing.other || self.model.get('features').fishing.equipment || self.model.get('features').fishing.equipmentItems.bait || self.model.get('features').fishing.equipmentItems.lines || self.model.get('features').fishing.equipmentItems.hooks || self.model.get('features').fishing.equipmentItems.lures || self.model.get('features').fishing.equipmentItems.nets || self.model.get('features').fishing.equipmentItems.rods || self.model.get('features').fishing.equipmentItems.sinkers || self.model.get('features').sports.snorkeling || self.model.get('features').sports.tubing || self.model.get('features').sports.wakeBoarding || self.model.get('features').sports.waterSkiing || self.model.get('features').sports.equipment || self.model.get('features').sports.equipmentItems.fins || self.model.get('features').sports.equipmentItems.helmets || self.model.get('features').sports.equipmentItems.masks || self.model.get('features').sports.equipmentItems.snorkels || self.model.get('features').sports.equipmentItems.towLine || self.model.get('features').sports.equipmentItems.tubes || self.model.get('features').sports.equipmentItems.wakeboard || self.model.get('features').sports.equipmentItems.waterSkis || self.model.get('features').global.children || self.model.get('features').global.smoking || self.model.get('features').global.drinking || self.model.get('features').global.pets || self.model.get('features').extras.food || self.model.get('features').extras.drink || self.model.get('features').extras.music || self.model.get('features').extras.towels || self.model.get('features').extras.sunscreen || self.model.get('features').extras.inflatables ) { %>
+			<div class="grey-area boatday-features">
+				<h6>FEATURES</h6>
+				<div class="features">
+					<% if( self.model.get('features').leisure.cruising ) { %>
+						<p>Cruising</p>
+					<% } %>
+					<% if( self.model.get('features').leisure.partying ) { %>
+						<p>Partying</p>
+					<% } %>
+					<% if( self.model.get('features').leisure.sightseeing ) { %>
+						<p>Sightseeing</p>
+					<% } %>
+					<% if( self.model.get('features').leisure.other ) { %>
+						<p>Other</p>
+					<% } %>
 
-				<% if( self.model.get('features').fishing.flats ) { %>
-					<p>Flats</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.lake ) { %>
-					<p>Lake</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.offshore ) { %>
-					<p>Offshore</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.recreational ) { %>
-					<p>Recreational</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.other ) { %>
-					<p>Other</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipment ) { %>
-					<p>Equipment</p>
-				<% } %>
+					<% if( self.model.get('features').fishing.flats ) { %>
+						<p>Flats</p>
+					<% } %>
+					<% if( self.model.get('features').fishing.lake ) { %>
+						<p>Lake</p>
+					<% } %>
+					<% if( self.model.get('features').fishing.offshore ) { %>
+						<p>Offshore</p>
+					<% } %>
+					<% if( self.model.get('features').fishing.recreational ) { %>
+						<p>Recreational</p>
+					<% } %>
+					<% if( self.model.get('features').fishing.other ) { %>
+						<p>Other</p>
+					<% } %>
+					<% if( self.model.get('features').fishing.equipment ) { %>
+						<p>Equipment</p>
+					<% } %>
 
-				<% if( self.model.get('features').fishing.equipmentItems.bait ) { %>
-					<p>Bait</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.lines ) { %>
-					<p>Lines</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.hooks ) { %>
-					<p>Hooks</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.lures ) { %>
-					<p>Lures</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.nets ) { %>
-					<p>Nets</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.rods ) { %>
-					<p>Rods</p>
-				<% } %>
-				<% if( self.model.get('features').fishing.equipmentItems.sinkers ) { %>
-					<p>Sinkers</p>
-				<% } %>
+					<% if( self.model.get('features').fishing.equipmentItems.bait ) { %>
+						<p>Bait</p>
+					<% } %>
+					<% if( self.model.get('features').fishing.equipmentItems.lines ) { %>
+						<p>Lines</p>
+					<% } %>
+					<% if( self.model.get('features').fishing.equipmentItems.hooks ) { %>
+						<p>Hooks</p>
+					<% } %>
+					<% if( self.model.get('features').fishing.equipmentItems.lures ) { %>
+						<p>Lures</p>
+					<% } %>
+					<% if( self.model.get('features').fishing.equipmentItems.nets ) { %>
+						<p>Nets</p>
+					<% } %>
+					<% if( self.model.get('features').fishing.equipmentItems.rods ) { %>
+						<p>Rods</p>
+					<% } %>
+					<% if( self.model.get('features').fishing.equipmentItems.sinkers ) { %>
+						<p>Sinkers</p>
+					<% } %>
 
-				<% if( self.model.get('features').sports.snorkeling ) { %>
-					<p>Snorkeling</p>
-				<% } %>
-				<% if( self.model.get('features').sports.tubing ) { %>
-					<p>Tubing</p>
-				<% } %>
-				<% if( self.model.get('features').sports.wakeBoarding ) { %>
-					<p>Wake boarding</p>
-				<% } %>
-				<% if( self.model.get('features').sports.waterSkiing ) { %>
-					<p>Water skiing</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipment ) { %>
-					<p>Equipment</p>
-				<% } %>
+					<% if( self.model.get('features').sports.snorkeling ) { %>
+						<p>Snorkeling</p>
+					<% } %>
+					<% if( self.model.get('features').sports.tubing ) { %>
+						<p>Tubing</p>
+					<% } %>
+					<% if( self.model.get('features').sports.wakeBoarding ) { %>
+						<p>Wake boarding</p>
+					<% } %>
+					<% if( self.model.get('features').sports.waterSkiing ) { %>
+						<p>Water skiing</p>
+					<% } %>
+					<% if( self.model.get('features').sports.equipment ) { %>
+						<p>Equipment</p>
+					<% } %>
 
-				<% if( self.model.get('features').sports.equipmentItems.fins ) { %>
-					<p>Fins</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.helmets ) { %>
-					<p>Helmets</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.masks ) { %>
-					<p>Masks</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.snorkels ) { %>
-					<p>Snorkels</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.towLine ) { %>
-					<p>Tow line</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.tubes ) { %>
-					<p>Tubes</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.wakeboard ) { %>
-					<p>Wake Board</p>
-				<% } %>
-				<% if( self.model.get('features').sports.equipmentItems.waterSkis ) { %>
-					<p>Water skis</p>
-				<% } %>
+					<% if( self.model.get('features').sports.equipmentItems.fins ) { %>
+						<p>Fins</p>
+					<% } %>
+					<% if( self.model.get('features').sports.equipmentItems.helmets ) { %>
+						<p>Helmets</p>
+					<% } %>
+					<% if( self.model.get('features').sports.equipmentItems.masks ) { %>
+						<p>Masks</p>
+					<% } %>
+					<% if( self.model.get('features').sports.equipmentItems.snorkels ) { %>
+						<p>Snorkels</p>
+					<% } %>
+					<% if( self.model.get('features').sports.equipmentItems.towLine ) { %>
+						<p>Tow line</p>
+					<% } %>
+					<% if( self.model.get('features').sports.equipmentItems.tubes ) { %>
+						<p>Tubes</p>
+					<% } %>
+					<% if( self.model.get('features').sports.equipmentItems.wakeboard ) { %>
+						<p>Wake Board</p>
+					<% } %>
+					<% if( self.model.get('features').sports.equipmentItems.waterSkis ) { %>
+						<p>Water skis</p>
+					<% } %>
 
-				<% if( self.model.get('features').global.children ) { %>
-					<p>Children</p>
-				<% } %>
-				<% if( self.model.get('features').global.smoking ) { %>
-					<p>Smoking</p>
-				<% } %>
-				<% if( self.model.get('features').global.drinking ) { %>
-					<p>Drinking</p>
-				<% } %>
-				<% if( self.model.get('features').global.pets ) { %>
-					<p>Pets</p>
-				<% } %>
+					<% if( self.model.get('features').global.children ) { %>
+						<p>Children</p>
+					<% } %>
+					<% if( self.model.get('features').global.smoking ) { %>
+						<p>Smoking</p>
+					<% } %>
+					<% if( self.model.get('features').global.drinking ) { %>
+						<p>Drinking</p>
+					<% } %>
+					<% if( self.model.get('features').global.pets ) { %>
+						<p>Pets</p>
+					<% } %>
 
-				<% if( self.model.get('features').extras.food ) { %>
-					<p>Food</p>
-				<% } %>
-				<% if( self.model.get('features').extras.drink ) { %>
-					<p>Drink</p>
-				<% } %>
-				<% if( self.model.get('features').extras.music ) { %>
-					<p>Music</p>
-				<% } %>
-				<% if( self.model.get('features').extras.towels ) { %>
-					<p>Towels</p>
-				<% } %>
-				<% if( self.model.get('features').extras.sunscreen ) { %>
-					<p>Sun screen</p>
-				<% } %>
-				<% if( self.model.get('features').extras.inflatables ) { %>
-					<p>Inflatables</p>
-				<% } %>
+					<% if( self.model.get('features').extras.food ) { %>
+						<p>Food</p>
+					<% } %>
+					<% if( self.model.get('features').extras.drink ) { %>
+						<p>Drink</p>
+					<% } %>
+					<% if( self.model.get('features').extras.music ) { %>
+						<p>Music</p>
+					<% } %>
+					<% if( self.model.get('features').extras.towels ) { %>
+						<p>Towels</p>
+					<% } %>
+					<% if( self.model.get('features').extras.sunscreen ) { %>
+						<p>Sun screen</p>
+					<% } %>
+					<% if( self.model.get('features').extras.inflatables ) { %>
+						<p>Inflatables</p>
+					<% } %>
+				</div>
 			</div>
-		</div>
+		<% } %>
 
 		<div class="white-area guests">
 			<h6>GUESTS ATTENDING</h6>
@@ -196,7 +199,7 @@
 					<%= locationText %>
 				</p>
 			<% } else { %>
-				<div class="map" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=<%= self.model.get('location').latitude %>,<%= self.model.get('location').longitude %>&amp;zoom=13&amp;size=400x260)">
+				<div class="map" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=<%= self.model.get('location').latitude %>,<%= self.model.get('location').longitude %>&amp;zoom=11&amp;size=400x260)">
 					<img src="resources/pin-circle.png" />
 				</div>
 				<h1>Start and end of trip</h1>
@@ -218,7 +221,7 @@
 		<div class="questions white-area">
 			<h6>QUESTIONS</h6>
 			<div class="questions-list"></div>
-			<button class="ask">Ask the Host a new question</button>
+			<button class="ask">Ask the Host a question</button>
 		</div>
 
 		<div class="booking grey-area">
@@ -232,11 +235,9 @@
 			</p>
 			
 			<button class="cancellations">View cancellation policy</button>
-
+			
 			<% if( self.seatRequest ) { %>
-				<button class="cancel">Cancel</button>
-			<% } else { %>
-				<button class="btn-action book">Book Seats</button>
+				<button class="cancel"><%= self.seatRequest.get('status') == 'pending' ? 'Cancel Pending Request' : 'Cancel ' + self.seatRequest.get('seats') + ' Booked Seat' + ( self.seatRequest.get('seats') == 1 ? '' : 's') %></button>
 			<% } %>
 
 			<p class="policies">
@@ -245,3 +246,9 @@
 		</div>
 	</div>
 </main>
+
+<% if( !self.seatRequest ) { %>
+	<footer>
+		<button class="btn-action book">Book Seats</button>
+	</footer>
+<% } %>

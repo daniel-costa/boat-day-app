@@ -231,23 +231,6 @@ define([
 			
 			self.profiles[self.model.get('captain').id] = self.model.get('captain');
 
-			var query = self.model.relation('seatRequests').query();
-			query.equalTo('status', 'approved');
-			query.include('profile');
-			query.find().then(function(requests) {
-
-				if(requests.length == 0) {
-					self.$el.find('.confirmed-guests').html('<p class="text-center">No confirmed guests</p>');
-					return;
-				}
-
-				_.each(requests, function(request) {
-					self.profiles[request.get('profile').id] = request.get('profile');
-					self.$el.find('.confirmed-guests .inner').append('<div class="guest"><div class="profile-picture" data-id="'+request.get('profile').id+'" style="background-image:url('+request.get('profile').get('profilePicture').url()+')"></div>'+request.get('profile').get('displayName')+'<br/><span> '+request.get('seats')+' seat'+ (request.get('seats') == 1 ? '' : 's') +'</span></div>');
-				});
-				
-			});
-
 			var queryQuestionsPrivate = self.model.relation('questions').query();
 			queryQuestionsPrivate.equalTo('status', 'approved');
 			queryQuestionsPrivate.descending('createdAt');
@@ -263,18 +246,20 @@ define([
 			queryQuestions.include('profile');
 			queryQuestions.find().then(function(questions) {
 
-				if(questions.length == 0) {
-					self.$el.find('.questions-list').addClass('empty').html('<p class="text-center">No questions asked yet</p>');
-					return;
-				}
-
 				_.each(questions, function(question) {
 					var answer = typeof question.get('answer') !== typeof undefined && question.get('answer') !== null? question.get('answer').replace(/\n/g, "<br>") : 'No answer yet.';
 					var question = question.get('question').replace(/\n/g, "<br>");
-					self.$el.find('.questions-list').append('<div class="question"><p class="question">'+question+'</p><p class="answer"><span>HOST</span>'+answer+'</p></div>');					
+					self.$el.find('.questions-list').append('<div class="question"><p class="question"><span>Q: </span>'+question+'</p><p class="answer"><span>A: </span>'+answer+'</p></div>');					
 				});
+
+				if(questions.length == 0) {
+					self.$el.find('.questions-list').addClass('empty').html('<p class="text-center">Need more information?</p>');
+					return;
+				}
 				
-			}, function(error) {console.log(error)});
+			}, function(error) {
+				console.log(error)
+			});
 
 			var guestsQuery = self.model.relation('seatRequests').query();
 			guestsQuery.equalTo('status', 'approved');
@@ -283,15 +268,17 @@ define([
 				
 				_.each(guests, function(guest) {
 					self.profiles[guest.get('profile').id] = guest.get('profile');
-					self.$el.find('main .guests .list').append(_.template(CardBoatDayGuestsTemplate)({ model: guest }));
+					self.$el.find('.guests .list').append(_.template(CardBoatDayGuestsTemplate)({ model: guest }));
 				});
 
 				if( guests.length == 0 ) {
-					self.$el.find('main .guests .list').html('<p class="text-center no-data">No guests yet for this boatDay.</p>');
+					self.$el.find('.guests .list').html('<p class="text-center no-data">No confirmed Guests, yet.</p>');
 					return;
 				} 
 
-			}, function(error) {console.log(error)});
+			}, function(error) {
+				console.log(error)
+			});
 
 			return this;
 		}

@@ -37,12 +37,12 @@
 	</div>
 	<div class="reason">
 		<% if( model.get('status') == 'pending' ) { %>
-			<h1>You are Awaiting Confirmation</h1>
+			<h1>Request Pending</h1>
 		<% } else { %>
-			<h1>Host is Awaiting your Confirmation </h1>
-			<p>The host changed the date of this Trip. Please confirm your participation with the new terms</p>
+			<h1>Rescheduled BoatDay</h1>
+			<p>The Host has rescheduled this BoatDay, do you want to confirm your seat for the rescheduled date?</p>
 			<div class="buttons">
-				<button class="pending approve">Accept</button>
+				<button class="pending approve">Confirm</button>
 				<button class="pending deny">Cancel</button>
 			</div>
 		<% } %>

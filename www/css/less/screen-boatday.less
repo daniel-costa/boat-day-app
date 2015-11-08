@@ -1,3 +1,7 @@
+.screen-boatday {
+	background: #f9fbfb !important;
+}
+
 .screen-boatday .boatday-image {
 	background-size: cover;
 	background-position: center;
@@ -32,6 +36,7 @@
 	line-height: 65pt;
 	border-bottom: 1px solid rgba(228, 233, 235, 1);
 	font-size: 11.95pt;
+	background: white;
 }
 
 .screen-boatday .shortcuts .host-picture,
@@ -107,6 +112,10 @@
 	color: rgba(84, 110, 122, 1);
 	font-size: 12.8pt;
 	line-height: 17.92pt;
+	padding: 25px;
+}
+
+.screen-boatday .no-data {
 	padding: 25px;
 }
 
@@ -217,6 +226,7 @@
 .screen-boatday .booking {
 	text-align: center;
 	padding: 24px;
+	border-bottom: none;
 }
 
 .screen-boatday .booking .price {
@@ -235,23 +245,31 @@
 }
 
 .screen-boatday .booking .hint {
-	font-size: 14.93pt;
-	line-height: 13.65pt;
+	font-size: 13pt;
+	line-height: 15pt;
 	color: rgba(84, 110, 122, 1);
 	margin-bottom: 17px;
 }
 
 .screen-boatday .booking .cancellations {
 	width: auto;
-	margin-bottom: 37px;
+	margin-bottom: 15px;
 }
 
-.screen-boatday .booking .book {
-	margin-bottom: 37px;
+.screen-boatday footer {
+	border-top: none;
+	padding: 0px;
 }
 
-.screen-boatday .booking .policies {
+.screen-boatday .booking .book,
+.screen-boatday footer .book {
+	margin-bottom: 0px;
+}
+
+.screen-boatday .booking .policies,
+.screen-boatday footer .policies {
 	font-size: 10.24pt;
+	text-align: center; 
 }
 
 .screen-boatday .sharing {
@@ -327,7 +345,7 @@
 	margin-bottom: 27px;
 }
 
-.screen-boatday div.question p.answer span {
+.screen-boatday div.question span {
 	color: rgba(248, 182, 44, 1);
 	margin-right: 5px;
 }

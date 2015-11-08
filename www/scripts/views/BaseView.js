@@ -293,7 +293,7 @@ define([
 
 		dateToEnBoatDayCard: function(date) {
 			var date = new Date(date.iso ? date.iso : date);
-			return this.dayToEnDay(date.getDay()) + ', ' + date.getDate() + '/' + date.getMonth();			
+			return this.dayToEnDay(date.getDay()) + ', ' + ( date.getMonth() + 1 ) + '/' + date.getDate();
 		},
 
 		dayToEnDay: function(n) {
@@ -349,7 +349,6 @@ define([
 
 		dateForProfileSince: function(date) {
 			var d = new Date(date.iso ? date.iso : date);
-			console.log(this.monthToEn(d.getMonth()) + ', ' + d.getFullYear());
 			return this.monthToEn(d.getMonth()) + ', ' + d.getFullYear();
 		},
 

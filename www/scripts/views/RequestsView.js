@@ -229,8 +229,6 @@ define([
 			var self = this;
 
 			this.changeActive(event);
-
-
 			
 			var innerQueryToday = new Parse.Query(Parse.Object.extend('BoatDay'));
 			innerQueryToday.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
@@ -240,20 +238,17 @@ define([
 			var queryFutureToday = Parse.User.current().get('profile').relation('requests').query();
 			queryFutureToday.matchesQuery("boatday", innerQueryToday);
 
-
-
 			var innerQueryTomorrow = new Parse.Query(Parse.Object.extend('BoatDay'));
 			innerQueryTomorrow.greaterThan("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59, 599));
 
 			var queryTomorrow = Parse.User.current().get('profile').relation('requests').query();
 			queryTomorrow.matchesQuery("boatday", innerQueryTomorrow);
 
-
-
 			var query = new Parse.Query.or(queryFutureToday, queryTomorrow);
 			query.equalTo('status', 'approved');
 
 			self.execQuerySeatRequests(query, CardBoatDayUpcomingTemplate, function(request) {
+
 				request.get('boatday').relation('boatdayPictures').query().first().then(function(fh) {
 					if( typeof fh !== typeof undefined ) {
 						self.$el.find('.boatday-card-upcoming[data-id="'+request.id+'"] .image').css({ backgroundImage: 'url(' + fh.get('file').url() +')' })
@@ -261,22 +256,30 @@ define([
 					}
 				});
 
-				var query = request.get('boatday').relation('chatMessages').query();
-				query.notEqualTo('profile', Parse.User.current().get('profile'));
+				var queryChatMsg = request.get('boatday').relation('chatMessages').query();
+				queryChatMsg.notEqualTo('profile', Parse.User.current().get('profile'));
 
 				if( typeof request.get('guestLastRead') !== undefined && request.get('guestLastRead')) {
-					query.greaterThan('createdAt', request.get('guestLastRead'));	
+					queryChatMsg.greaterThan('createdAt', request.get('guestLastRead'));	
 				}
 				
-				query.count().then(function(total) {
-					if( total == 0 ) {
-						self.$el.find('.boatday-card-upcoming[data-id="' + request.id + '"] .unread').hide();
-					} else {
-						self.$el.find('.boatday-card-upcoming[data-id="' + request.id + '"] .unread').text('(' + total + ')');
-					}
-				}, function(error) {
-					console.log(error);
-				})
+				var checkMessages = function() {
+					queryChatMsg.count().then(function(total) {
+						if( total == 0 ) {
+							self.$el.find('.boatday-card-upcoming[data-id="' + request.id + '"] .unread').hide();
+						} else {
+							self.$el.find('.boatday-card-upcoming[data-id="' + request.id + '"] .unread').show().text('(' + total + ')');
+						}
+					}, function(error) {
+						console.log(error);
+					})
+				};
+
+				checkMessages();
+
+				setInterval(function() {
+					checkMessages();
+				}, 10000);
 			});
 		},
 

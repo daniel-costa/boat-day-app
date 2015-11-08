@@ -1,24 +1,27 @@
 <header>
 	<span class="icon bd-arrow-left close-me"></span>
 	<h1>Choose seats</h1>
+	<span class="icon"></span>
 </header>
 <main>
 	<div>
-		<div class="white-area time">
-			<label class="control-label pull-left">Time</label>
-			<label class="preview-departureTime control-label pull-right"></label>
-			<div class="departureTime">
-				<input type="text" class="form-control" id="departureTime" name="departureTime" data-slider-min="0" data-slider-max="23.5" data-slider-step="0.5" data-slider-value="<%= departureTime ? departureTime : 9 %>">
-			</div> 
-		</div>
-
-		<div class="white-area duration">
-			<label for="duration" class="control-label">Duration</label>
-			<label class="preview-duration control-label pull-right"></label>
-			<div class="duration">
-				<input type="text" class="form-control" id="duration" name="duration" data-slider-min="0.5" data-slider-max="12" data-slider-step="0.5" data-slider-value="<%= duration ? duration : 6 %>">
+		<!--
+			<div class="white-area time">
+				<label class="control-label pull-left">Time</label>
+				<label class="preview-departureTime control-label pull-right"></label>
+				<div class="departureTime">
+					<input type="text" class="form-control" id="departureTime" name="departureTime" data-slider-min="0" data-slider-max="23.5" data-slider-step="0.5" data-slider-value="<%= departureTime ? departureTime : 9 %>">
+				</div> 
 			</div>
-		</div>
+
+			<div class="white-area duration">
+				<label for="duration" class="control-label">Duration</label>
+				<label class="preview-duration control-label pull-right"></label>
+				<div class="duration">
+					<input type="text" class="form-control" id="duration" name="duration" data-slider-min="0.5" data-slider-max="12" data-slider-step="0.5" data-slider-value="<%= duration ? duration : 6 %>">
+				</div>
+			</div>
+		-->
 
 	 	<div class="items">
 	 		<div class="item">
@@ -41,7 +44,7 @@
 </main>
 <footer>
 	<div class="btn-group">
-		<button class="promo">Add Promo Code</button>
+		<button class="promo">Promo Code</button>
 		<button class="info">Pricing Info</button>
 	</div>
 	<button class="btn-primary book">Book Seat</button>

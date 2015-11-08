@@ -15,22 +15,21 @@
 		<p>
 			<% if( model.get("action") == "request-approved" && model.get('request') && model.get('boatday') ) { %>
 				I have approved your request for <%= model.get('request').get('seats') %> seat<%= model.get('request').get('seats') == 1 ? '' : 's' %> on <strong><%= model.get('boatday').get('name') %></strong>.
-				You can now find it in your <a href="#/requests?subView=upcoming">Upcoming BoatDays</A>. Welcome aboard!
+				You can now find it in your <a href="#/requests?subView=upcoming">Confirmed BoatDays</A>. Welcome aboard!
 			<% } %>
 
 			<% if( model.get("action") == "request-denied" && model.get('boatday') ) { %>
-				Unfortunately, I can't approve your seat request for <strong><%= model.get('boatday').get('name') %></strong>.
-				You can now find in your <a href="#/requests?subView=past">Past BoatDays</a>.
+				Unfortunately, I can't approve your seat request for <strong><%= model.get('boatday').get('name') %></strong>. Try requesting another date.
 			<% } %>
 
 			<% if( model.get("action") == "request-cancelled-host" && boatday && model.get('request') ) { %>
 				Bad news, I had to cancel your reserved seat<%= model.get('request').get('seats') == 1 ? '' : 's' %> for the BoatDay <strong><%= model.get('boatday').get('name') %></strong>.
-				You can now find this BoatDay in your <a href="#/requests?subView=past">Past BoatDays</a>.
+				You can now find this BoatDay in your <a href="#/requests?subView=past">Completed BoatDays</a>.
 			<% } %>
 
 			<% if( model.get("action") == "boatday-cancelled" && model.get('boatday') ) { %>
 				Bad news, I had to cancel the BoatDay <strong><%= model.get('boatday').get('name') %></strong>.
-				Check out your <a href="#/requests?subView=past">Past BoatDays</a> to know the reason.
+				Check out your <a href="#/requests?subView=cancelled">Cancelled BoatDays</a> to know the reason.
 			<% } %>
 
 			<% if( model.get("action") == "auto-payment" && model.get('request') && model.get('boatday') ) { %>
@@ -39,17 +38,20 @@
 			<% } %>
 
 			<% if( model.get("action") == "boatday-message" && model.get('boatday') ) { %>
-				I just wrote a message on the chat wall for <strong><%= model.get('boatday').get('name') %></strong>.
+				I just wrote a message on the chat wall for <strong><%= model.get('boatday').get('name') %></strong>. (<a class="open-chat" data-id="<%= model.get('boatday').id %>">Open Chat</a>)
 			<% } %>
 
 			<% if( model.get("action") == "boatday-rating" && model.get('boatday')) { %>
 				I just left you a rating for our BoatDay <strong><%= model.get('boatday').get('name') %></strong>.
-				You can now find this BoatDay in your <a href="#/requests?subView=past">Past BoatDays</a>.
+				You can now find this BoatDay in your <a href="#/requests?subView=past">Completed BoatDays</a>.
 			<% } %>
 
 			<% if( model.get("action") == "boatday-answer" && model.get('boatday')) { %>
-				The host answered to your question for the BoatDay <strong><%= model.get('boatday').get('name') %></strong>.
-				(<a class="open-boatday" data-id="<%= model.get('boatday').id %>">Open BoatDay</a>)
+				The Host has answered your question for the BoatDay <strong><%= model.get('boatday').get('name') %></strong>. (<a class="open-boatday" data-id="<%= model.get('boatday').id %>">Open BoatDay</a>)
+			<% } %>
+
+			<% if( model.get("action") == "boatday-reschedule" && model.get('boatday')) { %>
+				Something came up! Your BoatDay <strong><%= model.get('boatday').get('name') %></strong> has been rescheduled due to unexpected "<%= model.get('boatday').get('rescheduleReason') %>". Go to your <a href="#/requests?subView=pending">Pending BoatDays</a> to confirm or deny your availability for the rescheduled BoatDay
 			<% } %>
 
 			<% if( model.get("action") == "bd-message" ) { %>

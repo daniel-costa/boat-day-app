@@ -19,7 +19,7 @@
 		<% if( model.get('status') == 'cancelled-guest' ) { %>
 			<h1>You cancelled</h1>
 		<% } else { %>
-			<h1>The Host Cancelled</h1>
+			<h1>Cancelled By Host</h1>
 			<p><%= model.get('boatday').get('cancelReason') %></p>
 		<% } %>
 	</div>
