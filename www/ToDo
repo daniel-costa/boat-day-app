@@ -1,28 +1,30 @@
 ToDo:
 - Add credit card icon for select
 - Preview BoatDay info in map
-- Kimon - Check copy after we accept or deny a pending request
-- When open a notification regarding a question scroll to area
 
 Postspone: 
 - Swiper in all boatday pictures in the app
 - Toggle in map view (today, this weekend, next weekend)
 - Overlays, must take only space needed
-- Add taking picture to active boatday screen
-- Add full view of pictures for boatday and boat
+- Good size of the drawer
 - Notifications when something happen in boatdays
-- good size of the drawer
+- Add taking picture to active boatday screen
 
 Post production:
 - Host live
-- Hide trips
-- Kimon's pictures for bds
+- Put Cloud Code online
+- Add notification after question in Cloud Code
+- Done - Deep-linking
+- Done - Switch questions to denied in HP
+- Done - Hide trips
+- Done - Kimon's pictures for bds
 
-Test : 
+Test:
 - test when possible to double click on buttons
 - handle the double click on button for new question
 - Check with inspector for error finding
 
+Done:
 - Done - change uber icon in map view
 - Done - Add "What is this screen" overlay in active boatday
 - Done - Add chevron on selects
@@ -88,3 +90,7 @@ Test :
 - Done - Change info when send request
 - Done - Add close icon for notification
 - Done - Website deeplinking
+- Done - Kimon - Check copy after we accept or deny a pending request
+- Done - Add full view of pictures for boatday and boat
+- Done - Can't scroll in notifications list
+- Done - When open a notification regarding a question scroll to area

@@ -298,6 +298,10 @@ define([
 
 				_.each(requests, function(request) {
 
+					if( typeof request.get('boatday') === typeof undefined ) {
+						return ;
+					}
+
 					self.requests[request.id] = request;
 					self.boatdays[request.get('boatday').id] = request.get('boatday');
 					self.profiles[request.get('boatday').get('captain').id] = request.get('boatday').get('captain');

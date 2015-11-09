@@ -33,33 +33,34 @@ define([
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
-			'boatday/:id'			: 'boatday',
-			'boatdays'				: 'boatdays',
-			'requests?*queryString'	: 'requests',
-			'requests'				: 'requests',
-			'my-profile'			: 'myProfile',
-			'my-picture'			: 'myPicture',
-			'payments'				: 'payments',
-			'credit-card'			: 'creditCard',
-			'about-us'				: 'aboutUs',
-			'notifications'			: 'notifications',
-			'sign-in'				: 'signIn', 
-			'sign-up'				: 'signUp',
-			'sign-out'				: 'signOut',
-			'water-policy'			: 'waterPolicy',
-			'terms'					: 'terms',
+			'boatday/:id'				: 'boatday',
+			'boatday/:id?*queryString'		: 'boatday',
+			'boatdays'					: 'boatdays',
+			'requests?*queryString'		: 'requests',
+			'requests'					: 'requests',
+			'my-profile'				: 'myProfile',
+			'my-picture'				: 'myPicture',
+			'payments'					: 'payments',
+			'credit-card'				: 'creditCard',
+			'about-us'					: 'aboutUs',
+			'notifications'				: 'notifications',
+			'sign-in'					: 'signIn', 
+			'sign-up'					: 'signUp',
+			'sign-out'					: 'signOut',
+			'water-policy'				: 'waterPolicy',
+			'terms'						: 'terms',
 
-			'cancellations'			: 'cancellations',
-			'question'				: 'question',
-			'promo-code'			: 'promoCode',
-			'price-info'			: 'priceInfo', 
-			'guest'					: 'guest',
-			'filter'				: 'filter', 
-			'adjust-price'			: 'adjustPrice', 
-			'schedule'				: 'schedule',
-			'trips'					: 'trips', 
-			'trip'					: 'trip', 
-			'*actions'				: 'boatdays'
+			'cancellations'				: 'cancellations',
+			'question'					: 'question',
+			'promo-code'				: 'promoCode',
+			'price-info'				: 'priceInfo', 
+			'guest'						: 'guest',
+			'filter'					: 'filter', 
+			'adjust-price'				: 'adjustPrice', 
+			'schedule'					: 'schedule',
+			'trips'						: 'trips', 
+			'trip'						: 'trip', 
+			'*actions'					: 'boatdays'
 
 		},
 		
@@ -172,7 +173,7 @@ define([
 
 		},
 
-		boatday: function(id) {
+		boatday: function(id, queryString) {
 			
 			var self = this;
 			self.handleSignedIn(function(profile) {
@@ -181,7 +182,7 @@ define([
 				query.include('captain');
 				query.include('captain.host');
 				query.get(id).then(function(boatday) {
-					self.render(new BoatDayView({ model: boatday, fromUpcoming: false }));
+					self.render(new BoatDayView({ model: boatday, fromUpcoming: false, queryString: queryString }));
 				});
 			});
 		},

@@ -179,13 +179,21 @@
 					<% if( self.model.get('features').extras.inflatables ) { %>
 						<p>Inflatables</p>
 					<% } %>
+					<p class="empty"></p>
+					<p class="empty"></p>
 				</div>
 			</div>
 		<% } %>
 
 		<div class="white-area guests">
 			<h6>GUESTS ATTENDING</h6>
-			<div class="list"></div>
+			<div class="list">
+
+				<div class="guest empty"></div>
+				<div class="guest empty"></div>
+				<div class="guest empty"></div>
+				<div class="guest empty"></div>
+			</div>
 		</div>
 
 		<div class="white-area location">
@@ -249,6 +257,6 @@
 
 <% if( !self.seatRequest ) { %>
 	<footer>
-		<button class="btn-action book">Book Seats</button>
+		<button class="btn-action book">Request to Book</button>
 	</footer>
 <% } %>
