@@ -14,6 +14,18 @@ define([
 			'click .terms': 'terms'
 		},
 
+		render: function() {
+			BaseView.prototype.render.call(this);
+			
+			var self = this;
+			
+			navigator.appInfo.getVersion(function(version) {
+				self.$el.find('.version').text('Version ' + Parse.Config.current().get('CURRENT_VERSION'));
+			});
+
+			return this;
+		},
+
 		terms: function() {
 			
 			Parse.Analytics.track('about-us-click-terms');

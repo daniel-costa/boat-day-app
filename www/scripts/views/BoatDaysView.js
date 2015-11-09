@@ -226,7 +226,8 @@ define([
 				}
 
 				query.ascending('featured,date,departureTime,price,bookedSeats');
-
+				query.limit(200);
+				
 				query.find().then(function(boatdays) {
 
 					self.boatdays = {};

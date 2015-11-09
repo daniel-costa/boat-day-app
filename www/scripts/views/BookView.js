@@ -19,11 +19,24 @@ define([
 			'click .price-pay': 'info',
 			'click .promo': '_promo',
 			'click .payments': 'payments',
+			'change [name="card"]': 'card',
 		},
 
 		cards: {},
 
 		promo: null,
+
+		card: function(event) {
+
+			var o = $(event.currentTarget);
+
+			console.log(o);
+			console.log( o.find('option:selected') );
+			console.log( o.find('option:selected').attr('data-brand') );
+
+			o.removeClass('american-express').removeClass('visa').removeClass('mastercard').removeClass('default').addClass(o.find('option:selected').attr('data-brand'));
+
+		},
 
 		payments: function() {
 
@@ -91,11 +104,21 @@ define([
 
 				self._in('card').html('');
 
+				var getCardShortVersion = function(c) {
+					switch(c) {
+						case "American Express": return "american-express"; break;
+						case "MasterCard": return "mastercard"; break;
+						case "Visa": return "visa"; break;
+						default: return "default"; break;
+					}
+				} 
+
 				_.each(cards, function(card) {
 					self.cards[card.id] = card;
-					self._in('card').append($('<option>').attr('value', card.id).text('•••• •••• •••• '+card.get('last4')));
+					self._in('card').append($('<option>').attr('value', card.id).attr('data-brand', getCardShortVersion(card.get('brand'))).text('•••• •••• •••• ' + card.get('last4')));
 				});
 
+				self._in('card').change();
 			});
 
 			this.model.relation('boatdayPictures').query().first().then(function(fh) {

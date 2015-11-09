@@ -41,6 +41,10 @@
 		<% } else { %>
 			<h1>Rescheduled BoatDay</h1>
 			<p>The Host has rescheduled this BoatDay, do you want to confirm your seat for the rescheduled date?</p>
+			<p class="host-reason">
+				<span>HOST: </span>
+				<%= model.get('boatday').get('rescheduleReason').replace(/\n/g, "<br>") %>
+			</p>
 			<div class="buttons">
 				<button class="pending approve">Confirm</button>
 				<button class="pending deny">Cancel</button>
