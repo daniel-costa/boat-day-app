@@ -51,7 +51,19 @@
 			<% } %>
 
 			<% if( model.get("action") == "boatday-reschedule" && model.get('boatday')) { %>
-				Something came up! Your BoatDay <strong><%= model.get('boatday').get('name') %></strong> has been rescheduled due to unexpected "<%= model.get('boatday').get('rescheduleReason') %>". Go to your <a href="#/requests?subView=pending">Pending BoatDays</a> to confirm or deny your availability for the rescheduled BoatDay
+				<%
+					if( typeof model.get('boatday').get('rescheduleReasonShort') !== typeof undefined ) {
+						switch( model.get('boatday').get('rescheduleReasonShort') ) {
+							case "weather" : var reason = "Weather"; break;
+							case "maintenance" : var reason = "Boat Maintenance"; break;
+							case "personal" : var reason = "Personal Reason"; break;
+							default: var reason = "Unknow reason"; break;
+						}
+					} else {
+						var reason = "Unknow reason";
+					}
+				%>
+				Something came up! Your BoatDay <strong><%= model.get('boatday').get('name') %></strong> has been rescheduled due to unexpected <%= reason %>. Go to your <a href="#/requests?subView=pending">Pending BoatDays</a> to confirm or deny your availability for the rescheduled BoatDay
 			<% } %>
 
 			<% console.log(model.get("action")) %>

@@ -135,6 +135,7 @@ define([
 			
 			setTimeout(function() { 
 				$el.addClass('active');
+				view.afterRenderInsertedToDom();
 			}, 100);
 
 		},

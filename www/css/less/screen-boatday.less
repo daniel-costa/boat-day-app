@@ -125,46 +125,59 @@
 
 .screen-boatday .boatday-features .features {
 	display: -webkit-flex;
-	flex-flow: column wrap;
-	flex-direction: row;
-	padding: 25px 0px 30px 63px;
+	-webkit-flex-flow: row wrap;
+	-webkit-justify-content: space-between;
+	padding: 25px 0px;
+
 }
 
 .screen-boatday .boatday-features .features p {
-	font-weight: 400;
-	color: rgba(84, 110, 122, 1);
+	color: #546e7a;
 	font-size: 8.53pt;
 	line-height: 12pt;
 	width: 30vw;
-	text-align: left;
-	margin-right: 30px;
+	text-align: center;
+	margin: 5px auto;
+}
+
+.screen-boatday .boatday-features .features p.empty {
+	height: 0;
 }
 
 .screen-boatday .guests {
 	text-align: center;
 }
 
-.screen-boatday .guests .list .boatday-guests {
-	padding: 24px 0px 24px 25px;
-	border-bottom: 1px solid rgba(29, 29, 38, 0.05);
+.screen-boatday .guests .list {
+	text-align: center;
 	display: -webkit-flex;
-	flex-flow: row;
+	-webkit-flex-flow: row wrap;
+	-webkit-justify-content: space-around;
+	padding: 15px;
 }
 
-.screen-boatday .guests .list .boatday-guests:last-child {
-	border-bottom: none;
+.screen-boatday .guests .list .guest {
+	padding: 10px;
+	text-align: center;
+	width: 20vw;
 }
 
-.screen-boatday .guests .list .boatday-guests .guest-picture {
-	margin-right: 8px;
+.screen-boatday .guests .list .guest.empty {
+	height: 0;
+	padding: 0px;
 }
 
-.screen-boatday .guests .list .boatday-guests .guest-name {
-	color: rgba(17, 171, 193, 1);
+.screen-boatday .guests .list .guest .guest-picture {
+	display: inline-block;
+}
+
+.screen-boatday .guests .list .guest .guest-name {
+	color: #11abc1;
 	font-size: 10.67pt;
 	font-weight: 500;
 	line-height: 15pt;
-	margin-top: 3px;
+	display: block;
+	text-align: center;
 }
 
 .screen-boatday .location {

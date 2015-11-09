@@ -128,11 +128,9 @@ define([
 			navigator.notification.confirm(
 				"You’re about to request " + self.calculatePrice().seats + " seat" + ( self.calculatePrice().seats == 1 ? '' : 's') + " for $" + self.calculatePrice().total + ", ready for #betterboating?",
 				function(buttonIndex) {
-
 					if( buttonIndex == 2 ) {
 						self.bookSave();
 					}
-					
 				},
 				"Book Now!",
 				["Cancel", "Confirm"]

@@ -38,7 +38,7 @@ define([
 		seatRequest: null,
 		profiles: {},
 		questions: {},
-
+		afterRenderScrollTo: null,
 
 		share: function(event) {
 			
@@ -70,6 +70,23 @@ define([
 				this.seatRequest = data.seatRequest;
 			}
 
+
+			if( typeof data.queryString !== typeof undefined) {
+					
+				var qs = this.splitURLParams(data.queryString);
+				if( qs['afterRenderScrollTo'] ) {
+					this.afterRenderScrollTo = qs['afterRenderScrollTo'];
+				}
+			}
+
+		},
+
+		afterRenderInsertedToDom: function() {
+			if( this.afterRenderScrollTo ) {
+				this.$el.find('main').animate({
+					scrollTop: this.$el.find(this.afterRenderScrollTo).position().top
+				}, 1000);
+			}
 		},
 
 		profile: function(event) {
@@ -268,7 +285,7 @@ define([
 				
 				_.each(guests, function(guest) {
 					self.profiles[guest.get('profile').id] = guest.get('profile');
-					self.$el.find('.guests .list').append(_.template(CardBoatDayGuestsTemplate)({ model: guest }));
+					self.$el.find('.guests .list').prepend(_.template(CardBoatDayGuestsTemplate)({ model: guest }));
 				});
 
 				if( guests.length == 0 ) {

@@ -34,6 +34,7 @@ define([
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
+
 			'boatday/:id'			: 'boatday',
 			'boatdays'				: 'boatdays',
 			'requests?*queryString'	: 'requests',
@@ -179,7 +180,7 @@ define([
 
 		},
 
-		boatday: function(id) {
+		boatday: function(id, queryString) {
 			
 			var self = this;
 			self.handleSignedIn(function(profile) {
@@ -188,7 +189,7 @@ define([
 				query.include('captain');
 				query.include('captain.host');
 				query.get(id).then(function(boatday) {
-					self.render(new BoatDayView({ model: boatday, fromUpcoming: false }));
+					self.render(new BoatDayView({ model: boatday, fromUpcoming: false, queryString: queryString }));
 				});
 			});
 		},

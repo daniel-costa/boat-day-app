@@ -1,6 +1,4 @@
-<div class="boatday-guests" data-id="<%= model.get('profile').id %>">
-	<div class="guest-picture small" style="background-image:url(<%= model.get('profile').get('profilePicture').url() %>)">
-	</div>
-
+<div class="guest open-guest" data-id="<%= model.get('profile').id %>">
+	<div class="guest-picture medium" style="background-image:url(<%= model.get('profile').get('profilePicture').url() %>)"></div>
 	<div class="guest-name"><%= model.get('profile').get('displayName') %></div>
 </div>

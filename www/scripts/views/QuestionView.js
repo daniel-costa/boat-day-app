@@ -60,9 +60,8 @@ define([
 		}, 
 
 		afterRenderInsertedToDom: function(){
-			this.parentView.$el.find('main, .questions').animate({
-				scrollTop: 1485.5,
-				scrollLeft: 0
+			this.parentView.$el.find('main').animate({
+				scrollTop: this.parentView.$el.find('.questions').position().top
 			}, 1000);
 		} 
 	});

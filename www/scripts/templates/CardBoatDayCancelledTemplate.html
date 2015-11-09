@@ -7,7 +7,7 @@
 					<div class="with-empty bd-icons"></div>
 				</div>
 			<% } else { %>
-				<label>No rating</label>
+				<label><%= model.get('boatday').get('captain').get('displayName') %></label>
 			<% } %>
 		</div>
 

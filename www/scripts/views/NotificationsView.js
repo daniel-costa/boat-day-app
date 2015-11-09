@@ -33,7 +33,7 @@ define([
 		boatday: function(event) {
 			if( $(event.currentTarget).attr('data-id') ) {
 				Parse.Analytics.track('notifications-click-boatday');
-				this.modal(new BoatDayView({ model : this.boatdays[$(event.currentTarget).attr('data-id')], fromUpcoming: false }));
+				this.modal(new BoatDayView({ model : this.boatdays[$(event.currentTarget).attr('data-id')], fromUpcoming: false, queryString: "afterRenderScrollTo=.questions" }));
 			}	
 		},
 
@@ -92,11 +92,13 @@ define([
 					}
 				});
 
+				self.$el.find('.list').scrollTop(1);
+
+				self.$el.find('.unread').text("You have " + unread + " new notification" + (unread != 1 ? 's' : '') + ".");
+
 				Parse.Object.saveAll(notificationsRead).then(function() {
 					$(document).trigger('updateNotificationsAmount');
 				})
-
-				self.$el.find('.unread').text("You have " + unread + " new notification" + (unread != 1 ? 's' : '') + ".");
 			});
 
 			return this;
