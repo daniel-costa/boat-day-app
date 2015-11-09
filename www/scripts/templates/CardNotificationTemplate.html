@@ -54,6 +54,13 @@
 				Something came up! Your BoatDay <strong><%= model.get('boatday').get('name') %></strong> has been rescheduled due to unexpected "<%= model.get('boatday').get('rescheduleReason') %>". Go to your <a href="#/requests?subView=pending">Pending BoatDays</a> to confirm or deny your availability for the rescheduled BoatDay
 			<% } %>
 
+			<% console.log(model.get("action")) %>
+			<% console.log(model.get('boatday')) %>
+			<% if( model.get("action") == "boatday-reschedule" && model.get('boatday') ) { %>
+				The BoatDay <strong><%= model.get('boatday').get('name') %></strong> was rescheduled.
+				You can now find this BoatDay in your <a href="#/requests?subView=pending">Pending BoatDays</a>.
+			<% } %>
+
 			<% if( model.get("action") == "bd-message" ) { %>
 				<%= model.get("message") ? model.get("message").replace(/\n/g, "<br>") : '' %>
 			<% } %>
