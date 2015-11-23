@@ -136,7 +136,17 @@ define([
 				self.$el.find('.preview-departureTime').text(slideEvt.value);
 			};
 
-			// this._in('departureTime').slider(slidersConfig).on("slide", departureTimeSlideEvent);
+			var durationSlideEvent = function(slideEvt) {
+				self.$el.find('.preview-duration').text(slideEvt.value + ' hour' + (slideEvt.value != 1 ? 's' : ''));
+			};
+
+			this._in('departureTime').slider(slidersConfig).on("slide", departureTimeSlideEvent);
+			this._in('duration').slider(slidersConfig).on("slide", durationSlideEvent);
+
+			self.$el.find('.calendar').calendar({
+				tmpl_path: "/tmpls/",
+				events_source: function () { return []; }
+			});
 
 			self.updatePrice();
 

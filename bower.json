@@ -28,6 +28,7 @@
     "requirejs-plugins": "1.0.3",
     "jquery-mask-plugin": "1.13.4",
     "swiper": "3.1.5",
-    "seiyria-bootstrap-slider": null
+    "seiyria-bootstrap-slider": null, 
+    "bootstrap-calendar":  null
   }
 }

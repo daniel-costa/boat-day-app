@@ -207,7 +207,10 @@ define([
 
 			Parse.Analytics.track('boatday-click-book');
 			
-			this.modal(new BookView({ model : this.model }));
+			this.modal(new BookView({ 
+				self:  this, 
+				model: this.model 
+			}));
 
 		},
 
