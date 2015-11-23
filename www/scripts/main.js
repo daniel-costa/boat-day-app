@@ -99,8 +99,8 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 
 			appStarted = true;
 
-			// Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
-			Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
+			Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
+			// Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
 
 			new AppView(function() {
 				new AppRouter();
@@ -111,7 +111,7 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 
 		var push = PushNotification.init({ 
 			"android": {
-				"senderID": "12345679"
+				"senderID": "836545808856"
 			},
 			"ios": {
 				"alert": "true", 
@@ -128,8 +128,10 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 		});
 
 		push.on('notification', function(data) {
+			
 			console.log("new notification");
 			console.log(data);
+
 			if ( event.alert ) {
 				// We do not show the notification when in the app
 				// $(document).trigger('globalInfo', event.alert);
@@ -138,8 +140,10 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 		});
 
 		push.on('error', function(e) {
+			
 			console.log('error in notifications');
 			console.log(e);
+
 			startApp();
 		});
 

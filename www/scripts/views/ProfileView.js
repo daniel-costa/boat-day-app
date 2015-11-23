@@ -95,7 +95,7 @@ define([
 					});
 
 					if( requests.length == 0 ) {
-						self.$el.find('.reviews').html('<p class="text-center no-data">No current ratings</p>');
+						self.$el.find('.reviews').html('<p class="text-center no-data">No current reviews</p>');
 						return;
 					} 
 					
