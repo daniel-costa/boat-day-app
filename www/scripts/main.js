@@ -96,30 +96,32 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 		console.log("device ready");
 		
 		window.isAndroid = navigator != undefined && navigator.userAgent != undefined && navigator.userAgent.toLowerCase().indexOf('android') > -1;
-					
+		
+		var startApp = function(data) {
+			
+			Parse.initialize(data.parseAppId, data.parseJavaScriptKey);
+
+			if( window.isAndroid ) {
+				$('body').addClass('android');
+			}
+
+			new AppView(function() {
+				new AppRouter();
+				Parse.history.start();
+			});
+
+		};
+
 		BDHelper.initialize(function(data) {
-
 			BDHelper.getInstallationId(function(installationId) {
-
-				Parse.initialize(data.parseAppId, data.parseJavaScriptKey);
-
 				window.installationId = installationId;
-
-				if( window.isAndroid ) {
-					$('body').addClass('android');
-				}
-
-				new AppView(function() {
-					new AppRouter();
-					Parse.history.start();
-				});
-
+				startApp(data);
 			}, function(error) {
-				alert('BDHelper.getInstallationId error')
+				startApp(data);
 				console.log(error);
 			});
 		}, function(error) {
-			alert('BDHelper.init error')
+			alert('An error occured (Code: 1004), try to lunch the app later or contact contact@boatdayapp.com')
 			console.log(error);
 		});
 

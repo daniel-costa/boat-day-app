@@ -77,13 +77,10 @@ void MethodSwizzle(Class c, SEL originalSelector) {
 
 - (void)noop_application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
-    NSLog(@"noop_application");
 }
 
 - (void)swizzled_application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
-    NSLog(@"swizzled_application");
-    
     // Call existing method
     [self swizzled_application:application didRegisterForRemoteNotificationsWithDeviceToken:newDeviceToken];
     

@@ -153,7 +153,6 @@ define([
 							});
 						}, handleErrors);
 					}, handleErrors);
-					
 				}
 			};
 
