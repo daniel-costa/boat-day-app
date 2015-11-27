@@ -252,7 +252,7 @@ define([
 			Keyboard.onshowing = function () {
 				self.keyBoardAppear();
 
-				if(window.isAndroid) {
+				if( window.isAndroid ) {
 					self.keyBoardAppear_Android();
 				} else {
 					self.keyBoardAppear_iOS();
@@ -262,7 +262,7 @@ define([
 			Keyboard.onhiding = function () {
 				self.keyBoardDisappear();
 
-				if(window.isAndroid) {
+				if( window.isAndroid ) {
 					self.keyBoardDisappear_Android();
 				} else {
 					self.keyBoardDisappear_iOS();

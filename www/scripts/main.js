@@ -95,6 +95,8 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 
 		console.log("device ready");
 		
+		window.isAndroid = navigator != undefined && navigator.userAgent != undefined &&  navigator.userAgent.toLowerCase().indexOf('android') > -1;
+					
 		BDHelper.initialize(function(data) {
 
 			BDHelper.getInstallationId(function(installationId) {
@@ -102,6 +104,10 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 				Parse.initialize(data.parseAppId, data.parseJavaScriptKey);
 
 				window.installationId = installationId;
+
+				if( window.isAndroid ) {
+					$('body').addClass('android');
+				}
 
 				new AppView(function() {
 					new AppRouter();
