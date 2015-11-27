@@ -26,14 +26,16 @@
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.media`
 * `sudo cordova plugin add pluginsBase/cordova-plugin-appinfo`
 * `sudo cordova plugin add pluginsBase/cordova-plugin-customurlscheme --variable URL_SCHEME=boatday`
-* `sudo cordova plugin add pluginsBase/com.boat.day.BDHelper`
+
+## BDHelper
+* run `build-qa.command`
 
 ## Change rights
 * `sudo chown -R Daniel .`
 * `sudo chmod -R 777 .`
 * `cordova prepare ios`
-* `cordova prepare ios`
-* `cordova build android`
+* `cordova prepare android`
+* `cordova build ios`
 * `cordova build android`
 
 
