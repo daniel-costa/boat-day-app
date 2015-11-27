@@ -5,13 +5,6 @@ define([
 ], function($, Parse, DrawerView){
 	var AppView = Parse.View.extend({
 
-		// Refresh the position every 30 minutes
-		// delay 1800000in miliseconds
-		__POSITION_REFRESH_DELAY__: 1800000,
-
-		// Delay for messages in queu
-		__MESSAGE_DELAY_BETWEEN__: 300,
-
 		el: document,
 
 		events: {
@@ -32,9 +25,9 @@ define([
 		},
 
 		msgStack: [],
-
 		snap: null,
-		notificationSound: null,
+		notifications: 0,
+		notificationsHolder: null,
 
 		closeNotification: function(event) {
 			event.preventDefault();
@@ -80,13 +73,13 @@ define([
 				setTimeout(function() {
 					self.msgStack.splice(0, 1)[0].element.remove();
 					if(self.msgStack.length > 0) {
-						setTimeout(manageStack, self.__MESSAGE_DELAY_BETWEEN__);
+						setTimeout(manageStack, Parse.Config.current().get('MESSAGE_DELAY_BETWEEN'));
 					}
 				}, self.msgStack[0].time + 200);
 			};
 
 
-			self.msgStack.push({ element: msg, time: timeSec*1000 });
+			self.msgStack.push({ element: msg, time: timeSec * 1000 });
 
 			if(self.msgStack.length == 1) {
 				manageStack();
@@ -114,9 +107,6 @@ define([
 			return;
 
 		},
-
-		notifications: 0,
-		notificationsHolder: null,
 
 		updateNotificationsAmount: function(event, holder) {
 			
@@ -193,18 +183,15 @@ define([
 					easing: 'ease',
 					transitionSpeed: 0.3,
 					tapToClose: true,
-					// minDragDistance: 20,
 					touchToDrag: false,
 				});
 
 				$('#app').append( new DrawerView({ model: profile }).render().el );
 
-				// ToDo add this value in parse config.
-				setInterval(self.updateGeoPoint, self.__POSITION_REFRESH_DELAY__);
+				setInterval(self.updateGeoPoint, Parse.Config.current().get('POSITION_REFRESH_DELAY') );
 				self.updateGeoPoint(cb);
 				
 			}, function() {
-				// At this point, the router is not initialize, so we logOut in a hard way
 				Parse.User.logOut();
 				facebookConnectPlugin.logout();
 				cb();
@@ -214,7 +201,7 @@ define([
 		
 		checkVersion: function(cb) {
 			navigator.appInfo.getVersion(function(version) {
-				var _cv = Parse.Config.current().get('CURRENT_VERSION').split('.');
+				var _cv = Parse.Config.current().get( window.isAndroid ? 'CURRENT_VERSION_ANDROID' : 'CURRENT_VERSION_IOS' ).split('.');
 				var _v = version.split('.');
 
 				var versionS = parseInt(_v[0]) <  parseInt(_cv[0]);
@@ -243,10 +230,8 @@ define([
 		initialize: function( cb ) {
 
 			var self = this;
-			
-			// self.notificationSound = new Media("resources/sfx/notification.wav");
 
-			Parse.Config.get().then(function(config) {
+			Parse.Config.get().then(function() {
 
 				self.checkVersion(function() {
 					if( Parse.User.current() && Parse.User.current().get("profile") ) {
@@ -255,14 +240,14 @@ define([
 						cb();
 					}
 				});
+
+				setInterval(function() {
+					Parse.Config.get().then(function() {
+						self.checkVersion();
+					});
+				}, Parse.Config.current().get('CHECK_CONFIG_INTERVAL') );
 				
 			});
-
-			setInterval(function() {
-				Parse.Config.get().then(function() {
-					self.checkVersion();
-				})
-			}, 120 * 1000);
 
 			// prevent bug on feedback page with a jumping keyboard
 			var touchstart = function (e) {
@@ -274,15 +259,7 @@ define([
 
 			function isTextInput(node) { return ['INPUT', 'TEXTAREA'].indexOf(node.nodeName) !== -1; }
 			document.addEventListener('touchstart', touchstart, false);
-			
-			if(navigator != undefined && navigator.userAgent != undefined) {
-				
-				user_agent = navigator.userAgent.toLowerCase();
 
-				if(user_agent.indexOf('android') > -1) { // Is Android.
-					$(document.body).addClass('android');
-				}
-			}
 		},
 
 		updateGeoPoint: function(cb) {
@@ -323,11 +300,9 @@ define([
 		},
 
 		closeDrawer: function(event) {
-
 			if( this.snap.state().state == "left" ) {
 				this.snap.close();
 			}
-
 		},
 		
 		disableDrawer: function() {

@@ -22,7 +22,6 @@
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
-    //register to receive notifications
     [application registerForRemoteNotifications];
 }
 

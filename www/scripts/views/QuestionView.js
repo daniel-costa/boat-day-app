@@ -68,7 +68,7 @@ define([
 
 		inputClicked: function(event){
 			
-			if( this.isAndroid ){
+			if( window.isAndroid ){
 				this.$el.find('.drop header').hide();
 			}
 		}

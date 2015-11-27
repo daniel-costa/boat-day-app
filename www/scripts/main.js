@@ -19,7 +19,6 @@ require.config({
 		masks: 		'vendor/jquery-mask-plugin/dist/jquery.mask.min',
 		Swiper: 	'vendor/swiper/dist/js/swiper.jquery.umd.min',
 		bootstrap: 	'vendor/bootstrap/dist/js/bootstrap.min',
-		calendar: 	'vendor/bootstrap-calendar/js/calendar.min', 
 		slider: 	'vendor/seiyria-bootstrap-slider/dist/bootstrap-slider.min',
 	},
 
@@ -46,10 +45,6 @@ require.config({
 		"slider": {
 			deps: ["jquery", "bootstrap"],
 			exports: 'slider'
-		}, 
-		"calendar": {
-			deps: ["jquery", "bootstrap"],
-			exports: 'calendar'
 		}
 	},
 	googlemaps: {
@@ -92,7 +87,7 @@ function handleOpenURL(url) {
 
 }
 
-require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider', 'calendar'], function(FastClick, Parse, AppRouter, AppView) {
+require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], function(FastClick, Parse, AppRouter, AppView) {
 
 	FastClick.attach(document.body);
 
@@ -110,7 +105,7 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider', 'c
 			appStarted = true;
 
 			//Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
-			 Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
+			Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
 
 			new AppView(function() {
 				new AppRouter();
@@ -119,10 +114,14 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider', 'c
 
 		};
 		
-		window.isAndroid = navigator != undefined && navigator.userAgent != undefined && navigator.userAgent.indexOf("Android") > 0;
+		window.isAndroid = navigator != undefined && navigator.userAgent != undefined && navigator.userAgent.toLowerCase().indexOf("android") >= 0;
+
+		alert( navigator.userAgent.toLowerCase() );
+		alert( navigator.userAgent.toLowerCase().indexOf("android") );
 
 		if(window.isAndroid){
 			
+			$(document.body).addClass('android');
 			window.installation.installationId = BDHelper.getInstallationId();
 			startApp();
 
@@ -142,14 +141,8 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider', 'c
 
 		}
 
-
-		Keyboard.onshowing = function () {
-			StatusBar.hide();
-		};
-
-		Keyboard.onhiding = function () {
-			StatusBar.show();
-		};
+		Keyboard.onshowing = function () { StatusBar.hide(); };
+		Keyboard.onhiding  = function () { StatusBar.show(); };
 		
 	}, false);
 

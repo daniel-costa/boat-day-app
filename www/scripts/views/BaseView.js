@@ -251,29 +251,21 @@ define([
 			
 			Keyboard.onshowing = function () {
 				self.keyBoardAppear();
-				
-				if(self.isiOS) {
 
-					self.keyBoardAppear_iOS();
-				}
-
-				if(self.isAndroid) {
-
+				if(window.isAndroid) {
 					self.keyBoardAppear_Android();
+				} else {
+					self.keyBoardAppear_iOS();
 				}
 			};
 
 			Keyboard.onhiding = function () {
 				self.keyBoardDisappear();
-				
-				if(self.isiOS) {
 
-					self.keyBoardDisappear_iOS();
-				}
-
-				if(self.isAndroid) {
-
+				if(window.isAndroid) {
 					self.keyBoardDisappear_Android();
+				} else {
+					self.keyBoardDisappear_iOS();
 				}
 			};
 
@@ -519,20 +511,6 @@ define([
 
 		_info: function(message) {
 			$(document).trigger('globalInfo', message);
-		}, 
-
-		isiOS: function() {
-			if(navigator != undefined && navigator.userAgent != undefined) {
-				// ToDo
-				return false;
-				// return navigator.userAgent.indexOf("Android") > 0;
-			}
-		}, 
-
-		isAndroid: function() {
-			if(navigator != undefined && navigator.userAgent != undefined) {
-				return navigator.userAgent.indexOf("Android") > 0;
-			}
 		}, 
 
 	});
