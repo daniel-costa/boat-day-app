@@ -96,12 +96,8 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 		console.log("device ready");
 		
 		BDHelper.initialize(function(data) {
-			
-			console.log(data);
 
-			BDHelper.getInstallationId(function(installationId) {	
-				
-				console.log(installationId);
+			BDHelper.getInstallationId(function(installationId) {
 
 				Parse.initialize(data.parseAppId, data.parseJavaScriptKey);
 

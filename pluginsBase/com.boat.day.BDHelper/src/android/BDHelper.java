@@ -24,9 +24,11 @@ public class BDHelper extends CordovaPlugin {
     public static void initializeParseWithApplication(Application app) {
         String appId = getStringByKey(app, "parse_app_id");
         String clientKey = getStringByKey(app, "parse_client_key");
+
         Parse.enableLocalDatastore(app);
-        Log.d(TAG, "Initializing with parse_app_id: " + appId + " and parse_client_key:" + clientKey);
         Parse.initialize(app, appId, clientKey);
+
+        Log.d(TAG, "Initializing with parse_app_id: " + appId + " and parse_client_key:" + clientKey);
     }
 
     private static String getStringByKey(Application app, String key) {
@@ -64,6 +66,7 @@ public class BDHelper extends CordovaPlugin {
                         parseJavaScriptKey: getStringByKey(app, "parse_javascript_key")
                     }
                 */
+                    
                 callbackContext.success();
             }
         });

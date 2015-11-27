@@ -55,6 +55,10 @@
       <uses-permission android:name="$PACKAGE_NAME.permission.C2D_MESSAGE" />
     </config-file>
     
+    <config-file target="AndroidManifest.xml" parent="application">
+      <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/push_icon"/>
+    </config-file>
+
     <source-file src="src/android/bdhelper.xml" target-dir="res/values" />
     <config-file target="res/values/bdhelper.xml" parent="/*">
       <string name="parse_app_id">$PARSE_APP_ID</string>
@@ -67,6 +71,15 @@
 
     <source-file src="src/android/BDHelper.java" target-dir="src/com/boat/day/" />
     <source-file src="src/android/BDHelperApplication.java" target-dir="src/com/boat/day/" />
+    
+    <!-- push icons -->
+    <source-file src="src/android/res/drawable-ldpi/push_icon.png" target-dir="res/drawable-ldpi/" />
+    <source-file src="src/android/res/drawable-mdpi/push_icon.png" target-dir="res/drawable-mdpi/" />
+    <source-file src="src/android/res/drawable-hdpi/push_icon.png" target-dir="res/drawable-hdpi/" />
+    <source-file src="src/android/res/drawable-xhdpi/push_icon.png" target-dir="res/drawable-xhdpi/" />
+    <source-file src="src/android/res/drawable-xxhdpi/push_icon.png" target-dir="res/drawable-xxhdpi/" />
+    <source-file src="src/android/res/drawable-xxxhdpi/push_icon.png" target-dir="res/drawable-xxxhdpi/" />
+
   </platform>
 
   <platform name="ios">

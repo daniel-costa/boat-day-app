@@ -40,18 +40,18 @@
 
     <platform name="android">
         <preference name="android-minSdkVersion" value="15" />
-        <!--
-            <icon src="res/android/icon-ldpi.png" density="ldpi" />
-            <icon src="res/android/icon-mdpi.png" density="mdpi" />
-            <icon src="res/android/icon-hdpi.png" density="hdpi" />
-            <icon src="res/android/icon-xhdpi.png" density="xhdpi" />
-            <icon src="res/android/icon-xxhdpi.png" density="xxhdpi" />
-            <icon src="res/android/icon-xxxhdpi.png" density="xxxhdpi" />
-            <splash src="res/android/splash-port-hdpi.png" density="port-hdpi"/>
-            <splash src="res/android/splash-port-ldpi.png" density="port-ldpi"/>
-            <splash src="res/android/splash-port-mdpi.png" density="port-mdpi"/>
-            <splash src="res/android/splash-port-xhdpi.png" density="port-xhdpi"/>
-        -->
+        <icon src="res/android/icon-hdpi.png" density="hdpi" />
+        <icon src="res/android/icon-ldpi.png" density="ldpi" />
+        <icon src="res/android/icon-mdpi.png" density="mdpi" />
+        <icon src="res/android/icon-xhdpi.png" density="xhdpi" />
+        <icon src="res/android/icon-xxhdpi.png" density="xxhdpi" />
+        <icon src="res/android/icon-xxxhdpi.png" density="xxxhdpi" />
+        <splash src="res/android/splash-port-hdpi.png" density="port-hdpi"/>
+        <splash src="res/android/splash-port-ldpi.png" density="port-ldpi"/>
+        <splash src="res/android/splash-port-mdpi.png" density="port-mdpi"/>
+        <splash src="res/android/splash-port-xhdpi.png" density="port-xhdpi"/>
+        <splash src="res/android/splash-port-xxhdpi.png" density="port-xxhdpi"/>
+        <splash src="res/android/splash-port-xxhdpi.png" density="port-xxxhdpi"/>
     </platform>
 
     <plugin name="cordova-plugin-facebook4" spec="pluginsBase/cordova-plugin-facebook4">

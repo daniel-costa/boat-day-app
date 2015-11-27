@@ -15,7 +15,14 @@
     NSString *jsKey = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"ParseJavaScriptKey"];
     
     [Parse setApplicationId:appId clientKey:clientKey];
-
+    
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        [[UIApplication sharedApplication] registerUserNotificationSettings: [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    } else {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
+    }
+    
     NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:2];
     [dict setObject:appId forKey:@"parseAppId"];
     [dict setObject:jsKey forKey:@"parseJavaScriptKey"];
@@ -67,19 +74,25 @@ void MethodSwizzle(Class c, SEL originalSelector) {
     MethodSwizzle([self class], @selector(application:didReceiveRemoteNotification:));
 }
 
+
 - (void)noop_application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
+    NSLog(@"noop_application");
 }
 
 - (void)swizzled_application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
+    NSLog(@"swizzled_application");
+    
     // Call existing method
     [self swizzled_application:application didRegisterForRemoteNotificationsWithDeviceToken:newDeviceToken];
+    
     // Store the deviceToken in the current installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:newDeviceToken];
     [currentInstallation saveInBackground];
 }
+
 
 - (void)noop_application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
