@@ -109,8 +109,13 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider', 'c
 
 			appStarted = true;
 
+<<<<<<< HEAD
 			//Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
 			 Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
+=======
+			Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
+			// Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
+>>>>>>> origin/master
 
 			new AppView(function() {
 				new AppRouter();
@@ -121,6 +126,7 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider', 'c
 		
 		window.isAndroid = navigator != undefined && navigator.userAgent != undefined && navigator.userAgent.indexOf("Android") > 0;
 
+<<<<<<< HEAD
 		if(window.isAndroid){
 			window.installation.installationId = BDHelper.getInstallationId();
 			startApp();
@@ -138,6 +144,45 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider', 'c
 				startApp();
 			});
 		}
+=======
+		var push = PushNotification.init({ 
+			"android": {
+				"senderID": "836545808856"
+			},
+			"ios": {
+				"alert": "true", 
+				"badge": "true", 
+				"sound": "true"
+			}, 
+			"windows": {
+			}
+		});
+
+		push.on('registration', function(data) {
+			window.installation.token = data.registrationId;
+			startApp();
+		});
+
+		push.on('notification', function(data) {
+			
+			console.log("new notification");
+			console.log(data);
+
+			if ( event.alert ) {
+				// We do not show the notification when in the app
+				// $(document).trigger('globalInfo', event.alert);
+				$(document).trigger('updateNotificationsAmount');
+			}
+		});
+
+		push.on('error', function(e) {
+			
+			console.log('error in notifications');
+			console.log(e);
+
+			startApp();
+		});
+>>>>>>> origin/master
 
 		Keyboard.onshowing = function () {
 			StatusBar.hide();

@@ -38,7 +38,11 @@
     NSString *token = [[[[deviceToken description] stringByReplacingOccurrencesOfString:@"<"withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""] stringByReplacingOccurrencesOfString: @" " withString: @""];
     
     NSMutableDictionary* message = [NSMutableDictionary dictionaryWithCapacity:1];
+<<<<<<< HEAD
 	[message setObject:token forKey:@"token"];
+=======
+    [message setObject:token forKey:@"tokenId"];
+>>>>>>> origin/master
     
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:message];
     [pluginResult setKeepCallbackAsBool:YES];
