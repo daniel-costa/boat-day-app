@@ -14,9 +14,9 @@ import com.parse.Parse;
 import com.parse.ParseInstallation;
 import com.parse.PushService;
 
-public class ParsePlugin extends CordovaPlugin {
+public class BDHelper extends CordovaPlugin {
 
-    public static final String TAG = "ParsePlugin";
+    public static final String TAG = "BDHelper";
     public static final String ACTION_INITIALIZE = "initialize";
     public static final String ACTION_GET_INSTALLATION_ID = "getInstallationId";
     public static final String ACTION_GET_INSTALLATION_OBJECT_ID = "getInstallationObjectId";
