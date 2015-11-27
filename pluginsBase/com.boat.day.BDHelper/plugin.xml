@@ -9,12 +9,9 @@
     <engine name="cordova" version=">=3.0.0" />
   </engines>
 
-<<<<<<< HEAD
-=======
   <js-module src="www/BDHelper.js" name="BDHelper">
     <merges target="BDHelper" />
   </js-module>
->>>>>>> origin/master
 
   <!-- android -->
   <platform name="android">
@@ -53,7 +50,6 @@
           </intent-filter>
         </receiver>
       </config-file>
-<<<<<<< HEAD
 	  
 	  <source-file src="src/android/bdhelper.xml" target-dir="res/values" />
 	  <config-file target="res/values/bdhelper.xml" parent="/*">
@@ -65,12 +61,6 @@
 	  <framework src="com.parse:parse-android:1.+" />
 
       <source-file src="src/android/BDHelperApplication.java" target-dir="src/com/boat/day/" />
-	  
-=======
-
-      <source-file src="src/android/BDHelper.java" target-dir="src/com/boat/day/" />
-      <source-file src="src/android/BDHelperApplication.java" target-dir="src/com/boat/day/" />
->>>>>>> origin/master
   </platform>
 
   <platform name="ios">
