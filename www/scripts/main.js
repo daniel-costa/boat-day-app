@@ -95,7 +95,7 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 
 		console.log("device ready");
 		
-		window.isAndroid = navigator != undefined && navigator.userAgent != undefined &&  navigator.userAgent.toLowerCase().indexOf('android') > -1;
+		window.isAndroid = navigator != undefined && navigator.userAgent != undefined && navigator.userAgent.toLowerCase().indexOf('android') > -1;
 					
 		BDHelper.initialize(function(data) {
 
