@@ -94,3 +94,51 @@ Done:
 - Done - Can't scroll in notifications list
 - Done - When open a notification regarding a question scroll to area
 - Done - Add credit card icon for select
+
+
+----->> Screens to do for cross browsers in less <<-------
+
+- screen-guest.less [DONE]
+- boatday-base.less [Some are not defined in vendor]
+- boatday-components.less [DONE] //-webkit-appearance: none;
+- boatday-drawer.less [DONE] //-webkit-font-smoothing: antialiased; 
+- boatday-modal.less [DONE] //-webkit-transition
+- boatday-notifications.less [DONE] //-webkit-transform
+- boatday-overlay.less [DONE] //-webkit-transition: -webkit-transform
+- card-boatday-cancelled.less [DONE]
+- card-boatday-past.less [DONE]
+- card-boatday-pending.less [DONE]
+- card-boatday-upcoming.less [DONE]
+- card-boatday.less [DONE]
+- card-credit-card.less [DONE]
+- screen-about-us.less [DONE]
+- screen-adjust-price.less [DONE]
+- screen-boat.less [DONE]
+- screen-boatday-active-about.less [DONE]
+- screen-boatday-active.less [DONE]
+- screen-boatday.less [DONE]
+- screen-boatdays.less [DONE]
+- screen-book.less [DONE]
+- screen-cancellation.less [DONE]
+- screen-chat.less [DONE] //new variables
+- screen-filter.less [DONE]
+- screen-guest.less [DONE]
+- screen-map.less [DONE]
+- screen-missing-info.less [DONE]
+- screen-my-picture.less [DONE] //-webkit-font-smoothing
+- screen-my-profile.less [DONE]
+- screen-notifications.less [DONE]
+- screen-pay.less [DONE]//-webkit-font-smoothing
+- screen-payments.less [DONE]
+- screen-price-info.less [DONE]
+- screen-profile.less [DONE]
+- screen-promo-code.less [DONE]
+- screen-report.less [DONE]
+- screen-requests.less [DONE]
+- screen-schedule.less [DONE]
+- screen-sign-in-less [DONE]
+- screen-sign-up.less [DONE]
+- screen-terms.less [DONE]	
+- screen-trip.less [DONE]	
+- screen-trips.less [DONE]	
+- screen-water-policy.less 

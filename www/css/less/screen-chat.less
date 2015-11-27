@@ -1,15 +1,17 @@
 
 .screen-chat footer {
 	padding: 12px;
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
+
+	.display-flex();
+	.flex-direction(row);
 }
 
 .screen-chat footer input {
 	width: auto;
-	-webkit-flex:1;
 	padding: 0px 10px;
 	border-radius: 3pt;
+
+	.flex(1);
 }
 
 .screen-chat footer input::-webkit-input-placeholder {
@@ -28,8 +30,9 @@
 .screen-chat .message {
 	margin-top: 10pt;
 	margin-bottom: 5pt;
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
+
+	.display-flex();
+	.flex-direction(row);
 }
 
 .screen-chat .host-picture,

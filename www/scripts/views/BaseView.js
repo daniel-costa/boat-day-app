@@ -227,6 +227,8 @@ define([
 
 		render: function( init ) {
 			
+			var self = this;
+
 			var data = {
 				self: this
 			};
@@ -247,10 +249,45 @@ define([
 			
 			this.handleStatusBarAndDrawer(this.statusbar, this.drawer);
 			
+			Keyboard.onshowing = function () {
+				self.keyBoardAppear();
+				
+				if(self.isiOS) {
+
+					self.keyBoardAppear_iOS();
+				}
+
+				if(self.isAndroid) {
+
+					self.keyBoardAppear_Android();
+				}
+			};
+
+			Keyboard.onhiding = function () {
+				self.keyBoardDisappear();
+				
+				if(self.isiOS) {
+
+					self.keyBoardDisappear_iOS();
+				}
+
+				if(self.isAndroid) {
+
+					self.keyBoardDisappear_Android();
+				}
+			};
+
 			console.log("### Render (" + this.className + ") ###");
 			
 			return this;
 		},
+
+		keyboardAppear: function() { },
+		keyboardAppear_iOS: function() {},
+		keyboardAppear_Android: function() {},
+		keyBoardDisappear: function() {},
+		keyBoardDisappear_iOS: function() {},
+		keyBoardDisappear_Android: function() {},
 
 		handleStatusBarAndDrawer: function(sb, drawer) {
 
@@ -482,7 +519,21 @@ define([
 
 		_info: function(message) {
 			$(document).trigger('globalInfo', message);
-		}
+		}, 
+
+		isiOS: function() {
+			if(navigator != undefined && navigator.userAgent != undefined) {
+				// ToDo
+				return false;
+				// return navigator.userAgent.indexOf("Android") > 0;
+			}
+		}, 
+
+		isAndroid: function() {
+			if(navigator != undefined && navigator.userAgent != undefined) {
+				return navigator.userAgent.indexOf("Android") > 0;
+			}
+		}, 
 
 	});
 	return BaseView;

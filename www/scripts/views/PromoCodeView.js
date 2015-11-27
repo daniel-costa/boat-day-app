@@ -9,13 +9,18 @@ define([
 		template: _.template(PromoCodeTemplate),
 
 		events: {
-			'click .save' : 'save'
+			'click .save' : 'save', 
+			'click .promo': 'inputClicked'
 		}, 
 
 		initialize: function(data) {
-			
 			this.parentView = data.parentView;
+		},
 
+		inputClicked: function(event){
+			if( this.isAndroid ){
+				this.$el.find('.drop header').hide();
+			}
 		},
 
 		save: function() {

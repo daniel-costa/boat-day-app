@@ -5,8 +5,9 @@
 
 .screen-guest .btn-group {
 	padding: 32px;
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
+
+	.display-flex();
+	.flex-direction(row);
 }
 
 .screen-guest .btn-group button {
@@ -30,20 +31,22 @@
 .screen-guest .boatday-card {
 	border-radius: 4.27pt;
 	overflow: hidden;
-	/* border: 1px solid #e4e9eb; */
 	border-bottom-width: 2px;
-	-webkit-align-self: center;
-	display: -webkit-flex;
-	-webkit-flex-direction: column;
+
+	.align-self(center);
+	.display-flex();
+	.flex-direction(column);
+
 	height: 60vh;
 	width: 80vw;
 	margin: 0px 10vw;
 }
 
 .screen-guest .boatday-card .boatday-image {
-	-webkit-flex: 1;
 	background: center no-repeat;
 	background-size: cover;
+
+	.flex(1);
 }
 
 .screen-guest .boatday-card .details {
@@ -59,7 +62,7 @@
 }
 
 .screen-guest .swiper-container {
-	-webkit-flex: 1;
+	.flex(1);
 	padding: 29px 0px 54px 0px;
 }
 

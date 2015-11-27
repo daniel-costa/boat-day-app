@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="gcm2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/pluginsBase/phonegap-plugin-push/src/android/libs/gcm.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

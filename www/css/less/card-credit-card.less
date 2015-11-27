@@ -7,20 +7,22 @@
 	padding: 42px 26px 42px 30px;
 	border: 1px solid rgba(29, 29, 39, 0.05);
 	
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
-	-webkit-flex-wrap: nowrap;
+	.display-flex();
+	.flex-direction(row);
+	.flex-wrap(nowrap);
 }
 
 .card-credit-card img {
 	height: 40px;
 	margin-right: 12px;
-	-webkit-align-self: center;
+
+	.align-self(center);
 }
 
 .card-credit-card div {
-	-webkit-flex: 1;
-	-webkit-align-self: center;
+	.flex(1);
+	.align-self(center);
+
 	font-size: 0;
 }
 

@@ -1,0 +1,30 @@
+Add Plugin
+	cordova plugin add pluginsBase/com.boat.day.BDHelper
+
+	
+	
+Prepare android
+	cordova prepare android
+	cordova build android (do this at least once before importing project in android studio)
+
+
+	
+	
+Modify MainActivity.java (add following three lines before loadUrl(launchUrl))
+	super.init();
+	WebView wV = (WebView) appView.getEngine().getView();
+	wV.addJavascriptInterface(((BDHelperApplication) getApplicationContext()), "BDHelper");
+
+
+
+	
+Modify android/Manifest.xml 
+	Add  android:name=".BDHelperApplication" in application tag
+	
+	
+	
+	
+Get f***ing installationId in js file
+	var installatinId = BDHelper.getInstallationId();
+
+

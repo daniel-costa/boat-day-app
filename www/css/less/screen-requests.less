@@ -5,9 +5,10 @@
 .screen-requests .categories {
 	background: rgba(255, 255, 255, 0);
 	border-bottom: none;
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
-	-webkit-justify-content: space-between;
+
+	.display-flex();
+	.flex-direction(row);
+	.justify-content(space-between);
 }
 
 .screen-requests .categories a {
@@ -29,6 +30,6 @@
 }
 
 .screen-requests .list {
-	-webkit-flex: 1;
+	.flex(1);
 	overflow: auto;
 }

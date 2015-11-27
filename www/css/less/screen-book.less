@@ -3,23 +3,26 @@
 }
 
 .screen-book main > div {
-	display: -webkit-flex;
-	-webkit-flex-direction: column;
-	-webkit-flex: 1;
+	.display-flex();
+	.flex-direction(column);
+	.flex(1);
+
 	height: 100%;
 }
 
 .screen-book .items {
-	display: -webkit-flex;
-	-webkit-flex-direction: column;
 	background: white;
+
+	.display-flex();
+	.flex-direction(column);
 }
 
 .screen-book .item {
 	border-bottom: 1px solid rgba(29, 29, 28, 0.05);
 	color: rgba(56, 61, 62, 1);
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
+
+	.display-flex();
+	.flex-direction(row);
 }
 
 .screen-book .item .icon {
@@ -36,27 +39,29 @@
 
 .screen-book .item select {
 	font-size: 11.95px;
-	-webkit-flex: 1;
 	line-height: 60px;
 	padding: 0px;
 	padding-left: 26px;
+
+	.flex(1);
 }
 
 .screen-book .price-pay {
 	border-bottom: none;
-	-webkit-flex: 1;
-	display: -webkit-box;
-	display: -webkit-flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
+
+	.flex(1);
+	.display-flex();
+	.box-pack(center);
+	.justify-content(center);
+	.box-align(center);
+	.align-items(center);
 }
 
 .screen-book .btn-group {
 	padding: 0px 15px 15px 15px;
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
+
+	.display-flex();
+	.flex-direction(row);
 }
 
 .screen-book .btn-group button:first-child {

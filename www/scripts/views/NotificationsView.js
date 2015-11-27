@@ -75,6 +75,8 @@ define([
 
 					self.notifications[notification.id] = notification;
 
+					console.log(notification.id);
+
 					if( notification.get("from") ) {
 						self.profiles[notification.get("from").id] = notification.get("from");
 					}

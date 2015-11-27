@@ -22,7 +22,7 @@
 				Unfortunately, I can't approve your seat request for <strong><%= model.get('boatday').get('name') %></strong>. Try requesting another date.
 			<% } %>
 
-			<% if( model.get("action") == "request-cancelled-host" && boatday && model.get('request') ) { %>
+			<% if( model.get("action") == "request-cancelled-host" && model.get('boatday') && model.get('request') ) { %>
 				Bad news, I had to cancel your reserved seat<%= model.get('request').get('seats') == 1 ? '' : 's' %> for the BoatDay <strong><%= model.get('boatday').get('name') %></strong>.
 				You can now find this BoatDay in your <a href="#/requests?subView=past">Completed BoatDays</a>.
 			<% } %>

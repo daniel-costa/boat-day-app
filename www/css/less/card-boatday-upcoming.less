@@ -20,15 +20,18 @@
 .boatday-card-upcoming .details .items {
  	margin-left: 29px;
 	margin-right: 29px;
-	display: -webkit-flex;
-	-webkit-flex-flow: row nowrap;
-	-webkit-justify-content: space-between;
+
+	.display-flex();
+	.flex-flow(row nowrap);
+	.justify-content(space-between);
 }
+
 .boatday-card-upcoming .details .items .item {
 	display: inline-block;
 	font-size: 0px;
 
 }
+
 .boatday-card-upcoming .details .items .item .icon {
 	width: 22px;
 	height: 22px;
@@ -113,6 +116,7 @@
 	background: transparent;
 	font-size: 8.53px;
 	margin-top: 20px;
+	outline: 0px;
 }
 
 .boatday-card-upcoming .image button:active {

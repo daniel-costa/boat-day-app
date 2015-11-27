@@ -29,8 +29,8 @@
 	border-radius: 3pt;
  	background-color: rgba(249, 251, 251, 1);
 
- 	display: -webkit-flex;
-	 -webkit-flex-direction: column;
+ 	.display-flex();
+ 	.flex-direction(column);
 }
 
 [class^="screen-"].overlay header, 
@@ -83,13 +83,13 @@
 	color: white;
 	text-align: center;
 	padding-top:3px;
-	display: -webkit-box;
-	display: -webkit-flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	-webkit-align-self: center;
+
+	.display-flex();
+	.box-pack(center);
+	.justify-content(center);
+	.box-align(center);
+	.align-items(center);
+	.align-self(center);
 }
 
 [class^="screen-"].overlay.active,

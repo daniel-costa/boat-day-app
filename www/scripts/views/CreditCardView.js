@@ -12,13 +12,23 @@ define([
 
 		events: {
 			'keypress input': 'controlCSV',
-			'click .save': 'save'
+			'click .save': 'save', 
+			'click #number': 'inputClicked', 
+			'click #expiry': 'inputClicked', 
+			'click #cvv': 'inputClicked'
 		},
 
 		profileSetup: false,
 
 		initialize: function() {
 
+		},
+
+		inputClicked: function(event){
+			
+			if( this.isAndroid ){
+				this.$el.find('.drop header').hide();
+			}
 		},
 
 		render: function() {

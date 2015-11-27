@@ -124,9 +124,11 @@
 }
 
 .screen-boatday .boatday-features .features {
-	display: -webkit-flex;
-	-webkit-flex-flow: row wrap;
-	-webkit-justify-content: space-between;
+	
+	.display-flex();
+	.flex-flow(row wrap);
+	.justify-content(space-between);
+
 	padding: 25px 0px;
 
 }
@@ -150,10 +152,11 @@
 
 .screen-boatday .guests .list {
 	text-align: center;
-	display: -webkit-flex;
-	-webkit-flex-flow: row wrap;
-	-webkit-justify-content: space-around;
 	padding: 15px;
+
+	.display-flex();
+	.flex-flow(row wrap);
+	.justify-content(space-around);
 }
 
 .screen-boatday .guests .list .guest {
@@ -190,12 +193,12 @@
 	height: 260px;
 	text-align: center;
 	vertical-align: middle;
-	display: -webkit-box;
-	display: -webkit-flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
+
+	.display-flex();
+	.box-pack(center);
+	.justify-content(center);
+	.box-align(center);
+	.align-items(center);
 }
 
 .screen-boatday .location h1 {
@@ -327,6 +330,7 @@
 	background: transparent;
 	font-size: 8.53px;
 	margin-top: 20px;
+	outline: 0px;
 }
 
 .screen-boatday .sharing button:active {

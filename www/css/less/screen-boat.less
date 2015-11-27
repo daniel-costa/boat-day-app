@@ -95,10 +95,11 @@
 }
 
 .screen-boat .boat-amenities .features {
-	display: -webkit-flex;
-	-webkit-flex-flow: column wrap;
-	-webkit-flex-direction: row;
 	padding: 30px 0px 30px 50px;
+
+	.display-flex();
+	.flex-flow(column wrap);
+	.flex-direction(row);
 }
 
 .screen-boat .boat-amenities .features p {

@@ -22,14 +22,16 @@
 
 .screen-trips .list .trip .items {
 	margin-top: 13px;
-	display: -webkit-flex;
+
+	.display-flex();
 }
 
 .screen-trips .list .trip .items .item {
-	display: -webkit-flex;
-	flex-flow: column;
 	width: 50vw;
 	text-align: center;
+
+	.display-flex();
+	.flex-flow(column);
 }
 
 .screen-trips .list .trip .items .item:last-child {

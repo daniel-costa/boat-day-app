@@ -7,33 +7,34 @@
 }
 
 .screen-price-info .items {
-	-webkit-flex: 1;
-	display: -webkit-flex;
-	-webkit-flex-direction: column;
+	.flex(1);
+	.display-flex();
+	.flex-direction(column);
 }
 
 .screen-price-info .items div {
-	-webkit-flex: 1;
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
 	padding: 0px 15px;
 	border-bottom: 1px solid rgba(29, 29, 38, 0.05);
+
+	.flex(1);
+	.display-flex();
+	.flex-direction(row);
 }
 
 .screen-price-info .items div * {
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	-webkit-align-self: center;
+	.box-pack(center);
+	.justify-content(center);
+	.box-align(center);
+	.align-items(center);
+	.align-self(center);
 }
 
 .screen-price-info .items label {
-	-webkit-flex: 1;
 	color: rgba(177, 191, 204, 1);
 	font-weight: 400;
 	font-size: 10.67pt;
 	line-height: 17.92pt;
+	.flex(1);
 }
 
 .screen-price-info .items .seats {

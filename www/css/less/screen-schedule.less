@@ -14,26 +14,28 @@
  }
 
 .screen-schedule .items {
-	-webkit-flex: 1;
-	display: -webkit-flex;
-	-webkit-flex-direction: column;
+	.flex(1);
+	.display-flex();
+	.flex-direction(column);
 }
+
 .screen-schedule .items div {
-	-webkit-flex: 1;
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
 	padding: 10px 26px;
 	border-top: 1px solid rgba(29, 29, 38, 0.05);
+
+	.flex(1);
+	.display-flex();
+	.flex-direction(row);
 }
 .screen-schedule .items div * {
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	-webkit-align-self: center;
+	.box-pack(center);
+	.justify-content(center);
+	.box-align(center);
+	.align-items(center);
+	.align-self(center);
 }
 .screen-schedule .items label {
-	-webkit-flex: 1;
+	.flex(1);
 	color: rgba(177, 191, 204, 1);
 	font-weight: 400;
 	font-size: 10.67pt;

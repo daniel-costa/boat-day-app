@@ -125,29 +125,6 @@ define([
 				self.$el.find('.boatday-picture').css({ backgroundImage: 'url(' + fh.get('file').url() + ')' });
 			});
 
-			var slidersConfig = { 
-				tooltip: 'hide'
-			};
-
-			var departureTimeSlideEvent = function(slideEvt) {
-				var maxDuration = Math.min(12, 24 - slideEvt.value);
-				var duration = self._in('duration').slider('getValue');
-				self._in('duration').slider({max: maxDuration}).slider('setValue', duration > maxDuration ? maxDuration : duration, true, false);
-				self.$el.find('.preview-departureTime').text(slideEvt.value);
-			};
-
-			var durationSlideEvent = function(slideEvt) {
-				self.$el.find('.preview-duration').text(slideEvt.value + ' hour' + (slideEvt.value != 1 ? 's' : ''));
-			};
-
-			this._in('departureTime').slider(slidersConfig).on("slide", departureTimeSlideEvent);
-			this._in('duration').slider(slidersConfig).on("slide", durationSlideEvent);
-
-			self.$el.find('.calendar').calendar({
-				tmpl_path: "/tmpls/",
-				events_source: function () { return []; }
-			});
-
 			self.updatePrice();
 
 			return this;

@@ -3,8 +3,9 @@
 }
 
 .snap-drawer {
-	display: -webkit-flex;
-	-webkit-flex-direction: column;
+	.display-flex();
+	.flex-direction(column);
+
 	background: white;
 	width: 266px;
 	border-right: 1px solid rgba(29, 29, 38, 0.05);
@@ -13,14 +14,14 @@
 .snap-drawer .top {
 	height: 40vh;
 	width: 100%;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -webkit-align-self: center;
+	text-align: center;
+
+	.display-flex();
+	.box-pack(center);
+	.justify-content(center);
+	.box-align(center);
+	.align-items(center);
+	.align-self(center);
 }
 
 .snap-drawer .top .info {
@@ -37,7 +38,7 @@
 }
 
 .snap-drawer .links {
-	-webkit-flex: 1;
+	.flex(1);
 }
 
 .snap-drawer .links a {
@@ -61,8 +62,8 @@
 	font-variant: normal !important;
 	text-transform: none !important;
 	speak: none;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased; //HERE
+	-moz-osx-font-smoothing: grayscale; //HERE
 	font-size: 10pt;
 }
 

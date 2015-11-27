@@ -25,9 +25,9 @@
 }
 
 .screen-notifications .notification .header {
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
-	-webkit-flex-wrap: nowrap;
+	.display-flex();
+	.flex-direction(row);
+	.flex-wrap(nowrap);
 }
 
 .screen-notifications .notification .header * {
@@ -41,7 +41,8 @@
 	font-weight: 700;
 	font-size: 10.67pt;
 	margin-left: 8px;
-	-webkit-flex: 1;
+	
+	.flex(1);
 }
 
 .screen-notifications .notification .header .time {

@@ -19,14 +19,15 @@
 }
 
 .screen-my-picture .header .btn-group {
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
 	margin: 0px 20px;
+
+	.display-flex();
+	.flex-direction(row);
 }
 
 .screen-my-picture .header .btn-group .take-picture,
 .screen-my-picture .header .btn-group .open-gallery {
-	-webkit-flex: 1;
+	.flex(1);
 }
 
 .screen-my-picture .header .btn-group .take-picture {

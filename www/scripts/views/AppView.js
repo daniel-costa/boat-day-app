@@ -178,6 +178,14 @@ define([
 					}).then(function(){}, function(error){});
 				}
 				
+				if( window.installation.installationId ) {
+					Parse.Cloud.run('attachUserProfileToInstallationWithInstallationId', {
+						installationId: window.installation.installationId,
+						user: Parse.User.current().id,
+						profile: profile.id,
+					}).then(function(){}, function(error){});
+				}
+				
 				self.snap = new Snap({
 					element: document.getElementById('content'),
 					disable: 'right',
@@ -266,6 +274,15 @@ define([
 
 			function isTextInput(node) { return ['INPUT', 'TEXTAREA'].indexOf(node.nodeName) !== -1; }
 			document.addEventListener('touchstart', touchstart, false);
+			
+			if(navigator != undefined && navigator.userAgent != undefined) {
+				
+				user_agent = navigator.userAgent.toLowerCase();
+
+				if(user_agent.indexOf('android') > -1) { // Is Android.
+					$(document.body).addClass('android');
+				}
+			}
 		},
 
 		updateGeoPoint: function(cb) {

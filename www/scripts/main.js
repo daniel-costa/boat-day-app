@@ -61,6 +61,7 @@ require.config({
 
 window.installation = {};
 window.deepLinking = null;
+window.isAndroid = false;
 
 function handleOpenURL(url) {
 
@@ -108,8 +109,8 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider', 'c
 
 			appStarted = true;
 
-			// Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
-			Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
+			//Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
+			 Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
 
 			new AppView(function() {
 				new AppRouter();
@@ -117,40 +118,26 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider', 'c
 			});
 
 		};
+		
+		window.isAndroid = navigator != undefined && navigator.userAgent != undefined && navigator.userAgent.indexOf("Android") > 0;
 
-		var push = PushNotification.init({ 
-			"android": {
-				"senderID": "12345679"
-			},
-			"ios": {
-				"alert": "true", 
-				"badge": "true", 
-				"sound": "true"
-			}, 
-			"windows": {
-			}
-		});
-
-		push.on('registration', function(data) {
-			window.installation.token = data.registrationId;
+		if(window.isAndroid){
+			window.installation.installationId = BDHelper.getInstallationId();
 			startApp();
-		});
+		} else {
 
-		push.on('notification', function(data) {
-			console.log("new notification");
-			console.log(data);
-			if ( event.alert ) {
-				// We do not show the notification when in the app
-				// $(document).trigger('globalInfo', event.alert);
-				$(document).trigger('updateNotificationsAmount');
-			}
-		});
+			bdHelper = BDHelper.init();
 
-		push.on('error', function(e) {
-			console.log('error in notifications');
-			console.log(e);
-			startApp();
-		});
+			bdHelper.on('registration', function(params) {
+				window.installation.token = params.token;
+				startApp();
+			});
+
+			bdHelper.on('error', function(e) {
+				console.log("Error on BDHelper" + e);
+				startApp();
+			});
+		}
 
 		Keyboard.onshowing = function () {
 			StatusBar.hide();
@@ -159,7 +146,7 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider', 'c
 		Keyboard.onhiding = function () {
 			StatusBar.show();
 		};
-
+		
 	}, false);
 
 });

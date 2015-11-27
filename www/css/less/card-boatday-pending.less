@@ -75,10 +75,12 @@
 .boatday-card-pending .details .items {
  	margin-left: 29px;
 	margin-right: 29px;
-	display: -webkit-flex;
-	-webkit-flex-flow: row nowrap;
-	-webkit-justify-content: space-between;
+
+	.display-flex();
+	.flex-flow(row nowrap);
+	.justify-content(space-between);
 }
+
 .boatday-card-pending .details .items .item {
 	display: inline-block;
 	font-size: 0px;
@@ -145,9 +147,10 @@
 
 .boatday-card-pending .buttons {
 	margin: 31px;
-	display: -webkit-flex;
-	-webkit-flex-flow: row;
-	-webkit-align-items: center
+
+	.display-flex();
+	.flex-flow(row);
+	.align-items(center);
 }
 
 .boatday-card-pending .buttons button {

@@ -29,7 +29,13 @@ define([
 
 		directions: function() {
 			var boatday = this.model;
-			var url = 'comgooglemaps://?directionsmode=driving&daddr=' + boatday.get('location').latitude + ',' + boatday.get('location').longitude;
+			
+			if( this.isAndroid() ) {
+				var url = 'http://maps.google.com/?directionsmode=driving&daddr=' + boatday.get('location').latitude + ',' + boatday.get('location').longitude;
+			} else {
+				var url = 'comgooglemaps://?directionsmode=driving&daddr=' + boatday.get('location').latitude + ',' + boatday.get('location').longitude;
+			}
+
 			window.open(url, '_system');
 		},
 

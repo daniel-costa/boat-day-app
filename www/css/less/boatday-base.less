@@ -44,29 +44,37 @@ h1, h2, h3, h4, h5, h6, div, p {
 [class^="screen-"],
 [class*=" screen-"] {
 	height: 100vh;
-	display: -webkit-flex;
-	-webkit-flex-direction: column;
 	background: transparent;
+
+	.display-flex();
+	.flex-direction(column);
 }
 
 header {
 	height: @header-height;
-	-webkit-order: 1;
 	padding-top: @status-bar-height;
 	background: @header-background;
 	border: @header-border;
 	padding-top: 25px;
 	color: @header-color;
 	width: 100vw;
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
-	-webkit-flex-wrap: nowrap;
 	overflow: hidden;
+
+	.order(1);
+	.display-flex();
+	.flex-direction(row);
+	.flex-wrap(nowrap);
+}
+
+body.android header {
+	height: 40pt;
+	padding-top: 3.5px;
 }
 
 header h1 {
-	-webkit-align-self: center;
-	-webkit-flex: 1;
+	.align-self(center);
+	.flex(1);
+
 	padding: 0px;
 	margin: 0px 10px;
 	vertical-align:center;
@@ -84,28 +92,30 @@ header h1 {
 }
 
 main {
-	-webkit-flex: 1;
-	-webkit-order: 2;
-	-webkit-overflow-scrolling: touch;
-	overflow:auto;
+	-webkit-overflow-scrolling: touch; //not defined in vendor class
 
+	.flex(1);
+	.order(2);
+
+	overflow:auto;
 	background: @main-background;
 	border: @main-border;
 
-	display: -webkit-flex;
-	-webkit-flex-direction: column;
+	.display-flex();
+	.flex-direction(column);
 }
 
 main > * {
-	-webkit-transform: translateZ(0);
+	-webkit-transform: translateZ(0); //HERE
 }
 
 footer {
 	height: @footer-height;
-	-webkit-order: 3;
 	padding: 25px;
 	background: @footer-background;
 	border-top: @footer-border-top;
+
+	.order(3);
 }
 
 a {
@@ -131,10 +141,9 @@ a {
 	top: 0px;
 	height: 100%;
 	
-	display: -webkit-box;
-	display: -webkit-flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
+	.display-flex();
+	.box-pack(center);
+	.justify-content(center);
+	.box-align(center);
+	.align-items(center);	
 }

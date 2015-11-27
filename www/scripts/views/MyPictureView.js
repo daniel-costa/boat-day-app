@@ -69,8 +69,10 @@ define([
 						});
 					});
 				} else {
-					self.loading();
-					self._info('Profile saved');
+					$(document).trigger('loadProfile', function() {
+						self.loading();
+						self._info('Profile saved');
+					});
 				}
 
 			};
@@ -132,7 +134,6 @@ define([
 				if( error != "no image selected" ) {
 					self._error('Oops... Something went wrong. Try later or if it persists close totally the app and open it again.');
 				}
-
 			};
 
 			navigator.camera.getPicture(pictureSaveSuccess, pictureSaveError, self.__GLOBAL_CAMERA_OPEN_GALLERY__);
@@ -156,7 +157,7 @@ define([
 			var profileUpdate = function(picture) {
 				self.loading();
 				self.tempPicture = picture;
-				self.$el.find('.profile-picture').css({ backgroundImage: 'url(' + picture.url() + ')' });
+				self.$el.find('.guest-picture').css({ backgroundImage: 'url(' + picture.url() + ')' });
 			};
 
 			var pictureSaveError = function(error) {

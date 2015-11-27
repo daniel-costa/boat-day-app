@@ -64,10 +64,11 @@
 	border: 1pt solid rgba(228, 233, 235, 1);
 	border-bottom-width: 2pt;
 	border-radius: 2pt;
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
 	height: 50px;
-	-webkit-align-items: center;
+
+	.display-flex();
+	.flex-direction(row);
+	.align-items(center);
 }
 
 .screen-profile .boats .listing .boat:first-child {
@@ -213,9 +214,10 @@
 
 .screen-profile .boatdays .boatday-card .details .boatday-items {
 	margin-top: 14px;
-	display: -webkit-flex;
-	-webkit-flex-flow: row nowrap;
-	-webkit-justify-content: space-between;
+
+	.display-flex();
+	.flex-flow(row nowrap);
+	.justify-content(space-between);
 }
 
 .screen-profile .boatdays .boatday-card .details .boatday-items .boatday-item {
