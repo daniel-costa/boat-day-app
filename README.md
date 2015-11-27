@@ -36,6 +36,7 @@
 * `cordova build android`
 * `cordova build android`
 
+
 # iOS Changes
 
 ## Allow HTTP Requests
@@ -47,17 +48,8 @@
 }
 @end'
 
-# Android Changes
 
-## Modify MainActivity.java
-* Find `loadUrl(launchUrl))`
-* Add :
-'super.init();
-WebView wV = (WebView) appView.getEngine().getView();
-wV.addJavascriptInterface(((BDHelperApplication) getApplicationContext()), "BDHelper");'
+# Android Changes
 
 ## Modify android/Manifest.xml
 * Add `android:name=".BDHelperApplication"` in application tag
-
-## NB:
-* BDHelper for android, use `BDHelper.getInstallationId();` in JavaScript to have installationId

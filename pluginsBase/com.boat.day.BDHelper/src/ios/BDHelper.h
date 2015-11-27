@@ -1,16 +1,14 @@
 
-#import <Foundation/Foundation.h>
 #import <Cordova/CDV.h>
-#import <Cordova/CDVPlugin.h>
-#import <Parse/Parse.h>
+#import "AppDelegate.h"
 
-@interface BDHelper : CDVPlugin
-{
-    BOOL ready;
-}
+@interface BDHelper: CDVPlugin
 
-@property (nonatomic, copy) NSString *callbackId;
-- (void)init:(CDVInvokedUrlCommand*)command;
-- (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
-- (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
+- (void)initialize: (CDVInvokedUrlCommand*)command;
+- (void)getInstallationId: (CDVInvokedUrlCommand*)command;
+- (void)getInstallationObjectId: (CDVInvokedUrlCommand*)command;
+
+@end
+
+@interface AppDelegate (BDHelper)
 @end

@@ -54,7 +54,7 @@ require.config({
 	}
 });
 
-window.installation = {};
+window.installationId = null;
 window.deepLinking = null;
 window.isAndroid = false;
 
@@ -94,52 +94,32 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 	document.addEventListener("deviceReady", function() {
 
 		console.log("device ready");
-	
-		var appStarted = false;
-
-		var startApp = function() {
-
-			if( appStarted ) 
-				return;
-
-			appStarted = true;
-
-			//Parse.initialize("8YpQsh2LwXpCgkmTIIncFSFALHmeaotGVDTBqyUv", "FaULY8BIForvAYZwVwqX4IAmfsyxckikiZ2NFuEp"); // HP
-			Parse.initialize("LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU", "kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU"); // QA 
-
-			new AppView(function() {
-				new AppRouter();
-				Parse.history.start();
-			});
-
-		};
 		
-		window.isAndroid = navigator != undefined && navigator.userAgent != undefined && navigator.userAgent.toLowerCase().indexOf("android") >= 0;
-
-		alert( navigator.userAgent.toLowerCase() );
-		alert( navigator.userAgent.toLowerCase().indexOf("android") );
-
-		if(window.isAndroid){
+		BDHelper.initialize(function(data) {
 			
-			$(document.body).addClass('android');
-			window.installation.installationId = BDHelper.getInstallationId();
-			startApp();
+			console.log(data);
 
-		} else {
+			BDHelper.getInstallationId(function(installationId) {	
+				
+				console.log(installationId);
 
-			bdHelper = BDHelper.init();
+				Parse.initialize(data.parseAppId, data.parseJavaScriptKey);
 
-			bdHelper.on('registration', function(params) {
-				window.installation.token = params.token;
-				startApp();
+				window.installationId = installationId;
+
+				new AppView(function() {
+					new AppRouter();
+					Parse.history.start();
+				});
+
+			}, function(error) {
+				alert('BDHelper.getInstallationId error')
+				console.log(error);
 			});
-
-			bdHelper.on('error', function(e) {
-				console.log("Error on BDHelper" + e);
-				startApp();
-			});
-
-		}
+		}, function(error) {
+			alert('BDHelper.init error')
+			console.log(error);
+		});
 
 		Keyboard.onshowing = function () { StatusBar.hide(); };
 		Keyboard.onhiding  = function () { StatusBar.show(); };

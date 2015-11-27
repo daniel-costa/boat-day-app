@@ -159,18 +159,10 @@ define([
 						self.updateNotificationsAmount() 
 					}
 				}, 10 * 1000);
-
-				if( window.installation.token ) {
-					Parse.Cloud.run('attachUserProfileToInstallation', {
-						token: window.installation.token,
-						user: Parse.User.current().id,
-						profile: profile.id,
-					}).then(function(){}, function(error){});
-				}
 				
-				if( window.installation.installationId ) {
+				if( window.installationId ) {
 					Parse.Cloud.run('attachUserProfileToInstallationWithInstallationId', {
-						installationId: window.installation.installationId,
+						installationId: window.installationId,
 						user: Parse.User.current().id,
 						profile: profile.id,
 					}).then(function(){}, function(error){});

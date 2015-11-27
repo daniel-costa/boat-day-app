@@ -13,6 +13,10 @@
     <merges target="BDHelper" />
   </js-module>
 
+  <preference name="PARSE_APP_ID" />
+  <preference name="PARSE_CLIENT_KEY" />
+  <preference name="PARSE_JAVASCRIPT_KEY" />
+
   <!-- android -->
   <platform name="android">
     
@@ -22,44 +26,46 @@
       </feature>
     </config-file>
 
-    <config-file target="AndroidManifest.xml" parent="/manifest">
-      <uses-permission android:name="android.permission.INTERNET" />
-      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-      <uses-permission android:name="android.permission.WAKE_LOCK" />
-      <uses-permission android:name="android.permission.VIBRATE" />
-      <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-      <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-      <permission android:protectionLevel="signature" android:name="com.boat.day.permission.C2D_MESSAGE" />
-      <uses-permission android:name="com.boat.day.permission.C2D_MESSAGE" />
-    </config-file>
-
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
       <service android:name="com.parse.PushService" />
-      <receiver android:name="com.parse.ParsePushBroadcastReceiver" android:exported="false">
+      <receiver android:name="com.parse.ParseBroadcastReceiver">
         <intent-filter>
-          <action android:name="com.parse.push.intent.RECEIVE" />
-          <action android:name="com.parse.push.intent.DELETE" />
-          <action android:name="com.parse.push.intent.OPEN" />
-          </intent-filter>
+          <action android:name="android.intent.action.BOOT_COMPLETED" />
+          <action android:name="android.intent.action.USER_PRESENT" />
+        </intent-filter>
       </receiver>
       <receiver android:name="com.parse.GcmBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
         <intent-filter>
           <action android:name="com.google.android.c2dm.intent.RECEIVE" />
           <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-          <category android:name="com.boat.day" />
+          <category android:name="$PACKAGE_NAME" />
         </intent-filter>
       </receiver>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <uses-permission android:name="android.permission.WAKE_LOCK" />
+      <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+      <uses-permission android:name="android.permission.VIBRATE" />
+      <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+      <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+      <permission android:protectionLevel="signature" android:name="$PACKAGE_NAME.permission.C2D_MESSAGE" />
+      <uses-permission android:name="$PACKAGE_NAME.permission.C2D_MESSAGE" />
     </config-file>
     
     <source-file src="src/android/bdhelper.xml" target-dir="res/values" />
     <config-file target="res/values/bdhelper.xml" parent="/*">
-    <string name="parse_app_id">LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU</string>
-      <string name="parse_client_id">IoaOpxqSlbkcff3v0X9mEBfGTYKpIJK9YzVuujR5</string>
+      <string name="parse_app_id">$PARSE_APP_ID</string>
+      <string name="parse_client_key">$PARSE_CLIENT_KEY</string>
+      <string name="parse_javascript_key">$PARSE_JAVASCRIPT_KEY</string>
     </config-file>
     
     <framework src="com.parse.bolts:bolts-android:1.+" />
     <framework src="com.parse:parse-android:1.+" />
 
+    <source-file src="src/android/BDHelper.java" target-dir="src/com/boat/day/" />
     <source-file src="src/android/BDHelperApplication.java" target-dir="src/com/boat/day/" />
   </platform>
 
@@ -70,11 +76,37 @@
         <param name="ios-package" value="BDHelper"/>
       </feature>
     </config-file>
+
+    <framework src="Accounts.framework" />
+    <framework src="AudioToolbox.framework" />
+    <framework src="CFNetwork.framework" />
+    <framework src="CoreGraphics.framework" />
+    <framework src="CoreLocation.framework" />
+    <framework src="MobileCoreServices.framework" />
+    <framework src="QuartzCore.framework" />
+    <framework src="Security.framework" />
+    <framework src="Social.framework" />
+    <framework src="StoreKit.framework" />
+    <framework src="SystemConfiguration.framework" />
+    <framework src="libz.dylib" />
+    <framework src="libsqlite3.dylib" />
     
-    <header-file src="src/ios/AppDelegate+notification.h" />
+    <framework src="src/ios/Frameworks/Bolts.framework" custom="true" />
+    <framework src="src/ios/Frameworks/Parse.framework" custom="true" />
+
+    <config-file target="*-Info.plist" parent="ParseAppId">
+        <string>$PARSE_APP_ID</string>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="ParseClientKey">
+        <string>$PARSE_CLIENT_KEY</string>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="ParseJaveScriptKey">
+        <string>$PARSE_JAVASCRIPT_KEY</string>
+    </config-file>
+
     <header-file src="src/ios/BDHelper.h" />
-    
-    <source-file src="src/ios/AppDelegate+notification.m" />
     <source-file src="src/ios/BDHelper.m" />
 
   </platform>
