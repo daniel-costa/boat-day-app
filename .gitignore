@@ -2,15 +2,13 @@
 /www/scripts/vendor/*
 /platforms
 /plugins
+.idea/
 
 # misc
 .DS_Store
 *.log
 
-www/scripts/views/BoatDayBookView.js
-
 www/css/boatday.css
-
-www/css/boatday.css
-
 www/scripts/main.js
+
+

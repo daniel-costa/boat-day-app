@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="classes4">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/platforms/android/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.8.1/classes.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
