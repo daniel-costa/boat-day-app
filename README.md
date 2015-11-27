@@ -24,13 +24,19 @@
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.statusbar`
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.file`
 * `sudo cordova plugin add pluginsBase/org.apache.cordova.media`
-* `sudo cordova plugin add pluginsBase/phonegap-plugin-push`
 * `sudo cordova plugin add pluginsBase/cordova-plugin-appinfo`
 * `sudo cordova plugin add pluginsBase/cordova-plugin-customurlscheme --variable URL_SCHEME=boatday`
+* `sudo cordova plugin add pluginsBase/com.boat.day.BDHelper`
 
 ## Change rights
 * `sudo chown -R Daniel .`
 * `sudo chmod -R 777 .`
+* `cordova prepare ios`
+* `cordova prepare ios`
+* `cordova build android`
+* `cordova build android`
+
+# iOS Changes
 
 ## Allow HTTP Requests
 * Add to 'AppDelegate' : 
@@ -40,3 +46,18 @@
     return YES; 
 }
 @end'
+
+# Android Changes
+
+## Modify MainActivity.java
+* Find `loadUrl(launchUrl))`
+* Add :
+'super.init();
+WebView wV = (WebView) appView.getEngine().getView();
+wV.addJavascriptInterface(((BDHelperApplication) getApplicationContext()), "BDHelper");'
+
+## Modify android/Manifest.xml
+* Add `android:name=".BDHelperApplication"` in application tag
+
+## NB:
+* BDHelper for android, use `BDHelper.getInstallationId();` in JavaScript to have installationId

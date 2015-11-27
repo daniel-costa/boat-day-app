@@ -53,14 +53,14 @@
 	  
 	  <source-file src="src/android/bdhelper.xml" target-dir="res/values" />
 	  <config-file target="res/values/bdhelper.xml" parent="/*">
-		<string name="parse_app_id">LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU</string>
-        <string name="parse_client_id">IoaOpxqSlbkcff3v0X9mEBfGTYKpIJK9YzVuujR5</string>
-      </config-file>
+		  <string name="parse_app_id">LCn0EYL8lHOZOtAksGSdXMiHI08jHqgNOC5J0tmU</string>
+      <string name="parse_client_id">IoaOpxqSlbkcff3v0X9mEBfGTYKpIJK9YzVuujR5</string>
+    </config-file>
 	  
 	  <framework src="com.parse.bolts:bolts-android:1.+" />
 	  <framework src="com.parse:parse-android:1.+" />
 
-      <source-file src="src/android/BDHelperApplication.java" target-dir="src/com/boat/day/" />
+    <source-file src="src/android/BDHelperApplication.java" target-dir="src/com/boat/day/" />
   </platform>
 
   <platform name="ios">
