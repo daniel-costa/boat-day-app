@@ -1,5 +1,7 @@
 ToDo:
 - Preview BoatDay info in map
+- Solve : WARN: Google Maps API warning: SensorNotRequired
+- Update Plugins
 
 Postspone: 
 - Swiper in all boatday pictures in the app
@@ -10,127 +12,10 @@ Postspone:
 - Add taking picture to active boatday screen
 
 Post production:
+- 
 
 Test:
 - handle the double click on button for new question
-- All kinds of notifications
 
 Done:
-- Done - change uber icon in map view
-- Done - Add "What is this screen" overlay in active boatday
-- Done - Add chevron on selects
-- Done - money icon in past boatdays
-- Done - Cancellation policy
-- Done - Add Chevron right on drawer (:after class of links)
-- Done - BoatDayView uncomment location in details and format to have only "Miami"
-- Done - Add position under map
-- Done - Format City Name in past boatdays
-- Done - Location in past BoatDays is wrong
-- Done - Location in upcoming BoatDays is wrong
-- Done - Upcoming boatdays to be done
-- Done - chat icon in upcoming events
-- Done - icon emergency for active screen
-- Done - icon call for active screen
-- Done - Placeholder when app is lunching
-- Done - Take in account date for boatdays upcoming
-- Done - seats left in upcoming, handle if 0 seats left
-- Done - Book seats rounded picture not good one and not cover
-- Done - iPhone 5 choose seats is in 2 lines
-- Done - Apply promo code
-- Done - handle error in the field in question
-- Done - Bibash Order questions in BD recent first
-- Done - Pricing overlay not done
-- Done - Terms & Water policy overlay empty
-- Done - Book seats sizing fucked up in iphone 5 (fields not visible)
-- Done - X in overlay close-me not centered
-- Done - Handle _info and _error
-- Done - Close me button not centered
-- Done - Upcoming must open boatday
-- Done - Avoid opening the pay window when the request is paid in past bd
-- Done - Swiper in requests not working correctly
-- Done - Past trips must go back to past trips
-- Done - Pricing info badly align
-- Done - After question submitted scroll to questions
-- Done - Map View bugged
-- Done - Add filters - Design
-- Done - Add filters - Dev
-- Done - implement unread messages in upcomings chat button
-- Done - Sign in / up flow to check
-- Done - Take in account date for boatdays pending
-- Done - BoatDay change if it's from upcomings
-- Done - Chat alignment 
-- Done - Implement share feature
-- Done - Implement share in upcomings chat button
-- Done - Add pictures of boatdays instead of boat
-- Done - Open map or focus in field extremelly slow
-- Done - Optimize version numbers
-- Done - link from profile host to boat
-- Done - Add good style to the boat section in profile
-- Done - Column for boat amentities
-- Done - Boat Amentinies not in 2 columns in boat profile
-- Done - Host profile upcoming boatdays placeholder not centerd
-- Done - Rating verticall alignement in reviews
-- Done - Open profile from review
-- Done - Open profile from chat
-- Done - Hover on facebook share button
-- Done - Implement accept pending request button
-- Done - Implement cancel pending request button
-- Done - Bibash - Enlarge pictures in boat profile
-- Done - Bibash - Features on the BoatDay to be displayed
-- Done - Bibash - People in a boatday
-- Done - Change info when send request
-- Done - Add close icon for notification
-- Done - Website deeplinking
-- Done - Kimon - Check copy after we accept or deny a pending request
-- Done - Add full view of pictures for boatday and boat
-- Done - Can't scroll in notifications list
-- Done - When open a notification regarding a question scroll to area
-- Done - Add credit card icon for select
-
-
------>> Screens to do for cross browsers in less <<-------
-
-- screen-guest.less [DONE]
-- boatday-base.less [Some are not defined in vendor]
-- boatday-components.less [DONE] //-webkit-appearance: none;
-- boatday-drawer.less [DONE] //-webkit-font-smoothing: antialiased; 
-- boatday-modal.less [DONE] //-webkit-transition
-- boatday-notifications.less [DONE] //-webkit-transform
-- boatday-overlay.less [DONE] //-webkit-transition: -webkit-transform
-- card-boatday-cancelled.less [DONE]
-- card-boatday-past.less [DONE]
-- card-boatday-pending.less [DONE]
-- card-boatday-upcoming.less [DONE]
-- card-boatday.less [DONE]
-- card-credit-card.less [DONE]
-- screen-about-us.less [DONE]
-- screen-adjust-price.less [DONE]
-- screen-boat.less [DONE]
-- screen-boatday-active-about.less [DONE]
-- screen-boatday-active.less [DONE]
-- screen-boatday.less [DONE]
-- screen-boatdays.less [DONE]
-- screen-book.less [DONE]
-- screen-cancellation.less [DONE]
-- screen-chat.less [DONE] //new variables
-- screen-filter.less [DONE]
-- screen-guest.less [DONE]
-- screen-map.less [DONE]
-- screen-missing-info.less [DONE]
-- screen-my-picture.less [DONE] //-webkit-font-smoothing
-- screen-my-profile.less [DONE]
-- screen-notifications.less [DONE]
-- screen-pay.less [DONE]//-webkit-font-smoothing
-- screen-payments.less [DONE]
-- screen-price-info.less [DONE]
-- screen-profile.less [DONE]
-- screen-promo-code.less [DONE]
-- screen-report.less [DONE]
-- screen-requests.less [DONE]
-- screen-schedule.less [DONE]
-- screen-sign-in-less [DONE]
-- screen-sign-up.less [DONE]
-- screen-terms.less [DONE]	
-- screen-trip.less [DONE]	
-- screen-trips.less [DONE]	
-- screen-water-policy.less 
+- 
