@@ -10,6 +10,8 @@
 
 - (void)initialize: (CDVInvokedUrlCommand*)command
 {
+    NSLog(@"BDHelper - initialize");
+    
     NSString *appId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"ParseAppId"];
     NSString *clientKey = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"ParseClientKey"];
     NSString *jsKey = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"ParseJavaScriptKey"];
@@ -35,6 +37,7 @@
 - (void)getInstallationId:(CDVInvokedUrlCommand*) command
 {
     [self.commandDelegate runInBackground:^{
+        NSLog(@"BDHelper - getInstallationId: %@", [[PFInstallation currentInstallation] installationId]);
         CDVPluginResult* pluginResult = nil;
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[[PFInstallation currentInstallation] installationId]];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -44,6 +47,7 @@
 - (void)getInstallationObjectId:(CDVInvokedUrlCommand*) command
 {
     [self.commandDelegate runInBackground:^{
+        NSLog(@"BDHelper - getInstallationObjectId");
         CDVPluginResult* pluginResult = nil;
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[[PFInstallation currentInstallation] objectId]];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -72,6 +76,7 @@ void MethodSwizzle(Class c, SEL originalSelector) {
 {
     MethodSwizzle([self class], @selector(application:didRegisterForRemoteNotificationsWithDeviceToken:));
     MethodSwizzle([self class], @selector(application:didReceiveRemoteNotification:));
+    MethodSwizzle([self class], @selector(application:didFailToRegisterForRemoteNotificationsWithError:));
 }
 
 
@@ -81,15 +86,27 @@ void MethodSwizzle(Class c, SEL originalSelector) {
 
 - (void)swizzled_application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
-    // Call existing method
     [self swizzled_application:application didRegisterForRemoteNotificationsWithDeviceToken:newDeviceToken];
     
-    // Store the deviceToken in the current installation and save it to Parse.
+    NSLog(@"BDHelper - didRegisterForRemoteNotificationsWithDeviceToken");
+    
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:newDeviceToken];
     [currentInstallation saveInBackground];
 }
 
+- (void)noop_application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+}
+
+- (void)swizzled_application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+    [self swizzled_application:application didFailToRegisterForRemoteNotificationsWithError:error];
+    
+    NSLog(@"BDHelper - didFailToRegisterForRemoteNotificationsWithError");
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:CDVRemoteNotificationError object:error];
+}
 
 - (void)noop_application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
@@ -97,8 +114,10 @@ void MethodSwizzle(Class c, SEL originalSelector) {
 
 - (void)swizzled_application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    // Call existing method
     [self swizzled_application:application didReceiveRemoteNotification:userInfo];
+    
+    NSLog(@"BDHelper - didReceiveRemoteNotification");
+    
     // [PFPush handlePush:userInfo];
 }
 

@@ -165,7 +165,10 @@ define([
 						installationId: window.installationId,
 						user: Parse.User.current().id,
 						profile: profile.id,
-					}).then(function(){}, function(error){});
+					}).then(function(){}, function(error){ 
+						console.log('cannot attach profile') 
+						console.log(error);
+					});
 				}
 				
 				self.snap = new Snap({

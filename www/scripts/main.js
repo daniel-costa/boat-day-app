@@ -87,6 +87,8 @@ function handleOpenURL(url) {
 
 }
 
+window.appStarted = false;
+
 require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], function(FastClick, Parse, AppRouter, AppView) {
 
 	FastClick.attach(document.body);
@@ -99,6 +101,11 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 		
 		var startApp = function(data) {
 			
+			if( window.appStarted ) {
+				console.log('** app started already **');
+				return;
+			}
+
 			Parse.initialize(data.parseAppId, data.parseJavaScriptKey);
 
 			if( window.isAndroid ) {
@@ -107,23 +114,23 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 
 			new AppView(function() {
 				new AppRouter();
+				window.appStarted = true;
 				Parse.history.start();
 			});
-
 		};
 
 		BDHelper.initialize(function(data) {
 			BDHelper.getInstallationId(function(installationId) {
 				window.installationId = installationId;
 				startApp(data);
-			}, function(error) {
-				startApp(data);
-				console.log(error);
 			});
-		}, function(error) {
-			alert('Oops! An error occurred (Code: 1004), please close and re-lunch the app or contact us at contact@boatdayapp.com');
-			console.log(error);
 		});
+
+		setTimeout(function() {
+			startApp();
+		}, 20000);
+
+		// alert('Oops! An error occurred (Code: 1004), please close and re-lunch the app or contact us at contact@boatdayapp.com');
 
 		Keyboard.onshowing = function () { StatusBar.hide(); };
 		Keyboard.onhiding  = function () { StatusBar.show(); };
