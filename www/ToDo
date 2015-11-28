@@ -10,18 +10,10 @@ Postspone:
 - Add taking picture to active boatday screen
 
 Post production:
-- Host live
-- Put Cloud Code online
-- Add notification after question in Cloud Code
-- Done - Deep-linking
-- Done - Switch questions to denied in HP
-- Done - Hide trips
-- Done - Kimon's pictures for bds
 
 Test:
-- test when possible to double click on buttons
 - handle the double click on button for new question
-- Check with inspector for error finding
+- All kinds of notifications
 
 Done:
 - Done - change uber icon in map view

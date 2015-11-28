@@ -121,7 +121,7 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 				console.log(error);
 			});
 		}, function(error) {
-			alert('An error occured (Code: 1004), try to lunch the app later or contact contact@boatdayapp.com')
+			alert('Oops! An error occurred (Code: 1004), please close and re-lunch the app or contact us at contact@boatdayapp.com');
 			console.log(error);
 		});
 
