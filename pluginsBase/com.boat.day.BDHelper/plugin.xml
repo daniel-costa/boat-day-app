@@ -116,7 +116,7 @@
         <string>$PARSE_CLIENT_KEY</string>
     </config-file>
 
-    <config-file target="*-Info.plist" parent="ParseJaveScriptKey">
+    <config-file target="*-Info.plist" parent="ParseJavaScriptKey">
         <string>$PARSE_JAVASCRIPT_KEY</string>
     </config-file>
 
