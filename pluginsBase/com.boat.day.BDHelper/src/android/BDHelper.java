@@ -13,6 +13,8 @@ import org.json.JSONObject;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 import com.parse.PushService;
+import com.parse.SaveCallback;
+import com.parse.ParseException;
 
 public class BDHelper extends CordovaPlugin {
 
@@ -59,7 +61,16 @@ public class BDHelper extends CordovaPlugin {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
 
-                ParseInstallation.getCurrentInstallation().saveInBackground();
+                ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
+                    public void done(ParseException e) {
+                        if( e == null ) {
+                            // System.out.println("*** no error ***");
+                        } else {
+                            System.out.println("*** error ***");
+                            System.out.println(e.getCause());
+                        }
+                    }
+                });
 
                 JSONObject jo = new JSONObject();
                 

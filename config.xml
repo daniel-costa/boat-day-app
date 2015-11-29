@@ -54,9 +54,4 @@
         <splash src="res/android/splash-port-xxhdpi.png" density="port-xxhdpi"/>
         <splash src="res/android/splash-port-xxhdpi.png" density="port-xxxhdpi"/>
     </platform>
-
-    <plugin name="cordova-plugin-facebook4" spec="pluginsBase/cordova-plugin-facebook4">
-        <variable name="APP_ID" value="1442439216059238" />
-        <variable name="APP_NAME" value="BoatDay22" />
-    </plugin>
 </widget>
