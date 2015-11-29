@@ -120,6 +120,11 @@ require(['fastclick', 'parse', 'router', 'views/AppView', 'snapjs', 'slider'], f
 		};
 
 		BDHelper.initialize(function(data) {
+
+			if( data.action == "reload" ) {
+				window.location.reload();
+			}
+
 			BDHelper.getInstallationId(function(installationId) {
 				window.installationId = installationId;
 				startApp(data);
