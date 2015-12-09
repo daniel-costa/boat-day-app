@@ -9,3 +9,6 @@ sudo cordova platform add ios
 sudo cordova platform add android
 sudo cordova platform update android@5.0.0
 sudo cordova build
+
+sudo chmod -R 777 .
+sudo chown -R Daniel .

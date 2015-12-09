@@ -11,3 +11,6 @@ cp -R src/cordova/ios dist
 cp -R src/cordova/android dist
 
 node r.js -o build.js
+
+sudo chmod -R 777 .
+sudo chown -R Daniel .
