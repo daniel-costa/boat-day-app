@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="org.scriptotek.appinfo"
-    version="1.1.0">
+    id="cordova-plugin-appinfo"
+    version="2.0.2">
 
   <name>AppInfo Plugin</name>
   <description>
-    Makes the app version number (android:versionName on Android, CFBundleVersion on iOS, and WMAppManifest.xml App Version on WP8) 
-    accessible through a new method navigator.appinfo.getVersion().
+    Provides a method `navigator.appinfo.getAppInfo()` that returns application information: the app version, build number (not on WP8) and the app identifier.
   </description>
   <license>MIT</license>
 
@@ -21,7 +20,7 @@
 
   <!-- android -->
   <platform name="android">
-  
+
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="AppInfo">
         <param name="android-package" value="org.scriptotek.appinfo.AppInfo"/>
@@ -40,14 +39,14 @@
         <param name="ios-package" value="AppInfo"/>
       </feature>
     </config-file>
-    
+
     <header-file src="src/ios/AppInfo.h" />
     <source-file src="src/ios/AppInfo.m" />
 
   </platform>
 
   <!-- Windows Phone 8 -->
-  <platform name="wp8"> 
+  <platform name="wp8">
 
     <config-file target="config.xml" parent="/*">
       <feature name="AppInfo">

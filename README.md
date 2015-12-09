@@ -1,10 +1,13 @@
 # boat-day-app
 
-## Deploy
+## Install
 * run `install.command`
 
-## Install BDHelper
-* run `build-qa-ios.command` or/and run `build-qa-android.command`
+## Change BDHelper to QA or HP
+* run `install-helper-HP.command` 
+
+## Deploy on a phone
+* run `run-device-ios.command` or run `run-device-android.command`
 
 
 # iOS Changes

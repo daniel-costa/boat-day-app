@@ -4,14 +4,32 @@ var exec = require('cordova/exec');
 module.exports = {
 
     /**
-     * Returns the version name (or "unknown" if it fails)
+     * Get an object with the keys 'version', 'build' and 'identifier'.
      *
-     * @param {Function} callback       The message to accept the version name.
+     * @param {Function} success    Callback method called on success.
+     * @param {Function} fail       Callback method called on failure.
      */
-    getVersion: function(callback) {
-        exec(callback, function(err) {
-        	callback('Unknown');
-    	}, 'AppInfo', 'getVersion', []);
-    }
+    getAppInfo: function(success, fail){
+        exec(success, fail, 'AppInfo', 'getAppInfo', []);
+    },
 
+    /**
+     * Get the version name.
+     *
+     * @param {Function} success    Callback method called on success.
+     * @param {Function} fail       Callback method called on failure.
+     */
+    getVersion: function(success, fail) {
+        exec(success, fail, 'AppInfo', 'getVersion', []);
+    },
+
+    /**
+     * Get the app identifier.
+     *
+     * @param {Function} success    Callback method called on success.
+     * @param {Function} fail       Callback method called on failure.
+     */
+    getIdentifier: function(success, fail){
+        exec(success, fail, 'AppInfo', 'getIdentifier', []);
+    }
 };

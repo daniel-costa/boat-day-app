@@ -1,25 +1,41 @@
 # cordova-plugin-appinfo
 
-Provides a single function `navigator.appInfo.getVersion()` to get the app version number
-across platforms, using `android:versionName` on Android, `CFBundleVersion` on iOS and the `WMAppManifest.xml` on Windows Phone 8. Thanks to [@thomas-mullaly](//github.com/thomas-mullaly)) for the WP8 implementation.
+[![npm version](https://badge.fury.io/js/cordova-plugin-appinfo.svg)](http://badge.fury.io/js/cordova-plugin-appinfo)
 
-Can be installed using the [Cordova CLI](http://cordova.apache.org/docs/en/edge/guide_cli_index.md.html):
+Cordova plugin that provides access to the following app info:
 
-	cordova plugin add https://github.com/danmichaelo/cordova-plugin-appinfo.git
+* `identifier`: Bundle Identifier on iOS, PackageName on Android. Example: `'org.scriptotek.testapp'`.
+* `version`: CFBundleVersion on iOS, versionName on Android, Version from WMAppManifest.xml on WP8. Example: `'1.0.2'`.
+* `build`: Build on iOS (Example: `'1.0.2.1'`), versionCode on Android (Example: `'18'`), empty string on WP8 (not supported).
 
-If you are not using the Cordova Command-line Interface, you might try [Using Plugman to Manage Plugins](http://cordova.apache.org/docs/en/edge/guide_plugin_ref_plugman.md.html).
+### Installation
 
-The plugin has only been tested with Cordova 3.0.0, and might require modifications to work with older versions of Cordova.
+The plugin is [on npm](https://www.npmjs.com/package/cordova-plugin-appinfo), you can install it using:
+
+    cordova plugin add cordova-plugin-appinfo
 
 ### Supported Platforms
 
 - Android
 - iPhone
-- Windows Phone 8
+- WP8 (except build number)
 
 ### Example
 
-    navigator.appInfo.getVersion(function(args) {
-        alert('Me is at v. ' + args);
-    });
+```js
+navigator.appInfo.getAppInfo(function(appInfo) {
+  console.log('identifier: %s', appInfo.identifier);
+  console.log('version: %s', appInfo.version);
+  console.log('build: %s', appInfo.build);
+}, function(err) {
+	alert(err);
+});
+```
+
+### Contributing
+
+Pull requests are welcome.
+
+* @thomas-mullaly added the WP8 implementation
+* @yezhiming added functionality to get identifier and build.
 

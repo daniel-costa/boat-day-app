@@ -1,5 +1,4 @@
 # dependencies
-/www/scripts/vendor/*
 /platforms
 /plugins
 .idea/
@@ -8,7 +7,5 @@
 .DS_Store
 *.log
 
-www/css/boatday.css
-www/scripts/main.js
-
-
+app/dist/*
+app/src/scripts/vendor/*
