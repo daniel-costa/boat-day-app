@@ -1,6 +1,7 @@
 cd ~/GitHub/boat-day-app/app/
 
 bower install
+sudo compile.command
 
 cd ~/GitHub/boat-day-app/
 

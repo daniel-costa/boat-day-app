@@ -1,5 +1,11 @@
 # boat-day-app
 
+## Tools needed
+sudo npm install -g cordova
+sudo npm install -g bower
+sudo npm install -g less
+sudo npm install -g less-plugin-clean-css
+
 ## Install
 * run `install.command`
 
