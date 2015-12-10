@@ -278,7 +278,10 @@ define([
 						longitude: position.coords.longitude 
 					})
 				}).then(cb, positionError);
-			}, positionError);
+			}, positionError, {
+				enableHighAccuracy: true,
+				maximumAge: 0
+			});
 
 		},
 
