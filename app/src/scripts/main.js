@@ -1,4 +1,6 @@
 
+document.body.innerHTML = '<div id="app" style="display:none;"><div id="content" class="snap-content"></div></div><div id="fb-root"></div>';
+
 window.installationId = null;
 window.deepLinking = null;
 window.appStarted = false;

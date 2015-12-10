@@ -14,7 +14,7 @@
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <platform name="ios">
-        <content src="http://127.0.0.1:8080/index.ios.html" />
+        <!-- <content src="http://127.0.0.1:8080/index.ios.html" /> -->
         <preference name="deployment-target" value="7.0" />
         <icon height="180" src="resources/ios/icon-60@3x.png" width="180" />
         <icon height="60" src="resources/ios/icon-60.png" width="60" />
@@ -38,7 +38,7 @@
         <splash height="2208" src="resources/ios/Default-736h.png" width="1242" />
     </platform>
     <platform name="android">
-        <content src="http://127.0.0.1:8080/index.android.html" />
+        <!-- <content src="http://127.0.0.1:8080/index.android.html" /> -->
         <preference name="android-minSdkVersion" value="19" />
         <icon density="hdpi" src="resources/android/icon-hdpi.png" />
         <icon density="ldpi" src="resources/android/icon-ldpi.png" />
