@@ -1,5 +1,5 @@
 <div class="boatday-card-cancelled" data-id="<%= model.id %>">
-	<div class="image" style="background-image: url(resources/placeholder-boatday.png)">
+	<div class="image">
 		<div class="banner left">
 			<div class="host-picture small" data-id="<%= model.get('boatday').get('captain').id %>" style="background-image:url(<%= model.get('boatday').get('captain').get('profilePicture').url() %>)"></div>
 			<% if( model.get('boatday').get('captain').get('rating') ) { %>

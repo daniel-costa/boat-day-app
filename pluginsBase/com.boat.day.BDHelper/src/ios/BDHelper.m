@@ -15,6 +15,9 @@
     NSString *appId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"ParseAppId"];
     NSString *clientKey = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"ParseClientKey"];
     NSString *jsKey = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"ParseJavaScriptKey"];
+    NSString *remoteServer = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"BoatDayRemoteServer"];
+    NSString *remoteVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *remoteInstance = [NSString stringWithFormat:@"%@/%@/", remoteServer, remoteVersion];
     
     [Parse setApplicationId:appId clientKey:clientKey];
     
@@ -28,6 +31,9 @@
     NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:2];
     [dict setObject:appId forKey:@"parseAppId"];
     [dict setObject:jsKey forKey:@"parseJavaScriptKey"];
+    [dict setObject:remoteServer forKey:@"remoteServer"];
+    [dict setObject:remoteVersion forKey:@"remoteVersion"];
+    [dict setObject:remoteInstance forKey:@"remoteInstance"];
     
     CDVPluginResult* pluginResult = nil;
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];

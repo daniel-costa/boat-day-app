@@ -16,7 +16,6 @@
         facebook:   'http://connect.facebook.net/en_US/all',
     },
     name: "main",
-    out: "dist/boatday.min.js",
     optimize: "uglify2",
     uglify2: {
         output: {

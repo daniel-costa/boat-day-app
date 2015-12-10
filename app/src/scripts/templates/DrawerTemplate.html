@@ -2,7 +2,7 @@
 
 	<div class="top grey-area">
 		<div class="inner">
-			<div class="guest-picture big" style="background-image: url(<%= typeof profilePicture !== 'undefined' && profilePicture ? profilePicture.url : 'resources/placeholder-guest.png' %>)"></div>
+			<div class="guest-picture big" style="<%= typeof profilePicture !== 'undefined' && profilePicture ? 'background-image:url('+profilePicture.url+')' : '' %>"></div>
 			<div class="name"><%= displayName %></div>
 			<div class="info">Tap to open profile</div>
 		</div>

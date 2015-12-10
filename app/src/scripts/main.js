@@ -1,39 +1,7 @@
-
-document.body.innerHTML = '<div id="app" style="display:none;"><div id="content" class="snap-content"></div></div><div id="fb-root"></div>';
-
-window.installationId = null;
 window.deepLinking = null;
-window.appStarted = false;
 window.isAndroid = navigator != undefined && navigator.userAgent != undefined && navigator.userAgent.toLowerCase().indexOf('android') > -1;
 
-function handleOpenURL(url) {
-
-	if( url.indexOf('?') == -1 ) {
-		url += '?';
-	}
-	var action = url.substring(url.indexOf('://') + 3, url.indexOf('?'));
-
-	if( action !== 'boatday' ) {
-		return;
-	}
-	
-	var link = {
-		action: action,
-		params: {}
-	};
-
-	var params = url.substring(url.indexOf('?') + 1).split('&');
-
-	for (var i = 0; i < params.length; i++) {
-		var match = params[i].split("=");
-		link.params[match[0]] = match[1];
-	}
-
-	window.deepLinking = link;
-
-	Parse.history.loadUrl(Parse.history.fragment);
-
-}
+document.body.innerHTML = '<div id="app" style="display:none;"><div id="content" class="snap-content"></div></div><div id="fb-root"></div>';
 
 require.config({
 	
@@ -89,57 +57,52 @@ require.config({
 	}
 });
 
+function handleOpenURL(url) {
+
+	if( url.indexOf('?') == -1 ) {
+		url += '?';
+	}
+
+	var action = url.substring(url.indexOf('://') + 3, url.indexOf('?'));
+
+	if( action !== 'boatday' ) {
+		return;
+	}
+	
+	var link = {
+		action: action,
+		params: {}
+	};
+
+	var params = url.substring(url.indexOf('?') + 1).split('&');
+
+	for (var i = 0; i < params.length; i++) {
+		var match = params[i].split("=");
+		link.params[match[0]] = match[1];
+	}
+
+	window.deepLinking = link;
+
+	Parse.history.loadUrl(Parse.history.fragment);
+
+}
+
 require(['fastclick', 'router', 'views/AppView', 'parse', 'snapjs', 'slider'], function(FastClick, AppRouter, AppView) {
 
 	FastClick.attach(document.body);
 
-	document.addEventListener("deviceReady", function() {
+	Parse.initialize(window.BDHelper.parseAppId, window.BDHelper.parseJavaScriptKey);
 
-		console.log("~> device ready");
-		
-		var startApp = function(data) {
-			
-			if( window.appStarted ) {
-				console.log('** app started already **');
-				return;
-			}
+	if( window.isAndroid ) {
+		$('body').addClass('android');
+	}
 
-			console.log(Parse);
+	new AppView(function() {
+		new AppRouter();
+		Parse.history.start();
+	});
 
-			Parse.initialize(data.parseAppId, data.parseJavaScriptKey);
-
-			if( window.isAndroid ) {
-				$('body').addClass('android');
-			}
-
-			new AppView(function() {
-				new AppRouter();
-				window.appStarted = true;
-				Parse.history.start();
-			});
-		};
-
-		BDHelper.initialize(function(data) {
-
-			if( data.action == "reload" ) {
-				window.location.reload();
-			}
-
-			BDHelper.getInstallationId(function(installationId) {
-				window.installationId = installationId;
-				startApp(data);
-			});
-		});
-
-		setTimeout(function() {
-			if( !window.appStarted ) {
-				alert('Oops! An error occurred (Code: 1004), please close and re-lunch the app or contact us at contact@boatdayapp.com');
-			}
-		}, 20000);
-
-		Keyboard.onshowing = function () { StatusBar.hide(); };
-		Keyboard.onhiding  = function () { StatusBar.show(); };
-		
-	}, false);
+	Keyboard.onshowing = function () { StatusBar.hide(); };
+	Keyboard.onhiding  = function () { StatusBar.show(); };
 
 });

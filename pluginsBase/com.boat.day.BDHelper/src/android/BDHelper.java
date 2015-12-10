@@ -4,6 +4,10 @@ import android.app.Application;
 import android.util.Log;
 
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
@@ -75,10 +79,24 @@ public class BDHelper extends CordovaPlugin {
                 JSONObject jo = new JSONObject();
                 
                 try {
+
+                    String versionName;
+                    String packageName = this.cordova.getActivity().getPackageName();
+                    PackageManager pm = this.cordova.getActivity().getPackageManager();
+                    try {
+                        PackageInfo packageInfo = pm.getPackageInfo(packageName, 0);
+                        versionName = packageInfo.versionName;
+                    } catch (NameNotFoundException nnfe) {
+                        versionName = "";
+                    }
+
                     Application gApp  = cordova.getActivity().getApplication();
 
                     jo.put("parseAppId", getStringByKey(gApp, "parse_app_id"));
                     jo.put("parseJavaScriptKey", getStringByKey(gApp, "parse_javascript_key"));
+                    jo.put("remoteServer", getStringByKey(gApp, "boatday_remote_server"));
+                    jo.put("remoteVersion", versionName);
+                    jo.put("remoteInstance", getStringByKey(gApp, "boatday_remote_server") + "/" + versionName + "/");
 
                     JSONArray ja = new JSONArray();
                     ja.put(jo);

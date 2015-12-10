@@ -30,7 +30,7 @@ define([
 		directions: function() {
 			var boatday = this.model;
 			
-			if( window.isAndroid() ) {
+			if( window.isAndroid ) {
 				var url = 'http://maps.google.com/?directionsmode=driving&daddr=' + boatday.get('location').latitude + ',' + boatday.get('location').longitude;
 			} else {
 				var url = 'comgooglemaps://?directionsmode=driving&daddr=' + boatday.get('location').latitude + ',' + boatday.get('location').longitude;
@@ -69,6 +69,8 @@ define([
 				map.setCenter(center);
 			}); 
 
+			var baseURL = window.BDHelper.remoteInstance + 'resources/';
+			
 			_.each(self._boatdays, function(boatday) {
 
 				var marker = new google.maps.Marker({
@@ -76,7 +78,7 @@ define([
 					draggable: false,
 					animation: google.maps.Animation.DROP,
 					position: new google.maps.LatLng(boatday.obj.get('location').latitude, boatday.obj.get('location').longitude),
-					icon: !boatday.precise  ? 'resources/pin-circle.png' : 'resources/pin-' + boatday.obj.get('category') + '.png'
+					icon: !boatday.precise  ? baseURL + 'pin-circle.png' : baseURL + 'pin-' + boatday.obj.get('category') + '.png'
 				});
 
 				if( boatday.openOnClick ) {

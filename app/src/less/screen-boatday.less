@@ -5,6 +5,7 @@
 .screen-boatday .boatday-image {
 	background-size: cover;
 	background-position: center;
+	background-image:url(resources/placeholder-boatday.png);
 	height: 40vh;
 	position: relative;
 }
@@ -109,6 +110,10 @@
 }
 
 .screen-boatday .description p {
+	text-align: left;
+}
+
+.screen-boatday .description p {
 	color: rgba(84, 110, 122, 1);
 	font-size: 12.8pt;
 	line-height: 17.92pt;
@@ -199,6 +204,23 @@
 	.justify-content(center);
 	.box-align(center);
 	.align-items(center);
+}
+
+.screen-boatday .location .map .pin {
+	width: 28px;
+	height: 38px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.screen-boatday .location .map .pin.fishing { background-image: url(resources/pin-fishing.png); }
+.screen-boatday .location .map .pin.leisure { background-image: url(resources/pin-leisure.png); }
+.screen-boatday .location .map .pin.sailing { background-image: url(resources/pin-sailing.png); }
+.screen-boatday .location .map .pin.sports { background-image: url(resources/pin-sports.png); }
+.screen-boatday .location .map .pin.circle { 
+	width: 120px;
+	height: 118px;
+	background-image: url(resources/pin-circle.png); 
 }
 
 .screen-boatday .location h1 {

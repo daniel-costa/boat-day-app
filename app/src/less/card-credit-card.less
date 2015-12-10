@@ -4,7 +4,7 @@
 
 .card-credit-card {
 	background: white;
-	padding: 42px 26px 42px 30px;
+	padding: 22px 20px 22px 20px;
 	border: 1px solid rgba(29, 29, 39, 0.05);
 	
 	.display-flex();
@@ -12,17 +12,22 @@
 	.flex-wrap(nowrap);
 }
 
-.card-credit-card img {
+.card-credit-card .img {
 	height: 40px;
-	margin-right: 12px;
-
+	width: 40px;
+	background:url(resources/cards/default.png) center center no-repeat;
+	background-size: cover;
 	.align-self(center);
 }
 
-.card-credit-card div {
+.card-credit-card .img.visa { background-image: url(resources/cards/visa.png); }
+.card-credit-card .img.american-express { background-image: url(resources/cards/american-express.png); }
+.card-credit-card .img.mastercard { background-image: url(resources/cards/.png); }
+
+.card-credit-card div:last-child {
 	.flex(1);
 	.align-self(center);
-
+	margin-left: 12px;
 	font-size: 0;
 }
 

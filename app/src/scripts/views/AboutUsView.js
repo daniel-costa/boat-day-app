@@ -19,9 +19,7 @@ define([
 			
 			var self = this;
 			
-			navigator.appInfo.getVersion(function(version) {
-				self.$el.find('.version').text('Version ' + Parse.Config.current().get('CURRENT_VERSION'));
-			});
+			self.$el.find('.version').text('Version ' + window.BDHelper.remoteVersion);
 
 			return this;
 		},

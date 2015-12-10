@@ -12,7 +12,7 @@
 			</div>
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">
-					<div class="boatday-image" style="background-image:url(resources/placeholder-boatday.png)"></div>
+					<div class="boatday-image"></div>
 				</div>
 			</div>
 			<div class="swiper-pagination"></div>
@@ -46,7 +46,7 @@
 		
 		<div class="description white-area">
 			<h6>DESCRIPTION</h6>
-			<p><%= description %></p>
+			<p><%= description.replace(/\n/g, "<br>") %></p>
 		</div>
 
 		<% if( self.model.get('features').leisure.cruising || self.model.get('features').leisure.partying || self.model.get('features').leisure.sightseeing || self.model.get('features').leisure.other || self.model.get('features').fishing.flats || self.model.get('features').fishing.lake || self.model.get('features').fishing.offshore || self.model.get('features').fishing.recreational || self.model.get('features').fishing.other || self.model.get('features').fishing.equipment || self.model.get('features').fishing.equipmentItems.bait || self.model.get('features').fishing.equipmentItems.lines || self.model.get('features').fishing.equipmentItems.hooks || self.model.get('features').fishing.equipmentItems.lures || self.model.get('features').fishing.equipmentItems.nets || self.model.get('features').fishing.equipmentItems.rods || self.model.get('features').fishing.equipmentItems.sinkers || self.model.get('features').sports.snorkeling || self.model.get('features').sports.tubing || self.model.get('features').sports.wakeBoarding || self.model.get('features').sports.waterSkiing || self.model.get('features').sports.equipment || self.model.get('features').sports.equipmentItems.fins || self.model.get('features').sports.equipmentItems.helmets || self.model.get('features').sports.equipmentItems.masks || self.model.get('features').sports.equipmentItems.snorkels || self.model.get('features').sports.equipmentItems.towLine || self.model.get('features').sports.equipmentItems.tubes || self.model.get('features').sports.equipmentItems.wakeboard || self.model.get('features').sports.equipmentItems.waterSkis || self.model.get('features').global.children || self.model.get('features').global.smoking || self.model.get('features').global.drinking || self.model.get('features').global.pets || self.model.get('features').extras.food || self.model.get('features').extras.drink || self.model.get('features').extras.music || self.model.get('features').extras.towels || self.model.get('features').extras.sunscreen || self.model.get('features').extras.inflatables ) { %>
@@ -199,7 +199,7 @@
 		<div class="white-area location">
 			<% if( self.fromUpcoming ) { %>
 				<div class="map" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=<%= self.model.get('location').latitude %>,<%= self.model.get('location').longitude %>&amp;zoom=13&amp;size=400x260)">
-					<img src="resources/pin-<%= category %>.png" />
+					<div class="pin <%= category %>" />
 				</div>
 				<h1>Start and end of trip</h1>
 				<p class="name">
@@ -208,7 +208,7 @@
 				</p>
 			<% } else { %>
 				<div class="map" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=<%= self.model.get('location').latitude %>,<%= self.model.get('location').longitude %>&amp;zoom=11&amp;size=400x260)">
-					<img src="resources/pin-circle.png" />
+					<div class="pin circle" />
 				</div>
 				<h1>Start and end of trip</h1>
 				<p class="name">

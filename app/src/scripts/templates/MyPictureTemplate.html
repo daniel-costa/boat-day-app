@@ -19,7 +19,8 @@
 <main>
 	<div>
 		<div class="header grey-area">
-			<div class="guest-picture big" style="background-image: url(<%= typeof profilePicture !== 'undefined' && profilePicture ? profilePicture.url : 'resources/placeholder-guest.png' %>)"></div>
+
+			<div class="guest-picture big" <%= typeof profilePicture !== 'undefined' && profilePicture ? 'style="background-image:url('+profilePicture.url+')"' : '' %>></div>
 			
 			<h1><%= displayName %></h1>
 			<h2>Guest since <%= self.dateForProfileSince(createdAt) %></h2>

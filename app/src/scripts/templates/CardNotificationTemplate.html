@@ -1,9 +1,9 @@
 <div class="notification white-area">
 	<div class="header">
 		<% if( !model.get("fromTeam") && model.get("from") ) { %>
-			<span class="host-picture small" style="background-image:url(<%= model.get("from").get('profilePicture') ? model.get("from").get('profilePicture').url() : 'resources/placeholder-host.png' %>)" data-id="<%= model.get("from").id %>"></span>
+			<span class="host-picture small" <%= model.get("from").get('profilePicture') ? 'style="background-image:url('+model.get("from").get('profilePicture').url()+')"' : '' %> data-id="<%= model.get("from").id %>"></span>
 		<% } else { %>
-			<span class="guest-picture small" style="background-image:url(resources/bd-team.jpg)"></span>
+			<span class="guest-picture bd-team small" style=""></span>
 		<% }  %>
 		<div class="sender"><%= model.get("fromTeam") ? 'BoatDay Team' : model.get("from").get('displayName') %></div>
 		<div class="time"><%= self.dateParseToDisplayDate( model.createdAt ) %></div>

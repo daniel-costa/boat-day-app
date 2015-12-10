@@ -1,3 +1,4 @@
 <div class="swiper-slide">
-	<div class="boat-picture big" style="background-image:url(<%= typeof model.get('file') !== 'undefined' ? model.get('file').url() : 'resources/placeholder-boat.png' %>)" data-id="<%=model.id %>"></div>
+	
+	<div class="boat-picture big" style="<%= typeof model.get('file') !== 'undefined' ? 'background-image:url('+model.get('file').url()+')' : '' %>" data-id="<%=model.id %>"></div>
 </div>

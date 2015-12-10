@@ -157,9 +157,9 @@ define([
 					}
 				}, 10 * 1000);
 				
-				if( window.installationId ) {
+				if( window.BDHelper.installationId ) {
 					Parse.Cloud.run('attachUserProfileToInstallationWithInstallationId', {
-						installationId: window.installationId,
+						installationId: window.BDHelper.installationId,
 						user: Parse.User.current().id,
 						profile: profile.id,
 					}).then(function(){}, function(error){ 
@@ -192,31 +192,29 @@ define([
 		},
 		
 		checkVersion: function(cb) {
-			navigator.appInfo.getVersion(function(version) {
-				var _cv = Parse.Config.current().get( window.isAndroid ? 'CURRENT_VERSION_ANDROID' : 'CURRENT_VERSION_IOS' ).split('.');
-				var _v = version.split('.');
+			var _cv = Parse.Config.current().get( window.isAndroid ? 'CURRENT_VERSION_ANDROID' : 'CURRENT_VERSION_IOS' ).split('.');
+			var _v = window.BDHelper.remoteVersion.split('.');
 
-				var versionS = parseInt(_v[0]) <  parseInt(_cv[0]);
-				var versionE = parseInt(_v[0]) == parseInt(_cv[0]);
-				var majorS   = parseInt(_v[1]) < parseInt(_cv[1]);
-				var majorE   = parseInt(_v[1]) == parseInt(_cv[1]);
-				var minorS   = parseInt(_v[2]) < parseInt(_cv[2]);
+			var versionS = parseInt(_v[0]) <  parseInt(_cv[0]);
+			var versionE = parseInt(_v[0]) == parseInt(_cv[0]);
+			var majorS   = parseInt(_v[1]) < parseInt(_cv[1]);
+			var majorE   = parseInt(_v[1]) == parseInt(_cv[1]);
+			var minorS   = parseInt(_v[2]) < parseInt(_cv[2]);
 
-				if( versionS || (versionE && majorS) || (versionE && majorE && minorS) ) {
-					navigator.notification.alert(
-						'It looks like you’re using an older version of BoatDay. Download the newest version of the app to get the latest bells and whistles!',
-						function() {
-							window.open('itms-apps://itunes.apple.com/us/app/boatday/id953574487', '_system');
-						},
-						'It’s time for an Update!',
-						'Update'
-					);
-				} else {
-					if( cb ) {
-						cb();
-					}
+			if( versionS || (versionE && majorS) || (versionE && majorE && minorS) ) {
+				navigator.notification.alert(
+					'It looks like you’re using an older version of BoatDay. Download the newest version of the app to get the latest bells and whistles!',
+					function() {
+						window.open('itms-apps://itunes.apple.com/us/app/boatday/id953574487', '_system');
+					},
+					'It’s time for an Update!',
+					'Update'
+				);
+			} else {
+				if( cb ) {
+					cb();
 				}
-			});
+			}
 		},
 
 		initialize: function( cb ) {
