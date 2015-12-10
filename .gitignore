@@ -9,3 +9,5 @@
 
 app/dist/*
 app/src/scripts/vendor/*
+
+config.xml
