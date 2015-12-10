@@ -1,27 +1,6 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/com.boat.day.BDHelper/www/BDHelper.js",
-        "id": "com.boat.day.BDHelper.BDHelper",
-        "merges": [
-            "BDHelper"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
-        "id": "cordova-plugin-customurlscheme.LaunchMyApp",
-        "clobbers": [
-            "window.plugins.launchmyapp"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
-        "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
-        "clobbers": [
-            "facebookConnectPlugin"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-appinfo/www/appinfo.js",
         "id": "cordova-plugin-appinfo.AppInfo",
         "merges": [
@@ -57,6 +36,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
+        "id": "cordova-plugin-customurlscheme.LaunchMyApp",
+        "clobbers": [
+            "window.plugins.launchmyapp"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-dialogs/www/notification.js",
         "id": "cordova-plugin-dialogs.notification",
         "merges": [
@@ -68,6 +54,54 @@ module.exports = [
         "id": "cordova-plugin-dialogs.notification_android",
         "merges": [
             "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
+        "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
+        "clobbers": [
+            "facebookConnectPlugin"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+        "id": "cordova-plugin-geolocation.geolocation",
+        "clobbers": [
+            "navigator.geolocation"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.labs.keyboard/www/keyboard.js",
+        "id": "org.apache.cordova.labs.keyboard.keyboard",
+        "clobbers": [
+            "window.Keyboard"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+        "id": "cordova-plugin-statusbar.statusbar",
+        "clobbers": [
+            "window.StatusBar"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-whitelist/whitelist.js",
+        "id": "cordova-plugin-whitelist.whitelist",
+        "runs": true
+    },
+    {
+        "file": "plugins/com.boat.day.BDHelper/www/BDHelper.js",
+        "id": "com.boat.day.BDHelper.BDHelper",
+        "merges": [
+            "BDHelper"
         ]
     },
     {
@@ -217,28 +251,6 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
-        "id": "cordova-plugin-geolocation.geolocation",
-        "clobbers": [
-            "navigator.geolocation"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-        "id": "cordova-plugin-inappbrowser.inappbrowser",
-        "clobbers": [
-            "cordova.InAppBrowser.open",
-            "window.open"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.labs.keyboard/www/keyboard.js",
-        "id": "org.apache.cordova.labs.keyboard.keyboard",
-        "clobbers": [
-            "window.Keyboard"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-media/www/MediaError.js",
         "id": "cordova-plugin-media.MediaError",
         "clobbers": [
@@ -251,18 +263,6 @@ module.exports = [
         "clobbers": [
             "window.Media"
         ]
-    },
-    {
-        "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
-        "id": "cordova-plugin-statusbar.statusbar",
-        "clobbers": [
-            "window.StatusBar"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-whitelist/whitelist.js",
-        "id": "cordova-plugin-whitelist.whitelist",
-        "runs": true
     }
 ];
 module.exports.metadata = 

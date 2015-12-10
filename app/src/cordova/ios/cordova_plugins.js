@@ -1,30 +1,6 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/com.boat.day.BDHelper/www/BDHelper.js",
-        "id": "com.boat.day.BDHelper.BDHelper",
-        "pluginId": "com.boat.day.BDHelper",
-        "merges": [
-            "BDHelper"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-customurlscheme/www/ios/LaunchMyApp.js",
-        "id": "cordova-plugin-customurlscheme.LaunchMyApp",
-        "pluginId": "cordova-plugin-customurlscheme",
-        "clobbers": [
-            "window.plugins.launchmyapp"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
-        "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
-        "pluginId": "cordova-plugin-facebook4",
-        "clobbers": [
-            "facebookConnectPlugin"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-appinfo/www/appinfo.js",
         "id": "cordova-plugin-appinfo.AppInfo",
         "pluginId": "cordova-plugin-appinfo",
@@ -81,11 +57,92 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/cordova-plugin-customurlscheme/www/ios/LaunchMyApp.js",
+        "id": "cordova-plugin-customurlscheme.LaunchMyApp",
+        "pluginId": "cordova-plugin-customurlscheme",
+        "clobbers": [
+            "window.plugins.launchmyapp"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-dialogs/www/notification.js",
         "id": "cordova-plugin-dialogs.notification",
         "pluginId": "cordova-plugin-dialogs",
         "merges": [
             "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
+        "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
+        "pluginId": "cordova-plugin-facebook4",
+        "clobbers": [
+            "facebookConnectPlugin"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
+        "id": "cordova-plugin-geolocation.Coordinates",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "Coordinates"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+        "id": "cordova-plugin-geolocation.PositionError",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "PositionError"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-geolocation/www/Position.js",
+        "id": "cordova-plugin-geolocation.Position",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "Position"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-geolocation/www/geolocation.js",
+        "id": "cordova-plugin-geolocation.geolocation",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "navigator.geolocation"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.labs.keyboard/www/keyboard.js",
+        "id": "org.apache.cordova.labs.keyboard.keyboard",
+        "pluginId": "org.apache.cordova.labs.keyboard",
+        "clobbers": [
+            "window.Keyboard"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+        "id": "cordova-plugin-statusbar.statusbar",
+        "pluginId": "cordova-plugin-statusbar",
+        "clobbers": [
+            "window.StatusBar"
+        ]
+    },
+    {
+        "file": "plugins/com.boat.day.BDHelper/www/BDHelper.js",
+        "id": "com.boat.day.BDHelper.BDHelper",
+        "pluginId": "com.boat.day.BDHelper",
+        "merges": [
+            "BDHelper"
         ]
     },
     {
@@ -256,55 +313,6 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
-        "id": "cordova-plugin-geolocation.Coordinates",
-        "pluginId": "cordova-plugin-geolocation",
-        "clobbers": [
-            "Coordinates"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
-        "id": "cordova-plugin-geolocation.PositionError",
-        "pluginId": "cordova-plugin-geolocation",
-        "clobbers": [
-            "PositionError"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-geolocation/www/Position.js",
-        "id": "cordova-plugin-geolocation.Position",
-        "pluginId": "cordova-plugin-geolocation",
-        "clobbers": [
-            "Position"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-geolocation/www/geolocation.js",
-        "id": "cordova-plugin-geolocation.geolocation",
-        "pluginId": "cordova-plugin-geolocation",
-        "clobbers": [
-            "navigator.geolocation"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-        "id": "cordova-plugin-inappbrowser.inappbrowser",
-        "pluginId": "cordova-plugin-inappbrowser",
-        "clobbers": [
-            "cordova.InAppBrowser.open",
-            "window.open"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.labs.keyboard/www/keyboard.js",
-        "id": "org.apache.cordova.labs.keyboard.keyboard",
-        "pluginId": "org.apache.cordova.labs.keyboard",
-        "clobbers": [
-            "window.Keyboard"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-media/www/MediaError.js",
         "id": "cordova-plugin-media.MediaError",
         "pluginId": "cordova-plugin-media",
@@ -319,33 +327,25 @@ module.exports = [
         "clobbers": [
             "window.Media"
         ]
-    },
-    {
-        "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
-        "id": "cordova-plugin-statusbar.statusbar",
-        "pluginId": "cordova-plugin-statusbar",
-        "clobbers": [
-            "window.StatusBar"
-        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.boat.day.BDHelper": "1.0.0",
-    "cordova-plugin-customurlscheme": "4.0.0",
-    "cordova-plugin-facebook4": "1.3.0-0",
     "cordova-plugin-appinfo": "2.0.2",
     "cordova-plugin-camera": "1.2.1-dev",
     "cordova-plugin-console": "1.0.3-dev",
+    "cordova-plugin-customurlscheme": "4.0.0",
     "cordova-plugin-dialogs": "1.2.1-dev",
-    "cordova-plugin-file": "4.0.1-dev",
+    "cordova-plugin-facebook4": "1.3.0-0",
     "cordova-plugin-geolocation": "2.0.1-dev",
     "cordova-plugin-inappbrowser": "1.1.1-dev",
     "org.apache.cordova.labs.keyboard": "0.1.2",
-    "cordova-plugin-media": "2.0.1-dev",
     "cordova-plugin-statusbar": "2.0.1-dev",
-    "cordova-plugin-whitelist": "1.2.1-dev"
+    "cordova-plugin-whitelist": "1.2.1-dev",
+    "com.boat.day.BDHelper": "1.0.0",
+    "cordova-plugin-file": "4.0.1-dev",
+    "cordova-plugin-media": "2.0.1-dev"
 }
 // BOTTOM OF METADATA
 });
