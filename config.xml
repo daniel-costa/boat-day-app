@@ -4,6 +4,7 @@
     <description>BoatDay App</description>
     <author email="contact@boatdayapp.com" href="http://www.boatdayapp.com">Daniel Costa</author>
     <access origin="*" />
+    <allow-intent href="*" />
     <preference name="Orientation" value="portrait" />
     <preference name="BackupWebStorage" value="local" />
     <preference name="AllowInlineMediaPlayback" value="true" />
