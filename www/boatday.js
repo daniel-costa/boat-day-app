@@ -11,9 +11,6 @@ document.addEventListener("deviceReady", function() {
 	console.log("~> device ready");
 
 	BDHelper.initialize(function(data) {
-		
-		console.log(data);
-
 		BDHelper.getInstallationId(function(installationId) {
 			window.BDHelper = data;
 			window.BDHelper.installationId = installationId;
