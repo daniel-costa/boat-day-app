@@ -81,8 +81,8 @@ public class BDHelper extends CordovaPlugin {
                 try {
 
                     String versionName;
-                    String packageName = this.cordova.getActivity().getPackageName();
-                    PackageManager pm = this.cordova.getActivity().getPackageManager();
+                    String packageName = cordova.getActivity().getPackageName();
+                    PackageManager pm = cordova.getActivity().getPackageManager();
                     try {
                         PackageInfo packageInfo = pm.getPackageInfo(packageName, 0);
                         versionName = packageInfo.versionName;
