@@ -12,7 +12,22 @@ define([
 		events: { 
 			'click .save': 'save'
 		},
+		
+		initialize: function(data) {
+			if( typeof data.setup !== typeof undefined ) {
+				this.setup = data.setup;
+			}
+		},
 
+		render: function() {
+			BaseView.prototype.render.call(this);
+
+			if( this.setup ) {
+				this.$el.find('.close-me').hide();
+			}
+
+			return this;
+		},
 
 		save: function() {
 

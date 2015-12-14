@@ -25,10 +25,20 @@ define([
 
 			this.profileSetup = data ? data.setup : false;
 			this.drawer = !this.profileSetup;
-			
+
 			if( this.model.get('profilePicture') ) {
 				this.tempPicture = this.model.get('profilePicture');
 			}
+		},
+		
+		render: function() {
+			BaseView.prototype.render.call(this);
+
+			if( this.profileSetup ) {
+				this.$el.find('.close-me').hide();
+			}
+
+			return this;
 		},
 		
 		showCreditCards: function() {

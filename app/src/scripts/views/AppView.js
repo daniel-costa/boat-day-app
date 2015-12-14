@@ -149,25 +149,26 @@ define([
 			var self = this;
 			
 			Parse.User.current().get("profile").fetch().then(function(profile) {
-
 				self.updateNotificationsAmount();
 				setInterval(function() { 
 					if( Parse.User.current() ) {
 						self.updateNotificationsAmount() 
 					}
 				}, 10 * 1000);
-				
+
 				if( window.BDHelper.installationId ) {
 					Parse.Cloud.run('attachUserProfileToInstallationWithInstallationId', {
 						installationId: window.BDHelper.installationId,
 						user: Parse.User.current().id,
 						profile: profile.id,
-					}).then(function(){}, function(error){ 
+					}).then(function(){
+						console.log('~> attachUserProfileToInstallationWithInstallationId - success') 
+					}, function(error){ 
 						console.log('~> attachUserProfileToInstallationWithInstallationId - Cannot attach profile') 
 						console.log(error);
 					});
 				}
-				
+
 				self.snap = new Snap({
 					element: document.getElementById('content'),
 					disable: 'right',
@@ -177,18 +178,17 @@ define([
 					tapToClose: true,
 					touchToDrag: false,
 				});
-
+				
 				$('#app').append( new DrawerView({ model: profile }).render().el );
 
 				setInterval(self.updateGeoPoint, Parse.Config.current().get('POSITION_REFRESH_DELAY') );
 				self.updateGeoPoint(cb);
-				
+
 			}, function() {
 				Parse.User.logOut();
 				facebookConnectPlugin.logout();
 				cb();
 			});
-
 		},
 		
 		checkVersion: function(cb) {
@@ -236,7 +236,6 @@ define([
 						self.checkVersion();
 					});
 				}, Parse.Config.current().get('CHECK_CONFIG_INTERVAL') );
-				
 			});
 
 			// prevent bug on feedback page with a jumping keyboard
@@ -262,7 +261,6 @@ define([
 				// in may happen that the user just sign out or other not
 				// planned events.
 				return;
-			
 			}
 
 			var positionError = function (error) {
@@ -271,18 +269,18 @@ define([
 				cb();
 			};
 
-			navigator.geolocation.getCurrentPosition(function(position) {
-				Parse.User.current().get("profile").save({ 
-					position: new Parse.GeoPoint({ 
-						latitude: position.coords.latitude, 
-						longitude: position.coords.longitude 
-					})
-				}).then(cb, positionError);
-			}, positionError, {
-				enableHighAccuracy: true,
-				maximumAge: 0
-			});
-
+			if( window.isAndroid ) {
+				cb();
+			} else {
+				navigator.geolocation.getCurrentPosition(function(position) {
+					Parse.User.current().get("profile").save({ 
+						position: new Parse.GeoPoint({ 
+							latitude: position.coords.latitude, 
+							longitude: position.coords.longitude 
+						})
+					}).then(cb, positionError);
+				}, positionError);
+			}
 		},
 
 		openDrawer: function() {

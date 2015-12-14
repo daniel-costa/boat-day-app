@@ -16,18 +16,22 @@
         facebook:   'http://connect.facebook.net/en_US/all',
     },
     name: "main",
+
     optimize: "uglify2",
     uglify2: {
         output: {
             beautify: false
+            // beautify: true
         },
         compress: {
             sequences: true,
+            // sequences: false,
             global_defs: {
                 DEBUG: false
             }
         },
         warnings: true,
         mangle: true
+        // mangle: false
     }
 })

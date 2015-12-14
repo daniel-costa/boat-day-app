@@ -104,5 +104,4 @@ require(['fastclick', 'router', 'views/AppView', 'parse', 'snapjs', 'slider'], f
 
 	Keyboard.onshowing = function () { StatusBar.hide(); };
 	Keyboard.onhiding  = function () { StatusBar.show(); };
-
 });

@@ -38,7 +38,7 @@
 			</div>
 			<div class="item">
 				<div class="bd-person icon"></div>
-				<div class="label"><%= model.get('availableSeats') %></div>
+				<div class="label"><%= model.get('availableSeats') - model.get('bookedSeats') %></div>
 			</div>
 		</div>
 	</div>

@@ -253,10 +253,8 @@ define([
 			var self = this;
 
 			if( !Parse.User.current() ) {
-				
 				this.guest();
 				return;
-
 			}
 
 			if( Parse.User.current().get('profile').get("status") == "creation" ) {
