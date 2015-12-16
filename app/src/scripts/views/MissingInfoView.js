@@ -8,7 +8,11 @@ define([
 
 		template: _.template(MissingInfoTemplate),
 
-		events: {},
+		events: {
+			'click .btn-save': 'save'
+		},
+
+		checkForMissingInfo: false,
 
 		render: function() {
 
@@ -17,6 +21,10 @@ define([
 			var self = this;
 
 			return this;
+		},
+
+		save: function() {
+			// Save profile, and after that save user, and after close view with self.close();
 		}
 
 	});

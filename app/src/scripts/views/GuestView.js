@@ -16,6 +16,8 @@ define([
 			"click button.sign-up" : "signUp",
 			"click button.sign-in" : "signIn",
 		},
+		
+		checkForMissingInfo: false,
 
 		render: function() {
 

@@ -25,7 +25,15 @@ define([], function() {
 		isModal: false,
 		renderParent: false,
 
-		afterRenderInsertedToDom: function() { },
+		checkForMissingInfo: true,
+
+		afterRenderInsertedToDom: function() {
+			if( this.checkForMissingInfo ) {
+				if( birthdate or email or mobile is empty) {
+					// open MissingInfoView as modal	
+				}
+			}
+		},
 		
 		getBoatDayTitle: function(id) {
 			switch(id) {

@@ -1,20 +1,21 @@
-<div class="drop">
-	<header>
-		<h1>Hi Vivian!</h1>
-		<p>We would like some more details to make BoatDay better for you</p>
-	</header>
-	<main>
-		<label class="field" for="email">email (cannot be modify)</label>
-		<input name="email" id="email" type="email">
+<header>
+	<h1>Hi Vivian!</h1>
+	<p>We would like some more details to make BoatDay better for you</p>
+</header>
 
-		<label for="phone" class="field">phone (cannot be modify)</label>
+<main>
+	<label class="field" for="email">Email</label>
+	<input name="email" id="email" type="email">
+
+	<% if( typeof Parse.User.current().get('profile').get('phone') === typeof undefined || Parse.User.current().get('profile').get('phone') === null ) { %>
+		<label for="phone" class="field">Phone</label>
 		<input type="number" name="phone" id="phone" class"phone">
+	<% } %>
 
-		<label for="birthday" class="field">birthday (cannot be modify)</label>
-		<input type="date" name="birthday" id="birthday" class"birthday" >
-	</main>
-	<footer>
-		<button class="btn-primary save">Save</button>
-		<span class="icon bd-cross close-me"></span>
-	</footer>
-</div>
+	<label for="birthday" class="field">Birthday</label>
+	<input type="date" name="birthday" id="birthday" class"birthday">
+</main>
+
+<footer>
+	<button class="btn-primary save">Save</button>
+</footer>

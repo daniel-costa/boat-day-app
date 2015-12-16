@@ -20,6 +20,8 @@ define([
 		profileSetup: false,
 		tempPicture: null,
 
+		checkForMissingInfo: false,
+
 		// ToDo optimize the methods to have less repetitions in takePicture and openGallery
 		initialize: function(data) {
 

@@ -13,6 +13,8 @@ define([
 			'click .save': 'save'
 		},
 		
+		checkForMissingInfo: false,
+
 		initialize: function(data) {
 			if( typeof data.setup !== typeof undefined ) {
 				this.setup = data.setup;

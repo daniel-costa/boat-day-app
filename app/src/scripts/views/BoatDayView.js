@@ -82,6 +82,9 @@ define([
 		},
 
 		afterRenderInsertedToDom: function() {
+
+			BaseView.prototype.afterRenderInsertedToDom.call(this);
+			
 			if( this.afterRenderScrollTo ) {
 				this.$el.find('main').animate({
 					scrollTop: this.$el.find(this.afterRenderScrollTo).position().top
