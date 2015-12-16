@@ -205,7 +205,11 @@ define([
 				navigator.notification.alert(
 					'It looks like you’re using an older version of BoatDay. Download the newest version of the app to get the latest bells and whistles!',
 					function() {
-						window.open('itms-apps://itunes.apple.com/us/app/boatday/id953574487', '_system');
+						if ( window.isAndroid ) {
+							window.open('itms-apps://itunes.apple.com/us/app/boatday/id953574487', '_system');
+						} else {
+							window.open('https://play.google.com/store/apps/details?id=com.boat.day', '_system');
+						}
 					},
 					'It’s time for an Update!',
 					'Update'
