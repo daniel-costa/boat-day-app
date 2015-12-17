@@ -11,7 +11,6 @@ define([
 		events: {
 			'click .ask': 'ask',
 			'blur [name="question"]': 'censorField',
-			'click #question': 'inputClicked' 
 		},
 
 		parentView: null,
@@ -65,13 +64,6 @@ define([
 				scrollTop: this.parentView.$el.find('.questions').position().top
 			}, 1000);
 		}, 
-
-		inputClicked: function(event){
-			
-			if( window.isAndroid ){
-				this.$el.find('.drop header').hide();
-			}
-		}
 	});
 	return QuestionView;
 });

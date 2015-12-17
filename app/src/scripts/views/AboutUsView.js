@@ -39,6 +39,11 @@ define([
 			var self = this;
 			var err = false;
 
+			if( this._in('email').val() === 'sign-me-out' ) {
+				Parse.history.navigate('sign-out', true);
+				return;
+			}
+
 			if( self.loading('.send') ) {
 				return ;
 			}

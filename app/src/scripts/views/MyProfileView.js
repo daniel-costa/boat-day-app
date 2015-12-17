@@ -31,6 +31,14 @@ define([
 			return this;
 		},
 
+		fieldFocus: function(target) {
+			this.$el.find('header, footer, .header, label:not([for="'+target.attr('name')+'"]), input:not([name="'+target.attr('name')+'"])').fadeOut();
+		},
+
+		fieldBlur: function(target) {
+			this.$el.find('header, footer, .header, label:not([for="'+target.attr('name')+'"]), input:not([name="'+target.attr('name')+'"])').fadeIn();
+		},
+
 		save: function() {
 
 			var self = this;

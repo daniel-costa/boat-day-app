@@ -20,7 +20,7 @@
 	<div>
 		<div class="header grey-area">
 
-			<div class="guest-picture big" <%= typeof profilePicture !== 'undefined' && profilePicture ? 'style="background-image:url('+profilePicture.url+')"' : '' %>></div>
+			<div class="guest-picture big field profilePicture" <%= typeof profilePicture !== 'undefined' && profilePicture ? 'style="background-image:url('+profilePicture.url+')"' : '' %>></div>
 			
 			<h1><%= displayName %></h1>
 			<h2>Guest since <%= self.dateForProfileSince(createdAt) %></h2>
@@ -37,27 +37,30 @@
 			<label for="about" class="field" id="aboutMe">About me</label> 
 			<textarea rows="3" name="about" id="about" class="aboutMe" placeholder="About me"><%= about %></textarea>	
 
-			<!--
-			<% if( this.profileSetup ) { %>
-				<label for="firstname" class="field">First name (cannot be modify)</label>
-				<input type="text" name="name" id="name" value="<%= firstName %>">
+			<% if( !self.setup ) { %>
+			<div class="data-ro">
+				<label for="firstName" class="field">First name (cannot be modify)</label>
+				<input type="text" name="firstName" id="firstName" value="<%= self.parseUndefined( self.model.get('firstName') ) %>" readonly disabled>
 
-				<label for="lastname" class="field">Last name (cannot be modify)</label>
-				<input type="text" name="lastName" id="lastName" value="<%= lastName %>">
+				<label for="lastName" class="field">Last name (cannot be modify)</label>
+				<input type="text" name="lastName" id="lastName" value="<%= self.parseUndefined( self.model.get('lastName') ) %>" readonly disabled>
 
 				<label for="email" class="field">Email (cannot be modify)</label>
-				<input type="text" name="email" id="email" value="<%= Parse.User.current().getEmail() %>" readonly>
+				<input type="text" name="email" id="email" value="<%= self.parseUndefined( Parse.User.current().getEmail() ) %>" readonly disabled>
 
 				<label for="phone" class="field">Phone (cannot be modify)</label>
-				<input type="text" name="phone" id="phone" value="<%= phone %>">
+				<input type="text" name="phone" id="phone" value="<%= self.parseUndefined( self.model.get('phone') ) %>" readonly disabled>
 
-				<label for="birthDate" class="field">Birthday (cannot be modify)</label>
-				<input type="date" name="birthDate" id="birthDate" value="<%=  dt_value ? dt_value : '' %>">
+				<label for="birthdate" class="field">Birthday (cannot be modify)</label>
+				<input type="date" name="birthdate" id="birthdate" value="<%=  dt_value ? dt_value : '' %>" readonly disabled>
+
+				<button class="btn-danger sign-out">sign out</button>
+			</div>
 			<% } %>
-			-->
 		</div>
 	</div>
 </main>
+
 <footer>
 	<button class="btn-primary save"><%= self.profileSetup ? 'Continue' : 'Save' %></button>
 </footer>

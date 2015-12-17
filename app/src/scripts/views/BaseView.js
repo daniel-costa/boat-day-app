@@ -3,23 +3,6 @@ define([], function() {
 
 		subViews: [],
 
-		__GLOBAL_CAMERA_TAKE_PICTURE__: {
-			quality: 50,
-			destinationType: 0,
-			saveToPhotoAlbum: false,
-			cameraDirection: 1,
-			correctOrientation: true
-		},
-
-		__GLOBAL_CAMERA_OPEN_GALLERY__: {
-			quality: 50,
-			destinationType: 0,
-			sourceType: 0,
-			mediaType: 0,
-			saveToPhotoAlbum: false,
-			correctOrientation: true
-		},
-
 		statusbar: true,
 		drawer: true,
 		isModal: false,
@@ -28,11 +11,7 @@ define([], function() {
 		checkForMissingInfo: true,
 
 		afterRenderInsertedToDom: function() {
-			if( this.checkForMissingInfo ) {
-				if( birthdate or email or mobile is empty) {
-					// open MissingInfoView as modal	
-				}
-			}
+			
 		},
 		
 		getBoatDayTitle: function(id) {
@@ -50,6 +29,10 @@ define([], function() {
 
 		hideOverlay: function(overlay) {
 			overlay.find('.overlay-close').click();
+		},
+
+		parseUndefined: function(field) {
+			return typeof field !== typeof undefined ? field : '';
 		},
 
 		splitURLParams: function(string){
@@ -273,9 +256,27 @@ define([], function() {
 				}
 			};
 
+			if( true || window.isAndroid ) {
+				self.$el.on('focus', 'input, textarea', function(event) {
+					self.fieldFocus($(event.currentTarget));
+				});
+
+				self.$el.on('blur', 'input, textarea', function(event) {
+					self.fieldBlur($(event.currentTarget));
+				});
+			}
+
 			console.log('~> Render View "' + this.className + '"');
 			
 			return this;
+		},
+
+		fieldFocus: function(target) {
+			this.$el.find('header, footer').fadeOut();
+		},
+
+		fieldBlur: function(target) {
+			this.$el.find('header, footer').fadeIn();
 		},
 
 		keyboardAppear: function() { },

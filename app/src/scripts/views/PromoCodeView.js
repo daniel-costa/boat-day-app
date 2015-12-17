@@ -10,17 +10,10 @@ define([
 
 		events: {
 			'click .save' : 'save', 
-			'click .promo': 'inputClicked'
 		}, 
 
 		initialize: function(data) {
 			this.parentView = data.parentView;
-		},
-
-		inputClicked: function(event){
-			if( window.isAndroid ){
-				this.$el.find('.drop header').hide();
-			}
 		},
 
 		save: function() {

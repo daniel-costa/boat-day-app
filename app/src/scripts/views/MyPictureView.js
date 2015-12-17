@@ -14,10 +14,11 @@ define([
 			'click .take-picture': 'takePicture',
 			'click .open-gallery': 'openGallery',
 			'click .save'		 : 'save',
-			'click .credit-card' : 'showCreditCards'
+			'click .credit-card' : 'showCreditCards',
+			'click .sign-out'    : 'signOut',
 		},
 
-		profileSetup: false,
+		setup: false,
 		tempPicture: null,
 
 		checkForMissingInfo: false,
@@ -25,8 +26,8 @@ define([
 		// ToDo optimize the methods to have less repetitions in takePicture and openGallery
 		initialize: function(data) {
 
-			this.profileSetup = data ? data.setup : false;
-			this.drawer = !this.profileSetup;
+			this.setup = data ? data.setup : false;
+			this.drawer = !this.setup;
 
 			if( this.model.get('profilePicture') ) {
 				this.tempPicture = this.model.get('profilePicture');
@@ -36,22 +37,34 @@ define([
 		render: function() {
 			BaseView.prototype.render.call(this);
 
-			if( this.profileSetup ) {
+			if( this.setup ) {
 				this.$el.find('.close-me').hide();
 			}
 
 			return this;
 		},
 		
+		signOut: function() {
+			Parse.history.navigate('sign-out', true);
+		},
+
 		showCreditCards: function() {
 
-			if( this.profileSetup ) {
+			if( this.setup ) {
 				this.overlay(new CreditCardView());
 			} else {
 				this.overlay(new PaymentsView());
 			}
 
 		}, 
+
+		fieldFocus: function(target) {
+			this.$el.find('header, footer, .credit-card, .header, .data-ro').fadeOut();
+		},
+
+		fieldBlur: function(taret) {
+			this.$el.find('header, footer, .credit-card, .header, .data-ro').fadeIn();
+		},
 
 		save: function() {
 
@@ -63,11 +76,17 @@ define([
 
 			self.cleanForm();
 
-			var profileUpdateSuccess = function() {
-				
+			this.model.save({ 
+				status: 'complete',
+				profilePicture : self.tempPicture,
+				about: self._input('about').val(), 
+				firstName: self._input('name').val(), 
+				lastName: self._input('lastName').val(), 
+				phone: self._input('phone').val(), 
+				birthday: self._input('birthDate').val() ? new Date(this._input('birthDate').val()) : null
+			}).then(function() {
 				Parse.Analytics.track('profile-save');
-
-				if( self.profileSetup ) {
+				if( self.setup ) {
 					$(document).trigger('loadProfile', function() {
 						var Notification = Parse.Object.extend('Notification');
 						new Notification().save({
@@ -77,7 +96,7 @@ define([
 							to: Parse.User.current().get('profile'),
 							sendEmail: false
 						}).then(function() {
-							Parse.history.navigate("profile-payments", true);
+							Parse.history.navigate("boatdays", true);
 						});
 					});
 				} else {
@@ -86,33 +105,16 @@ define([
 						self._info('Profile saved');
 					});
 				}
-
-			};
-
-			var profileUpdateError = function(error) {
+			}, function(error) {
 				if( error.type && error.type == 'model-validation' ) {
 					_.map(error.fields, function(message, field) { 
 						self.fieldError(field, message);
 					});
-					self.loading();
-					self._error('One or more fields contain errors.');
-				} else {
-					self.loading();
-					self._error(error);
+					error = 'One or more fields contain errors.';
 				}
-			};
-
-			var data = { 
-				status: 'complete',
-				profilePicture : self.tempPicture,
-				about: self._input('about').val(), 
-				firstName: self._input('name').val(), 
-				lastName: self._input('lastName').val(), 
-				phone: self._input('phone').val(), 
-				birthday: self._input('birthDate').val() ? new Date(this._input('birthDate').val()) : null
-			};
-
-			this.model.save(data).then(profileUpdateSuccess, profileUpdateError);
+				self.loading();
+				self._error(error);
+			});
 
 		},
 
@@ -126,27 +128,28 @@ define([
 				return;
 			}
 
-			var pictureSaveSuccess = function(imageData) {
+			navigator.camera.getPicture(function(imageData) {
 				self.tempPicture = new Parse.File("picture.jpeg", { base64: imageData }, "image/jpeg");
-				self.tempPicture.save().then(profileUpdate, pictureSaveError);
-			};
-
-			var profileUpdate = function(picture) {
+				self.tempPicture.save().then(function(picture) {
+					self.loading();
+					self.tempPicture = picture;
+					self.$el.find('.guest-picture').css({ backgroundImage: 'url(' + picture.url() + ')' });
+				});
+			}, function(error) {
 				self.loading();
-				self.tempPicture = picture;
-				self.$el.find('.guest-picture').css({ backgroundImage: 'url(' + picture.url() + ')' });
-			};
-
-			var pictureSaveError = function(error) {
-
-				self.loading();
-
-				if( error != "no image selected" ) {
+				if( error == 'bad-format' ) {
+					self._error('Picture must be in JPEG format');
+				} else if( error != "no image selected" ) {
 					self._error('Oops... Something went wrong. Try later or if it persists close totally the app and open it again.');
 				}
-			};
-
-			navigator.camera.getPicture(pictureSaveSuccess, pictureSaveError, self.__GLOBAL_CAMERA_OPEN_GALLERY__);
+			}, {
+				quality: 50,
+				destinationType: 0,
+				saveToPhotoAlbum: false,
+				correctOrientation: true,
+				sourceType: 0,
+				mediaType: 0
+			});
 		},
 
 		takePicture: function() {
@@ -159,26 +162,27 @@ define([
 				return ;
 			}
 
-			var pictureSaveSuccess = function(imageData) {
+			navigator.camera.getPicture(function(imageData) {
 				self.tempPicture = new Parse.File("picture.jpeg", { base64: imageData }, "image/jpeg");
-				self.tempPicture.save().then(profileUpdate, pictureSaveError);
-			};
-
-			var profileUpdate = function(picture) {
+				self.tempPicture.save().then(function(picture) {
+					self.loading();
+					self.tempPicture = picture;
+					self.$el.find('.guest-picture').css({ backgroundImage: 'url(' + picture.url() + ')' });
+				});
+			}, function(error) {
 				self.loading();
-				self.tempPicture = picture;
-				self.$el.find('.guest-picture').css({ backgroundImage: 'url(' + picture.url() + ')' });
-			};
-
-			var pictureSaveError = function(error) {
-				self.loading();
-				if( error != "no image selected" ) {
+				if( error == 'bad-format' ) {
+					self._error('Picture must be in JPEG format');
+				} else if( error != "no image selected" ) {
 					self._error('Oops... Something went wrong. Try later or if it persists close totally the app and open it again.');
 				}
-			};
-
-			navigator.camera.getPicture(pictureSaveSuccess, pictureSaveError, self.__GLOBAL_CAMERA_TAKE_PICTURE__);
-
+			}, {
+				quality: 50,
+				destinationType: 0,
+				saveToPhotoAlbum: false,
+				correctOrientation: true,
+				cameraDirection: 1,
+			});
 		}
 	});
 	return MyPictureView;

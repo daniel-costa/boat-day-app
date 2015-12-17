@@ -13,24 +13,24 @@ header .icon {
 	width: 25px;
 
 	.align-self(center);
-}
 
-header .icon:after {
-	content:"";
-	top: -10px;
-	left: -10px;
-	right: -10px;
-	bottom: -10px;
-	position: absolute;
-}
+	&:after {
+		content:"";
+		top: -10px;
+		left: -10px;
+		right: -10px;
+		bottom: -10px;
+		position: absolute;
+	}
 
-header .icon:first-child {
-	margin-left: 10px;	
-}
+	&:first-child {
+		margin-left: 10px;	
+	}
 
-header .icon:last-child {
-	margin-right: 10px;
-	text-align: right;
+	&:last-child {
+		margin-right: 10px;
+		text-align: right;
+	}
 }
 
 .grey-area {
@@ -61,6 +61,42 @@ h6 {
 	border-radius: 0px 0px 2pt 2pt;
 }
 
+.btn-action() {
+	background: @button-action-background;
+	border: @button-action-border;
+	color: @button-action-color;
+
+	&:active:not([disabled]) {
+		background: @button-action-active-background;
+		border: @button-action-active-border;
+		color: @button-action-active-color;
+	}
+}
+
+.btn-danger() {
+	background: @button-danger-background;
+	border: @button-danger-border;
+	color: @button-danger-color;
+
+	&:active:not([disabled]) {
+		background: @button-danger-active-background;
+		border: @button-danger-active-border;
+		color: @button-danger-active-color;
+	}
+}
+
+.btn-primary() {
+	background: @button-primary-background;
+	border: @button-primary-border;
+	color: @button-primary-color;
+
+	&:active:not([disabled]) {
+		background: @button-primary-active-background;
+		border: @button-primary-active-border;
+		color: @button-primary-active-color;
+	}
+}
+
 button {
 	display: block;
 	width: 100%;
@@ -76,44 +112,37 @@ button {
 	background: @button-default-background;
 	border: @button-default-border;
 	color: @button-default-color;
-}
 
-button[disabled] {
-	opacity: 0.5;	
+	&[disabled] {
+		background-image: url(resources/loader.gif) !important;
+		background-position: center center !important;
+		background-repeat: no-repeat !important;
+		background-size: auto 70% !important;
+		font-size: 0;
+		opacity: 0.5;	
+	}
+
+	&:active:not([disabled]) {
+		background: @button-default-active-background;
+		border: @button-default-active-border;
+		color: @button-default-active-color;
+	}
+
+	&.btn-action {
+		.btn-action();
+	}
+
+	&.btn-danger {
+		.btn-danger();
+	}
+
+	&.btn-primary {
+		.btn-primary();
+	}
 }
 
 footer button {
 	margin-bottom: 0px;
-}
-
-button:active:not([disabled]) {
-	background: @button-default-active-background;
-	border: @button-default-active-border;
-	color: @button-default-active-color;
-}
-
-button.btn-action {
-	background: @button-action-background;
-	border: @button-action-border;
-	color: @button-action-color;
-}
-
-button.btn-action:active:not([disabled]) {
-	background: @button-action-active-background;
-	border: @button-action-active-border;
-	color: @button-action-active-color;
-}
-
-button.btn-primary {
-	background: @button-primary-background;
-	border: @button-primary-border;
-	color: @button-primary-color;
-}
-
-button.btn-primary:active:not([disabled]) {
-	background: @button-primary-active-background;
-	border: @button-primary-active-border;
-	color: @button-primary-active-color;
 }
 
 .button-spacing {
@@ -158,11 +187,11 @@ label.field {
 }
 
 label.field-flag-error {
-	border-color: rgba(255, 96, 61, 1);
+	border-color: @danger-color;
 }
 
 .field-flag-error {
-	color: rgba(255, 96, 61, 1) !important;
+	color: @danger-color !important;
 }
 
 .base-picture {
@@ -208,10 +237,14 @@ label.field-flag-error {
 	.base-picture();
 	border-radius: 320px !important;
 	background-image: url(resources/placeholder-guest.png);
-}
 
-.guest-picture.bd-team {
-	background-image:url(resources/bd-team.jpg)
+	&.bd-team {
+		background-image:url(resources/bd-team.jpg)
+	}
+
+	&.field-flag-error {
+		border: 1px solid @danger-color;
+	}
 }
 
 .boatday-picture {
@@ -225,171 +258,58 @@ label.field-flag-error {
 	background-size: cover;
 	overflow: hidden;
 	z-index: 1;
-}
 
-.boatday-picture:after {
-	content: "";
-	width: 100%;
-	height: 100%;
-	top: 0px;
-	left: 0px;
-	background: rgba(37, 42, 43, 0.85);
-	position: absolute;
-	z-index: 2;
-	//for android version
-	border-top-left-radius: 40vw;
-	border-top-right-radius: 40vw;
-	border-bottom-left-radius: 40vw;
-	border-bottom-right-radius: 40vw;
-}
-
-.boatday-picture .with-price {
-	width: 100%;
-	height: 100%;
-	z-index: 3;
-	position: relative;
-}
-
-.boatday-picture .with-price:before {
-	content: "TOTAL";
-	position: absolute;
-	top: 50%;
-	left: -10px;
-	height: 40px;
-	line-height: 40px;
-	margin-top: -15px;
-	width: 50%;
-	text-align: right;
-	color: white;
-	z-index: 4;
-	font-size: 9pt;
-	line-height: 13.63pt;
-	color: rgba(255, 255, 255, 0.5);
-	text-decoration: underline;
-}
-
-body.android .boatday-picture .with-price:before {
-	content: "TOTAL";
-	position: absolute;
-	top: 50%;
-	left: -10px;
-	height: 40px;
-	line-height: 40px;
-	margin-top: 67px;
-	width: 50%;
-	text-align: right;
-	color: white;
-	z-index: 4;
-	font-size: 9pt;
-	line-height: 13.63pt;
-	color: rgba(255, 255, 255, 0.5);
-	text-decoration: underline;
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 0.5) { 
-	body.android .boatday-picture .with-price:before { 
-		margin-top: -15px;
+	&:after {
+		content: "";
+		width: 100%;
+		height: 100%;
+		top: 0px;
+		left: 0px;
+		background: rgba(37, 42, 43, 0.85);
+		position: absolute;
+		z-index: 2;
 	}
-}
 
-@media only screen and (-webkit-min-device-pixel-ratio: 1) { 
-	body.android .boatday-picture .with-price:before {
-		margin-top: -5px;
-	}
-}
+	.with-price {
+		width: 100%;
+		height: 100%;
+		z-index: 3;
+		position: relative;
 
-@media only screen and (-webkit-min-device-pixel-ratio: 1.3) { 
-	body.android .boatday-picture .with-price:before {
-		margin-top: -5px;
-	}
-}
+		&:before {
+			content: "TOTAL";
+			position: absolute;
+			top: 50%;
+			left: -10px;
+			height: 40px;
+			line-height: 40px;
+			margin-top: -15px;
+			width: 50%;
+			text-align: right;
+			color: white;
+			z-index: 4;
+			font-size: 9pt;
+			line-height: 13.63pt;
+			color: rgba(255, 255, 255, 0.5);
+			text-decoration: underline;
+		}
 
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5) { 
-	body.android .boatday-picture .with-price:before {
-		margin-top: -5px;
-	}
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
-	body.android .boatday-picture .with-price:before {
-		margin-top: 67px;
-	}
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 3) { 
-	body.android .boatday-picture .with-price:before {
-		margin-top: 67px;
-	}
-}
-
-.boatday-picture .with-price:after {
-	content: "$" attr(data-price);
-	position: absolute;
-	top: 50%;
-	right: 0px;
-	height: 40px;
-	line-height: 40px;
-	margin-top: -10px;
-	width: 50%;
-	text-align: left;
-	z-index: 4;
-	color: white;
-	font-size: 20pt;
-	line-height: 26pt;
-	color: rgba(255, 255, 255, 1);
-}
-
-body.android .boatday-picture .with-price:after {
-	content: "$" attr(data-price);
-	position: absolute;
-	top: 50%;
-	right: 0px;
-	height: 40px;
-	line-height: 40px;
-	margin-top: 67px;
-	width: 50%;
-	text-align: left;
-	z-index: 4;
-	color: white;
-	font-size: 20pt;
-	line-height: 26pt;
-	color: rgba(255, 255, 255, 1);
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 0.5) { 
-	body.android .boatday-picture .with-price:after {
-		margin-top: -15px;
-	}
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1) { 
-	body.android .boatday-picture .with-price:after {
-		margin-top: 15px;
-	}
-}
-
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.3) { 
-	.boatday-picture .with-price:after {
-		margin-top: -15px;
-	}
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5) { 
-	body.android .boatday-picture .with-price:after {
-		margin-top: -15px;
-	}
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
-	body.android .boatday-picture .with-price:after {
-		margin-top: 65px;
-	}
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 3) { 
-	body.android .boatday-picture .with-price:after {
-		margin-top: 65px;
+		&:after {
+			content: "$" attr(data-price);
+			position: absolute;
+			top: 50%;
+			right: 0px;
+			height: 40px;
+			line-height: 40px;
+			margin-top: -10px;
+			width: 50%;
+			text-align: left;
+			z-index: 4;
+			color: white;
+			font-size: 20pt;
+			line-height: 26pt;
+			color: rgba(255, 255, 255, 1);
+		}
 	}
 }
 
@@ -400,44 +320,45 @@ body.android .boatday-picture .with-price:after {
 	margin: 0px;
 	display: inline-block;
 	position:relative;
+
+	&:before,
+	.with-empty:before {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		font-size:11.33pt;
+		color: rgba(248, 182, 44, 1);
+	}
+
+	.with-empty:before {
+		right: 0px;
+		left: auto;
+		color: rgba(177, 191, 204, 0.3);
+	}
+
+	&.rating-5:before { content: "WWWWW"; }
+	&.rating-4:before { content: "WWWW"; }
+	&.rating-3:before { content: "WWW"; }
+	&.rating-2:before { content: "WW"; }
+	&.rating-1:before { content: "W"; }
+	&.rating-0:before { content: ""; }
+
+	&.rating-5 .with-empty:before { content: ""; }
+	&.rating-4 .with-empty:before { content: "X"; }
+	&.rating-3 .with-empty:before { content: "XX"; }
+	&.rating-2 .with-empty:before { content: "XXX"; }
+	&.rating-1 .with-empty:before { content: "XXXX"; }
+	&.rating-0 .with-empty:before { content: "XXXXX"; }
 }
 
-.rating:before,
-.rating .with-empty:before {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	bottom: 0px;
-	font-size:11.33pt;
-	color: rgba(248, 182, 44, 1);
-}
-
-.rating .with-empty:before {
-	right: 0px;
-	left: auto;
-	color: rgba(177, 191, 204, 0.3);
-}
-
-.rating-5:before { content: "WWWWW"; }
-.rating-4:before { content: "WWWW"; }
-.rating-3:before { content: "WWW"; }
-.rating-2:before { content: "WW"; }
-.rating-1:before { content: "W"; }
-.rating-0:before { content: ""; }
-
-.rating-5 .with-empty:before { content: ""; }
-.rating-4 .with-empty:before { content: "X"; }
-.rating-3 .with-empty:before { content: "XX"; }
-.rating-2 .with-empty:before { content: "XXX"; }
-.rating-1 .with-empty:before { content: "XXXX"; }
-.rating-0 .with-empty:before { content: "XXXXX"; }
 
 .hidden-content {
 	position: absolute;
 	width : 0px;
 	overflow: hidden;
-}
 
-.hidden-content * {
-	opacity: 0;
+	* {
+		opacity: 0;
+	}
 }

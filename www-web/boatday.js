@@ -1,3 +1,4 @@
+
 var BDHelper = {
     initialize: function(successCallback) {
         successCallback({
@@ -5,7 +6,7 @@ var BDHelper = {
     		parseJavaScriptKey: 'kXeZHxlhpWhnRdtg7F0Cdc6kvuGHVtDlnSZjfxpU',
     		remoteServer: 'https://app.boatdayapp.com/',
     		remoteVersion: '3.3.1',
-    		remoteInstance: 'https://app.boatdayapp.com/3.3.1/',
+    		remoteInstance: 'http://127.0.0.1:8080/3.3.1/',
         });
     },
 
@@ -24,15 +25,55 @@ var StatusBar = {
 	hide: function() {}
 };
 
+nativeFeature = function() {
+	alert('this feature is not available on the live version.');
+};
+
 navigator.camera = {
-	getPicture: function() {
-		alert('this feature is not available on the live version.');
+	getPicture: function(cb, err, data) {
+		
+		if( typeof data.cameraDirection !== typeof undefined) {
+			nativeFeature();
+			err();
+		}
+
+		$('<input type="file">').change(function() {
+				
+			if(this.files[0].type !== 'image/jpeg') {
+				err('bad-format');
+				return;
+			}
+
+			var reader = new FileReader()
+
+			reader.onload = function(event) {
+				cb(event.target.result);
+			}
+
+			reader.readAsDataURL(this.files[0]);
+
+		}).click();
+		
 	}
+};
+
+facebookConnectPlugin = {
+	login: function() {
+		nativeFeature();
+	},
+	logout: function() {}
 }
+
+navigator.notification = {
+	confirm: function(text, cb, title, buttons) {
+		buttons.length !== 2 ? nativeFeature() : cb( confirm(text) ? 2 : 1);
+	}
+};
+
 
 document.addEventListener("deviceReady", function() {
 
-	console.log("~> device ready");
+	console.log("~> device ready");	
 
 	BDHelper.initialize(function(data) {
 		BDHelper.getInstallationId(function(installationId) {

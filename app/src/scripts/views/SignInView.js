@@ -14,6 +14,14 @@ define([
 			"click button.sign-in"  : "signIn"
 		},
 
+		fieldFocus: function(target) {
+			this.$el.find('header, footer, .header').fadeOut();
+		},
+
+		fieldBlur: function(target) {
+			this.$el.find('header, footer, .header').fadeIn();
+		},
+
 		facebook: function() {
 
 			Parse.Analytics.track('sign-in-facebook');

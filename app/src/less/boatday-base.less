@@ -66,11 +66,6 @@ header {
 	.flex-wrap(nowrap);
 }
 
-body.android header {
-	height: 40pt;
-	padding-top: 3.5px;
-}
-
 header h1 {
 	.align-self(center);
 	.flex(1);
@@ -110,11 +105,10 @@ main > * {
 }
 
 footer {
-	height: @footer-height;
+	height: auto;
 	padding: 25px;
 	background: @footer-background;
 	border-top: @footer-border-top;
-
 	.order(3);
 }
 

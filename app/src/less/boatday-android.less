@@ -1,0 +1,99 @@
+body.android {
+
+	footer,
+	[class^="screen-"].overlay footer, 
+	[class*=" screen-"].overlay footer {
+		padding: 0px;
+		border-top: none;
+	}
+
+	header {
+		height: 40pt;
+		padding-top: 3.5px;
+	}
+
+	.boatday-picture:after {
+		border-top-left-radius: 40vw;
+		border-top-right-radius: 40vw;
+		border-bottom-left-radius: 40vw;
+		border-bottom-right-radius: 40vw;
+	}
+
+	.boatday-picture .with-price:before {
+		margin-top: 67px;
+	}
+
+	.boatday-picture .with-price:after {
+		margin-top: 67px;
+	}
+
+	[class^="screen-"].overlay .drop,
+	[class*=" screen-"].overlay .drop {
+	 	top: 2vw;
+		height: auto;
+	}
+
+	.screen-sign-in footer button,
+	.screen-sign-up footer button {
+		.btn-action();
+	}
+
+	@media only screen and (-webkit-min-device-pixel-ratio: 0.5) { 
+		.boatday-picture .with-price:before { 
+			margin-top: -15px;
+		}
+
+		.boatday-picture .with-price:after {
+			margin-top: -15px;
+		}
+	}
+
+	@media only screen and (-webkit-min-device-pixel-ratio: 1) { 
+		.boatday-picture .with-price:before {
+			margin-top: -5px;
+		}
+
+		.boatday-picture .with-price:after {
+			margin-top: 15px;
+		}
+	}
+
+	@media only screen and (-webkit-min-device-pixel-ratio: 1.3) { 
+		.boatday-picture .with-price:before {
+			margin-top: -5px;
+		} 
+		.boatday-picture .with-price:after {
+			margin-top: -15px;
+		}
+	}
+
+	@media only screen and (-webkit-min-device-pixel-ratio: 1.5) { 
+		.boatday-picture .with-price:before {
+			margin-top: -5px;
+		}
+
+		.boatday-picture .with-price:after {
+			margin-top: -15px;
+		}
+	}
+
+	@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
+		.boatday-picture .with-price:before {
+			margin-top: 67px;
+		}
+
+		.boatday-picture .with-price:after {
+			margin-top: 65px;
+		}
+	}
+
+	@media only screen and (-webkit-min-device-pixel-ratio: 3) { 
+		.boatday-picture .with-price:before {
+			margin-top: 67px;
+		}
+
+		.boatday-picture .with-price:after {
+			margin-top: 65px;
+		}
+	}
+}

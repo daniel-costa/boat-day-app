@@ -14,6 +14,14 @@ define([
 			"click button.sign-up"  : "signUp"
 		},
 
+		fieldFocus: function(target) {
+			this.$el.find('header, footer, .header').fadeOut();
+		},
+
+		fieldBlur: function(target) {
+			this.$el.find('header, footer, .header').fadeIn();
+		},
+
 		signUp: function(event) {
 
 			Parse.Analytics.track('sign-in-sign-up');
