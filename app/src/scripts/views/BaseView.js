@@ -256,7 +256,7 @@ define([], function() {
 				}
 			};
 
-			if( true || window.isAndroid ) {
+			if( window.isAndroid ) {
 				self.$el.on('focus', 'input, textarea', function(event) {
 					self.fieldFocus($(event.currentTarget));
 				});
