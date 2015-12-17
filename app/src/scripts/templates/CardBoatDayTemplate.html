@@ -1,5 +1,6 @@
 <div class="boatday-card <%= model.get('featured') == -1 ? 'featured' : '' %>" data-id="<%= model.id %>">
 	<div class="image">
+		<div class="branded" style="<%= typeof model.get('brandedBy') !== 'undefined' && model.get('brandedBy') ? 'background-image:url('+ model.get('brandedBy').url()+')' : '' %>"></div>
 		<div class="banner left">
 			<div class="host-picture small" data-id="<%= model.get('captain').id %>" style="background-image:url(<%= model.get('captain').get('profilePicture').url() %>)"></div>
 			<% if( model.get('captain').get('rating') ) { %>
