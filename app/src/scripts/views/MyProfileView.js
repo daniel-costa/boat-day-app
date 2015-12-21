@@ -9,11 +9,11 @@ define([
 
 		template: _.template(MyProfileTemplate),
 
+		checkForMissingInfo: false,
+
 		events: { 
 			'click .save': 'save'
 		},
-		
-		checkForMissingInfo: false,
 
 		initialize: function(data) {
 			if( typeof data.setup !== typeof undefined ) {
@@ -23,6 +23,7 @@ define([
 
 		render: function() {
 			BaseView.prototype.render.call(this);
+			BaseView.prototype.afterRenderInsertedToDom.call(this);
 
 			if( this.setup ) {
 				this.$el.find('.close-me').hide();

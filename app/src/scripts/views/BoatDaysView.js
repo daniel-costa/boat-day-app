@@ -14,6 +14,8 @@ define([
 
 		template: _.template(BoatDaysTemplate),
 
+		checkForMissingInfo: true,
+
 		events: {
 			'click .boatday-card': 'boatday',
 			'click .btn-map': 'map',
@@ -134,6 +136,7 @@ define([
 		render: function( init ) {
 
 			BaseView.prototype.render.call(this);
+			BaseView.prototype.afterRenderInsertedToDom.call(this);
 
 			var self = this;
 

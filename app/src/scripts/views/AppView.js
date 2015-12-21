@@ -1,7 +1,8 @@
 define([
 'jquery',
-'views/DrawerView'
-], function($, DrawerView){
+'views/DrawerView', 
+'views/MissingInfoView'
+], function($, DrawerView, MissingInfoView){
 	var AppView = Parse.View.extend({
 
 		el: document,
@@ -20,13 +21,18 @@ define([
 			'loadProfile': 'loadProfile',
 			'updateNotificationsAmount': 'updateNotificationsAmount',
 			'updateGeoPoint': 'updateGeoPoint', 
-			'click .close-notification': 'closeNotification'
+			'click .close-notification': 'closeNotification', 
+			'missing-info': 'showMissingInfo',
 		},
 
 		msgStack: [],
 		snap: null,
 		notifications: 0,
 		notificationsHolder: null,
+
+		showMissingInfo: function(event, parentView) {
+			parentView.modal(new MissingInfoView());
+		},
 
 		closeNotification: function(event) {
 			event.preventDefault();

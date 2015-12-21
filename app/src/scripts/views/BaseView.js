@@ -10,8 +10,15 @@ define([], function() {
 
 		checkForMissingInfo: true,
 
-		afterRenderInsertedToDom: function() {
-			
+		isUndefinedOrNull: function(variable) {
+			return typeof variable === typeof undefined || variable == null;
+		},
+
+		afterRenderInsertedToDom: function() {	
+			var self = this;
+			if( self.checkForMissingInfo && ( self.isUndefinedOrNull(Parse.User.current().get('email')) || self.isUndefinedOrNull(Parse.User.current().get('profile').get('birthdate')) || self.isUndefinedOrNull(Parse.User.current().get('profile').get('phone')) ) ) {
+				$(document).trigger('missing-info', this);
+			}
 		},
 		
 		getBoatDayTitle: function(id) {
