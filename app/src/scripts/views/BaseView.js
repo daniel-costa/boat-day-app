@@ -11,12 +11,12 @@ define([], function() {
 		checkForMissingInfo: true,
 
 		isUndefinedOrNull: function(variable) {
-			return typeof variable === typeof undefined || variable == null;
+			return typeof variable === typeof undefined || variable === null;
 		},
 
 		afterRenderInsertedToDom: function() {	
 			var self = this;
-			if( self.checkForMissingInfo && ( self.isUndefinedOrNull(Parse.User.current().get('email')) || self.isUndefinedOrNull(Parse.User.current().get('profile').get('birthdate')) || self.isUndefinedOrNull(Parse.User.current().get('profile').get('phone')) ) ) {
+			if( self.checkForMissingInfo && ( self.isUndefinedOrNull(Parse.User.current().get('email')) || self.isUndefinedOrNull(Parse.User.current().get('profile').get('birthday')) || self.isUndefinedOrNull(Parse.User.current().get('profile').get('phone')) ) ) {
 				$(document).trigger('missing-info', this);
 			}
 		},

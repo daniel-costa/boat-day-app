@@ -9,6 +9,8 @@ define([
 
 		template: _.template(SignUpTemplate),
 
+		checkForMissingInfo: false,
+
 		events: {
 			"click button.facebook" : "facebook", 
 			"click button.sign-up"  : "signUp"
