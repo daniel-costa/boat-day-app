@@ -18,11 +18,17 @@ define([
 
 			var self = this;
 
+			self.cleanForm();
+
 			if( self.loading('.report') ) {
 				return ;
 			}
 
-			self.cleanForm();
+			if( this._in('message').val() == '' ) {
+				this.fieldError('message', 'This field cannot be empty');
+				self.loading();
+				return;
+			}
 
 			self.model.save({
 				user: Parse.User.current(),
@@ -35,7 +41,6 @@ define([
 			}, function(error) {
 				Parse.Analytics.track('profile-report-fail');
 				self.loading();
-				console.log(error);
 				self._error('Oops... Something went wrong. Try later or if it persists close totally the app and open it again.');
 			});
 		}

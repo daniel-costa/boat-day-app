@@ -14,9 +14,8 @@ define([], function() {
 			return typeof variable === typeof undefined || variable === null;
 		},
 
-		afterRenderInsertedToDom: function() {	
-			var self = this;
-			if( self.checkForMissingInfo && ( self.isUndefinedOrNull(Parse.User.current().get('email')) || self.isUndefinedOrNull(Parse.User.current().get('profile').get('birthday')) || self.isUndefinedOrNull(Parse.User.current().get('profile').get('phone')) ) ) {
+		afterRenderInsertedToDom: function() {
+			if( this.checkForMissingInfo && ( this.isUndefinedOrNull(Parse.User.current().get('email')) || this.isUndefinedOrNull(Parse.User.current().get('profile').get('birthday')) || this.isUndefinedOrNull(Parse.User.current().get('profile').get('phone')) || this.isUndefinedOrNull(Parse.User.current().get('profile').get('firstName')) || this.isUndefinedOrNull(Parse.User.current().get('profile').get('lastName')) ) ) {
 				$(document).trigger('missing-info', this);
 			}
 		},
@@ -60,32 +59,6 @@ define([], function() {
 
 		},
 
-		showOverlay: function(data) {
-
-			var self = this;
-			var _target = data.target;
-			var _box = data.target.find('.box');
-
-			if( _target.hasClass('active') ) {
-				return ;
-			}
-
-			if( data.closeBtn && data.target.find('.overlay-close').length == 0 ) {
-				$('<span class="overlay-close icon icon-close pull-right"></span>').click(function(event) {
-					_target.removeClass('active');
-					data.cbClose(_target);
-				}).prependTo(_box);
-			}
-
-			_target.css('visibility', 'hidden').addClass('active');
-
-			_box.css({
-				marginTop: ( $(window).height() - _box.outerHeight() ) / 2
-			});;
-
-			_target.css('visibility', 'visible');
-		},
-
 		getGuestRate: function(type) {
 			return type == 'business' ? Parse.Config.current().get("PRICE_GUEST_CHARTER_PART") : Parse.Config.current().get("PRICE_GUEST_PRIVATE_PART");
 		},
@@ -100,14 +73,11 @@ define([], function() {
 			view.$el.attr('class', view.className);
 
 			var $el = view.render().$el;
-			// $el.insertAfter(this.$el);
 			$('#content').append($el);
 
-			$el.on('click', '.close-me', function(event, data) {
+			view.on('close', function(event, data) {
 
-				if( typeof data == typeof undefined ) {
-					var data = {};
-				}
+				var data = typeof data === typeof undefined ? {} : data;
 
 				self.handleStatusBarAndDrawer(self.statusbar, self.drawer);
 				
@@ -118,7 +88,7 @@ define([], function() {
 				if( view.renderParent ) {
 					view.parentView.render();
 				}
-
+				
 				$el.removeClass('active');
 
 				setTimeout(function() { 
@@ -142,15 +112,12 @@ define([], function() {
 			view.isOverlay = true;
 			view.$el.attr('class', view.className);
 
-
 			var $el = view.render().$el;
 			$el.insertAfter(this.$el);
 
-			$el.on('click', '.close-me', function(event, data) {
+			view.on('close', function(data) {
 
-				if( typeof data == typeof undefined ) {
-					var data = {};
-				}
+				var data = typeof data === typeof undefined ? {} : data;
 				
 				if( data.render ) {
 					self.render();
@@ -208,7 +175,7 @@ define([], function() {
 		},
 		
 		close: function(data) {
-			this.$el.find('.close-me').trigger('click', data ? data : {} );
+			this.trigger('close', data);
 		},
 
 		getGuestPrice: function(price, guestPart) {
@@ -224,24 +191,24 @@ define([], function() {
 			var self = this;
 
 			var data = {
-				self: this
+				self: self
 			};
 			
-			if( this.templateData ) {
-				_.extend(data, this.templateData);
+			if( self.templateData ) {
+				_.extend(data, self.templateData);
 			}
 			
-			if( this.model ) {
-				_.extend(data, this.model._toFullJSON());
+			if( self.model ) {
+				_.extend(data, self.model._toFullJSON());
 			}
 			
-			if(this.collection) {
-				_.extend(data, { collection: this.collection.toJSON() });
+			if(self.collection) {
+				_.extend(data, { collection: self.collection.toJSON() });
 			} 
 			
-			this.$el.html(this.template(data));
+			self.$el.html(self.template(data));
 			
-			this.handleStatusBarAndDrawer(this.statusbar, this.drawer);
+			self.handleStatusBarAndDrawer(self.statusbar, self.drawer);
 			
 			Keyboard.onshowing = function () {
 				self.keyBoardAppear();
@@ -273,9 +240,13 @@ define([], function() {
 				});
 			}
 
-			console.log('~> Render View "' + this.className + '"');
+			self.$el.on('click', '.close-me', function(event, data) {
+				self.trigger('close', data);
+			});
+
+			console.log('~> Render View "' + self.className + '"');
 			
-			return this;
+			return self;
 		},
 
 		fieldFocus: function(target) {

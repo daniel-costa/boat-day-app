@@ -90,7 +90,7 @@ define([
 
 		afterRenderInsertedToDom: function() {
 
-			BaseView.prototype.afterRenderInsertedToDom.call(x.this);
+			BaseView.prototype.afterRenderInsertedToDom.call(this);
 
 			if( this.$el.find('.messages .message').length == 0 ) {
 				this.$el.find('main').attr('no-data', 'Welcome aboard! Get to know your Host and other confirmed Guests, and discuss any last minute details.');

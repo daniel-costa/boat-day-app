@@ -84,7 +84,6 @@ define([
 			}, function(error) {
 				Parse.Analytics.track('about-us-send-feedback-fail');
 				self.loading();
-				self.handleSaveErrors(error);
 			});
 		}
 

@@ -39,19 +39,19 @@
 
 			<% if( !self.setup ) { %>
 			<div class="data-ro">
-				<label for="firstName" class="field">First name (cannot be modify)</label>
+				<label for="firstName" class="field">First name (Cannot be modified)</label>
 				<input type="text" name="firstName" id="firstName" value="<%= self.parseUndefined( self.model.get('firstName') ) %>" readonly disabled>
 
-				<label for="lastName" class="field">Last name (cannot be modify)</label>
+				<label for="lastName" class="field">Last name (Cannot be modified)</label>
 				<input type="text" name="lastName" id="lastName" value="<%= self.parseUndefined( self.model.get('lastName') ) %>" readonly disabled>
 
-				<label for="email" class="field">Email (cannot be modify)</label>
+				<label for="email" class="field">Email (Cannot be modified)</label>
 				<input type="text" name="email" id="email" value="<%= self.parseUndefined( Parse.User.current().getEmail() ) %>" readonly disabled>
 
-				<label for="phone" class="field">Phone (cannot be modify)</label>
+				<label for="phone" class="field">Phone (Cannot be modified)</label>
 				<input type="text" name="phone" id="phone" value="<%= self.parseUndefined( self.model.get('phone') ) %>" readonly disabled>
 
-				<label for="birthdate" class="field">Birthday (cannot be modify)</label>
+				<label for="birthdate" class="field">Birthday (Cannot be modified)</label>
 				<input type="date" name="birthdate" id="birthdate" value="<%=  dt_value ? dt_value : '' %>" readonly disabled>
 
 				<button class="btn-danger sign-out">sign out</button>

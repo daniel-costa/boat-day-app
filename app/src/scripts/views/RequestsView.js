@@ -130,19 +130,30 @@ define([
 		boatday: function(event) {
 			event.preventDefault();
 			Parse.Analytics.track('boatdays-click-boatday');
-			this.modal(new BoatDayView({ seatRequest: this.requests[$(event.currentTarget).attr('data-id')], model : this.requests[$(event.currentTarget).attr('data-id')].get('boatday'), fromUpcoming: true }), 'right');
+			this.modal(new BoatDayView({ 
+				seatRequest: this.requests[$(event.currentTarget).attr('data-id')], 
+				model : this.requests[$(event.currentTarget).attr('data-id')].get('boatday'), 
+				fromUpcoming: true 
+			}), 'right');
 		}, 
 
 		boatdayFromPending: function(event) {
 			event.preventDefault();
 			Parse.Analytics.track('boatdays-click-boatday');
-			this.modal(new BoatDayView({ seatRequest: this.requests[$(event.currentTarget).attr('data-id')], model : this.requests[$(event.currentTarget).attr('data-id')].get('boatday'), fromUpcoming: false }), 'right');
+			this.modal(new BoatDayView({ 
+				seatRequest: this.requests[$(event.currentTarget).attr('data-id')], 
+				model : this.requests[$(event.currentTarget).attr('data-id')].get('boatday'), 
+				fromUpcoming: false 
+			}), 'right');
 		}, 
 
 		chat: function(event) {
-
-			this.modal(new ChatView({ model: this.requests[$(event.currentTarget).attr('data-id')].get('boatday'), seatRequest: this.requests[$(event.currentTarget).attr('data-id')], parentView: this, renderParent: true }));
-
+			this.modal(new ChatView({ 
+				model: this.requests[$(event.currentTarget).attr('data-id')].get('boatday'), 
+				seatRequest: this.requests[$(event.currentTarget).attr('data-id')], 
+				parentView: this, 
+				renderParent: true 
+			}), 'left');
 		},
 
 		changeActive: function(event) {

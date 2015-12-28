@@ -17,6 +17,7 @@ define([
 		render: function() {
 
 			BaseView.prototype.render.call(this);
+
 			BaseView.prototype.afterRenderInsertedToDom.call(this);
 
 			var self = this;
@@ -26,91 +27,95 @@ define([
 
 		save: function() {
 			var self = this;
-			var profileData =  {};
-			var userData = {};
+			var err = false;
+			var data = {
+				profile: {},
+				user: {},
+			};
+			
+			self.cleanForm();
 
 			if( self.loading('.save') ) {
 				return ;
 			}
-
-			if(this._in('firstName').val() == '') {
-				self.fieldError("firstName", "Oops, you missed one");
-				self.loading();
-				return;
-			}
-
-			if(this._in('lastName').val() == '') {
-				self.fieldError("lastName", "Oops, you missed one");
-				self.loading();
-				return;
-			}
-
-
-			if(this._in('email').val() == '') {
-				self.fieldError("email", "Oops, you missed one");
-				self.loading();
-				return;
-			}
-
-			if(this._in('phone').val() == '') {
-				self.fieldError("phone", "Oops, you missed one");
-				self.loading();
-				return;
-			}
-
-			if(this._in('birthday').val() == '') {
-				self.fieldError("birthday", "Oops, you missed one");
-				self.loading();
-				return;
-			}
-
-	
-
-			if(self.$el.find('main input[name="firstName"]').length !== 0){
-				profileData.firstName =  this._in('firstName').val();
-			}
-
-			if(self.$el.find('main input[name="lastName"]').length !== 0){
-				profileData.lastName =  this._in('lastName').val();
-			}
-
-			if(self.$el.find('main input[name="email"]').length !== 0){
-				userData.email = this._in('email').val();
-			}
-
-			if(self.$el.find('main input[name="phone"]').length !== 0){
-				profileData.phone =  this._in('phone').val();
-			}
-
-			if(self.$el.find('main input[name="birthday"]').length !== 0){
-				profileData.birthday = new Date(this._in('birthday').val());
-			}
-
-			var profileSaveSuccess = function(profile) {
-				profile.get('user').save(userData).then(function(user) {
-					self._info('Profile saved');
-
-					Parse.User.current().fetch().then(function(user){
-						user.get('profile').fetch().then(function(profile){
-							self.close();
-						});
+			
+			if( self._in('email').length > 0 ) {
+				if( self._in('email').val() === '' ) {
+					self.fieldError("email", null);
+					err = true;
+				} else {
+					_.extend(data.user, {
+						email: self._in('email').val(),
+						username: self._in('email').val()
 					});
-				}, function(error) {
-					console.log(error);
-				});
-			};
-
-			var profileSaveError = function(error) {
-				console.log(error);
-			};
-
-			Parse.User.current().get("profile").fetch().then(
-				function(profile) {
-					profile.save(profileData).then(profileSaveSuccess, profileSaveError);
-				}, function(error) {
-					console.log(error);
 				}
-			);
+			}
+
+			if( self._in('birthday').length > 0 ) {
+				if( self._in('birthday').val() === '' ) {
+					self.fieldError("birthday", null);
+					err = true;
+				} else {
+					_.extend(data.profile, {
+						birthday: new Date(self._in('birthday').val())
+					});
+				}
+			}
+
+			if( self._in('phone').length > 0 ) {
+					if( self._in('phone').val() === '' ) {
+					self.fieldError("phone", null);
+					err = true;
+				} else {
+					_.extend(data.profile, {
+						phone: self._in('phone').val()
+					});
+				}
+			}
+
+			if( self._in('firstName').length > 0 ) {
+				if( self._in('firstName').val() === '' ) {
+					self.fieldError("firstName", null);
+					err = true;
+				} else {
+					_.extend(data.profile, {
+						firstName: self._in('firstName').val()
+					});
+				}
+			}
+
+			if( self._in('lastName').length > 0 ) {
+				if( self._in('lastName').val() === '' ) {
+					self.fieldError("lastName", null);
+					err = true;
+				} else {
+					_.extend(data.profile, {
+						lastName: self._in('lastName').val()
+					});
+				}
+			}
+
+			if( err ) {
+				self._error('Oops, you missed one');
+				self.loading();
+				return;
+			}
+
+			Parse.Promise.when(Parse.User.current().get('profile').save(data.profile), Parse.User.current().save(data.user)).then(function(profile, user) {
+				self.loading();
+				self.close();
+			}, function(errors) {
+				_.each(errors, function(e) {
+					console.log(e);
+					if( e.code == 125 ) {
+						self.fieldError("email", null);
+						self._error(e.message);
+					} else {
+						self._error(e.message);
+					}
+				});
+				self.loading();
+			}) 
 		}
 
 	});

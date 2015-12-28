@@ -66,7 +66,12 @@ facebookConnectPlugin = {
 
 navigator.notification = {
 	confirm: function(text, cb, title, buttons) {
-		buttons.length !== 2 ? nativeFeature() : cb( confirm(text) ? 2 : 1);
+		buttons.length !== 2 ? nativeFeature() : cb( confirm(title + "\n\n" + text) ? 2 : 1);
+	},
+
+	alert: function(text, cb, title, buttons) {
+		alert(title + "\n\n" + text);
+		cb();
 	}
 };
 

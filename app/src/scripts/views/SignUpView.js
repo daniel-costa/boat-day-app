@@ -16,6 +16,8 @@ define([
 			"click button.sign-up"  : "signUp"
 		},
 
+		checkForMissingInfo: false,
+		
 		fieldFocus: function(target) {
 			this.$el.find('header, footer, .header').fadeOut();
 		},

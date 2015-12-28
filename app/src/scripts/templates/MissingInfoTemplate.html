@@ -1,31 +1,30 @@
 <header>
-	<span class="icon bd-cross close-me"></span>
 	<h1>Hi <%= Parse.User.current().get('profile').get('displayName') %></h1>
 </header>
 
 <main>
 	<div class="grey-area">
-		<p>We would like some more details to make BoatDay better for you</p>
+		<p>Help us improve your BoatDay experience by telling us a bit more about yourself. This information is visible only to the BoatDay Team.</p>
 	</div>
 
 	<% if( self.isUndefinedOrNull(Parse.User.current().get('profile').get('firstName')) ) { %>
-		<label class="field" for="firstName">First name (cannot be modify)</label>
-		<input type="text" name="firstName" id="firstName">
+		<label class="field" for="firstName">First name</label>
+		<input type="text" name="firstName" id="firstName" placeholder="First Name">
 	<% } %>
 
 	<% if( self.isUndefinedOrNull(Parse.User.current().get('profile').get('lastName')) ) { %>
-		<label class="field" for="lastName">Last name (cannot be modify)</label>
-		<input type="text" name="lastName" id="lastName">
+		<label class="field" for="lastName">Last name</label>
+		<input type="text" name="lastName" id="lastName" placeholder="Last Name">
 	<% } %>
 
 	<% if( self.isUndefinedOrNull(Parse.User.current().get('email')) ) { %>
 		<label class="field" for="email">Email</label>
-		<input name="email" id="email" type="email">
+		<input name="email" id="email" type="email" placeholder="Email">
 	<% } %>
 
 	<% if( self.isUndefinedOrNull(Parse.User.current().get('profile').get('phone')) ) { %>
 		<label for="phone" class="field">Phone</label>
-		<input type="number" name="phone" id="phone">
+		<input type="number" name="phone" id="phone" placeholder="Phone Number" pattern="[0-9]*">
 	<% } %>
 
 	<% if( self.isUndefinedOrNull(Parse.User.current().get('profile').get('birthday')) ) { %>

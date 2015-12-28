@@ -1,7 +1,7 @@
 define([
 'jquery',
-'views/DrawerView', 
-'views/MissingInfoView'
+'views/DrawerView',
+'views/MissingInfoView',
 ], function($, DrawerView, MissingInfoView){
 	var AppView = Parse.View.extend({
 
@@ -21,8 +21,8 @@ define([
 			'loadProfile': 'loadProfile',
 			'updateNotificationsAmount': 'updateNotificationsAmount',
 			'updateGeoPoint': 'updateGeoPoint', 
-			'click .close-notification': 'closeNotification', 
-			'missing-info': 'showMissingInfo',
+			'missing-info': 'showMissingInfo', 
+			'click .close-notification': 'closeNotification'
 		},
 
 		msgStack: [],

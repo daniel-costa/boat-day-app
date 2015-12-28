@@ -75,59 +75,69 @@ define([
 				return ;
 			}
 
-			Stripe.card.createToken({
-				number: number,
-				cvc: cvv,
-				exp_month: month,
-				exp_year: year
-			}, function( status, response ) {
+			var doSave = function() {
 
-				if( response.error ) {
+				Stripe.card.createToken({
+					number: number,
+					cvc: cvv,
+					exp_month: month,
+					exp_year: year
+				}, function( status, response ) {
 
-					switch(response.type)  {
-						case 'invalid_number'       : self.fieldError('number', response.message); break;
-						case 'invalid_expiry_month' : self.fieldError('expiry', response.message); break;
-						case 'invalid_expiry_year'  : self.fieldError('expiry', response.message); break;
-						case 'invalid_cvc'          : self.fieldError('cvc', response.message); break;
-						case 'incorrect_number'     : self.fieldError('number', response.message); break;
-						case 'expired_card'         : self.fieldError('expiry', response.message); break;
-						case 'incorrect_cvc'        : self.fieldError('cvv', response.message); break;
-						// case 'incorrect_zip'        : self.fieldError('', response.message); break;
-						// case 'missing'              : self.fieldError('', response.message); break;
-						// case 'processing_error'     : self.fieldError('', response.message); break;
-						// case 'rate_limit'           : self.fieldError('', response.message); break;
-						default : self._error(response.message); break; 
+					if( response.error ) {
+
+						switch(response.type)  {
+							case 'invalid_number'       : self.fieldError('number', response.message); break;
+							case 'invalid_expiry_month' : self.fieldError('expiry', response.message); break;
+							case 'invalid_expiry_year'  : self.fieldError('expiry', response.message); break;
+							case 'invalid_cvc'          : self.fieldError('cvc', response.message); break;
+							case 'incorrect_number'     : self.fieldError('number', response.message); break;
+							case 'expired_card'         : self.fieldError('expiry', response.message); break;
+							case 'incorrect_cvc'        : self.fieldError('cvv', response.message); break;
+							// case 'incorrect_zip'        : self.fieldError('', response.message); break;
+							// case 'missing'              : self.fieldError('', response.message); break;
+							// case 'processing_error'     : self.fieldError('', response.message); break;
+							// case 'rate_limit'           : self.fieldError('', response.message); break;
+							default : self._error(response.message); break; 
+						}
+
+						self.loading();
+						return ;
 					}
 
-					self.loading();
-					return ;
-				}
 
-
-				new CreditCardModel().save({
-					brand: response.card.brand,
-					exp_month: response.card.exp_month,
-					exp_year: response.card.exp_year,
-					last4: response.card.last4,
-					token: response.id,
-					stripe: response
-				}).then(function(card) {
-					Parse.User.current().get('profile').relation('cards').add(card);
-					Parse.User.current().get('profile').save().then(function() {
-						if( self.isModal || self.isOverlay ) {
-							self.close({ render: true });
-						} else {
-							Parse.history.navigate("payments", true);
-						}
+					new CreditCardModel().save({
+						brand: response.card.brand,
+						exp_month: response.card.exp_month,
+						exp_year: response.card.exp_year,
+						last4: response.card.last4,
+						token: response.id,
+						stripe: response
+					}).then(function(card) {
+						Parse.User.current().get('profile').relation('cards').add(card);
+						Parse.User.current().get('profile').save().then(function() {
+							if( self.isModal || self.isOverlay ) {
+								self.loading();
+								self.close({ render: true });
+							} else {
+								Parse.history.navigate("payments", true);
+							}
+						});
+					}, function(error) {
+						Parse.Analytics.track('payments-save-fail');
+						self._error(error.message);
+						self.loading();
 					});
-				}, function(error) {
-					Parse.Analytics.track('payments-save-fail');
-					self._error(error.message);
-					self.loading();
+
 				});
+			};
 
-			});
-
+			navigator.notification.alert(
+				'Hang in there while we verify and secure your information. This action may take a few minutes.',
+				doSave,
+				'Safety first...',
+				'Got it!'
+			);
 		},
 
 		controlCSV: function(event) {
