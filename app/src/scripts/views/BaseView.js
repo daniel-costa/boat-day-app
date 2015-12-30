@@ -1,4 +1,4 @@
-define([], function() {
+define(['models/ProfileModel'], function(ProfileModel) {
 	var BaseView = Parse.View.extend({
 
 		subViews: [],
@@ -448,6 +448,79 @@ define([], function() {
 			}
 		},
 
+		createProfileForUser: function() {
+
+			var self = this;
+
+			var readyToInit = function() {
+				$(document).trigger('loadProfile', function() {
+					Parse.history.navigate('boatdays', true);
+				});
+			};
+			
+			var handleErrors = function(error) {
+				console.log("~> handleErrors with error:");
+				console.log(error);
+
+				if(error.code == 209) {
+					Parse.history.navigate('sign-out', true);
+				}
+				
+				self.loading();
+				self._error("Oops... something wrong happen. Please, try later");
+			};
+
+			if( Parse.User.current().get("profile") ) {
+				readyToInit();
+			} else {
+				new ProfileModel({ 
+					user: Parse.User.current() 
+				}).save().then(function(profile) {
+					Parse.User.current().save({ 
+						profile: profile,
+						type: "guest"
+					}).then(function() {
+						readyToInit();
+					}, handleErrors);
+				}, handleErrors);
+			}
+		},
+		
+		signUpSignInWithfacebook: function() {
+
+			Parse.Analytics.track('sign-in-facebook');
+
+			var self = this;
+
+			if( self.loading('.facebook') ) {
+				return ;
+			}
+
+			var transferError = function(error, err) {
+				console.log(error)
+				console.log(err);
+				self.loading();
+				self._error("Oops... something wrong happen. Please, try later");
+				Parse.history.navigate('sign-out', true);
+			};
+
+			facebookConnectPlugin.login(["public_profile", "email", "user_about_me", "user_birthday", "user_friends"], function(userData) {
+				
+				if ( !userData.authResponse ){
+					transferError("Cannot find the authResponse");
+					return;
+				}
+
+				Parse.FacebookUtils.logIn({
+					id: String(userData.authResponse.userID),
+					access_token: userData.authResponse.accessToken,
+					expiration_date: new Date(new Date().getTime() + userData.authResponse.expiresIn * 1000).toISOString()
+				}).then(function(user) {
+					self.createProfileForUser();
+				}, transferError);
+			}, transferError);
+		},
+		
 		_input: function(name) {
 			return this.$el.find('[name="'+name+'"]');
 		},

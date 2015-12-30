@@ -33,19 +33,25 @@ define([
 			event.preventDefault();
 
 			var self = this;
+			var err = false;
 
 			if( self.loading('.sign-up') ) {
 				return ;
 			}
 
+			self.cleanForm();
+
 			if(this._in('email').val() == "") {
 				self.fieldError('email', "Oops, you missed one");
-				self.loading();
-				return; 
+				err = true;
 			}
 
 			if(this._in('password').val() == "") {
 				self.fieldError('password', "Oops, you missed one");
+				err = true;
+			}
+
+			if( err ) {
 				self.loading();
 				return; 
 			}
@@ -56,29 +62,16 @@ define([
 				password: this._in('password').val(), 
 				type: "guest",
 			}).then(function(user) {
-				new ProfileModel({ user: Parse.User.current() }).save().then(function(profile) {
-					user.save({ 
-						profile: profile,
-						type: "guest"
-					}).then(function() {
-						$(document).trigger('loadProfile', function() {
-							Parse.history.navigate('boatdays', true);
-						});
-					}, function(error) {
-						self.loading();
-						console.log(error);
-					});
-				}, function(error) {
-					self.loading();
-					console.log(error);
-				});
+				self.createProfileForUser();
 			}, function( error ) {
 				self.loading();
 				switch(error.code) {
 					case 125: 
+						self.fieldError('email', null);
 						self._error("Please provide a valid email address.");
 						break;
 					case 202: 
+						self.fieldError('email', null);
 						self._error("This email is already taken");
 						break;
 					default:
@@ -89,81 +82,7 @@ define([
 		},
 
 		facebook: function() {
-
-			Parse.Analytics.track('sign-in-facebook');
-
-			var self = this;
-
-			if( self.loading('.facebook') ) {
-				return ;
-			}
-
-			var transferFbUserToParse = function (authData) {
-				console.log("~> transferFbUserToParse with authData:");
-				console.log(authData);
-				return Parse.FacebookUtils.logIn(authData);
-			};
-
-			var transferSuccess = function(user) {
-				if( user.get("profile") ) {
-					$(document).trigger('loadProfile', function() {
-						Parse.history.navigate('boatdays', true);
-					});
-				} else {
-
-					var handleErrors = function(error) {
-						console.log("~> handleErrors with error:");
-						console.log(error);
-
-						if(error.code == 209) {
-							Parse.history.navigate('sign-out', true);
-						}
-						
-						self.loading();
-						self._error("Oops... something wrong happen. Please, try later");
-					};
-
-					new ProfileModel({ user: Parse.User.current() }).save().then(function( profile ) {
-						user.save({ 
-							profile: profile,
-							type: "guest"
-						}).then(function() {
-							$(document).trigger('loadProfile', function() {
-								Parse.history.navigate('boatdays', true);
-							});
-						}, handleErrors);
-					}, handleErrors);
-				}
-			};
-
-			var transferError = function(error, err) {
-				console.log(error)
-				console.log(err);
-				self.loading();
-				self._error("Oops... something wrong happen. Please, try later");
-				Parse.history.navigate('sign-out', true);
-			};
-
-			var fbLogged = new Parse.Promise();
-
-			facebookConnectPlugin.login(["public_profile", "email", "user_about_me", "user_birthday", "user_friends"], function(userData) {
-				
-				console.log(userData);
-
-				if ( !userData.authResponse ){
-					transferError("Cannot find the authResponse");
-					return;
-				}
-
-				fbLogged.resolve({
-					id: String(userData.authResponse.userID),
-					access_token: userData.authResponse.accessToken,
-					expiration_date: new Date(new Date().getTime() + userData.authResponse.expiresIn * 1000).toISOString()
-				});
-				fbLoginSuccess = null;
-			}, transferError);
-
-			fbLogged.then(transferFbUserToParse, transferError).then(transferSuccess, transferError);
+			this.signUpSignInWithfacebook();
 		},
 	});
 	return SignUpView;
