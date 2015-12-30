@@ -209,26 +209,6 @@ define([], function() {
 			self.$el.html(self.template(data));
 			
 			self.handleStatusBarAndDrawer(self.statusbar, self.drawer);
-			
-			Keyboard.onshowing = function () {
-				self.keyBoardAppear();
-
-				if( window.isAndroid ) {
-					self.keyBoardAppear_Android();
-				} else {
-					self.keyBoardAppear_iOS();
-				}
-			};
-
-			Keyboard.onhiding = function () {
-				self.keyBoardDisappear();
-
-				if( window.isAndroid ) {
-					self.keyBoardDisappear_Android();
-				} else {
-					self.keyBoardDisappear_iOS();
-				}
-			};
 
 			if( window.isAndroid ) {
 				self.$el.on('focus', 'input, textarea', function(event) {
@@ -256,13 +236,6 @@ define([], function() {
 		fieldBlur: function(target) {
 			this.$el.find('header, footer').fadeIn();
 		},
-
-		keyboardAppear: function() { },
-		keyboardAppear_iOS: function() {},
-		keyboardAppear_Android: function() {},
-		keyBoardDisappear: function() {},
-		keyBoardDisappear_iOS: function() {},
-		keyBoardDisappear_Android: function() {},
 
 		handleStatusBarAndDrawer: function(sb, drawer) {			
 			if( sb ) {

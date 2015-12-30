@@ -101,21 +101,50 @@ define([
 				return;
 			}
 
-			Parse.Promise.when(Parse.User.current().get('profile').save(data.profile), Parse.User.current().save(data.user)).then(function(profile, user) {
+			var handleErrors = function(error) {
+				console.log(error);
+				if( error.code == 125 ) {
+					self.fieldError("email", null);
+					self._error(error.message);
+				} else {
+					self._error(error.message);
+				}
+			};
+
+			var pProfile = new Parse.Promise();
+			var pUser = new Parse.Promise();
+
+			var promises = [pProfile, pUser];
+
+			if( Object.keys(data.profile).length > 0 ) {
+				Parse.User.current().get('profile').save(data.profile).then(function() {
+					pProfile.resolve();
+				}, function(errors) {
+					pProfile.reject('Profile fail');
+					handleErrors(errors);
+				});
+			} else {
+				pProfile.resolve();
+			}
+
+			if( Object.keys(data.user).length > 0 ) {
+				Parse.User.current().save(data.user).then(function() {
+					pUser.resolve();
+				}, function(errors) {
+					pUser.reject('User fail');
+					handleErrors(errors);
+				});
+			} else {
+				pUser.resolve();
+			}
+
+			Parse.Promise.when(promises).then(function() {
 				self.loading();
 				self.close();
-			}, function(errors) {
-				_.each(errors, function(e) {
-					console.log(e);
-					if( e.code == 125 ) {
-						self.fieldError("email", null);
-						self._error(e.message);
-					} else {
-						self._error(e.message);
-					}
-				});
+			}, function(error) {
 				self.loading();
-			}) 
+				console.log(error);
+			});
 		}
 
 	});

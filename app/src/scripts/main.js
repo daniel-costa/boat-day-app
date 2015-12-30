@@ -102,6 +102,6 @@ require(['fastclick', 'router', 'views/AppView', 'parse', 'snapjs', 'slider'], f
 		Parse.history.start();
 	});
 
-	Keyboard.onshowing = function () { StatusBar.hide(); };
-	Keyboard.onhiding  = function () { StatusBar.show(); };
+	// Keyboard.onshowing = function () { StatusBar.hide(); };
+	// Keyboard.onhiding  = function () { StatusBar.show(); };
 });

@@ -17,6 +17,11 @@
 		<input type="text" name="lastName" id="lastName" placeholder="Last Name">
 	<% } %>
 
+	<% if( self.isUndefinedOrNull(Parse.User.current().get('profile').get('birthday')) ) { %>
+		<label for="birthday" class="field">Birthday</label>
+		<input type="date" name="birthday" id="birthday">
+	<% } %>
+
 	<% if( self.isUndefinedOrNull(Parse.User.current().get('email')) ) { %>
 		<label class="field" for="email">Email</label>
 		<input name="email" id="email" type="email" placeholder="Email">
@@ -25,11 +30,6 @@
 	<% if( self.isUndefinedOrNull(Parse.User.current().get('profile').get('phone')) ) { %>
 		<label for="phone" class="field">Phone</label>
 		<input type="number" name="phone" id="phone" placeholder="Phone Number" pattern="[0-9]*">
-	<% } %>
-
-	<% if( self.isUndefinedOrNull(Parse.User.current().get('profile').get('birthday')) ) { %>
-		<label for="birthday" class="field">Birthday</label>
-		<input type="date" name="birthday" id="birthday">
 	<% } %>
 </main>
 

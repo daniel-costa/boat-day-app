@@ -38,7 +38,7 @@ define([
 			BaseView.prototype.render.call(this);
 
 			if( this.setup ) {
-				this.$el.find('.close-me').hide();
+				this.$el.find('.close-me, .icon').hide();
 			}
 
 			return this;
@@ -76,14 +76,10 @@ define([
 
 			self.cleanForm();
 
-			this.model.save({ 
+			Parse.User.current().get('profile').save({ 
 				status: 'complete',
 				profilePicture : self.tempPicture,
-				about: self._input('about').val(), 
-				firstName: self._input('name').val(), 
-				lastName: self._input('lastName').val(), 
-				phone: self._input('phone').val(), 
-				birthday: self._input('birthDate').val() ? new Date(this._input('birthDate').val()) : null
+				about: self._input('about').val(),
 			}).then(function() {
 				Parse.Analytics.track('profile-save');
 				if( self.setup ) {

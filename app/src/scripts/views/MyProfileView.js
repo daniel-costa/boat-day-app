@@ -26,7 +26,7 @@ define([
 			BaseView.prototype.afterRenderInsertedToDom.call(this);
 
 			if( this.setup ) {
-				this.$el.find('.close-me').hide();
+				this.$el.find('.close-me, .icon').hide();
 			}
 
 			return this;
@@ -50,7 +50,7 @@ define([
 
 			self.cleanForm();
 
-			this.model.save({
+			Parse.User.current().get('profile').save({
 				phone: this._in('phone').val(),
 				birthday: this._in('birthday').val() ? new Date(this._in('birthday').val()) : null,
 				status: "complete-info",
@@ -58,6 +58,10 @@ define([
 				firstName: this._in('firstName').val(),
 				lastName: this._in('lastName').val(),
 			}).then(function() {
+
+				console.log(self.model.get('birthday'));
+				console.log(Parse.User.current().get('birthday'));
+
 				self.loading();
 				Parse.history.navigate("my-picture", true);
 			}, function(error) {
