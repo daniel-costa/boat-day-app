@@ -24,6 +24,9 @@ define([
 		fromActive: false,
 		profiles: {},
 
+		fieldFocus: function() { },
+		fieldBlur: function() { },
+
 		profile: function(event) {
 
 			Parse.Analytics.track('profile-click-profile');
